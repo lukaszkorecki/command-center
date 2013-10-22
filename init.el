@@ -7,9 +7,12 @@
 
 (require 'evil)
 (evil-mode 1)
+(linum-mode)
 
-(require 'linum)
-(linum-mode 1)
+(require 'color-theme)
+(require 'color-theme-solarized)
+(color-theme-solarized 'dark)
+
 ; TODO change this into some lisp magic to
 ; automatically install packges if not available
 ; color-theme
