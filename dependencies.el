@@ -1,6 +1,6 @@
 (load-file "package.el")
 (package-list-packages)
-(package-install 'solarized-theme)
+(package-install 'color-theme-solarized)
 (package-install 'color-theme)
 (package-install 'evil)
 (package-install 'evil-indent-textobject)
