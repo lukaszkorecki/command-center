@@ -1,8 +1,8 @@
-(load-file "package-init.el")
+(load-file "package/init.el")
 (package-list-packages)
 
-(load-file "evil-packages.el")
-(load-file "my-packages.el")
+(load-file "package/evil.el")
+(load-file "package/my.el")
 
 (defun install-from-list (list)
   (mapc (lambda (name)

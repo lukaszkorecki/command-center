@@ -10,6 +10,6 @@
 (require 'evil-leader)
 (global-evil-leader-mode)
 
-(add-to-list 'load-path "~/.emacs.d/elpa/evil-surround")
+(add-to-list 'load-path "~/.emacs.d/vendor/evil-surround")
 (require 'surround)
 (global-surround-mode 1)

@@ -1,5 +1,5 @@
-(load-file "~/.emacs.d/package-init.el")
-(load-file "~/.emacs.d/evil-init.el")
+(load-file "~/.emacs.d/package/init.el")
+(load-file "~/.emacs.d/package/evil-init.el")
 (evil-leader/set-key
  "-" 'split-window-horizontally
  "|" 'split-window-vertically)
@@ -28,3 +28,4 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 (add-to-list 'auto-mode-alist '("\\.hb\\'" . handlebars-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml|yml\\'" . yaml-mode))
