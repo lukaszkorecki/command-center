@@ -9,3 +9,7 @@
 ; some of my old mappings
 (require 'evil-leader)
 (global-evil-leader-mode)
+
+(add-to-list 'load-path "~/.emacs.d/elpa/evil-surround")
+(require 'surround)
+(global-surround-mode 1)
