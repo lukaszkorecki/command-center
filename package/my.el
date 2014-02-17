@@ -1,6 +1,7 @@
 (defvar my-packages '(color-theme-solarized
                        color-theme
                        gitignore-mode
+                       web-mode
                        go-mode
                        handlebars-mode
                        markdown-mode
