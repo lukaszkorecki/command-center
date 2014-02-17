@@ -7,6 +7,9 @@
 
 ; line numbers
 (global-linum-mode 1)
+; colum number s
+(column-number-mode 1)
+
 ; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -20,11 +23,29 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ; indenting
-(setq-default indent-tabs-mode t)
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq indent-line-function 'insert-space)
+(setq standard-indent 2)
+(setq-default fill-column 78)
+
 (define-key global-map (kbd "RET") 'newline-and-indent)
-;
+
+; highlight current line
+(global-hl-line-mode 1)
+
+; no backup files
+(setq make-backup-files nil)
+
+; no menu
+(menu-bar-mode -1)
+
+; load custom abbreviations
+(read-abbrev-file "~/.emacs.d/abbrevs.el")
+(setq-default abbrev-mode t)
+(setq dabbrev-case-replace nil)
+(setq abbrev-mode t)
+(setq save-abbrevs t)
+
 ; language customizations
 (add-to-list 'auto-mode-alist '("\\.gitignore$" . gitignore-mode))
 (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
