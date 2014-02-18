@@ -15,4 +15,5 @@
                        makefile-runner
                        rainbow-delimiters
                        scss-mode
+                       projectile
                        undo-tree))
