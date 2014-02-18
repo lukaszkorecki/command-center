@@ -1,6 +1,8 @@
-(define-abbrev-table 'ruby-mode-abbrev-table '(
-                                               ("deb_" "require 'pry' ; binding.pry" nil 1)))
+(define-abbrev-table 'global-abbrev-table '(
+    ("pry_" "require 'pry' ; binding.pry" )
+    ("deb_" "debugger;" )
+    ("ci-" "console.info(" )))
 
-(define-abbrev-table 'js2-mode-abbrev-table '(
-                                              ("deb_" "debugger;" nil 1)
-                                              ("ci-" "console.info(" nil 1)))
+(setq save-abbrevs nil)
+(setq-default abbrev-mode t)
+(setq dabbrev-case-replace nil)
