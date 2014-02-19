@@ -1,6 +1,8 @@
-# Emacs-on-Evil
+# Emacs-on-Evil aka Cult Leader
 
-> It's that simple? Don't you want to be cult leader?
+> It's **that** simple. Now don't you **want** to become a cult leader?
+
+Vim-expat friendly emacs configuration
 
 Years ago I used to be an EMACS user before fully-converting to Vim.
 While Vim is powerful, confgurable and all that - *Vimscript* is not the
