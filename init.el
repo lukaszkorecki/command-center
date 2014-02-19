@@ -1,8 +1,12 @@
 (load-file "~/.emacs.d/package/init.el")
 (load-file "~/.emacs.d/package/evil-init.el")
+
+; port old vim-leader mappings, muscle memory man
 (evil-leader/set-key
  "|" 'split-window-horizontally
  "-" 'split-window-vertically
+ "g" 'find-grep
+ "d" 'dired
  "P" 'projectile-find-file-other-window
  "p" 'projectile-find-file)
 
