@@ -2,7 +2,7 @@
 (load-file "~/.emacs.d/package/evil-init.el")
 (projectile-global-mode)
 
-(load-file "~/.emacs.d/evil-settings.el")
+(load-file "~/.emacs.d/settings/evil.el")
 
 ; line numbers
 (global-linum-mode 1)
@@ -22,7 +22,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ; indenting
-(setq-default indent-tabs-mode nil)
+(setq indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq standard-indent 2)
 (setq-default fill-column 78)
@@ -39,16 +39,28 @@
 (menu-bar-mode -1)
 ; no toolbar
 (tool-bar-mode -1)
+; no scrollbars
+(scroll-bar-mode -1)
 ; no problem
+
+(setq echo-keystrokes 0.1
+      use-dialog-box nil
+      visible-bell nil)
+
+; always match parens
+(show-paren-mode t)
+
+; make clipboard work
+(setq x-select-enable-clipboard 0)
 
 ; load custom abbreviations
 (load-file "~/.emacs.d/abbrevs.el")
 
 ; language customizations
-(load-file "~/.emacs.d/lang-settings.el")
+(load-file "~/.emacs.d/settings/lang.el")
 
-; tramp
-(load-file "~/.emacs.d/tramp-settings.el")
+; tramp, ssh, ansi-term
+(load-file "~/.emacs.d/settings/remote.el")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -66,4 +78,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "#002b36" :foreground "#839496" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "unknown" :family "terminus"))))
+ '(fixed-pitch ((t (:family "terminus")))))
