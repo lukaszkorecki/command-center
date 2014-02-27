@@ -59,8 +59,9 @@
 ; language customizations
 (load-file "~/.emacs.d/settings/lang.el")
 
-; tramp, ssh, ansi-term
-(load-file "~/.emacs.d/settings/remote.el")
+; load flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
