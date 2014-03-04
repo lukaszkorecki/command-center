@@ -22,10 +22,13 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ; indenting
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq standard-indent 2)
+(setq-default standard-indent 2)
 (setq-default fill-column 78)
+
+; language customizations
+(load-file "~/.emacs.d/settings/lang.el")
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
@@ -56,11 +59,13 @@
 ; load custom abbreviations
 (load-file "~/.emacs.d/abbrevs.el")
 
-; language customizations
-(load-file "~/.emacs.d/settings/lang.el")
-
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
+
+; inspired by http://compsoc.man.ac.uk/~shep/tearing-out-the-emacs-window-manager.html
+; lets give it a go
+; (server-start)
+; (set 'pop-up-frames 'graphic-only)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -78,3 +83,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "unknown" :family "terminus"))))
  '(fixed-pitch ((t (:family "terminus")))))
+
+(provide 'init)
+
+;;; init.el ends here
