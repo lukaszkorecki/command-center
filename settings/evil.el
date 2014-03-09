@@ -1,3 +1,4 @@
+;;; evil.el --- Evil mode customizations
 (evil-leader/set-key
  "|" 'split-window-horizontally
  "-" 'split-window-vertically

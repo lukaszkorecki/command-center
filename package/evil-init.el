@@ -13,3 +13,5 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/evil-surround")
 (require 'surround)
 (global-surround-mode 1)
+
+(load-file "~/.emacs.d/settings/evil.el")

@@ -1,11 +1,16 @@
+;;; lang.el --- programming language customizations
+;;; Commentary:
+;;; For now all of these are groupped together but if some modes need more
+;;; space, they will be moved to separate files
+
+;;; Code:
 (add-to-list 'auto-mode-alist '("\\.gitignore$" . gitignore-mode))
 (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
 
 ; markdown!
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md$" . flyspell-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown$" . flyspell-mode))
+(add-hook 'markdown-mode-hook (lambda () (flyspell-mode)))
 
 ;
 (add-to-list 'auto-mode-alist '("\\.go$" . go-mode))
@@ -21,9 +26,6 @@
 
 ; Rubby
 (add-to-list 'auto-mode-alist '("\\.(rb|rake)$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile|Guardfile)$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("^(Vagrantfile|Gemfile|Rakefile|Guardfile)$" . ruby-mode))
 
 ; web-mode stuff

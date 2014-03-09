@@ -7,7 +7,6 @@
 (load-file "~/.emacs.d/package/evil-init.el")
 (projectile-global-mode)
 
-(load-file "~/.emacs.d/settings/evil.el")
 
 ; line numbers
 (global-linum-mode 1)
@@ -66,16 +65,6 @@
 
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
-
-; inspired by http://compsoc.man.ac.uk/~shep/tearing-out-the-emacs-window-manager.html
-; lets give it a go
-; XXX disabled for now....
-; (set 'pop-up-frames 'graphic-only)
-; (ido-mode 1)
-; ;; Display ido results vertically, rather than horizontally
-; (set 'ido-decorations '("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]"
-;                         " [Matched]" " [Not readable]" " [Too big]"
-;                         " [Confirm]"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
