@@ -2,14 +2,12 @@
 
 > It's **that** simple. Now don't you **want** to become a cult leader?
 
-Vim-expat friendly emacs configuration
-
 Years ago I used to be an EMACS user before fully-converting to Vim.
-While Vim is powerful, confgurable and all that - *Vimscript* is not the
+While Vim is powerful, configurable and all that - *Vimscript* is not the
 best language to work with.
 
 Thanks to fantastic [evil-mode](https://gitorious.org/evil/pages/Home)
-and numerous plugins I was able to recreate quite neat `vim`-like environment and
+and couple of plugins I was able to recreate quite neat `vim`-like environment and
 be able to use Elisp as a scripting language.
 
 # Setup
