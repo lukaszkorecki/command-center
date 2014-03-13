@@ -21,26 +21,14 @@
 
 ; Javascripts
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
 
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-
-; Rubby
-(add-to-list 'auto-mode-alist '("\\.(rb|rake)$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
-
-(defun ruby-convert-hash ()
-  (interactive)
-  (delete-char 1)
-  (search-forward " ")
-  (delete-backward-char 1)
-  (insert ":")
-  (search-forward "=")
-  (delete-char 2))
 
 ; web-mode stuff
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+
+
+(load-file "~/.emacs.d/settings/ruby.el")

@@ -9,31 +9,10 @@
   (search-backward "XXX")
   (delete-char 3))
 
-(define-abbrev-table 'js2-mode-abbrev-table
-  '(
-    ("cni" "console.info(XXX);" abbrevs-jump-to-placeholder)
-    ("cnl" "console.log(XXX);" abbrevs-jump-to-placeholder)
-    ("cne" "console.error(XXX);" abbrevs-jump-to-placeholder)
-    ("fna" "function (XXX) { }" abbrevs-jump-to-placeholder)
-    ("fn" "function XXX() {\n}" abbrevs-jump-to-placeholder)
-    ("dbg" "debugger;" )))
-
-(define-abbrev-table 'ruby-mode-abbrev-table
-  '(
-    ; df -> method definition
-    ("df" "defXXX\nend" abbrevs-jump-to-placeholder)
-    ; cls -> class definition
-    ("cls" "classXXX\nend" abbrevs-jump-to-placeholder)
-    ; mod -> module
-    ("mod" "moduleXXX\nend" abbrevs-jump-to-placeholder)
-    ; bl -> do...end block with args
-    ("bl"  "do |XXX|\nend" abbrevs-jump-to-placeholder)
-    ; ble -> do...end block with no args
-    ("bl"  "do\nXXX\nend" abbrevs-jump-to-placeholder)
-    ; bli -> { |args| } block
-    ("bli" "{ |XXX| }" abbrevs-jump-to-placeholder)
-    ("dbg" "require 'pry' ; binding.pry")))
-
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs.el")
+(read-abbrev-file abbrev-file-name t)
+(setq dabbrev-case-replace nil)  ; Preserve case when expanding
+(setq abbrev-mode t)
 (setq abbrev-mode t)
 
 (provide 'abbrevs)

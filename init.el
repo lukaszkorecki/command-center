@@ -31,9 +31,6 @@
 (setq-default standard-indent 2)
 (setq-default fill-column 78)
 
-; language customizations
-(load-file "~/.emacs.d/settings/lang.el")
-
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ; highlight current line
@@ -62,6 +59,10 @@
 
 ; load custom abbreviations
 (load-file "~/.emacs.d/abbrevs.el")
+
+; language customizations
+(load-file "~/.emacs.d/settings/lang.el")
+
 
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
