@@ -26,7 +26,19 @@
 
 ; Rubby
 (add-to-list 'auto-mode-alist '("\\.(rb|rake)$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("^(Vagrantfile|Gemfile|Rakefile|Guardfile)$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
+
+(defun ruby-convert-hash ()
+  (interactive)
+  (delete-char 1)
+  (search-forward " ")
+  (delete-backward-char 1)
+  (insert ":")
+  (search-forward "=")
+  (delete-char 2))
 
 ; web-mode stuff
 (require 'web-mode)
