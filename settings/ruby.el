@@ -7,14 +7,11 @@
 
 (defun ruby-convert-hash ()
   (interactive)
-  (search-forward ":")
-  (delete-backward-char 1)
+  (delete-char 1)
   (search-forward " ")
   (delete-backward-char 1)
-  (insert ":")
-  (search-forward "=")
-  (delete-backward-char 1)
-  (delete-char 1))
+  (zap-to-char 1 ?>)
+  (insert ":"))
 (evil-ex-define-cmd "Cha" 'ruby-convert-hash)
 
 (add-hook 'ruby-mode-hook (lambda ()
