@@ -15,6 +15,7 @@
 ;
 (add-to-list 'auto-mode-alist '("\\.go$" . go-mode))
 (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
+(setq-default scss-compile-at-save nil)
 (add-to-list 'auto-mode-alist '("\\.hb$" . handlebars-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode))
