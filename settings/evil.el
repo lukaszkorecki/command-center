@@ -37,3 +37,8 @@
 
 ;;; tags!
 (evil-ex-define-cmd "tag" 'tags-search)
+
+
+;; functions provided by move-text package
+(define-key global-map (kbd "\C-k") 'move-text-up)
+(define-key global-map (kbd "\C-j") 'move-text-down)

@@ -18,4 +18,5 @@
 		scss-mode
 		projectile
 		flycheck
+    move-text
 		undo-tree))
