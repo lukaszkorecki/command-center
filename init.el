@@ -7,6 +7,8 @@
 (load-file "~/.emacs.d/package/evil-init.el")
 (projectile-global-mode)
 
+(setq-default projectile-use-git-grep 1)
+
 
 ; line numbers
 (global-linum-mode 1)
