@@ -11,6 +11,8 @@
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
 
+(define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
+
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
@@ -68,12 +70,14 @@
   '(
     ("bl" "do
 XXX
-end" abbrevs-jump-to-placeholder 0)
+end" abbrevs-jump-to-placeholder 2)
+    ("bla" "do |XXX|
+end" abbrevs-jump-to-placeholder 1)
     ("bli" "{ |XXX| }" abbrevs-jump-to-placeholder 0)
     ("ci-" "console.info(" nil 0)
     ("cls" "classXXX
 end" abbrevs-jump-to-placeholder 0)
-    ("dbg" "require 'pry' ; binding.pry" nil 0)
+    ("dbg" "require 'pry' ; binding.pry" nil 1)
     ("deb_" "require 'pry' ; binding.pry" nil 0)
     ("df" "defXXX
 end" abbrevs-jump-to-placeholder 1)
@@ -92,8 +96,11 @@ end" abbrevs-jump-to-placeholder 0)
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
+(define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'web-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
