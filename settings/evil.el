@@ -1,4 +1,9 @@
 ;;; evil.el --- Evil mode customizations
+;;;; Commentary:
+; Sets up most of the things I've used in Vim
+; which were mapped to <leader><k>
+; Additionally adds Fugitive like functions
+;;; Code:
 (evil-leader/set-key
  "|" 'split-window-horizontally
  "-" 'split-window-vertically
@@ -8,11 +13,13 @@
  "t" 'projectile-find-tag
  "T" 'projectile-regenerate-tags
  "P" 'projectile-find-file-other-window
- "p" 'projectile-find-file)
+ "p" 'projectile-find-file
+ "x" execute-extended-command)
 
 
 ;;; Make magit and emacs behavie like Fugitive
 (defun evil-git-checkout-current-file ()
+  "Run git checkout on currently opened file."
   (interactive)
   (start-process "git-checkout"
                  (get-buffer-create "*git-checkout*")
@@ -22,6 +29,7 @@
   (find-file-noselect buffer-file-name))
 
 (defun evil-git-remove-current-file ()
+  "Run git rm on current file and kill current buffer."
   (interactive)
   (start-process "git-remove"
                  (get-buffer-create "*git-remove*")
@@ -38,7 +46,10 @@
 ;;; tags!
 (evil-ex-define-cmd "tag" 'tags-search)
 
-
 ;; functions provided by move-text package
 (define-key global-map (kbd "\C-k") 'move-text-up)
 (define-key global-map (kbd "\C-j") 'move-text-down)
+
+
+(provide 'evil.el)
+;;; evil.el ends here

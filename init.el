@@ -9,7 +9,10 @@
 
 (setq-default projectile-use-git-grep 1)
 
-
+;fonts
+(set-face-attribute 'default nil :font "Monaco")
+(add-to-list 'default-frame-alist
+             '(font . "Monaco-12"))
 ; line numbers
 (global-linum-mode 1)
 ; colum number s
