@@ -1,4 +1,7 @@
-; initialize evil
+;;; package --- Initialize evil and its extensions
+;;;; Commentary:
+;;;; Load evil + evil extensions
+;;; code:
 (require 'evil)
 (evil-mode 1)
 (require 'evil-numbers)
@@ -15,3 +18,6 @@
 (global-surround-mode 1)
 
 (load-file "~/.emacs.d/settings/evil.el")
+
+(provide 'evil-init)
+;;; evil-init.el ends here
