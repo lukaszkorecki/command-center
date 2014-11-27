@@ -1,4 +1,4 @@
-;;; install.el --- install packages listed in evil.el and my.el
+;;; package/install --- install packages listed in evil.el and my.el
 ;;; Commentary:
 ;;; Poor man's cask emulator.
 ;;; kinda.

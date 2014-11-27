@@ -1,4 +1,4 @@
-;;; package -- list of evil packages
+;;; package/evil -- list of evil packages
 ;;;; Commentary:
 ;;;; TODO: this file needs to be renamed to evil-packages
 ;;; Code:

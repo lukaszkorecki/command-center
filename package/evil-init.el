@@ -1,4 +1,4 @@
-;;; package --- Initialize evil and its extensions
+;;; package/evil-init --- Initialize evil and its extensions
 ;;;; Commentary:
 ;;;; Load evil + evil extensions
 ;;; code:

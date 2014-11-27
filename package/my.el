@@ -1,4 +1,4 @@
-;;; package --- List of elpa packages I use/need
+;;; package/my --- List of elpa packages I use/need
 ;;;; Commentary:
 ;;; Defines a list of packages used across all my emacs installations
 ;;; I'm guessing it replicates Cask or el-get...
