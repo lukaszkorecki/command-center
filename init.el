@@ -18,6 +18,7 @@
 (global-linum-mode 1)
 ; colum number s
 (column-number-mode 1)
+(whitespace-mode 1)
 
 ; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)

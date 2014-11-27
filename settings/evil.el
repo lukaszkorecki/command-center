@@ -15,7 +15,7 @@
  "P" 'projectile-find-file-other-window
  "p" 'projectile-find-file
  "x" 'execute-extended-command
- "f" 'rubocop-autocorrect-current-file)
+ "f" 'evil-fix-with-rubocop-and-reload)
 
 
 ;;; Make magit and emacs behavie like Fugitive
