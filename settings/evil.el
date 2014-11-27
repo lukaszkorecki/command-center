@@ -14,7 +14,8 @@
  "T" 'projectile-regenerate-tags
  "P" 'projectile-find-file-other-window
  "p" 'projectile-find-file
- "x" 'execute-extended-command)
+ "x" 'execute-extended-command
+ "f" 'rubocop-autocorrect-current-file)
 
 
 ;;; Make magit and emacs behavie like Fugitive

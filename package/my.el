@@ -3,7 +3,7 @@
 ;;; Defines a list of packages used across all my emacs installations
 ;;; I'm guessing it replicates Cask or el-get...
 ;;; Code:
-(defvar my-packages '(
+(defvar my-packages '(rubocop
                       color-theme-solarized
                       color-theme-sanityinc-tomorrow
                       color-theme
