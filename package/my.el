@@ -7,6 +7,7 @@
                       color-theme-solarized
                       color-theme-sanityinc-tomorrow
                       color-theme
+                      coffee-mode
                       gitignore-mode
                       web-mode
                       go-mode
