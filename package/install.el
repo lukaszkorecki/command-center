@@ -7,10 +7,40 @@
 (load-file "package/init.el")
 (package-list-packages)
 
-(load-file "package/evil.el")
-(load-file "package/my.el")
+(defvar lk-evil-packages '(evil
+                        evil-indent-textobject
+                        evil-leader
+                        evil-matchit
+                        evil-numbers))
 
-(defun install-from-list (list)
+(defvar lk-my-packages '(rubocop
+                         color-theme-solarized
+                         color-theme-sanityinc-tomorrow
+                         color-theme
+                         coffee-mode
+                         gitignore-mode
+                         web-mode
+                         go-mode
+                         handlebars-mode
+                         markdown-mode
+                         rspec-mode
+                         ruby-mode
+                         js2-mode
+                         yaml-mode
+                         json-mode
+                         python-mode
+                         magit
+                         makefile-runner
+                         rainbow-delimiters
+                         scss-mode
+                         projectile
+                         flycheck
+                         move-text
+                         undo-tree
+                         puppet-mode
+                         ))
+
+(defun lk-install-from-list (list)
   "Install all packages from given LIST, only if not installed."
   (mapc (lambda (name)
 	  (message "Installing %s" name)
@@ -19,8 +49,8 @@
 	    (package-install name))) list))
 
 
-(install-from-list my-packages)
-(install-from-list evil-packages)
+(lk-install-from-list lk-my-packages)
+(lk-install-from-list lk-evil-packages)
 
 (provide 'install)
 ;;; install.el ends here

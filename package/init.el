@@ -6,10 +6,6 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 (package-initialize)
-
-
-
 (provide 'init)
-
 
 ;;; init.el ends here
