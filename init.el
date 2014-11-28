@@ -23,7 +23,7 @@
 
 ; set colors
 (require 'color-theme)
-(require 'color-theme-sanityinc-tomorrow-night)
+(load-theme 'sanityinc-tomorrow-night)
 
 ; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -67,7 +67,12 @@
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+; customizations file
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+
 (lk-normal-font)
+
 (provide 'init)
 
 ;;; init.el ends here
