@@ -39,8 +39,7 @@
                          flycheck
                          move-text
                          undo-tree
-                         puppet-mode
-                         ))
+                         puppet-mode))
 
 (defun lk-install-from-list (list)
   "Install all packages from given LIST, only if not installed."
@@ -48,7 +47,7 @@
 	  (message "Installing %s" name)
 	  (if (package-installed-p name)
 	      (message "  Package %s is already installed" name)
-	    (package-install name))) list))
+        (package-install name))) list))
 
 
 (lk-install-from-list lk-my-packages)
