@@ -9,6 +9,7 @@
 (projectile-global-mode)
 
 (setq-default projectile-use-git-grep 1)
+(setq projectile-completion-system 'grizzl)
 
 ;fonts
 
@@ -23,7 +24,7 @@
 
 ; set colors
 (require 'color-theme)
-(load-theme 'sanityinc-tomorrow-night)
+(load-theme 'sanityinc-tomorrow-night t)
 
 ; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

@@ -34,6 +34,7 @@
                          rainbow-delimiters
                          scss-mode
                          projectile
+                         grizzl
                          flycheck
                          move-text
                          undo-tree
