@@ -22,8 +22,12 @@
 (defun evil-fix-with-rubocop-and-reload ()
   "Run rubocop -a and reloads the buffer."
   (interactive)
-  (rubocop-autocorrect-current-file)
-  (revert-buffer nil 't))
+  (start-process "rubo-cop-silent"
+                 (get-buffer-create "*Rubo-cop-auto*")
+                 "rubocop"
+                 "-a"
+                 buffer-file-name)
+  (find-file-noselect buffer-file-name))
 
 (add-hook 'ruby-mode-hook (lambda () (abbrev-mode)))
 

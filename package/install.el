@@ -1,10 +1,10 @@
 ;;; package/install --- install packages listed in evil.el and my.el
-;;; Commentary:
-;;; Poor man's cask emulator.
+;; Commentary:
+;; Poor man's cask emulator.
 ;;; kinda.
 
 ;;; Code:
-(load-file "package/init.el")
+(load-file "~/.emacs.d/package/init.el")
 (package-list-packages)
 
 (defvar lk-evil-packages '(evil

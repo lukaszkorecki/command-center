@@ -8,11 +8,10 @@
 (load-file "~/.emacs.d/settings/font-face.el")
 (projectile-global-mode)
 
-(setq-default projectile-use-git-grep 1)
+(setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
 
 ;fonts
-
 ; line numbers
 (global-linum-mode 1)
 ; colum number s
@@ -43,7 +42,8 @@
 ; no backup files
 (setq make-backup-files nil)
 
-(if window-system
+(when window-system
+  (set-fontset-font t 'unicode "Apple Symbols" nil 'prepend)
   (scroll-bar-mode -1)) ; no scrollbars
 
 (menu-bar-mode -1) ; no menu
@@ -65,7 +65,6 @@
 ; language customizations
 (load-file "~/.emacs.d/settings/lang.el")
 
-
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -74,6 +73,31 @@
 (load custom-file)
 
 (lk-normal-font)
+
+
+; customize the mode-line
+(setq-default
+ mode-line-format
+ (list
+  "|"
+; buffername
+  '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
+; major mode
+  "|"
+  '(:eval (propertize "%m" 'face 'font-lock-string-face))
+  "| "
+
+  "|"
+; list minor modes
+  minor-mode-alist
+  " | "
+; show if the files is modified or read-only
+  '(:eval (when (buffer-modified-p)
+            (propertize "Mod" 'face 'font-lock-warning-face)))
+
+  '(:eval (when (buffer-read-only)
+            (propertize "RO" 'face 'font-lock-type-face)))
+))
 
 (provide 'init)
 
