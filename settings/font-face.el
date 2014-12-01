@@ -19,6 +19,12 @@
   (interactive)
   (lk-set-font-size 110))
 
+
+(defun lk-medium-font ()
+  "Set font to normal work size."
+  (interactive)
+  (lk-set-font-size 130))
+
 (defun lk-presentation-font ()
   "Set font to presentation/teaching size."
   (interactive)

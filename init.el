@@ -44,9 +44,10 @@
 (setq make-backup-files nil)
 
 (if window-system
-    (menu-bar-mode -1) ; no menu
-  (tool-bar-mode -1) ; no toolbar
   (scroll-bar-mode -1)) ; no scrollbars
+
+(menu-bar-mode -1) ; no menu
+(tool-bar-mode -1) ; no toolbar
 
 (setq echo-keystrokes 0.1
       use-dialog-box nil

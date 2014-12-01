@@ -10,6 +10,7 @@
 (add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
 
 (defun ruby-convert-hash ()
+  "Convert old school :hash => 'val' to hash: 'val'."
   (interactive)
   (delete-char 1)
   (search-forward " ")
