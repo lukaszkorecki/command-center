@@ -8,13 +8,12 @@
  "|" 'split-window-horizontally
  "-" 'split-window-vertically
  "ch" 'ruby-convert-hash
- "g" 'projectile-grep
+ "g" 'evil-git-grep
  "d" 'dired
- "t" 'projectile-find-tag
- "T" 'projectile-regenerate-tags
  "P" 'projectile-find-file-other-window
  "p" 'projectile-find-file
  "x" 'execute-extended-command
+ "c" 'comment-or-uncomment-region-or-line
  "f" 'evil-fix-with-rubocop-and-reload
  "b" 'ruby-toggle-block)
 
@@ -41,9 +40,16 @@
                  buffer-file-name)
   (kill-buffer))
 
+(defun evil-git-grep (search)
+  "Run git-grep in current git dir with SEARCH."
+  (interactive (list (completing-read "Search for: " nil nil nil (current-word))))
+  (grep-find (concat "git --no-pager grep -P -n " search " `git rev-parse --show-toplevel`")))
+
+
 (evil-ex-define-cmd "Git-status" 'magit-status)
 (evil-ex-define-cmd "Git-remove" 'evil-git-remove-current-file)
 (evil-ex-define-cmd "Git-checkout" 'evil-git-checkout-current-file)
+(evil-ex-define-cmd "Git-grep" 'evil-git-grep)
 
 ;;; tags!
 (evil-ex-define-cmd "tag" 'tags-search)
