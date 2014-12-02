@@ -25,10 +25,11 @@
   (interactive)
   (lk/set-font-size 130))
 
-(defun lk/presentation-font ()
+(defun lk/presentation-mode()
   "Set font to presentation/teaching size."
   (interactive)
-  (lk/set-font-size 185))
+  (lk/set-font-size 185)
+  (load-theme 'sanityinc-tomorrow-day t))
 
 (provide 'font-face)
 ;;; font-face.el ends here
