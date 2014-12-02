@@ -3,32 +3,32 @@
 ;;; Sets default font and provides functions for switching between sizes
 ;;; Code:
 
-(defvar lk-font "Menlo"
+(defvar lk/font "Menlo"
   "Default font name for GUI Emacs.")
 
-(defun lk-set-font-size (my-size)
+(defun lk/set-font-size (my-size)
   "Set Monaco as Gui font with specified MY-SIZE."
   (custom-set-faces
    `(default
-      ((t (:weight normal :height ,my-size :width normal :family ,lk-font))))
-   `(fixed-pitch ((t (:family ,lk-font))))))
+      ((t (:weight normal :height ,my-size :width normal :family ,lk/font))))
+   `(fixed-pitch ((t (:family ,lk/font))))))
 
 
-(defun lk-normal-font ()
+(defun lk/normal-font ()
   "Set font to normal work size."
   (interactive)
-  (lk-set-font-size 110))
+  (lk/set-font-size 110))
 
 
-(defun lk-medium-font ()
+(defun lk/medium-font ()
   "Set font to normal work size."
   (interactive)
-  (lk-set-font-size 130))
+  (lk/set-font-size 130))
 
-(defun lk-presentation-font ()
+(defun lk/presentation-font ()
   "Set font to presentation/teaching size."
   (interactive)
-  (lk-set-font-size 185))
+  (lk/set-font-size 185))
 
 (provide 'font-face)
 ;;; font-face.el ends here

@@ -72,7 +72,7 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
-(lk-normal-font)
+(lk/normal-font)
 
 
 ; customize the mode-line

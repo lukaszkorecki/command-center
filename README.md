@@ -14,6 +14,6 @@ be able to use Elisp as a scripting language.
 
 1. Fork this repo
 1. Clone to `~/.emacs.d`
-2. Tweak `./package/my.el` to suit your needs (you can check out mine for inspiration)
+2. Tweak `./package/install.el` to suit your needs (you can check out mine for inspiration)
 2. run `make`
 3. Edit `init.el` to load packages and add your settings.

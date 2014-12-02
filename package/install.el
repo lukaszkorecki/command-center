@@ -7,13 +7,13 @@
 (load-file "~/.emacs.d/package/init.el")
 (package-list-packages)
 
-(defvar lk-evil-packages '(evil
+(defvar lk/evil-packages '(evil
                            evil-indent-textobject
                            evil-leader
                            evil-matchit
                            evil-numbers))
 
-(defvar lk-my-packages '(rubocop
+(defvar lk/my-packages '(rubocop
                          color-theme-solarized
                          color-theme-sanityinc-tomorrow
                          color-theme
@@ -41,7 +41,7 @@
                          undo-tree
                          puppet-mode))
 
-(defun lk-install-from-list (list)
+(defun lk/install-from-list (list)
   "Install all packages from given LIST, only if not installed."
   (mapc (lambda (name)
 	  (message "Installing %s" name)
@@ -50,8 +50,8 @@
         (package-install name))) list))
 
 
-(lk-install-from-list lk-my-packages)
-(lk-install-from-list lk-evil-packages)
+(lk/install-from-list lk/my-packages)
+(lk/install-from-list lk/evil-packages)
 
 (provide 'install)
 ;;; install.el ends here
