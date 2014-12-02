@@ -15,6 +15,7 @@
  "x" 'execute-extended-command
  "c" 'comment-or-uncomment-region-or-line
  "f" 'evil-fix-with-rubocop-and-reload
+ "u" 'run-tests
  "b" 'ruby-toggle-block)
 
 

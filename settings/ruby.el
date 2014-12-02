@@ -22,14 +22,27 @@
 (defun evil-fix-with-rubocop-and-reload ()
   "Run rubocop -a and reloads the buffer."
   (interactive)
+  (save-buffer)
   (start-process "rubo-cop-silent"
                  (get-buffer-create "*Rubo-cop-auto*")
                  "rubocop"
                  "-a"
                  buffer-file-name)
-  (find-file-noselect buffer-file-name))
+  (revert-buffer t t))
 
 (add-hook 'ruby-mode-hook (lambda () (abbrev-mode)))
+
+
+(defun run-tests ()
+  "Run minitest test for current buffer using `tu` wrapper."
+  (interactive)
+  (shell-command
+   (format
+    (file-truename "~/.DotFiles/bins/tu %s %s")
+    (shell-quote-argument buffer-file-name)
+    (projectile-project-root))))
+
+
 
 (provide 'ruby)
 ;;; ruby.el ends here
