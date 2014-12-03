@@ -6,6 +6,7 @@
 (load-file "~/.emacs.d/package/init.el")
 (load-file "~/.emacs.d/package/evil-init.el")
 (load-file "~/.emacs.d/settings/font-face.el")
+
 (projectile-global-mode)
 
 (setq projectile-use-git-grep t)
@@ -16,6 +17,7 @@
 (global-linum-mode 1)
 ; colum number s
 (column-number-mode 1)
+; whitespaces
 (whitespace-mode 1)
 
 ; yes/no -> y/n
@@ -40,7 +42,7 @@
 (global-hl-line-mode 1)
 
 ; no backup files
-(setq make-backup-files nil)
+(setq-default make-backup-files nil)
 
 (when window-system
   (set-fontset-font t 'unicode "Apple Symbols" nil 'prepend)
@@ -79,24 +81,16 @@
 (setq-default
  mode-line-format
  (list
-  "|"
 ; buffername
-  '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
+  '(:eval (propertize "%f " 'face 'font-lock-keyword-face))
 ; major mode
-  "|"
-  '(:eval (propertize "%m" 'face 'font-lock-string-face))
-  "| "
-
-  "|"
+  '(:eval (propertize "%m " 'face 'font-lock-comment-face))
 ; list minor modes
-  minor-mode-alist
-  " | "
-; show if the files is modified or read-only
-  '(:eval (when (buffer-modified-p)
-            (propertize "Mod" 'face 'font-lock-warning-face)))
-
-  '(:eval (when (buffer-read-only)
-            (propertize "RO" 'face 'font-lock-type-face)))
+  '(:eavl (propertize 'minor-mode-alist 'face 'font-lock-variable-name-face))
+; encoding and line ending
+  '(:eval (propertize "%z " 'face 'font-lock-string-face))
+  ; modified * / RO % / no changes -
+  '(:eval (propertize " %*" 'face 'font-lock-warning-face))
 ))
 
 (provide 'init)
