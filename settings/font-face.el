@@ -8,6 +8,7 @@
 
 (defun lk/set-font-size (my-size)
   "Set Monaco as Gui font with specified MY-SIZE."
+  (interactive )
   (custom-set-faces
    `(default
       ((t (:weight normal :height ,my-size :width normal :family ,lk/font))))

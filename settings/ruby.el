@@ -9,7 +9,7 @@
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
 
-(defun ruby-convert-hash ()
+(defun lk/ruby-convert-hash ()
   "Convert old school :hash => 'val' to hash: 'val'."
   (interactive)
   (delete-char 1)
@@ -19,7 +19,7 @@
   (insert ":"))
 
 
-(defun evil-fix-with-rubocop-and-reload ()
+(defun lk/fix-with-rubocop-and-reload ()
   "Run rubocop -a and reloads the buffer."
   (interactive)
   (save-buffer)
@@ -33,7 +33,7 @@
 (add-hook 'ruby-mode-hook (lambda () (abbrev-mode)))
 
 
-(defun run-tests ()
+(defun lk/run-tests ()
   "Run minitest test for current buffer using `tu` wrapper."
   (interactive)
   (shell-command

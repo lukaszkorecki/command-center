@@ -4,6 +4,7 @@
 
 ;;; Code:
 (load-file "~/.emacs.d/package/init.el")
+(load-file "~/.emacs.d/customizations.el")
 (load-file "~/.emacs.d/package/evil-init.el")
 (load-file "~/.emacs.d/settings/font-face.el")
 
