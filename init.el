@@ -82,7 +82,7 @@
  mode-line-format
  (list
 ; buffername
-  '(:eval (propertize "%f " 'face 'font-lock-keyword-face))
+  '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
 ; major mode
   '(:eval (propertize "%m " 'face 'font-lock-comment-face))
 ; list minor modes
