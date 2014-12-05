@@ -1,17 +1,23 @@
+
 ;;; init.el --- loads all customizations and packages
 ;;; Commentary:
 ;;; Poorly reinventing Cask ;-)
 
 ;;; Code:
-(load-file "~/.emacs.d/package/init.el")
-(load-file "~/.emacs.d/customizations.el")
-(load-file "~/.emacs.d/package/evil-init.el")
-(load-file "~/.emacs.d/settings/font-face.el")
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/settings")
+(add-to-list 'load-path "~/.emacs.d/package")
 
+(require 'init)
+; (require 'evil-init)
+(require 'font-face)
+(require 'customizations)
 (projectile-global-mode)
 
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
+
+
 
 ;fonts
 ; line numbers
@@ -63,10 +69,10 @@
 (setq x-select-enable-clipboard 0)
 
 ; load custom abbreviations
-(load-file "~/.emacs.d/abbrevs.el")
+(require 'abbrevs)
 
 ; language customizations
-(load-file "~/.emacs.d/settings/lang.el")
+(require 'lang)
 
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -76,7 +82,6 @@
 (load custom-file)
 
 (lk/normal-font)
-
 
 ; customize the mode-line
 (setq-default
