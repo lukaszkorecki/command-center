@@ -1,4 +1,4 @@
-;;;; init.el --- loads all customizations and packages
+;;;; init --- loads all customizations and packages
 ;;; Commentary:
 ;;; Poorly reinventing Cask ;-)
 

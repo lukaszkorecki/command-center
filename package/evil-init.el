@@ -17,7 +17,7 @@
 (require 'surround)
 (global-surround-mode 1)
 
-(load-file "~/.emacs.d/settings/evil.el")
+(require 'lk/evil)
 
 (provide 'evil-init)
 ;;; evil-init.el ends here

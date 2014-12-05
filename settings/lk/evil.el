@@ -27,5 +27,5 @@
 ;;; tags!
 (evil-ex-define-cmd "tag" 'tags-search)
 
-(provide 'evil.el)
+(provide 'lk/evil)
 ;;; evil.el ends here
