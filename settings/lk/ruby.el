@@ -1,4 +1,4 @@
-;;; ruby.el --- ruby related customizations
+;;; lk/ruby --- ruby related customizations
 ;;;; Commentary:
 ;;; Mostly hooks for evil mappings
 ;;; Code:
@@ -44,5 +44,5 @@
 
 
 
-(provide 'ruby)
+(provide 'lk/ruby)
 ;;; ruby.el ends here

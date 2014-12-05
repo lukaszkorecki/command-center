@@ -8,6 +8,6 @@
                           '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize)
-(provide 'init)
+(provide 'package/init)
 
 ;;; init.el ends here

@@ -32,4 +32,6 @@
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
 
-(load-file "~/.emacs.d/settings/ruby.el")
+(require 'lk/ruby)
+
+(provide 'lk/lang)

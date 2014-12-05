@@ -1,4 +1,4 @@
-;;; font-face.el --- set fonts and such
+;;; lk/font-face --- set fonts and such
 ;;;; Commentary:
 ;;; Sets default font and provides functions for switching between sizes
 ;;; Code:
@@ -32,5 +32,5 @@
   (lk/set-font-size 185)
   (load-theme 'sanityinc-tomorrow-day t))
 
-(provide 'font-face)
+(provide 'lk/font-face)
 ;;; font-face.el ends here

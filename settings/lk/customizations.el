@@ -1,4 +1,4 @@
-;;;; customizations.el -- custom functions which make usingemacs easier
+;;;; lk/customizations.el -- custom functions which make usingemacs easier
 ;;; Commentary:
 ;;; also include maps :-)
 ;;; Code:
@@ -37,5 +37,5 @@
 (global-set-key (kbd "C-x g") 'lk/git-grep)
 
 
-(provide 'customizations)
+(provide 'lk/customizations)
 ;;; customizations.el ends here

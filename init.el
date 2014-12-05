@@ -1,5 +1,4 @@
-
-;;; init.el --- loads all customizations and packages
+;;;; init.el --- loads all customizations and packages
 ;;; Commentary:
 ;;; Poorly reinventing Cask ;-)
 
@@ -8,18 +7,15 @@
 (add-to-list 'load-path "~/.emacs.d/settings")
 (add-to-list 'load-path "~/.emacs.d/package")
 
-(require 'init)
+(require 'package/init)
 ; (require 'evil-init)
-(require 'font-face)
-(require 'customizations)
+(require 'lk/font-face)
+(require 'lk/customizations)
 (projectile-global-mode)
 
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
 
-
-
-;fonts
 ; line numbers
 (global-linum-mode 1)
 ; colum number s
@@ -69,10 +65,10 @@
 (setq x-select-enable-clipboard 0)
 
 ; load custom abbreviations
-(require 'abbrevs)
+(require 'lk/abbrevs)
 
 ; language customizations
-(require 'lang)
+(require 'lk/lang)
 
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)

@@ -15,5 +15,5 @@
 (setq abbrev-mode t)
 (setq abbrev-mode t)
 
-(provide 'abbrevs)
+(provide 'lk/abbrevs)
 ;;; abbrevs.el ends here
