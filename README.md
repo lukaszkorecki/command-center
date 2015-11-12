@@ -1,14 +1,10 @@
-# Emacs-on-Evil aka Cult Leader
+# Eight Megs And Constantly Swapping
 
 > It's **that** simple. Now don't you **want** to become a cult leader?
 
 Years ago I used to be an EMACS user before fully-converting to Vim.
 While Vim is powerful, configurable and all that - *Vimscript* is not the
 best language to work with.
-
-Thanks to fantastic [evil-mode](https://gitorious.org/evil/pages/Home)
-and couple of plugins I was able to recreate quite neat `vim`-like environment and
-be able to use Elisp as a scripting language.
 
 # Setup
 
