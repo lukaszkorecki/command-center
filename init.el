@@ -22,13 +22,14 @@
 (column-number-mode 1)
 ; whitespaces
 (whitespace-mode 1)
-
+; ansi
+(require 'ansi-color)
 ; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ; set colors
 (require 'color-theme)
-(load-theme 'sanityinc-tomorrow-night t)
+
 
 ; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

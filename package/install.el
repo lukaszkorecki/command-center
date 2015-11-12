@@ -19,6 +19,9 @@
                          color-theme
                          coffee-mode
                          lua-mode
+                         clojure-mode
+                         clojure-env
+                         slime-clj
                          gitignore-mode
                          web-mode
                          go-mode
