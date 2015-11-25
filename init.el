@@ -8,7 +8,6 @@
 (add-to-list 'load-path "~/.emacs.d/package")
 
 (require 'package/init)
-; (require 'evil-init)
 (require 'lk/font-face)
 (require 'lk/customizations)
 (projectile-global-mode)

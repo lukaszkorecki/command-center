@@ -1,6 +1,5 @@
 ;;; lk/ruby --- ruby related customizations
 ;;;; Commentary:
-;;; Mostly hooks for evil mappings
 ;;; Code:
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
