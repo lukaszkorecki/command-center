@@ -15,7 +15,9 @@
 
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
+; use ssh for tramp
 
+(setq tramp-default-method "ssh")
 ; line numbers
 (global-linum-mode 1)
 ; colum number s

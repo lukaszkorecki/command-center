@@ -35,6 +35,7 @@
 (global-set-key (kbd "C-x p") 'projectile-find-file)
 (global-set-key (kbd "C-x p") 'projectile-find-file-other-window)
 (global-set-key (kbd "C-x g") 'lk/git-grep)
+(global-set-key (kbd "C-x =") 'indent-according-to-mode)
 
 
 (provide 'lk/customizations)
