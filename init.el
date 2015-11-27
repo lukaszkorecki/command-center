@@ -1,8 +1,6 @@
 ;;;; init --- loads all customizations and packages
-;;; Commentary:
-;;; Poorly reinventing Cask ;-)
+;;;; Commentary - yeah!
 
-;;; Code:
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/settings")
 
@@ -32,6 +30,11 @@
 ; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; turn off splash screen
+(setq inhibit-startup-message t)
+
+;; turn off initial scratch buffer message
+(setq initial-scratch-message "")
 ; set colors
 (require 'color-theme)
 
