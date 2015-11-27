@@ -50,6 +50,11 @@
 (setq-default standard-indent 2)
 (setq-default fill-column 78)
 
+; force the above everywhere via editorconfig
+(require 'editorconfig)
+(load "editorconfig")
+(editorconfig-mode 1)
+
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ; highlight current line

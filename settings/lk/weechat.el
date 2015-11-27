@@ -6,4 +6,6 @@
 (add-to-list 'gnutls-trustfiles (expand-file-name "~/.private/weechat/ssl/relay.pem"))
 
 
-(provide 'weechat)
+(provide 'lk/weechat)
+
+;;; weechat.el ends here
