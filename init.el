@@ -5,12 +5,16 @@
 ;;; Code:
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/settings")
-(add-to-list 'load-path "~/.emacs.d/package")
 
-(require 'package/init)
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+
+
 (require 'lk/font-face)
 (require 'lk/customizations)
 (projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
 
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
