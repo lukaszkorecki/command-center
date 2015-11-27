@@ -3,6 +3,7 @@
 (source melpa)
 (source marmalade)
 
+(depends-on "turnip")
 (depends-on "color-theme")
 (depends-on "cask")
 (depends-on "flycheck")

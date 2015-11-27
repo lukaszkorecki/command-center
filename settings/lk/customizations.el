@@ -31,12 +31,28 @@
   (grep-find (concat "git --no-pager grep -P -n " search " `git rev-parse --show-toplevel`")))
 
 
+(defun lk/select-line ()
+  "Select current line"
+  (interactive)
+  (end-of-line) ; move to end of line
+  (set-mark (line-beginning-position)))
+
+
+
 
 (global-set-key (kbd "C-x p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x M-p") 'projectile-find-file-other-window)
 (global-set-key (kbd "C-x g") 'lk/git-grep)
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
 
+(global-set-key (kbd "C-x t") 'turnip-send-region)
 
+(global-set-key (kbd "C-x l") 'lk/select-line)
+(global-set-key (kbd "C-x j") 'join-line)
+
+
+;; override M-x to use helm-M-x
+
+(global-set-key (kbd "M-x") 'helm-M-x)
 (provide 'lk/customizations)
 ;;; customizations.el ends here
