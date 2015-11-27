@@ -79,6 +79,7 @@
 ; language customizations
 (require 'lk/lang)
 
+(require 'lk/weechat)
 ; load flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
