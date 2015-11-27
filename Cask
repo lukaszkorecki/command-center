@@ -3,6 +3,8 @@
 (source melpa)
 (source marmalade)
 
+(depends-on "weechat")
+(depends-on "editorconfig")
 (depends-on "turnip")
 (depends-on "color-theme")
 (depends-on "cask")

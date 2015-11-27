@@ -16,15 +16,17 @@
 
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
-; use ssh for tramp
 
+
+
+; use ssh for tramp
 (setq tramp-default-method "ssh")
 ; line numbers
-(global-linum-mode 1)
+; (global-linum-mode 1)
 ; colum number s
-(column-number-mode 1)
+; (column-number-mode 1)
 ; whitespaces
-(whitespace-mode 1)
+; (whitespace-mode 1)
 ; ansi
 (require 'ansi-color)
 ; yes/no -> y/n
@@ -90,9 +92,9 @@
 (lk/normal-font)
 
 ; customize the mode-line
-(setq-default
- mode-line-format
+(setq-default mode-line-format
  (list
+  '(:eval (propertize "%l | %c | " 'face 'font-lock-comment-face))
 ; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
 ; major mode
