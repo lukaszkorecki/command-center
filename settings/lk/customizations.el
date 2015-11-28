@@ -50,9 +50,13 @@
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'join-line)
 
+;; better window movements
+(global-set-key (kbd "ESC <left>") 'windmove-left)
+(global-set-key (kbd "ESC <right>") 'windmove-right)
+(global-set-key (kbd "ESC <up>") 'windmove-up)
+(global-set-key (kbd "ESC <down>") 'windmove-down)
 
 ;; override M-x to use helm-M-x
-
 (global-set-key (kbd "M-x") 'helm-M-x)
 (provide 'lk/customizations)
 ;;; customizations.el ends here

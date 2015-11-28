@@ -14,22 +14,24 @@
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
 
+(setq helm-M-x-fuzzy-match t)
+
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
 
+;; tmp file settings
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 
-; use ssh for tramp
+;; use ssh for tramp
 (setq tramp-default-method "ssh")
-; line numbers
-; (global-linum-mode 1)
-; colum number s
-; (column-number-mode 1)
-; whitespaces
-; (whitespace-mode 1)
-; ansi
+
+
 (require 'ansi-color)
-; yes/no -> y/n
+;; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; turn off splash screen
@@ -37,11 +39,12 @@
 
 ;; turn off initial scratch buffer message
 (setq initial-scratch-message "")
-; set colors
+;; set colors
 (require 'color-theme)
+(color-theme-sanityinc-tomorrow-night)
 
 
-; strip whitespace
+;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ; indenting
@@ -53,6 +56,8 @@
 ; force the above everywhere via editorconfig
 (require 'editorconfig)
 (load "editorconfig")
+(setq editorconfig-get-properties-function
+      'editorconfig-core-get-properties-hash)
 (editorconfig-mode 1)
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -87,8 +92,6 @@
 (require 'lk/lang)
 
 (require 'lk/weechat)
-; load flycheck
-(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ; customizations file
 (setq custom-file "~/.emacs.d/custom.el")
@@ -99,7 +102,7 @@
 ; customize the mode-line
 (setq-default mode-line-format
  (list
-  '(:eval (propertize "%l | %c | " 'face 'font-lock-comment-face))
+  '(:eval (propertize " %l | %c | " 'face 'font-lock-comment-face))
 ; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
 ; major mode
