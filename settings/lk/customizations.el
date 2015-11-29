@@ -58,5 +58,11 @@
 
 ;; override M-x to use helm-M-x
 (global-set-key (kbd "M-x") 'helm-M-x)
+
+;; ace jump
+(require 'ace-jump-mode)
+(ace-jump-mode)
+(global-set-key (kbd "C-c SPC") 'ace-jump-word-mode)
+
 (provide 'lk/customizations)
 ;;; customizations.el ends here

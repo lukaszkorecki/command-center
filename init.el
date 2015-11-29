@@ -7,8 +7,9 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
+(require 'better-defaults)
 
-(require 'lk/font-face)
+
 (require 'lk/customizations)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
@@ -18,13 +19,6 @@
 
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
-
-;; tmp file settings
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
 
 ;; use ssh for tramp
 (setq tramp-default-method "ssh")
@@ -39,10 +33,6 @@
 
 ;; turn off initial scratch buffer message
 (setq initial-scratch-message "")
-;; set colors
-(require 'color-theme)
-(color-theme-sanityinc-tomorrow-night)
-
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -72,18 +62,11 @@
   (set-fontset-font t 'unicode "Apple Symbols" nil 'prepend)
   (scroll-bar-mode -1)) ; no scrollbars
 
-(menu-bar-mode -1) ; no menu
-(tool-bar-mode -1) ; no toolbar
-
 (setq echo-keystrokes 0.1
-      use-dialog-box nil
-      visible-bell nil)
+      use-dialog-box nil visible-bell nil)
 
 ; always match parens
 (show-paren-mode t)
-
-; make clipboard work
-(setq x-select-enable-clipboard 0)
 
 ; load custom abbreviations
 (require 'lk/abbrevs)
@@ -97,9 +80,14 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+;; set colors and fonts
+(require 'lk/font-face)
 (lk/normal-font)
 
-; customize the mode-line
+(require 'color-theme)
+(color-theme-sanityinc-tomorrow-night)
+
+;; customize the mode-line
 (setq-default mode-line-format
  (list
   '(:eval (propertize " %l | %c | " 'face 'font-lock-comment-face))

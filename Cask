@@ -34,3 +34,5 @@
 (depends-on "web-mode")
 (depends-on "weechat")
 (depends-on "yaml-mode")
+(depends-on "ace-jump-mode")
+(depends-on "better-defaults")
