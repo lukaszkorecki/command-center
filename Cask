@@ -36,3 +36,4 @@
 (depends-on "yaml-mode")
 (depends-on "ace-jump-mode")
 (depends-on "better-defaults")
+(depends-on "twittering-mode")

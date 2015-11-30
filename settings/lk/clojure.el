@@ -1,4 +1,3 @@
-
 (defun lk/fix-with-cljfmt-and-reload ()
   "Run rubocop -a and reloads the buffer."
   (interactive)
@@ -10,3 +9,5 @@
                  "fix"
                  buffer-file-name)
   (revert-buffer t t))
+
+(provide 'lk/clojure.el)

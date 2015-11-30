@@ -8,8 +8,6 @@
 (cask-initialize)
 
 (require 'better-defaults)
-
-
 (require 'lk/customizations)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
@@ -68,15 +66,14 @@
 ; always match parens
 (show-paren-mode t)
 
-; load custom abbreviations
+;; load custom abbreviations
 (require 'lk/abbrevs)
 
-; language customizations
+;; language customizations
 (require 'lk/lang)
-
 (require 'lk/weechat)
 
-; customizations file
+;; customizations file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
@@ -85,7 +82,7 @@
 (lk/normal-font)
 
 (require 'color-theme)
-(color-theme-sanityinc-tomorrow-night)
+(color-theme-sanityinc-tomorrow-eighties)
 
 ;; customize the mode-line
 (setq-default mode-line-format

@@ -29,9 +29,10 @@
 ; web-mode stuff
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
 
 
 (require 'lk/ruby)
-
+(require 'lk/clojure)
 (provide 'lk/lang)

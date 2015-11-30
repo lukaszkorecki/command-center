@@ -61,7 +61,6 @@
 
 ;; ace jump
 (require 'ace-jump-mode)
-(ace-jump-mode)
 (global-set-key (kbd "C-c SPC") 'ace-jump-word-mode)
 
 (provide 'lk/customizations)
