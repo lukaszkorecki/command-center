@@ -9,3 +9,5 @@ tags
 .cask
 .#*
 places
+ido.last
+./projectile-bookmarks.eld

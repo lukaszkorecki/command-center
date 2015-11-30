@@ -10,4 +10,4 @@
                  buffer-file-name)
   (revert-buffer t t))
 
-(provide 'lk/clojure.el)
+(provide 'lk/clojure)
