@@ -71,7 +71,7 @@
 
 ;; language customizations
 (require 'lk/lang)
-(require 'lk/weechat)
+
 
 ;; customizations file
 (setq custom-file "~/.emacs.d/custom.el")
@@ -98,6 +98,8 @@
   '(:eval (propertize "%z " 'face 'font-lock-string-face))
   ; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
+
+
 ))
 
 (provide 'init)
