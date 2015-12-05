@@ -8,6 +8,8 @@
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
 
+(add-hook 'ruby-mode-hook #'linum-mode)
+
 (defun lk/ruby-convert-hash ()
   "Convert old school :hash => 'val' to hash: 'val'."
   (interactive)
