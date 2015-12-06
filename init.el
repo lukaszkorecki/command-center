@@ -1,7 +1,6 @@
 ;;;; init --- loads all customizations and packages
 ;;;; Commentary - yeah!
 
-(add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/settings")
 
 (require 'cask "~/.cask/cask.el")

@@ -16,6 +16,7 @@
 (depends-on "helm")
 (depends-on "helm-projectile")
 
+(depends-on "magit")
 
 (depends-on "color-theme")
 (depends-on "color-theme-sanityinc-tomorrow")
