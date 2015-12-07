@@ -18,10 +18,6 @@
 (depends-on "helm")
 (depends-on "helm-projectile")
 
-; yep
-(depends-on "magit")
-(depends-on "gist")
-
 ; non-programming modes
 (depends-on "csv-mode")
 (depends-on "markdown-mode")
