@@ -2,6 +2,7 @@
 (source melpa)
 (source gnu)
 
+; General utils
 (depends-on "cask")
 (depends-on "s")
 (depends-on "move-text")
@@ -12,28 +13,42 @@
 (depends-on "better-defaults")
 (depends-on "indent-guide")
 
+; File navigation
 (depends-on "projectile")
 (depends-on "helm")
 (depends-on "helm-projectile")
 
+; yep
 (depends-on "magit")
+(depends-on "gist")
 
+; non-programming modes
+(depends-on "csv-mode")
+(depends-on "markdown-mode")
+(depends-on "es-mode")
+
+; colors
 (depends-on "color-theme")
 (depends-on "color-theme-sanityinc-tomorrow")
 
+; sort this out once-and-for-all
 (depends-on "editorconfig")
 (depends-on "editorconfig-core")
-
-
 (depends-on "gitignore-mode")
+
+; major modes for programming
+
 (depends-on "go-mode")
-(depends-on "handlebars-mode")
+
 (depends-on "ansible")
+(depends-on "terraform-mode")
+
 (depends-on "js2-mode")
+(depends-on "handlebars-mode")
 (depends-on "json-mode")
-(depends-on "markdown-mode")
+
 (depends-on "python-mode")
-(depends-on "es-mode")
+
 (depends-on "web-mode")
 (depends-on "yaml-mode")
 
@@ -41,9 +56,10 @@
 (depends-on "ruby-mode")
 
 (depends-on "scss-mode")
+
+; Clojure!
 (depends-on "cider")
 (depends-on "clojure-mode")
 (depends-on "rainbow-delimiters")
-
 (depends-on "smartparens")
 (depends-on "clojure-mode-extra-font-locking")

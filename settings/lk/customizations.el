@@ -37,6 +37,12 @@
   (end-of-line) ; move to end of line
   (set-mark (line-beginning-position)))
 
+(defun lk/join-lines ()
+  (interactive)
+  (next-line)
+  (end-of-line)
+  (join-line))
+
 
 
 
@@ -48,7 +54,7 @@
 (global-set-key (kbd "C-x t") 'turnip-send-region)
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
-(global-set-key (kbd "C-x j") 'join-line)
+(global-set-key (kbd "C-x j") 'lk/join-lines)
 
 ;; better window movements
 (global-set-key (kbd "ESC <left>") 'windmove-left)
