@@ -8,18 +8,9 @@
 
 (require 'better-defaults)
 (require 'lk/customizations)
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-
-(setq helm-M-x-fuzzy-match t)
-
-(setq projectile-use-git-grep t)
-(setq projectile-completion-system 'grizzl)
 
 ;; use ssh for tramp
 (setq tramp-default-method "ssh")
-
 
 (require 'ansi-color)
 ;; yes/no -> y/n
@@ -34,13 +25,13 @@
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-; indenting
+;; indenting
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq-default standard-indent 2)
 (setq-default fill-column 78)
 
-; force the above everywhere via editorconfig
+;; force the above everywhere via editorconfig
 (require 'editorconfig)
 (load "editorconfig")
 (setq editorconfig-get-properties-function
@@ -49,10 +40,7 @@
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
-; highlight current line
-(global-hl-line-mode 1)
-
-; no backup files
+;; no backup files
 (setq-default make-backup-files nil)
 
 (when window-system
@@ -62,7 +50,7 @@
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
 
-; always match parens
+;; always match parens
 (show-paren-mode t)
 
 ;; load custom abbreviations
@@ -97,10 +85,7 @@
   '(:eval (propertize "%z " 'face 'font-lock-string-face))
   ; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
-
-
 ))
 
 (provide 'init)
-
 ;;; init.el ends here

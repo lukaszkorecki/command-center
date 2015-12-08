@@ -4,6 +4,16 @@
 ;;; Code:
 
 ;;; Make magit and emacs behavie like Fugitive
+(require 'git)
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+
+(setq helm-M-x-fuzzy-match t)
+
+(setq projectile-use-git-grep t)
+(setq projectile-completion-system 'grizzl)
+
 (defun lk/git-checkout-current-file ()
   "Run git checkout on currently opened file."
   (interactive)
@@ -42,9 +52,6 @@
   (next-line)
   (end-of-line)
   (join-line))
-
-
-
 
 (global-set-key (kbd "C-x p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x M-p") 'projectile-find-file-other-window)
