@@ -13,7 +13,7 @@
 (depends-on "better-defaults")
 (depends-on "indent-guide")
 
-; File navigation
+; File navigation and such
 (depends-on "projectile")
 (depends-on "helm")
 (depends-on "helm-projectile")
@@ -27,13 +27,9 @@
 (depends-on "color-theme")
 (depends-on "color-theme-sanityinc-tomorrow")
 
-; sort this out once-and-for-all
-(depends-on "editorconfig")
-(depends-on "editorconfig-core")
 (depends-on "gitignore-mode")
 
 ; major modes for programming
-
 (depends-on "go-mode")
 
 (depends-on "ansible")

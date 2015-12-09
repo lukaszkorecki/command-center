@@ -40,6 +40,10 @@
   (interactive (list (completing-read "Search for: " nil nil nil (current-word))))
   (grep-find (concat "git --no-pager grep -P -n " search " `git rev-parse --show-toplevel`")))
 
+(defun lk/git-surf-current-line ()
+  (interactive)
+  (defvar-local curr-line (line-number-at-pos))
+  (message "Current line %s" curr-line))
 
 (defun lk/select-line ()
   "Select current line"
@@ -55,6 +59,8 @@
 
 (global-set-key (kbd "C-x p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x M-p") 'projectile-find-file-other-window)
+(global-set-key (kbd "C-x b") 'helm-mini)
+
 (global-set-key (kbd "C-x g") 'lk/git-grep)
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
 

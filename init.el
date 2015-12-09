@@ -31,13 +31,6 @@
 (setq-default standard-indent 2)
 (setq-default fill-column 78)
 
-;; force the above everywhere via editorconfig
-(require 'editorconfig)
-(load "editorconfig")
-(setq editorconfig-get-properties-function
-      'editorconfig-core-get-properties-hash)
-(editorconfig-mode 1)
-
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; no backup files
