@@ -10,6 +10,8 @@
 
 (add-hook 'ruby-mode-hook #'linum-mode)
 
+(setq-default ruby-indent-level 2)
+
 (defun lk/ruby-convert-hash ()
   "Convert old school :hash => 'val' to hash: 'val'."
   (interactive)
