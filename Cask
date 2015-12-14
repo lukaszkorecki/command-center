@@ -30,6 +30,7 @@
 ;; git
 (depends-on "magit")
 (depends-on "gitignore-mode")
+(depends-on "gist")
 
 ;; major modes for programming
 (depends-on "go-mode")
