@@ -58,7 +58,7 @@
   (join-line))
 
 (global-set-key (kbd "C-x p") 'helm-projectile-find-file)
-(global-set-key (kbd "C-x M-p") 'projectile-find-file-other-window)
+(global-set-key (kbd "C-x M-p") 'helm-projectile-find-other-file)
 (global-set-key (kbd "C-x b") 'helm-mini)
 
 (global-set-key (kbd "C-x g") 'lk/git-grep)
@@ -70,10 +70,10 @@
 (global-set-key (kbd "C-x j") 'lk/join-lines)
 
 ;; better window movements
-(global-set-key (kbd "ESC <left>") 'windmove-left)
-(global-set-key (kbd "ESC <right>") 'windmove-right)
-(global-set-key (kbd "ESC <up>") 'windmove-up)
-(global-set-key (kbd "ESC <down>") 'windmove-down)
+(global-set-key (kbd "C-c <left>") 'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>") 'windmove-up)
+(global-set-key (kbd "C-c <down>") 'windmove-down)
 
 ;; override M-x to use helm-M-x
 (global-set-key (kbd "M-x") 'helm-M-x)
