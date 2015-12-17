@@ -17,6 +17,9 @@
 (depends-on "projectile")
 (depends-on "helm")
 (depends-on "helm-projectile")
+(depends-on "swiper")
+(depends-on "swiper-helm")
+
 
 ;; non-programming modes
 (depends-on "csv-mode")
