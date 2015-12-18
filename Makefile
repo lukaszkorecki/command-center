@@ -6,3 +6,7 @@ link:
 
 packages:
 	~/.cask/bin/cask
+
+
+update:
+	~/.cask/bin/cask update
