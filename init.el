@@ -24,6 +24,11 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; show over 80chars
+
+(require 'whitespace)
+(setq whitespace-style '(face empty tabs lines-tail trailing))
+(global-whitespace-mode t)
 
 ;; indenting
 (setq-default indent-tabs-mode nil)
