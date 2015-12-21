@@ -19,7 +19,7 @@
 (depends-on "helm-projectile")
 (depends-on "swiper")
 (depends-on "swiper-helm")
-
+(depends-on "grizzl")
 
 ;; non-programming modes
 (depends-on "csv-mode")
