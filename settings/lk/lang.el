@@ -10,7 +10,6 @@
 ; markdown!
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
-(add-hook 'markdown-mode-hook (lambda () (flyspell-mode)))
 
 ;
 (add-to-list 'auto-mode-alist '("\\.go$" . go-mode))
@@ -19,6 +18,7 @@
 (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
 (add-hook 'scss-mode-hook #'linum-mode)
 (setq-default scss-compile-at-save nil)
+(setq css-indent-offset 2)
 
 (add-to-list 'auto-mode-alist '("\\.hb$" . handlebars-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
