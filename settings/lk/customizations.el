@@ -69,6 +69,9 @@
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
 
+(global-set-key (kbd "C-x |") 'split-window-horizontally)
+(global-set-key (kbd "C-x -") 'split-window-vertically)
+
 ;; better window movements
 (global-set-key (kbd "ESC <left>") 'windmove-left)
 (global-set-key (kbd "ESC <right>") 'windmove-right)
