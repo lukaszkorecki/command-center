@@ -61,3 +61,8 @@
 (depends-on "rainbow-delimiters")
 (depends-on "smartparens")
 (depends-on "clojure-mode-extra-font-locking")
+
+;; Various tools and utils
+
+
+(depends-on "weechat")

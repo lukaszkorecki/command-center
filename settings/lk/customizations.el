@@ -57,6 +57,12 @@
   (end-of-line)
   (join-line))
 
+(defun lk/new-empty-buffer ()
+  (interactive)
+  (let ((buf (generate-new-buffer "blank")))
+    (set-buffer-major-mode buf)
+    (display-buffer buf '(display-buffer-pop-up-frame . nil))))
+
 (global-set-key (kbd "C-x p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x M-p") 'helm-projectile-find-other-file)
 (global-set-key (kbd "C-x b") 'helm-mini)
@@ -68,6 +74,7 @@
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
+(global-set-key (kbd "C-c C-n") 'lk/new-empty-buffer)
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
