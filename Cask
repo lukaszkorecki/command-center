@@ -25,6 +25,7 @@
 (depends-on "csv-mode")
 (depends-on "markdown-mode")
 (depends-on "es-mode")
+(depends-on "restclient")
 
 ;; colors
 (depends-on "color-theme")
