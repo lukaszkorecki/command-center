@@ -69,10 +69,12 @@
 (require 'color-theme)
 (color-theme-sanityinc-tomorrow-eighties)
 
+(require 'eyebrowse)
+
 ;; customize the mode-line
 (setq-default mode-line-format
  (list
-  '(:eval (propertize " %l | %c | " 'face 'font-lock-comment-face))
+  '(:eval (propertize "⎈ %l | %c | " 'face 'font-lock-comment-face))
 ; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
 ; major mode

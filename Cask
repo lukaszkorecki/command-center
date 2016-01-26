@@ -67,3 +67,4 @@
 
 
 (depends-on "weechat")
+(depends-on "eyebrowse")
