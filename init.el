@@ -70,21 +70,27 @@
 (color-theme-sanityinc-tomorrow-eighties)
 
 (require 'eyebrowse)
+(eyebrowse-mode t)
 
 ;; customize the mode-line
 (setq-default mode-line-format
  (list
-  '(:eval (propertize "⎈ %l | %c | " 'face 'font-lock-comment-face))
-; buffername
+  '(:eval (propertize "⎈ | %l | %c | " 'face 'font-lock-comment-face))
+  ;; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
-; major mode
+  ;; major mode
   '(:eval (propertize "%m " 'face 'font-lock-comment-face))
-; list minor modes
+  ;; list minor modes
   '(:eavl (propertize 'minor-mode-alist 'face 'font-lock-variable-name-face))
-; encoding and line ending
+  ;; encoding and line ending
   '(:eval (propertize "%z " 'face 'font-lock-string-face))
-  ; modified * / RO % / no changes -
+  ;; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
+
+  ;; eyebrowse and buffer count status
+  '(:eval (format " | Buffers: %s | Spaces: %s"
+                  (lk/count-buffers)
+                  (eyebrowse-mode-line-indicator)))
 ))
 
 (provide 'init)
