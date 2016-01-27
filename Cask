@@ -53,6 +53,7 @@
 
 (depends-on "rubocop")
 (depends-on "ruby-mode")
+(depends-on "inf-ruby")
 
 (depends-on "scss-mode")
 
