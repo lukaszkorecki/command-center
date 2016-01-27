@@ -75,7 +75,7 @@
 ;; customize the mode-line
 (setq-default mode-line-format
  (list
-  '(:eval (propertize "⎈ | %l | %c | " 'face 'font-lock-comment-face))
+   "⎈ | %l | %c | "
   ;; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
   ;; major mode
@@ -88,9 +88,12 @@
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
 
   ;; eyebrowse and buffer count status
-  '(:eval (format " | Buffers: %s | Spaces: %s"
-                  (lk/count-buffers)
-                  (eyebrowse-mode-line-indicator)))
+  '(:eval (propertize
+           (format " [B: %s] " (lk/count-buffers))
+           'face 'font-lock-comment-face))
+  '(:eval (propertize
+          (eyebrowse-mode-line-indicator)
+          'face 'font-lock-function-face))
 ))
 
 (provide 'init)
