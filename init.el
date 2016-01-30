@@ -71,6 +71,7 @@
 
 (require 'eyebrowse)
 (eyebrowse-mode t)
+(setq custom-file "~/.emacs.d/custom.el")
 
 ;; customize the mode-line
 (setq-default mode-line-format

@@ -88,6 +88,9 @@
 (global-set-key (kbd "C-c <up>") 'windmove-up)
 (global-set-key (kbd "C-c <down>") 'windmove-down)
 
+(global-set-key (kbd "C-x >") 'eyebrowse-next-window-config)
+(global-set-key (kbd "C-x <") 'eyebrowse-prev-window-config)
+
 ;; override M-x to use helm-M-x
 (global-set-key (kbd "M-x") 'helm-M-x)
 
