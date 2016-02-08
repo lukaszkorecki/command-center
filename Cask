@@ -6,10 +6,11 @@
 (depends-on "cask")
 (depends-on "s")
 (depends-on "move-text")
-(depends-on "turnip")
+
 (depends-on "undo-tree")
-(depends-on "use-package")
-(depends-on "ace-jump-mode")
+
+(depends-on "avy")
+
 (depends-on "better-defaults")
 (depends-on "indent-guide")
 
@@ -35,6 +36,7 @@
 (depends-on "magit")
 (depends-on "gitignore-mode")
 (depends-on "gist")
+(depends-on "git-link")
 
 ;; major modes for programming
 (depends-on "go-mode")

@@ -12,40 +12,5 @@
 
 (setq-default ruby-indent-level 2)
 
-(defun lk/ruby-convert-hash ()
-  "Convert old school :hash => 'val' to hash: 'val'."
-  (interactive)
-  (delete-char 1)
-  (search-forward " ")
-  (delete-backward-char 1)
-  (zap-to-char 1 ?>)
-  (insert ":"))
-
-
-(defun lk/fix-with-rubocop-and-reload ()
-  "Run rubocop -a and reloads the buffer."
-  (interactive)
-  (save-buffer)
-  (start-process "rubo-cop-silent"
-                 (get-buffer-create "*Rubo-cop-auto*")
-                 "rubocop"
-                 "-a"
-                 buffer-file-name)
-  (revert-buffer t t))
-
-(add-hook 'ruby-mode-hook (lambda () (abbrev-mode)))
-
-
-(defun lk/run-tests ()
-  "Run minitest test for current buffer using `tu` wrapper."
-  (interactive)
-  (shell-command
-   (format
-    (file-truename "~/.DotFiles/bins/tu %s %s")
-    (shell-quote-argument buffer-file-name)
-    (projectile-project-root))))
-
-
-
 (provide 'lk/ruby)
 ;;; ruby.el ends here

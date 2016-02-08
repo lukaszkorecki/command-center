@@ -39,7 +39,7 @@
 (add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
 (add-hook 'web-mode-hook #'linum-mode)
 
-
+(add-hook 'elisp-hook #'linum-mode)
 (add-hook 'es-mode-hook #'linum-mode)
 (add-hook 'emacs-lisp-hook #'linum-mode)
 (add-hook 'yaml-mode-hook #'linum-mode)
@@ -47,4 +47,5 @@
 
 (require 'lk/ruby)
 (require 'lk/clojure)
+
 (provide 'lk/lang)

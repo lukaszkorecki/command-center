@@ -7,6 +7,7 @@
 (cask-initialize)
 
 (require 'better-defaults)
+(require 'lk/helm)
 (require 'lk/customizations)
 
 ;; use ssh for tramp
@@ -69,9 +70,7 @@
 (require 'color-theme)
 (color-theme-sanityinc-tomorrow-eighties)
 
-(require 'eyebrowse)
-(eyebrowse-mode t)
-(setq custom-file "~/.emacs.d/custom.el")
+(require 'lk/eyebrowse)
 
 ;; customize the mode-line
 (setq-default mode-line-format

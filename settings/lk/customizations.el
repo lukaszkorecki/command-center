@@ -1,49 +1,10 @@
-;;;; lk/customizations.el -- custom functions which make usingemacs easier
+;;;; lk/customipaczations.el -- custom functions which make using emacs easier
 ;;; Commentary:
-;;; also include maps :-)
+;;; If stuff grows too big, move it out to a separate file
 ;;; Code:
 
 ;;; Make magit and emacs behavie like Fugitive
 (require 'git)
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-
-(setq helm-M-x-fuzzy-match t)
-
-(setq projectile-use-git-grep t)
-(setq projectile-completion-system 'grizzl)
-
-(defun lk/git-checkout-current-file ()
-  "Run git checkout on currently opened file."
-  (interactive)
-  (start-process "git-checkout"
-                 (get-buffer-create "*git-checkout*")
-                 "git"
-                 "checkout"
-                 buffer-file-name)
-  (find-file-noselect buffer-file-name))
-
-(defun lk/git-remove-current-file ()
-  "Run git rm on current file and kill current buffer."
-  (interactive)
-  (start-process "git-remove"
-                 (get-buffer-create "*git-remove*")
-                 "git"
-                 "rm"
-                 "-f"
-                 buffer-file-name)
-  (kill-buffer))
-
-(defun lk/git-grep (search)
-  "Run git-grep in current git dir with SEARCH."
-  (interactive (list (completing-read "Search for: " nil nil nil (current-word))))
-  (grep-find (concat "git --no-pager grep -P -n " search " `git rev-parse --show-toplevel`")))
-
-(defun lk/git-surf-current-line ()
-  (interactive)
-  (defvar-local curr-line (line-number-at-pos))
-  (message "Current line %s" curr-line))
 
 (defun lk/select-line ()
   "Select current line"
@@ -57,27 +18,14 @@
   (end-of-line)
   (join-line))
 
-(defun lk/new-empty-buffer ()
-  (interactive)
-  (let ((buf (generate-new-buffer "blank")))
-    (set-buffer-major-mode buf)
-    (display-buffer buf '(display-buffer-pop-up-frame . nil))))
-
 (defun lk/count-buffers ()
   (length (buffer-list)))
 
-(global-set-key (kbd "C-x p") 'helm-projectile-find-file)
-(global-set-key (kbd "C-x M-p") 'helm-projectile-find-other-file)
-(global-set-key (kbd "C-x b") 'helm-mini)
-
-(global-set-key (kbd "C-x g") 'lk/git-grep)
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
-
-(global-set-key (kbd "C-x t") 'turnip-send-region)
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
-(global-set-key (kbd "C-c C-n") 'lk/new-empty-buffer)
+
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
@@ -88,15 +36,10 @@
 (global-set-key (kbd "C-c <up>") 'windmove-up)
 (global-set-key (kbd "C-c <down>") 'windmove-down)
 
-(global-set-key (kbd "C-x >") 'eyebrowse-next-window-config)
-(global-set-key (kbd "C-x <") 'eyebrowse-prev-window-config)
-
-;; override M-x to use helm-M-x
-(global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; ace jump
-(require 'ace-jump-mode)
-(global-set-key (kbd "C-c SPC") 'ace-jump-word-mode)
+(require 'avy)
+(global-set-key (kbd "C-c SPC") 'avy-goto-char)
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here
