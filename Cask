@@ -68,6 +68,4 @@
 
 ;; Various tools and utils
 
-
-(depends-on "weechat")
 (depends-on "eyebrowse")
