@@ -39,7 +39,7 @@
 
 ;; ace jump
 (require 'avy)
-(global-set-key (kbd "C-c SPC") 'avy-goto-char)
+(global-set-key (kbd "C-c s") 'avy-goto-char)
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here

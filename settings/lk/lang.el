@@ -3,6 +3,8 @@
 ;;; For now all of these are groupped together but if some modes need more
 ;;; space, they will be moved to separate files
 
+(setq linum-format "%3d ")
+
 ;;; Code:
 (add-to-list 'auto-mode-alist '("\\.gitignore$" . gitignore-mode))
 (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
@@ -39,11 +41,17 @@
 (add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
 (add-hook 'web-mode-hook #'linum-mode)
 
-(add-hook 'elisp-hook #'linum-mode)
+(add-hook 'elisp-mode-hook #'linum-mode)
 (add-hook 'es-mode-hook #'linum-mode)
 (add-hook 'emacs-lisp-hook #'linum-mode)
 (add-hook 'yaml-mode-hook #'linum-mode)
 (add-hook 'terraform-mode-hook #'linum-mode)
+
+;; sh mode
+(add-hook 'sh-mode #'linum-mode)
+(setq sh-indentation 2)
+(setq sh-basic-offset 2)
+
 
 (require 'lk/ruby)
 (require 'lk/clojure)
