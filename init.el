@@ -68,7 +68,7 @@
 (lk/normal-font)
 
 (require 'color-theme)
-(color-theme-sanityinc-tomorrow-eighties)
+; (load-theme 'base-16-colors-dark t)
 
 (require 'lk/eyebrowse)
 
