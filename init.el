@@ -75,7 +75,7 @@
 ;; customize the mode-line
 (setq-default mode-line-format
  (list
-   "⎈ | %l | %c | "
+   " ⎈ | %l | %c | "
   ;; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
   ;; major mode
