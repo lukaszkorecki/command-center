@@ -65,6 +65,7 @@
 (depends-on "rainbow-delimiters")
 (depends-on "smartparens")
 (depends-on "clojure-mode-extra-font-locking")
+(depends-on "kibit-helper")
 
 ;; Various tools and utils
 
