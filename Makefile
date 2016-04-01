@@ -1,3 +1,9 @@
+EMACS_PATH := /usr/bin/emacs
+
+ifeq ($(shell uname),Darwin)
+	EMACS_PATH := /Applications/Emacs.app/Contents/MacOS/Emacs
+endif
+
 setup: link packages
 
 link:
@@ -5,8 +11,8 @@ link:
 
 
 packages:
-	~/.cask/bin/cask
+	EMACS=$(EMACS_PATH) ~/.cask/bin/cask
 
 
 update:
-	~/.cask/bin/cask update
+	EMACS=$(EMACS_PATH) ~/.cask/bin/cask update
