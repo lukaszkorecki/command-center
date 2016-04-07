@@ -70,3 +70,6 @@
 ;; Various tools and utils
 
 (depends-on "eyebrowse")
+(depends-on "erc-colorize")
+(depends-on "erc-image")
+(depends-on "erc-hl-nicks")

@@ -58,6 +58,8 @@
 ;; language customizations
 (require 'lk/lang)
 
+;; require erc configs
+(require 'lk/erc)
 
 ;; customizations file
 (setq custom-file "~/.emacs.d/custom.el")
@@ -99,3 +101,4 @@
 (provide 'init)
 ;;; init.el ends here
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
