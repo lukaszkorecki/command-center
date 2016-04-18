@@ -66,9 +66,6 @@
 (require 'lk/font-face)
 (lk/normal-font)
 
-(require 'color-theme)
-; (load-theme 'base-16-colors-dark t)
-
 (require 'lk/eyebrowse)
 
 ;; customize the mode-line

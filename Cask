@@ -68,7 +68,7 @@
 (depends-on "kibit-helper")
 
 ;; Various tools and utils
-(depeonds-on "weechat")
+(depends-on "weechat")
 (depends-on "eyebrowse")
 
 
