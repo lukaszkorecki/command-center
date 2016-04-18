@@ -58,9 +58,6 @@
 ;; language customizations
 (require 'lk/lang)
 
-;; require erc configs
-(require 'lk/erc)
-
 ;; customizations file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)

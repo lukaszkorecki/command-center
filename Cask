@@ -68,8 +68,11 @@
 (depends-on "kibit-helper")
 
 ;; Various tools and utils
-
+(depeonds-on "weechat")
 (depends-on "eyebrowse")
-(depends-on "erc-colorize")
-(depends-on "erc-image")
-(depends-on "erc-hl-nicks")
+
+
+(depends-on "github-browse-file")
+
+;; integrate with dash
+(depends-on "dash-at-point")
