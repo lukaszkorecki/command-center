@@ -37,9 +37,9 @@
 (global-set-key (kbd "C-c <down>") 'windmove-down)
 
 
-;; ace jump
+;; avy jump
 (require 'avy)
-(global-set-key (kbd "C-c s") 'avy-goto-char)
+(global-set-key (kbd "C-c s") 'avy-goto-word-0)
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here
