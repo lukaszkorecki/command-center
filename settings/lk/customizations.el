@@ -37,6 +37,9 @@
 (global-set-key (kbd "C-c <down>") 'windmove-down)
 
 
+;; magit stuff
+(global-set-key (kbd "C-c m s") 'magit-status)
+
 ;; avy jump
 (require 'avy)
 (global-set-key (kbd "C-c s") 'avy-goto-word-0)

@@ -15,16 +15,10 @@
   (ANY 2)
   (context 2))
 
-(defun lk/fix-with-cljfmt-and-reload ()
-  "Run rubocop -a and reloads the buffer."
-  (interactive)
-  (save-buffer)
-  (start-process "cljfmt-fix"
-                 (get-buffer-create "*clj-fmt-fix*")
-                 "lein"
-                 "cljfmt"
-                 "fix"
-                 buffer-file-name)
-  (revert-buffer t t))
+(global-set-key (kbd "C-x c l") 'cider-connect)
+(global-set-key (kbd "C-x c s") 'cider-scratch)
+(global-set-key (kbd "C-x c f") 'cider-format-buffer)
+(global-set-key (kbd "C-x c r") 'cider-refresh)
+
 
 (provide 'lk/clojure)

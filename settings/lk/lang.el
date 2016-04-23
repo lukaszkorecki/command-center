@@ -3,7 +3,7 @@
 ;;; For now all of these are groupped together but if some modes need more
 ;;; space, they will be moved to separate files
 
-(setq linum-format "%3d ")
+(setq linum-format "%3d|")
 
 ;;; Code:
 (add-to-list 'auto-mode-alist '("\\.gitignore$" . gitignore-mode))
