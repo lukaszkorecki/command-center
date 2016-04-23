@@ -35,7 +35,6 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq-default standard-indent 2)
-(setq-default fill-column 78)
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
