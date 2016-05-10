@@ -67,14 +67,7 @@
 (depends-on "clojure-mode-extra-font-locking")
 (depends-on "kibit-helper")
 
-;; Various tools and utils
-(depends-on "weechat")
-(depends-on "weechat-alert")
-(depends-on "alert")
-
-
 (depends-on "eyebrowse")
-
 
 (depends-on "github-browse-file")
 
