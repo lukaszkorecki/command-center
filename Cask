@@ -3,7 +3,7 @@
 (source gnu)
 
 ;; General utils
-(depends-on "cask")
+;;(depends-on "cask")
 (depends-on "s")
 (depends-on "move-text")
 
@@ -61,7 +61,7 @@
 (depends-on "scss-mode")
 
 ;; Clojure!
-(depends-on "cider")
+(depends-on "cider" "20160418.2329")
 (depends-on "clojure-mode")
 (depends-on "rainbow-delimiters")
 (depends-on "smartparens")
