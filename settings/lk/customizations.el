@@ -39,6 +39,7 @@
 
 ;; magit stuff
 (global-set-key (kbd "C-c m s") 'magit-status)
+(global-set-key (kbd "C-x C-g") 'vc-git-grep)
 
 ;; avy jump
 (require 'avy)
