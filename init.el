@@ -67,6 +67,9 @@
 
 (require 'lk/eyebrowse)
 
+;; vc mode line needs refreshing every now and then
+(setq auto-revert-check-vc-info t)
+
 ;; customize the mode-line
 (setq-default mode-line-format
  (list
