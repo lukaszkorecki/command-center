@@ -82,6 +82,10 @@
   ;; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
 
+  '(:eval (propertize (format " %s " (vc-git-mode-line-string "."))
+                     'face
+                     'font-lock-variable-name-face))
+
   ;; eyebrowse and buffer count status
   '(:eval (propertize
            (format " [B: %s] " (lk/count-buffers))

@@ -43,7 +43,7 @@
 
 ;; avy jump
 (require 'avy)
-(global-set-key (kbd "C-c s") 'avy-goto-word-0)
+(global-set-key (kbd "C-x y") 'avy-goto-word-0)
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here
