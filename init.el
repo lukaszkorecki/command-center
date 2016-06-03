@@ -70,6 +70,15 @@
 ;; vc mode line needs refreshing every now and then
 (setq auto-revert-check-vc-info t)
 
+(require 's)
+
+(defun vc-status-mode-line ()
+  "Builds a source control string or nil."
+  (when vc-mode
+    `(" ["
+      ,(s-trim (substring-no-properties vc-mode))
+      "] ")))
+
 ;; customize the mode-line
 (setq-default mode-line-format
  (list
@@ -85,9 +94,7 @@
   ;; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
 
-  '(:eval (propertize (format " %s " (vc-git-mode-line-string "."))
-                     'face
-                     'font-lock-variable-name-face))
+  '(:eval (vc-status-mode-line))
 
   ;; eyebrowse and buffer count status
   '(:eval (propertize
@@ -95,8 +102,8 @@
            'face 'font-lock-comment-face))
   '(:eval (propertize
           (eyebrowse-mode-line-indicator)
-          'face 'font-lock-function-face))
-))
+          'face 'font-lock-function-face))))
+
 
 (provide 'init)
 ;;; init.el ends here
