@@ -36,6 +36,7 @@
 (setq-default tab-width 2)
 (setq-default standard-indent 2)
 
+(setq x-alt-keysym 'meta) ; make alt work as meta in x11
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; no backup files
@@ -43,13 +44,17 @@
 
 (when window-system
   (set-fontset-font t 'unicode "Apple Symbols" nil 'prepend)
-  (scroll-bar-mode -1)) ; no scrollbars
+  (scroll-bar-mode -1)
+  (add-to-list  'default-frame-alist '(font  . "Droid Sans Mono-10"))
+  (set-face-attribute 'default ' t :font "Droid Sans Mono-10"))
 
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
 
 ;; always match parens
 (show-paren-mode t)
+
+(require 'transpose-frame)
 
 ;; load custom abbreviations
 (require 'lk/abbrevs)

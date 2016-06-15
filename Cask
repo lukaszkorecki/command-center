@@ -69,6 +69,7 @@
 (depends-on "kibit-helper")
 
 (depends-on "eyebrowse")
+(depends-on "transpose-frame")
 
 (depends-on "github-browse-file")
 
