@@ -36,6 +36,9 @@
 (global-set-key (kbd "C-c <up>") 'windmove-up)
 (global-set-key (kbd "C-c <down>") 'windmove-down)
 
+;; bind awkard M-[ & M-] to something better
+(global-set-key (kbd "M-n") 'forward-paragraph)
+(global-set-key (kbd "M-p") 'backward-paragraph)
 
 ;; magit stuff
 (global-set-key (kbd "C-c m s") 'magit-status)
