@@ -77,7 +77,7 @@
    `(isearch ((,class (:bold t :foreground ,warning :background ,bg3))))
    `(isearch-fail ((,class (:foreground ,bg1 :background ,warning))))
    `(mode-line ((,class (:foreground nil :background ,bg3 :box ,bg3))))
-   `(mode-line-inactive ((,class (:foreground ,fg1 :background ,bg1 :box ,bg1))))
+   `(mode-line-inactive ((,class (:foreground ,fg1 :background ,bg2 :box ,bg1))))
    `(vertical-border ((,class (:foreground ,bg2))))
    `(minibuffer-prompt ((,class (:bold t :foreground ,keyword))))
    `(default-italic ((,class (:italic t))))
