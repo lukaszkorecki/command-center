@@ -59,6 +59,7 @@
 (depends-on "inf-ruby")
 
 (depends-on "scss-mode")
+(depends-on "emmet-mode")
 
 ;; Clojure!
 (depends-on "cider" "20160418.2329")

@@ -45,6 +45,7 @@
 (add-hook 'elisp-mode-hook #'linum-mode)
 (add-hook 'es-mode-hook #'linum-mode)
 (add-hook 'emacs-lisp-hook #'linum-mode)
+(add-hook 'elisp-hook #'linum-mode)
 (add-hook 'yaml-mode-hook #'linum-mode)
 (add-hook 'terraform-mode-hook #'linum-mode)
 
@@ -53,6 +54,10 @@
 (setq sh-indentation 2)
 (setq sh-basic-offset 2)
 
+;; enable emmet
+(require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
 
 (require 'lk/ruby)
 (require 'lk/clojure)
