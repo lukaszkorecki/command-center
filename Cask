@@ -69,6 +69,10 @@
 (depends-on "clojure-mode-extra-font-locking")
 (depends-on "kibit-helper")
 
+;; Scheme
+(depends-on "quack")
+
+;; various navigation stuff
 (depends-on "eyebrowse")
 (depends-on "transpose-frame")
 
