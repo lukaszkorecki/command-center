@@ -1,6 +1,5 @@
 ;;;; init --- loads all customizations and packages
 ;;;; Commentary - yeah!
-
 (add-to-list 'load-path "~/.emacs.d/settings")
 
 (require 'cask "~/.cask/cask.el")
@@ -11,11 +10,7 @@
 (require 'lk/customizations)
 
 ;; make it pretty!
-(setq linum-format " \u2502 ")
-(setq linum-format "%4d \u2502 ")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'dracula t)
-
+(require 'lk/theme)
 ;; use ssh for tramp
 (setq tramp-default-method "ssh")
 
@@ -32,10 +27,9 @@
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; show over 80chars
-
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs lines-tail trailing))
-(global-whitespace-mode t)
+;; (global-whitespace-mode t)
 
 ;; indenting
 (setq-default indent-tabs-mode nil)
