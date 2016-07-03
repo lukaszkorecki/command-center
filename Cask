@@ -59,6 +59,7 @@
 (depends-on "inf-ruby")
 
 (depends-on "scss-mode")
+(depends-on "emmet-mode")
 
 ;; Clojure!
 (depends-on "cider" "20160418.2329")
@@ -68,6 +69,10 @@
 (depends-on "clojure-mode-extra-font-locking")
 (depends-on "kibit-helper")
 
+;; Scheme
+(depends-on "quack")
+
+;; various navigation stuff
 (depends-on "eyebrowse")
 (depends-on "transpose-frame")
 
