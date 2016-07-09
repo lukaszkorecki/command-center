@@ -61,5 +61,6 @@
 
 (require 'lk/ruby)
 (require 'lk/clojure)
+(require 'lk/scheme)
 
 (provide 'lk/lang)

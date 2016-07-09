@@ -70,7 +70,7 @@
 (depends-on "kibit-helper")
 
 ;; Scheme
-(depends-on "quack")
+(depends-on "geiser")
 
 ;; various navigation stuff
 (depends-on "eyebrowse")

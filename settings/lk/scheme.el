@@ -12,4 +12,10 @@
 (put 'unless 'scheme-indent-function 1)
 (put 'match 'scheme-indent-function 1)
 
-(require 'quack)
+
+(add-hook 'scheme-mode-hook #'linum-mode)
+
+(add-hook 'scheme-mode-hook (lambda ()
+                              (require 'geiser)))
+
+(provide 'lk/scheme)
