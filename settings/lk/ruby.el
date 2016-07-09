@@ -9,16 +9,11 @@
 (add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
 
 
-(custom-set-variables
- '(inf-ruby-default-implementation "foreman")
- '(inf-ruby-implementations
-   (quote
-    (("ruby" . "irb --prompt default --noreadline -r irb/completion")
-     ("foreman" . "bundle exec foreman run rails c")
-     ("pry" . "pry")))))
-
-(add-hook 'ruby-mode-hook #'linum-mode)
-(add-hook 'ruby-mode-hook #'inf-ruby-minor-mode)
+(add-hook 'ruby-mode-hook (lambda ()
+                            (linum-mode)
+                            (in-ruby-minor-mode)
+                            (local-set-key (kbd "C-c r")
+                                           'rubocop-autocorrect-current-file)))
 
 (setq-default ruby-indent-level 2)
 
