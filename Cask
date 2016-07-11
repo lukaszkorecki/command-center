@@ -52,6 +52,7 @@
 (depends-on "python-mode")
 
 (depends-on "web-mode")
+(depends-on "emmet-mode")
 (depends-on "yaml-mode")
 
 (depends-on "rubocop")
