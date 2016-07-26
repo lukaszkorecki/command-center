@@ -44,6 +44,7 @@
 
 (depends-on "ansible")
 (depends-on "terraform-mode")
+(depends-on "dockerfile-mode")
 
 (depends-on "js2-mode")
 (depends-on "handlebars-mode")
@@ -74,7 +75,6 @@
 (depends-on "geiser")
 
 ;; various navigation stuff
-(depends-on "eyebrowse")
 (depends-on "transpose-frame")
 
 (depends-on "github-browse-file")
