@@ -32,6 +32,9 @@
 (add-hook 'js2-mode-hook #'linum-mode)
 (setq-default js2-basic-offset 2)
 
+;; es6 is ok with trailing commas
+(setq-default js2-strict-trailing-comma-warning nil)
+
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 
 ; web-mode stuff
@@ -58,6 +61,7 @@
 (require 'emmet-mode)
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook  'emmet-mode)
+(add-hook 'web-mode-hook 'emmet-mode)
 
 (require 'lk/ruby)
 (require 'lk/clojure)
