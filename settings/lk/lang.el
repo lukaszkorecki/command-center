@@ -30,7 +30,9 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
 (add-hook 'js2-mode-hook #'linum-mode)
+(setq-default js-switch-indent-offset 4)
 (setq-default js2-basic-offset 2)
+(setq-default js2-indent-switch-body t)
 
 ;; es6 is ok with trailing commas
 (setq-default js2-strict-trailing-comma-warning nil)
