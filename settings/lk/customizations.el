@@ -48,5 +48,11 @@
 (require 'avy)
 (global-set-key (kbd "C-x y") 'avy-goto-word-0)
 
+;; shortcut fn for starting ansi-term with a custom name
+(defun lk/new-term (term-name)
+  (interactive "sTerm name: ")
+  (let ((buf-name (format "term: %s" term-name)))
+    (ansi-term "/bin/bash" buf-name)))
+
 (provide 'lk/customizations)
 ;;; customizations.el ends here
