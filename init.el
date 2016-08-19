@@ -6,13 +6,17 @@
 (cask-initialize)
 
 (require 'better-defaults)
+
+;; Fix missing env vars in emacs server+ssh
+(require 'exec-path-from-shell)
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+
 (require 'lk/helm)
 (require 'lk/customizations)
 
 ;; make it pretty!
 (require 'lk/theme)
-;; use ssh for tramp
-(setq tramp-default-method "ssh")
 
 (require 'ansi-color)
 ;; yes/no -> y/n
@@ -26,10 +30,10 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-;; show over 80chars
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs lines-tail trailing))
-;; (global-whitespace-mode t)
+;; add final newline automaticaly
+(setq require-final-newline t)
 
 ;; indenting
 (setq-default indent-tabs-mode nil)
@@ -54,6 +58,7 @@
 
 ;; always match parens
 (show-paren-mode t)
+(setq show-paren-delay 0)
 
 (require 'transpose-frame)
 
