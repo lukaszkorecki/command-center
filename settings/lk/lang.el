@@ -27,7 +27,7 @@
 (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode))
 
 ; Javascripts
-(add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (setq js-indent-level 2)
 (add-hook 'javascript-mode-hook #'linum-mode)
 
