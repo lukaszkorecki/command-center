@@ -1,0 +1,1 @@
+ssh vagrant@vagrant.dev -t 'bash ~/.emacs.d/start'
