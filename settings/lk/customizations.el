@@ -48,6 +48,14 @@
 (require 'avy)
 (global-set-key (kbd "C-x y") 'avy-goto-word-0)
 
+;; override C-x C-o with a variant which:
+;; deletes all blank lines and inserts a new one
+(defun lk/reduce-blank-lines ()
+  (interactive)
+  (delete-blank-lines)
+  (end-of-line)
+  (insert-char "\n" 1))
+
 ;; shortcut fn for starting ansi-term with a custom name
 (defun lk/new-term (term-name)
   (interactive "sTerm name: ")

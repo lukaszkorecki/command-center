@@ -46,13 +46,6 @@
 ;; no backup files
 (setq-default make-backup-files nil)
 
-(when window-system
-  (set-fontset-font t 'unicode "Apple Symbols" nil 'prepend)
-  (scroll-bar-mode -1)
-   (add-to-list  'default-frame-alist '(font  . "Droid Sans Mono"))
-   (set-face-attribute 'default ' t :font "Droid Sans Mono"))
-
-
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
 
