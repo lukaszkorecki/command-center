@@ -10,7 +10,8 @@
 
 (depends-on "undo-tree")
 
-(depends-on "avy")
+(depends-on "eyebrowse")
+(depends-on "window-number")
 
 (depends-on "better-defaults")
 (depends-on "indent-guide")

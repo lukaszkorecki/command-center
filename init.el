@@ -102,7 +102,7 @@
 
   ;; eyebrowse and buffer count status
   '(:eval (propertize
-           (format " [B: %s] " (lk/count-buffers))
+           (format " [B: %s] [W: %s] " (lk/count-buffers) (window-number))
            'face 'font-lock-comment-face))
   '(:eval (propertize
           (eyebrowse-mode-line-indicator)

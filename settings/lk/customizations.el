@@ -44,9 +44,13 @@
 (global-set-key (kbd "C-c m s") 'magit-status)
 (global-set-key (kbd "C-x C-g") 'vc-git-grep)
 
-;; avy jump
-(require 'avy)
-(global-set-key (kbd "C-x y") 'avy-goto-word-0)
+;; window-number
+
+;; enable window-number mode
+(require 'window-number)
+(window-number-mode 1)
+
+(global-set-key (kbd "C-c C-j") 'window-number-switch)
 
 ;; override C-x C-o with a variant which:
 ;; deletes all blank lines and inserts a new one
