@@ -80,9 +80,17 @@
       "] ")))
 
 ;; customize the mode-line
-(setq-default mode-line-format
+(setq-default
+ mode-line-format
  (list
-   " ⎈ | %l | %c | "
+  " ⎈ | %l | %c | "
+  ;; eyebrowse, window number etc
+  '(:eval (propertize
+           (format " [B: %s] [W: %s] " (lk/count-buffers) (window-number))
+           'face 'font-lock-comment-face))
+  '(:eval (propertize
+           (eyebrowse-mode-line-indicator)
+           'face 'font-lock-function-face))
   ;; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
   ;; major mode
@@ -96,13 +104,7 @@
 
   '(:eval (vc-status-mode-line))
 
-  ;; eyebrowse and buffer count status
-  '(:eval (propertize
-           (format " [B: %s] [W: %s] " (lk/count-buffers) (window-number))
-           'face 'font-lock-comment-face))
-  '(:eval (propertize
-          (eyebrowse-mode-line-indicator)
-          'face 'font-lock-function-face))))
+  ))
 
 
 (provide 'init)
