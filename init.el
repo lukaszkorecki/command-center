@@ -65,10 +65,6 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
-;; set colors and fonts
-(require 'lk/font-face)
-(lk/normal-font)
-
 (require 'lk/eyebrowse)
 
 ;; vc mode line needs refreshing every now and then

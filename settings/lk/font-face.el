@@ -7,12 +7,12 @@
   "Default font name for GUI Emacs.")
 
 (defun lk/set-font-size (my-size)
+  (interactive "sSize: ")
   "Set Monaco as Gui font with specified MY-SIZE."
   (custom-set-faces
    `(default
       ((t (:weight normal :height ,my-size :width normal :family ,lk/font))))
    `(fixed-pitch ((t (:family ,lk/font))))))
-
 
 (defun lk/normal-font ()
   "Set font to normal work size."
