@@ -15,10 +15,14 @@
   (ANY 2)
   (context 2))
 
-(global-set-key (kbd "C-x c l") 'cider-connect)
+(defun lk/connect-to-standard-nrepl ()
+  (interactive)
+  (cider-connect "127.0.0.1" 4001))
+
+(global-set-key (kbd "C-x c l") 'lk/connect-to-standard-nrepl)
+
 (global-set-key (kbd "C-x c s") 'cider-scratch)
 (global-set-key (kbd "C-x c f") 'cider-format-buffer)
-(global-set-key (kbd "C-x c r") 'cider-refresh)
 
 
 (provide 'lk/clojure)
