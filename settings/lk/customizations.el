@@ -50,7 +50,7 @@
 (require 'window-number)
 (window-number-mode 1)
 
-(global-set-key (kbd "C-c C-j") 'window-number-switch)
+(global-set-key (kbd "C-c C-n") 'window-number-switch)
 
 ;; override C-x C-o with a variant which:
 ;; deletes all blank lines and inserts a new one
