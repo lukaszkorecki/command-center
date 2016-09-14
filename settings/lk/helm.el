@@ -19,14 +19,17 @@
 (setq projectile-use-git-grep t)
 (setq projectile-completion-system 'grizzl)
 
-(global-set-key (kbd "C-x p") 'helm-projectile-find-file)
-(global-set-key (kbd "C-x M-p") 'helm-projectile-find-other-file)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+;; project/dir navigation
+(global-set-key (kbd "C-x n t") 'helm-select-terminal-buffer)
+(global-set-key (kbd "C-x n p") 'helm-projectile-find-file)
+(global-set-key (kbd "C-x n b") 'helm-buffers-list)
+(global-set-key (kbd "C-x n g") 'helm-git-grep)
+
+;; in-buffer navigation
 (global-set-key (kbd "C-x i") 'helm-semantic-or-imenu)
-(global-set-key (kbd "C-x g") 'helm-git-grep)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-c s") 'helm-swoop)
-(global-set-key (kbd "C-c t") 'helm-select-terminal-buffer)
+
 ;; override M-x to use helm-M-x
 (global-set-key (kbd "M-x") 'helm-M-x)
 
