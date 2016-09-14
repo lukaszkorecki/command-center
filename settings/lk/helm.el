@@ -1,5 +1,8 @@
 ;;;; lk/helm.el -- all things helm & projectile
 
+(require 'lk/helm-terminals)
+
+
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
@@ -23,7 +26,7 @@
 (global-set-key (kbd "C-x g") 'helm-git-grep)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-c s") 'helm-swoop)
-
+(global-set-key (kbd "C-c t") 'helm-select-terminal-buffer)
 ;; override M-x to use helm-M-x
 (global-set-key (kbd "M-x") 'helm-M-x)
 

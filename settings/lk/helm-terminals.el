@@ -4,18 +4,18 @@
   (let ((buffers (remove-if-not (lambda (buffer)
                                   (string-prefix-p "*term:" (buffer-name buffer)))
                                 (buffer-list))))
-    (message buffers)
-    (mapc buffer-name buffers)))
+    (mapcar (lambda (buffer) (buffer-name buffer))
+            buffers)))
 
-(setq helm-terminal-buffers-source
-      '( (name . "Terminals" )
-         (candidates . only-terminal-buffers)
-         (action . (lambda (candidate)
-                     (switch-to-buffer candidate)))))
 
-(defun helm-terminals ()
+
+(defun helm-select-terminal-buffer ()
   (interactive)
-  (helm :sources   '(helm-terminal-buffers-source)))
-
+  (helm :sources
+        (helm-build-sync-source "terminal-buffers"
+          :candidates (only-terminal-buffers)
+          :action #'switch-to-buffer
+          :fuzzy-match t)
+        :buffer "**helm-terminal-buffers**"))
 
 (provide 'lk/helm-terminals)
