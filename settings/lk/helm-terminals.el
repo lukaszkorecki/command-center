@@ -7,8 +7,6 @@
     (mapcar (lambda (buffer) (buffer-name buffer))
             buffers)))
 
-
-
 (defun helm-select-terminal-buffer ()
   (interactive)
   (helm :sources
