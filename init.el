@@ -67,8 +67,6 @@
 (load custom-file)
 
 (require 'lk/eyebrowse)
-;; for restoring window/frame layouts
-(desktop-save-mode 1)
 
 ;; vc mode line needs refreshing every now and then
 (setq auto-revert-check-vc-info t)
