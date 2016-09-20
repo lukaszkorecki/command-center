@@ -36,7 +36,6 @@
 
 ;; git
 (depends-on "magit")
-(depends-on "magithub")
 (depends-on "gitignore-mode")
 (depends-on "gist")
 (depends-on "git-link")

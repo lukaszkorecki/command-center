@@ -40,7 +40,6 @@
 (global-set-key (kbd "M-p") 'backward-paragraph)
 
 ;; magit stuff
-(require 'magithub)
 (global-set-key (kbd "C-c m s") 'magit-status)
 (global-set-key (kbd "C-x C-g") 'vc-git-grep)
 
