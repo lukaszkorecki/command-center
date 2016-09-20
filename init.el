@@ -7,6 +7,7 @@
 
 (require 'better-defaults)
 
+
 ;; Fix missing env vars in emacs server+ssh
 (require 'exec-path-from-shell)
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
@@ -66,6 +67,8 @@
 (load custom-file)
 
 (require 'lk/eyebrowse)
+;; for restoring window/frame layouts
+(desktop-save-mode 1)
 
 ;; vc mode line needs refreshing every now and then
 (setq auto-revert-check-vc-info t)
