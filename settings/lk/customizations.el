@@ -3,7 +3,6 @@
 ;;; If stuff grows too big, move it out to a separate file
 ;;; Code:
 
-;;; Make magit and emacs behavie like Fugitive
 (require 'git)
 
 (defun lk/select-line ()
@@ -41,6 +40,7 @@
 (global-set-key (kbd "M-p") 'backward-paragraph)
 
 ;; magit stuff
+(require 'magithub)
 (global-set-key (kbd "C-c m s") 'magit-status)
 (global-set-key (kbd "C-x C-g") 'vc-git-grep)
 
