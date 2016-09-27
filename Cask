@@ -82,3 +82,9 @@
 
 ;; integrate with dash
 (depends-on "dash-at-point")
+
+
+;; erc
+(depends-on "erc-hl-nicks")
+(depends-on "erc-colorize")
+(depends-on "erc-terminal-notifier")

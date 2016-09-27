@@ -103,12 +103,26 @@
   ;; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
 
+
   '(:eval (vc-status-mode-line))
+  '(global-mode-string global-mode-string)))
 
-  ))
 
-
-(provide 'init)
-;;; init.el ends here
+;; Disable certain commands
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+
+;; ERC
+(require 'erc-track)
+(erc-track-mode 1)
+(setq erc-track-position-in-mode-line 'after-modes)
+(require 'erc-terminal-notifier)
+(erc-notify-mode 1)
+
+(require 'erc-hl-nicks)
+(erc-hl-nicks-enable)
+
+;; end
+(provide 'init)
+;;; init.el ends here

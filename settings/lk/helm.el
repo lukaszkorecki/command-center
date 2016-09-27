@@ -1,6 +1,7 @@
 ;;;; lk/helm.el -- all things helm & projectile
 
 (require 'lk/helm-terminals)
+(require 'lk/helm-erc-channels)
 
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
@@ -26,6 +27,7 @@
 (global-unset-key (kbd "C-c p s"))
 
 (global-set-key (kbd "C-c p t") 'helm-select-terminal-buffer)
+(global-set-key (kbd "C-c p c") 'helm-select-erc-channel-buffer)
 (global-set-key (kbd "C-c p p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-c p b") 'helm-buffers-list)
 (global-set-key (kbd "C-c p g") 'helm-git-grep)
