@@ -112,16 +112,7 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-
-;; ERC
-(require 'erc-track)
-(erc-track-mode 1)
-(setq erc-track-position-in-mode-line 'after-modes)
-(require 'erc-terminal-notifier)
-(erc-notify-mode 1)
-
-(require 'erc-hl-nicks)
-(erc-hl-nicks-enable)
+(require 'lk/erc)
 
 ;; end
 (provide 'init)
