@@ -65,7 +65,7 @@
   (let ((buf-name (format "term: %s" term-name)))
     (ansi-term "/bin/bash" buf-name)))
 
-(global-set-key (kbd "C-c n t") 'lk/new-term)
+(global-set-key (kbd "C-x n t") 'lk/new-term)
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here
