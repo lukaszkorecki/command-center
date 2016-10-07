@@ -39,6 +39,7 @@
 (depends-on "gitignore-mode")
 (depends-on "gist")
 (depends-on "git-link")
+(depends-on "browse-at-remote")
 
 ;; major modes for programming
 (depends-on "go-mode")
