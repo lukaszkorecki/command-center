@@ -7,7 +7,7 @@
 (depends-on "s")
 (depends-on "move-text")
 (depends-on "exec-path-from-shell")
-
+(depends-on "visual-regexp")
 (depends-on "undo-tree")
 
 (depends-on "eyebrowse")
