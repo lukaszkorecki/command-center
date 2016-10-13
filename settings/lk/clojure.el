@@ -15,11 +15,16 @@
   (ANY 2)
   (context 2))
 
-(defun lk/connect-to-standard-nrepl ()
+(defun lk/connect-to-project-nrepl ()
   (interactive)
-  (cider-connect "127.0.0.1" 4001))
+  (let* ((project-path (expand-file-name (read-file-name "Project root:")))
+         (port-file-path (format "%s/.nrepl-port" project-path))
+         (port (with-temp-buffer
+                 (insert-file-contents port-file-path)
+                 (string-to-number (car (split-string (buffer-string) "\n"))))))
+    (cider-connect "127.0.0.1" port project-path)))
 
-(global-set-key (kbd "C-x c l") 'lk/connect-to-standard-nrepl)
+(global-set-key (kbd "C-x c l") 'lk/connect-to-project-nrepl)
 
 (global-set-key (kbd "C-x c s") 'cider-scratch)
 (global-set-key (kbd "C-x c f") 'cider-format-buffer)
