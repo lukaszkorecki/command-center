@@ -52,6 +52,7 @@
 (add-hook 'web-mode-hook #'linum-mode)
 
 (add-hook 'elisp-mode-hook #'linum-mode)
+(add-hook 'lisp-mode-hook #'linum-mode)
 (add-hook 'es-mode-hook #'linum-mode)
 (add-hook 'emacs-lisp-hook #'linum-mode)
 (add-hook 'elisp-hook #'linum-mode)

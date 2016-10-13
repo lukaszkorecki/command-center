@@ -1,8 +1,5 @@
 EMACS_PATH := $(shell which emacs)
 
-ifeq ($(shell uname),Darwin)
-	EMACS_PATH := /Applications/Emacs.app/Contents/MacOS/Emacs
-endif
 
 setup: link packages
 
