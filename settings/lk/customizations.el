@@ -67,5 +67,6 @@
 
 (global-set-key (kbd "C-x n t") 'lk/new-term)
 
+(global-set-key (kbd "C-x r") 'vr/replace)
 (provide 'lk/customizations)
 ;;; customizations.el ends here
