@@ -52,6 +52,7 @@
 (depends-on "handlebars-mode")
 (depends-on "json-mode")
 
+(depends-on "erlang")
 (depends-on "python-mode")
 
 (depends-on "web-mode")
