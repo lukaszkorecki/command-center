@@ -1,7 +1,6 @@
 ;;;; lk/helm.el -- all things helm & projectile
 
 (require 'lk/helm-terminals)
-(require 'lk/helm-erc-channels)
 
 (require 'helm-projectile)
 

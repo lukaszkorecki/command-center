@@ -74,19 +74,15 @@
 (depends-on "clojure-mode-extra-font-locking")
 (depends-on "kibit-helper")
 
+;; Common Lisp
+(depends-on "slime")
+
 ;; Scheme
 (depends-on "geiser")
 
 ;; various navigation stuff
 (depends-on "transpose-frame")
-
 (depends-on "github-browse-file")
 
 ;; integrate with dash
 (depends-on "dash-at-point")
-
-
-;; erc
-(depends-on "erc-hl-nicks")
-(depends-on "erc-colorize")
-(depends-on "erc-terminal-notifier")

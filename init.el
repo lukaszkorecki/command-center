@@ -113,8 +113,6 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(require 'lk/erc)
-
 ;; end
 (provide 'init)
 ;;; init.el ends here
