@@ -70,8 +70,9 @@
 (add-hook 'css-mode-hook  'emmet-mode)
 (add-hook 'web-mode-hook 'emmet-mode)
 
-;; set SBCL as the lisp implementation
+;; setup Slime and use SBCL as the lisp implementation
 (setq inferior-lisp-program "sbcl")
+(setq slime-contribs '(slime-asdf slime-fancy slime-quicklisp))
 
 (require 'lk/ruby)
 (require 'lk/clojure)
