@@ -70,6 +70,9 @@
 (add-hook 'css-mode-hook  'emmet-mode)
 (add-hook 'web-mode-hook 'emmet-mode)
 
+;; set SBCL as the lisp implementation
+(setq inferior-lisp-program "sbcl")
+
 (require 'lk/ruby)
 (require 'lk/clojure)
 (require 'lk/scheme)
