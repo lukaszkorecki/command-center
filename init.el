@@ -4,6 +4,14 @@
 
 (add-to-list 'load-path "~/.emacs.d/settings")
 
+;; reduce GC thrash
+(setq gc-cons-threshold 20000000)
+(set-language-environment "UTF-8")
+(when (>= emacs-major-version 25)
+  (eval-after-load 'bytecomp
+    '(add-to-list 'byte-compile-not-obsolete-funcs
+                  'preceding-sexp)))
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
