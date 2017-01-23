@@ -3,6 +3,9 @@
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'clojure-mode-hook #'linum-mode)
 
+;; disable cider welcome message
+(setq cider-repl-display-help-banner nil)
+
 ;; add compojure support
 
 (define-clojure-indent
