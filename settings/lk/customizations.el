@@ -35,6 +35,8 @@
 (global-set-key (kbd "C-c <up>") 'windmove-up)
 (global-set-key (kbd "C-c <down>") 'windmove-down)
 
+(global-set-key (kbd "C-c t") 'transpose-frame)
+
 ;; bind awkard M-[ & M-] to something better
 (global-set-key (kbd "M-n") 'forward-paragraph)
 (global-set-key (kbd "M-p") 'backward-paragraph)
