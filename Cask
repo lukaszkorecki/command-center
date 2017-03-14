@@ -10,7 +10,6 @@
 (depends-on "visual-regexp")
 (depends-on "undo-tree")
 
-(depends-on "eyebrowse")
 (depends-on "window-number")
 
 (depends-on "better-defaults")
