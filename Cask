@@ -21,9 +21,8 @@
 (depends-on "helm-git-grep")
 (depends-on "helm-projectile")
 (depends-on "helm-swoop")
-(depends-on "helm-git")
-(depends-on "helm-rails")
-
+(depends-on "helm-open-github")
+(depends-on "helm-google")
 (depends-on "grizzl")
 
 ;; non-programming modes

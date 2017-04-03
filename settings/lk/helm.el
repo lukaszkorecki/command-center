@@ -33,4 +33,12 @@
 ;; override M-x to use helm-M-x
 (global-set-key (kbd "M-x") 'helm-M-x)
 
+;; helm google
+(global-set-key (kbd "C-c g s") 'helm-open-github-from-file)
+
+;; helm-open-github
+(global-set-key (kbd "C-c g f") 'helm-open-github-from-file)
+(global-set-key (kbd "C-c g c") 'helm-open-github-from-commit)
+(global-set-key (kbd "C-c g i") 'helm-open-github-from-issues)
+(global-set-key (kbd "C-c g p") 'helm-open-github-from-pull-requests)
 (provide 'lk/helm)
