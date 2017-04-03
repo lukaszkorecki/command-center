@@ -3,6 +3,8 @@
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/settings")
+(add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "~/.DotFiles/bin")
 
 ;; reduce GC thrash
 (setq gc-cons-threshold 20000000)
