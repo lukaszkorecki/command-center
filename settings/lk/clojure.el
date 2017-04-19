@@ -1,7 +1,12 @@
 (require 'clojure-mode-extra-font-locking)
-(add-hook 'clojure-mode-hook #'cider-mode)
-(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'clojure-mode-hook #'linum-mode)
+
+(defun lk/clj-mode-hook ()
+  (cider-mode t)
+  (rainbow-delimiters-mode t)
+  (linum-mode 1)
+  (clj-refactor-mode 1))
+
+(add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
 
 ;; disable cider welcome message
 (setq cider-repl-display-help-banner nil)

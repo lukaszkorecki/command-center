@@ -74,6 +74,7 @@
 (depends-on "smartparens")
 (depends-on "clojure-mode-extra-font-locking")
 (depends-on "kibit-helper")
+(depends-on "clj-refactor")
 
 ;; Common Lisp
 (depends-on "slime")
