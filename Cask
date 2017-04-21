@@ -44,7 +44,7 @@
 
 ;; major modes for programming
 (depends-on "go-mode")
-
+(depends-on "nginx-mode")
 (depends-on "ansible")
 (depends-on "terraform-mode")
 (depends-on "dockerfile-mode")
