@@ -20,11 +20,15 @@
 (defun lk/count-buffers ()
   (length (buffer-list)))
 
+(defun lk/open-pr ()
+  (interactive)
+  (shell-command "git surf -p"))
+
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
-
+(global-set-key (kbd "C-x g p") 'lk/open-pr)
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
