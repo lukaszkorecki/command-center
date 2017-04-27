@@ -9,7 +9,7 @@
 (depends-on "exec-path-from-shell")
 (depends-on "visual-regexp")
 (depends-on "undo-tree")
-
+(depends-on "sane-term")
 (depends-on "window-number")
 
 (depends-on "better-defaults")

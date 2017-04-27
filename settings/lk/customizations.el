@@ -65,13 +65,9 @@
   (end-of-line)
   (insert-char "\n" 1))
 
-;; shortcut fn for starting ansi-term with a custom name
-(defun lk/new-term (term-name)
-  (interactive "sTerm name: ")
-  (let ((buf-name (format "term: %s" term-name)))
-    (ansi-term "/bin/bash" buf-name)))
 
-(global-set-key (kbd "C-x n t") 'lk/new-term)
+(require 'sane-term)
+(global-set-key (kbd "C-x n t") 'sane-term)
 
 (global-set-key (kbd "C-x r") 'vr/replace)
 (provide 'lk/customizations)
