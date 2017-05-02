@@ -1,10 +1,16 @@
 ;;;; init --- loads all customizations and packages
-;;;; Commentary - yeah!
+;;;; Commentary - Prolly needs splitting more
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/settings")
+
+;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.DotFiles/bin")
+
+(setenv "PATH" (concat (getenv "PATH")
+                       ":/usr/local/bin:~/.DotFiles/bin"))
+
 
 ;; reduce GC thrash
 (setq gc-cons-threshold 20000000)
