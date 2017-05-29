@@ -53,6 +53,7 @@
 (depends-on "handlebars-mode")
 (depends-on "json-mode")
 (depends-on "eslint-fix")
+(depends-on "rsjx-mode")
 
 (depends-on "erlang")
 (depends-on "python-mode")
