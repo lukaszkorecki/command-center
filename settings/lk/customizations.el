@@ -3,7 +3,8 @@
 ;;; If stuff grows too big, move it out to a separate file
 ;;; Code:
 
-(require 'git)
+
+;; Editing helpers
 
 (defun lk/select-line ()
   "Select current line"
@@ -17,18 +18,45 @@
   (end-of-line)
   (join-line))
 
-(defun lk/count-buffers ()
-  (length (buffer-list)))
-
-(defun lk/open-pr ()
-  (interactive)
-  (shell-command "git surf -p"))
-
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
+
+;; Git and git-surf helpers
+
+(require 'git)
+(defun lk/open-pr ()
+  (interactive)
+  (shell-command "git surf -p"))
+
+(defun lk/open-current-file-in-gh ()
+  (interactive)
+  (shell-command (format "git surf %s" (file-name-nondirectory (buffer-file-name)))))
+
+(defun lk/open-current-region-in-gh (start end)
+  (interactive "r")
+  (shell-command
+   (format "git surf -r%s,%s %s"
+           start
+           end
+           (file-name-nondirectory (buffer-file-name)))))
+
+
+(defun lk/test-lines (start end)
+  (interactive "r")
+  (message "start %d end %d" start end))
+
 (global-set-key (kbd "C-x g p") 'lk/open-pr)
+(global-set-key (kbd "C-x g f") 'lk/open-current-file-in-gh)
+(global-set-key (kbd "C-x g r") 'lk/open-current-region-in-gh)
+
+;; magit stuff
+(global-set-key (kbd "C-c m s") 'magit-status)
+(global-set-key (kbd "C-x C-g") 'vc-git-grep)
+
+
+;; Window and buffer management
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
@@ -44,10 +72,6 @@
 ;; bind awkard M-[ & M-] to something better
 (global-set-key (kbd "M-n") 'forward-paragraph)
 (global-set-key (kbd "M-p") 'backward-paragraph)
-
-;; magit stuff
-(global-set-key (kbd "C-c m s") 'magit-status)
-(global-set-key (kbd "C-x C-g") 'vc-git-grep)
 
 ;; window-number
 
@@ -65,6 +89,8 @@
   (end-of-line)
   (insert-char "\n" 1))
 
+(defun lk/count-buffers ()
+  (length (buffer-list)))
 
 (require 'sane-term)
 (global-set-key (kbd "C-x n t") 'sane-term)
