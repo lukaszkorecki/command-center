@@ -34,6 +34,7 @@
 ;; colors
 (depends-on "color-theme")
 (depends-on "color-theme-sanityinc-tomorrow")
+(depends-on "monokai")
 
 ;; git
 (depends-on "magit")
