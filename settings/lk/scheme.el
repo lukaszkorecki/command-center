@@ -12,9 +12,6 @@
 (put 'unless 'scheme-indent-function 1)
 (put 'match 'scheme-indent-function 1)
 
-
-(add-hook 'scheme-mode-hook #'linum-mode)
-
 (add-hook 'scheme-mode-hook (lambda ()
                               (require 'geiser)))
 

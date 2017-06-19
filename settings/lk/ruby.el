@@ -10,7 +10,6 @@
 
 
 (add-hook 'ruby-mode-hook (lambda ()
-                            (linum-mode)
                             (in-ruby-minor-mode)
                             (local-set-key (kbd "C-c r")
                                            'rubocop-autocorrect-current-file)))
