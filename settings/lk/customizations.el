@@ -96,5 +96,21 @@
 (global-set-key (kbd "C-x n t") 'sane-term)
 
 (global-set-key (kbd "C-x r") 'vr/replace)
+
+;; OSX stuff, make sure alt is meta in GUI emacs
+(defun mac-switch-meta nil
+  "switch meta between Option and Command"
+  (interactive)
+  (if (eq mac-option-modifier nil)
+      (progn
+        (setq mac-option-modifier 'meta)
+        (setq mac-command-modifier 'hyper))
+    (progn
+      (setq mac-option-modifier nil)
+      (setq mac-command-modifier 'meta))))
+(mac-switch-meta)
+(mac-switch-meta)
+
+
 (provide 'lk/customizations)
 ;;; customizations.el ends here

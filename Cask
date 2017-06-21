@@ -34,7 +34,7 @@
 ;; colors
 (depends-on "color-theme")
 (depends-on "color-theme-sanityinc-tomorrow")
-(depends-on "monokai")
+(depends-on "monokai-theme")
 
 ;; git
 (depends-on "magit")
@@ -49,12 +49,13 @@
 (depends-on "ansible")
 (depends-on "terraform-mode")
 (depends-on "dockerfile-mode")
+(depends-on "jinja2-mode")
 
 (depends-on "js2-mode")
 (depends-on "handlebars-mode")
 (depends-on "json-mode")
 (depends-on "eslint-fix")
-(depends-on "rsjx-mode")
+(depends-on "rjsx-mode")
 
 (depends-on "erlang")
 (depends-on "python-mode")
