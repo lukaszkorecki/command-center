@@ -20,6 +20,8 @@
 (setq-default scss-compile-at-save nil)
 (setq css-indent-offset 2)
 
+(setq nginx-indent-offset 2)
+
 (add-to-list 'auto-mode-alist '("\\.hb$" . handlebars-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode))

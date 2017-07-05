@@ -11,6 +11,7 @@
 (depends-on "undo-tree")
 (depends-on "sane-term")
 (depends-on "window-number")
+(depends-on "avy")
 
 (depends-on "better-defaults")
 (depends-on "indent-guide")
@@ -35,6 +36,7 @@
 (depends-on "color-theme")
 (depends-on "color-theme-sanityinc-tomorrow")
 (depends-on "monokai-theme")
+(depends-on "github-theme")
 
 ;; git
 (depends-on "magit")
