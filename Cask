@@ -37,6 +37,7 @@
 (depends-on "color-theme-sanityinc-tomorrow")
 (depends-on "monokai-theme")
 (depends-on "github-theme")
+(depends-on "base16-theme")
 
 ;; git
 (depends-on "magit")
