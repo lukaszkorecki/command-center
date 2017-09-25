@@ -18,6 +18,9 @@
   (end-of-line)
   (join-line))
 
+;; disable c-z which maps to minimize
+(global-unset-key (kbd "C-z"))
+
 (require 'avy)
 (global-set-key (kbd "C-.") 'avy-goto-char)
 
