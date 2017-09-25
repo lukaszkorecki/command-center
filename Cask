@@ -95,3 +95,5 @@
 
 ;; integrate with dash
 (depends-on "dash-at-point")
+
+(depends-on "sql-indent")
