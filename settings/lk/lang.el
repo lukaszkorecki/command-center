@@ -27,7 +27,7 @@
 (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode))
 
 ; Javascripts
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
 (setq js-indent-level 2)
 
 ;; settings for js2 mode
