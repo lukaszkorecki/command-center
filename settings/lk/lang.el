@@ -58,6 +58,10 @@
 (add-hook 'css-mode-hook  'emmet-mode)
 (add-hook 'web-mode-hook 'emmet-mode)
 
+;; better sql indentation
+(eval-after-load "sql"
+  '(load-library "sql-indent"))
+
 (require 'lk/ruby)
 (require 'lk/clojure)
 (require 'lk/scheme)
