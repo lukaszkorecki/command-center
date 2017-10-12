@@ -97,3 +97,12 @@
 (depends-on "dash-at-point")
 
 (depends-on "sql-indent")
+
+
+(depends-on "slack")
+(depends-on "websocket")
+(depends-on "request")
+(depends-on "oauth2")
+(depends-on "circe")
+(depends-on "alert")
+(depends-on "emojify")
