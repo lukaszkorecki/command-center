@@ -9,7 +9,7 @@
 (defun lk/select-line ()
   "Select current line"
   (interactive)
-  (end-of-line) ; move to end of line
+  (end-of-line)
   (set-mark (line-beginning-position)))
 
 (defun lk/join-lines ()
@@ -28,6 +28,10 @@
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
+
+(require 'dumb-jump)
+(global-set-key (kbd "C-c C-j") 'dumb-jump-go)
+(global-set-key (kbd "C-c C-p") 'dumb-jump-go-prompt)
 
 ;; Git and git-surf helpers
 

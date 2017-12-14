@@ -12,6 +12,7 @@
 (depends-on "sane-term")
 (depends-on "window-number")
 (depends-on "avy")
+(depends-on "dumb-jump")
 
 (depends-on "better-defaults")
 (depends-on "indent-guide")

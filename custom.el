@@ -14,7 +14,7 @@
  '(magit-merge-arguments nil)
  '(package-selected-packages
    (quote
-    (sql-indent base16-theme jinja2-mode monokai-theme rjsx-mode eslint-fix sane-term tango-plus-theme nginx-mode clj-refactor helm-google helm-open-github slime erlang visual-regexp yaml-mode window-number web-mode undo-tree transpose-frame terraform-mode smartparens scss-mode rubocop restclient rainbow-delimiters python-mode move-text markdown-mode magit kibit-helper json-mode js2-mode inf-ruby indent-guide helm-swoop helm-projectile helm-git-grep handlebars-mode grizzl go-mode gitignore-mode github-browse-file git-link gist geiser exec-path-from-shell es-mode emmet-mode dockerfile-mode dash-at-point csv-mode color-theme-sanityinc-tomorrow color-theme clojure-mode-extra-font-locking cider browse-at-remote better-defaults ansible)))
+    (dumb-jump weechat sql-indent base16-theme jinja2-mode monokai-theme rjsx-mode eslint-fix sane-term tango-plus-theme nginx-mode clj-refactor helm-google helm-open-github slime erlang visual-regexp yaml-mode window-number web-mode undo-tree transpose-frame terraform-mode smartparens scss-mode rubocop restclient rainbow-delimiters python-mode move-text markdown-mode magit kibit-helper json-mode js2-mode inf-ruby indent-guide helm-swoop helm-projectile helm-git-grep handlebars-mode grizzl go-mode gitignore-mode github-browse-file git-link gist geiser exec-path-from-shell es-mode emmet-mode dockerfile-mode dash-at-point csv-mode color-theme-sanityinc-tomorrow color-theme clojure-mode-extra-font-locking cider browse-at-remote better-defaults ansible)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
