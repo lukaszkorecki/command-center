@@ -48,8 +48,8 @@
   (interactive "r")
   (shell-command
    (format "git surf -r%s,%s %s"
-           start
-           end
+           (what-line)
+           (what-line)
            (file-name-nondirectory (buffer-file-name)))))
 
 
