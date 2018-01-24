@@ -35,10 +35,7 @@
 
 ;; colors
 (depends-on "color-theme")
-(depends-on "color-theme-sanityinc-tomorrow")
-(depends-on "monokai-theme")
-(depends-on "github-theme")
-(depends-on "base16-theme")
+(depends-on "solarized-theme")
 
 ;; git
 (depends-on "magit")
