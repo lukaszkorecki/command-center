@@ -1,4 +1,5 @@
 (custom-set-variables
+ '(default ((t (:inherit nil :stipple nil :background "#fdf6e3" :foreground "#657b83"))))
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
