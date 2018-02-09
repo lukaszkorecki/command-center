@@ -42,16 +42,12 @@
 
 (defun lk/open-current-file-in-gh ()
   (interactive)
-  (shell-command (format "git surf %s" (file-name-nondirectory (buffer-file-name)))))
-
-(defun lk/open-current-region-in-gh (start end)
-  (interactive "r")
-  (shell-command
-   (format "git surf -r%s,%s %s"
-           (what-line)
-           (what-line)
-           (file-name-nondirectory (buffer-file-name)))))
-
+  (let* ((line-no (line-number-at-pos))
+         (command (format "git surf -r%s,%s %s"
+                          line-no line-no
+                          (file-name-nondirectory (buffer-file-name)))))
+    (message command)
+    (shell-command command)))
 
 (defun lk/test-lines (start end)
   (interactive "r")
@@ -59,7 +55,6 @@
 
 (global-set-key (kbd "C-x g p") 'lk/open-pr)
 (global-set-key (kbd "C-x g f") 'lk/open-current-file-in-gh)
-(global-set-key (kbd "C-x g r") 'lk/open-current-region-in-gh)
 
 ;; magit stuff
 (global-set-key (kbd "C-c m s") 'magit-status)
