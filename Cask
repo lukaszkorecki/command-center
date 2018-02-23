@@ -71,7 +71,7 @@
 
 (depends-on "scss-mode")
 (depends-on "emmet-mode")
-
+(depends-on "hy-mode")
 ;; Clojure!
 (depends-on "cider" "20160418.2329")
 (depends-on "clojure-mode")

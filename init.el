@@ -17,8 +17,9 @@
 (set-language-environment "UTF-8")
 (when (>= emacs-major-version 25)
   (eval-after-load 'bytecomp
-    '(add-to-list 'byte-compile-not-obsolete-funcs
-                  'preceding-sexp)))
+    (lambda ()
+      (add-to-list 'byte-compile-not-obsolete-funcs
+                   'preceding-sexp))))
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
