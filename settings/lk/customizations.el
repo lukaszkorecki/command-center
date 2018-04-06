@@ -29,10 +29,6 @@
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
 
-(require 'dumb-jump)
-(global-set-key (kbd "C-c C-j") 'dumb-jump-go)
-(global-set-key (kbd "C-c C-p") 'dumb-jump-go-prompt)
-
 ;; Git and git-surf helpers
 
 (require 'git)
@@ -48,10 +44,6 @@
                           (file-name-nondirectory (buffer-file-name)))))
     (message command)
     (shell-command command)))
-
-(defun lk/test-lines (start end)
-  (interactive "r")
-  (message "start %d end %d" start end))
 
 (global-set-key (kbd "C-x g p") 'lk/open-pr)
 (global-set-key (kbd "C-x g f") 'lk/open-current-file-in-gh)
@@ -98,7 +90,8 @@
   (length (buffer-list)))
 
 (require 'sane-term)
-(global-set-key (kbd "C-x n t") 'sane-term)
+(global-set-key (kbd "C-x n T") 'sane-term)
+(global-set-key (kbd "C-x n t") 'sane-term-create)
 
 (global-set-key (kbd "C-x r") 'vr/replace)
 
