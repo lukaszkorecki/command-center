@@ -8,6 +8,9 @@
 ;; (projectile-global-mode)
 (helm-projectile-on)
 
+(setq projectile-git-command "git ls-files -z -c --recurse-submodules")
+
+
 (setq helm-M-x-fuzzy-match t)
 ;; dock helm window in the bottom
 (add-to-list 'display-buffer-alist
