@@ -1,17 +1,12 @@
 (require 'clojure-mode-extra-font-locking)
 
 (defun lk/clj-mode-hook ()
-  (cider-mode t)
-  (rainbow-delimiters-mode t)
-  (clj-refactor-mode 1))
+  (rainbow-delimiters-mode t))
 
 (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
-
-;; disable cider welcome message
-(setq cider-repl-display-help-banner nil)
+(add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 
 ;; add compojure support
-
 (define-clojure-indent
   (defroutes 'defun)
   (GET 2)
@@ -22,19 +17,14 @@
   (ANY 2)
   (context 2))
 
-(defun lk/connect-to-project-nrepl ()
+
+(defun lk/clojure-scratch ()
   (interactive)
-  (let* ((project-path (expand-file-name (read-file-name "Project root:")))
-         (port-file-path (format "%s/.nrepl-port" project-path))
-         (port (with-temp-buffer
-                 (insert-file-contents port-file-path)
-                 (string-to-number (car (split-string (buffer-string) "\n"))))))
-    (cider-connect "127.0.0.1" port project-path)))
+  (let ((buf (generate-new-buffer "clj-scratch.clj")))
+        (switch-to-buffer buf)
+        (set-buffer-major-mode buf "clojure-mode")))
 
-(global-set-key (kbd "C-x c l") 'lk/connect-to-project-nrepl)
-
-(global-set-key (kbd "C-x c s") 'cider-scratch)
-(global-set-key (kbd "C-x c f") 'cider-format-buffer)
+(global-set-key (kbd "C-x c s") 'lk/clojure-scratch)
 
 
 (provide 'lk/clojure)
