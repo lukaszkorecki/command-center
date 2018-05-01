@@ -11,7 +11,6 @@
 (setenv "PATH" (concat (getenv "PATH")
                        ":/usr/local/bin:~/.DotFiles/bin"))
 
-
 ;; reduce GC thrash
 (setq gc-cons-threshold 20000000)
 (set-language-environment "UTF-8")
@@ -32,7 +31,6 @@
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 (require 'lk/helm)
-(require 'lk/org)
 (require 'lk/customizations)
 
 ;; make it pretty!
@@ -116,8 +114,6 @@
   '(:eval (propertize "%z " 'face 'font-lock-string-face))
   ;; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
-
-
   '(:eval (vc-status-mode-line))
   '(global-mode-string global-mode-string)))
 
@@ -125,8 +121,7 @@
 ;; Disable certain commands
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-
+(put 'magit-clean 'disabled nil)
 ;; end
 (provide 'init)
 ;;; init.el ends here
-(put 'magit-clean 'disabled nil)

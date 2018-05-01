@@ -11,7 +11,6 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
 
-;
 (add-to-list 'auto-mode-alist '("\\.go$" . go-mode))
 
 (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
@@ -20,7 +19,6 @@
 
 (setq nginx-indent-offset 2)
 
-(add-to-list 'auto-mode-alist '("\\.hb$" . handlebars-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode))
 
@@ -49,20 +47,13 @@
 ;; sh mode
 (setq sh-indentation 2)
 (setq sh-basic-offset 2)
-
-;; enable emmet
-(require 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook  'emmet-mode)
-(add-hook 'web-mode-hook 'emmet-mode)
-
 ;; better sql indentation
 (eval-after-load "sql"
   '(load-library "sql-indent"))
 
 (require 'lk/ruby)
 (require 'lk/clojure)
-(require 'lk/scheme)
-(require 'lk/common-lisp)
+;; (require 'lk/scheme)
+;; (require 'lk/common-lisp)
 
 (provide 'lk/lang)
