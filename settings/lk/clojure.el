@@ -21,9 +21,14 @@
 ;; Adopted from cider's scratch buffer
 
 (defconst lk/clj-scratch-name "*clj-scratch*")
+(defconst lk/clj-scratch-boot
+"(require '[clojure.test :as test]
+          '[clojure.tools.namespace.repl :as ns.repl])")
+
 (defun lk/create-clojure-scratch ()
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
+    (insert lk/clj-scratch-boot)
     (current-buffer)))
 
 (defun lk/clojure-scratch ()
