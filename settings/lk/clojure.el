@@ -18,11 +18,18 @@
   (context 2))
 
 
+;; Adopted from cider's scratch buffer
+
+(defconst lk/clj-scratch-name "*clj-scratch*")
+(defun lk/create-clojure-scratch ()
+  (with-current-buffer (get-buffer-create lk/clj-scratch-name)
+    (clojure-mode)
+    (current-buffer)))
+
 (defun lk/clojure-scratch ()
   (interactive)
-  (let ((buf (generate-new-buffer "clj-scratch.clj")))
-        (switch-to-buffer buf)
-        (set-buffer-major-mode buf "clojure-mode")))
+  (pop-to-buffer (or (get-buffer lk/clj-scratch-name)
+                     (lk/create-clojure-scratch))))
 
 (global-set-key (kbd "C-x c s") 'lk/clojure-scratch)
 
