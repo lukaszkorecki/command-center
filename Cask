@@ -2,6 +2,7 @@
 (source melpa)
 (source gnu)
 
+(depends-on "monroe")
 (depends-on "ansible")
 (depends-on "avy")
 (depends-on "better-defaults")
