@@ -30,8 +30,8 @@
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
-(require 'lk/helm)
 (require 'lk/customizations)
+(require 'lk/helm)
 
 ;; make it pretty!
 (require 'lk/theme)
