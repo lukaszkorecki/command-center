@@ -25,10 +25,11 @@
   "(ns scratch
   (:require [clojure.test :as test]
             [clojure.tools.namespace.find :as ns.find]
-            [clojure.tools.namespace.repl :as ns.repl]))
+            [clojure.tools.namespace.repl :as ns.repl]
+            [eftest.runner :as ef]))
+;; (ef/run-tests (ef/find-tests \"some.thing\"))
 
-(defn find-project-ns []
-  (ns.find/find-namespaces-in-dir (java.io.File. \"src/\")))")
+")
 
 (defun lk/create-clojure-scratch ()
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
