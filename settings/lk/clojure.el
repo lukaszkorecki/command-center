@@ -4,6 +4,7 @@
   (rainbow-delimiters-mode t))
 
 (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
+(require 'inf-clojure)
 (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 
 ;; add compojure support
@@ -44,10 +45,5 @@
 
 (global-set-key (kbd "C-x c s") 'lk/clojure-scratch)
 
-(defun lk/open-clojure-repl ()
-  (interactive)
-  (pop-to-buffer (get-buffer "*inf-clojure*")))
-
-(global-set-key (kbd "C-x c r") 'lk/open-clojure-repl)
 
 (provide 'lk/clojure)
