@@ -21,32 +21,16 @@
 ;; inf-clojure/monroe based clj-scratch buffer
 ;; Adopted from cider's scratch
 (defconst lk/clj-scratch-name "*clj-scratch*")
-(defconst lk/clj-scratch-start-text
-  ";; Eval this when starting
-(do
-  (ns scratch
-    (:require [clojure.test :as test]
-              [clojure.repl :as repl]
-              [clojure.tools.namespace.find :as ns.find]
-              [clojure.tools.namespace.repl :as ns.repl]
-              [clojure.java.io :as io])
-    (:import (java.io File)))
-  (defn list-ns-in-pj []
-    (ns.find/find-namespaces-in-dir (File. \"./src/\")))
+(defun lk/clj-scratch-start-text ()
+  (insert-file-contents "~/.emacs.d/settings/lk/scratch.clj"))
 
-  (defn t [p]
-    (test/run-all-tests (re-pattern p)))
-  ;; Have fun!
-  )
-
-")
 
 (defun lk/create-clojure-scratch ()
   "Creates a scratch buffer, similar to Emacs' *scratch*
      and injects template from lk/clj-scratch-start-text"
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
-    (insert lk/clj-scratch-start-text)
+    (lk/clj-scratch-start-text)
     (current-buffer)))
 
 (defun lk/clojure-scratch ()
