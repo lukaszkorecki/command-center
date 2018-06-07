@@ -22,7 +22,7 @@
 ;; Adopted from cider's scratch
 (defconst lk/clj-scratch-name "*clj-scratch*")
 (defun lk/clj-scratch-start-text ()
-  (insert-file-contents "~/.emacs.d/settings/lk/scratch.clj"))
+  (insert-file-contents "~/.emacs.d/settings/lk/scratch-template.clj"))
 
 
 (defun lk/create-clojure-scratch ()
