@@ -11,7 +11,6 @@ My emacs setup. Focused on:
 
 # Setup
 
-0. Install [cask](https://github.com/cask/cask)
 1. Fork this repo
 2. Clone to `~/.emacs.d`
-3. run `make`
+3. Start Emacs, `use-package` will take over
