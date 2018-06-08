@@ -1,15 +1,32 @@
 ;;;; lk/helm.el -- all things helm & projectile
-
-(require 'helm-projectile)
-
-(setq projectile-completion-system 'helm)
-;; (projectile-global-mode)
-(helm-projectile-on)
-
-(setq projectile-git-command "git ls-files -z -c --recurse-submodules")
+(use-package projectile)
+(use-package grizzl)
+(use-package helm
+  :init (setq helm-M-x-fuzzy-match t)
+  :bind (( "C-c n b" . helm-buffers-list)
 
 
-(setq helm-M-x-fuzzy-match t)
+         ;; in-buffer navigation
+         ( "C-c n i" . helm-semantic-or-imenu)
+         ( "C-c n s" . helm-occur)
+
+         ;; override M-x to use helm-M-x
+         ( "M-x" . helm-M-x)))
+
+(use-package helm-git-grep
+  :after (helm)
+  :bind ( ( "C-c n g" . helm-git-grep)))
+
+(use-package helm-projectile
+  :after (helm projectile grizzl)
+  :init
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on)
+  (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
+  (setq projectile-use-git-grep t)
+  (setq projectile-completion-system 'grizzl)
+  :bind (( "C-c n p" . helm-projectile-find-file)))
+
 ;; dock helm window in the bottom
 (add-to-list 'display-buffer-alist
              `(,(rx bos "*helm" (* not-newline) "*" eos)
@@ -17,18 +34,6 @@
                (inhibit-same-window . t)
                (window-height . 0.4)))
 
-(setq projectile-use-git-grep t)
-(setq projectile-completion-system 'grizzl)
 
-(global-set-key (kbd "C-c n p") 'helm-projectile-find-file)
-(global-set-key (kbd "C-c n b") 'helm-buffers-list)
-(global-set-key (kbd "C-c n g") 'helm-git-grep)
-
-;; in-buffer navigation
-(global-set-key (kbd "C-c n i") 'helm-semantic-or-imenu)
-(global-set-key (kbd "C-c n s") 'helm-occur)
-
-;; override M-x to use helm-M-x
-(global-set-key (kbd "M-x") 'helm-M-x)
 
 (provide 'lk/helm)

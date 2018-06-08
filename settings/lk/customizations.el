@@ -23,9 +23,6 @@
 ;; set in helm-projectile later, originally used in dired/tramp
 (global-unset-key (kbd "C-c n p"))
 
-(require 'avy)
-(global-set-key (kbd "C-.") 'avy-goto-char)
-
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
@@ -33,7 +30,9 @@
 
 ;; Git and git-surf helpers
 
-(require 'git)
+(use-package git
+	     :bind (("C-x C-g" . vc-git-grep)))
+
 (defun lk/open-pr ()
   (interactive)
   (shell-command "git surf -p"))
@@ -51,8 +50,10 @@
 (global-set-key (kbd "C-x g f") 'lk/open-current-file-in-gh)
 
 ;; magit stuff
-(global-set-key (kbd "C-c m s") 'magit-status)
-(global-set-key (kbd "C-x C-g") 'vc-git-grep)
+
+(use-package magit
+	     :bind (( "C-c m s" . magit-status)))
+
 
 
 ;; Window and buffer management
@@ -72,13 +73,6 @@
 (global-set-key (kbd "M-n") 'forward-paragraph)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 
-;; window-number
-
-;; enable window-number mode
-(require 'window-number)
-(window-number-mode 1)
-
-(global-set-key (kbd "C-c C-n") 'window-number-switch)
 
 ;; override C-x C-o with a variant which:
 ;; deletes all blank lines and inserts a new one
@@ -91,11 +85,13 @@
 (defun lk/count-buffers ()
   (length (buffer-list)))
 
-(require 'sane-term)
-(global-set-key (kbd "C-x n T") 'sane-term)
-(global-set-key (kbd "C-x n t") 'sane-term-create)
+(use-package sane-term
+	     :bind (( "C-x n T" . sane-term)
+                    ("C-x n t" . sane-term-create)))
 
-(global-set-key (kbd "C-x r") 'vr/replace)
+(use-package vr
+  :ensure visual-regexp
+  :bind (( "C-x r" . vr/replace)))
 
 ;; OSX stuff, make sure alt is meta in GUI emacs
 (defun mac-switch-meta nil

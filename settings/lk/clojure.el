@@ -1,6 +1,6 @@
-(require 'clojure-mode-extra-font-locking)
-
-(require 'inf-clojure)
+(use-package clojure-mode-extra-font-locking)
+(use-package clojure-mode)
+(use-package inf-clojure)
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)
   (inf-clojure-minor-mode t))

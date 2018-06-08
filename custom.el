@@ -15,6 +15,7 @@
       (:inherit nil :stipple nil :background "#fdf6e3" :foreground "#657b83"))))
  '(fci-rule-color "#373b41")
  '(magit-merge-arguments nil)
+ '(package-selected-packages nil)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote

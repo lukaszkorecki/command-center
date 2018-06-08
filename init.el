@@ -1,6 +1,13 @@
 ;;;; init --- loads all customizations and packages
 ;;;; Commentary - Prolly needs splitting more
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+
 (package-initialize)
+(eval-when-compile
+  (require 'use-package))
+(setq use-package-always-ensure t)
 
 (add-to-list 'load-path "~/.emacs.d/settings")
 
@@ -20,15 +27,9 @@
       (add-to-list 'byte-compile-not-obsolete-funcs
                    'preceding-sexp))))
 
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
+(use-package s)
+(use-package better-defaults)
 
-(require 'better-defaults)
-
-;; Fix missing env vars in emacs server+ssh
-(require 'exec-path-from-shell)
-(exec-path-from-shell-copy-env "SSH_AGENT_PID")
-(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 (require 'lk/customizations)
 (require 'lk/helm)
@@ -36,7 +37,7 @@
 ;; make it pretty!
 (require 'lk/theme)
 
-(require 'ansi-color)
+(use-package ansi-color)
 ;; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -48,7 +49,7 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(require 'whitespace)
+(use-package whitespace)
 (setq whitespace-style '(face empty tabs lines-tail trailing))
 ;; add final newline automaticaly
 (setq require-final-newline t)
@@ -71,7 +72,7 @@
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
-(require 'transpose-frame)
+(use-package transpose-frame)
 
 ;; load custom abbreviations
 (require 'lk/abbrevs)
@@ -86,7 +87,7 @@
 ;; vc mode line needs refreshing every now and then
 (setq auto-revert-check-vc-info t)
 
-(require 's)
+(use-package s)
 
 (defun vc-status-mode-line ()
   "Builds a source control string or nil."
