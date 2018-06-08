@@ -1,9 +1,10 @@
 (use-package clojure-mode-extra-font-locking)
 (use-package clojure-mode)
-(use-package inf-clojure)
+(use-package monroe)
+
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)
-  (inf-clojure-minor-mode t))
+  (clojure-enable-monroe))
 
 (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
 
