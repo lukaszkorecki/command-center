@@ -11,8 +11,7 @@
 (use-package color-theme)
 (use-package solarized-theme
   :after (color-theme)
-  :after (color-theme)
   :init
-  (load-theme 'solarized-dark 't))
+  (load-theme 'solarized-light 't))
 
 (provide 'lk/theme)

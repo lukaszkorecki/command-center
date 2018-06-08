@@ -4,7 +4,6 @@
 ;;; space, they will be moved to separate files
 
 ;;; Code:
-(use-package move-text)
 
 (use-package gitignore-mode
   :init
@@ -31,7 +30,6 @@
 (use-package sql-indent)
 (use-package terraform-mode)
 (use-package ansible)
-(use-package rainbow-delimiters)
 
 (use-package scss-mode
   :init
@@ -47,22 +45,23 @@
   (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
-                                        ; Javascripts
+;; Javascripts
 (use-package rjsx-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
-  (setq js-indent-level 2))
+  (setq js-indent-level 2)
 
-;; settings for js2 mode
-(add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
-(setq-default js-switch-indent-offset 4)
-(setq-default js2-basic-offset 2)
-(setq-default js2-indent-switch-body t)
+  ;; settings for js2 mode
+  (add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
+  (setq-default js-switch-indent-offset 4)
+  (setq-default js2-basic-offset 2)
+  (setq-default js2-indent-switch-body t)
+  ;; es6 is ok with trailing commas
+  (setq-default js2-strict-trailing-comma-warning nil))
 
-;; es6 is ok with trailing commas
-(setq-default js2-strict-trailing-comma-warning nil)
-
-(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+(use-package json-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
 ; web-mode stuff
 (use-package web-mode
@@ -75,6 +74,7 @@
 ;; sh mode
 (setq sh-indentation 2)
 (setq sh-basic-offset 2)
+
 ;; better sql indentation
 (eval-after-load "sql"
   '(load-library "sql-indent"))

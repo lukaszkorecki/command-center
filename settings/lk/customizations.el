@@ -55,19 +55,17 @@
 	     :bind (( "C-c m s" . magit-status)))
 
 
+;; Editing and general syntax highlighting
+(use-package move-text)
+(use-package rainbow-delimiters)
 
 ;; Window and buffer management
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
-;; better window movements
-(global-set-key (kbd "C-c <left>") 'windmove-left)
-(global-set-key (kbd "C-c <right>") 'windmove-right)
-(global-set-key (kbd "C-c <up>") 'windmove-up)
-(global-set-key (kbd "C-c <down>") 'windmove-down)
-
-(global-set-key (kbd "C-c t") 'transpose-frame)
+(use-package transpose-frame
+  :bind (( "C-c t" . transpose-frame)))
 
 ;; bind awkard M-[ & M-] to something better
 (global-set-key (kbd "M-n") 'forward-paragraph)
