@@ -6,6 +6,12 @@
             [clojure.java.io :as io])
   (:import (java.io File)))
 
+(defn init! []
+  (ns.repl/disable-reload!))
+
+(def refresh ns.repl/refresh)
+(def refresh-all ns.repl/refresh-all)
+
 (defn list-ns-in-pj
   "Return list of symbols of namespaces found in src dir"
   []
@@ -16,33 +22,17 @@
   []
   (ns.find/find-namespaces-in-dir (File. "./test/")))
 
-(defn require+reload
-  "Requires and reloads all project namespaces"
-  []
-  (apply require (conj (vec (list-ns-in-pj)) :reload)))
-
-(defn require+reload-tests
-  "Requires and reloads all tests"
-  []
-  (apply require (conj (vec (list-test-ns-in-pj)) :reload)))
-
-(defn require-all
-  "Require+Reload all project and test namespaces"
-  []
-  (require+reload)
-  (require+reload-tests))
-
 (defn t
   "Reload and run tests. Without arguments run all tests.
   If argument is passed (String) is interpreted as a regex to
   find a namespace"
   ([]
-   (require-all)
-   (apply test/run-tests (list-test-ns-in-pj)))
+   (refresh-all)
+   (test/run-all-tests))
   ([pattern]
-   (let [regex (re-pattern pattern)
-         test-nss (->> (list-test-ns-in-pj)
-                       (filter #(re-find regex (str %))))]
-     (require+reload)
-     (apply require (conj (vec test-nss) :reload))
+   (let [regex (re-pattern pattern)]
+     (refresh-all)
      (test/run-all-tests regex))))
+
+(println "yo")
+(init!)
