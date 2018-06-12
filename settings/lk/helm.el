@@ -5,7 +5,6 @@
   :init (setq helm-M-x-fuzzy-match t)
   :bind (( "C-c n b" . helm-buffers-list)
 
-
          ;; in-buffer navigation
          ( "C-c n i" . helm-semantic-or-imenu)
          ( "C-c n s" . helm-occur)
@@ -18,7 +17,6 @@
   :bind ( ( "C-c n g" . helm-git-grep)))
 
 (use-package helm-projectile
-  :after (helm projectile grizzl)
   :init
   (setq projectile-completion-system 'helm)
   (helm-projectile-on)
@@ -28,11 +26,11 @@
   :bind (( "C-c n p" . helm-projectile-find-file)))
 
 ;; dock helm window in the bottom
-(add-to-list 'display-buffer-alist
-             `(,(rx bos "*helm" (* not-newline) "*" eos)
-               (display-buffer-in-side-window)
-               (inhibit-same-window . t)
-               (window-height . 0.4)))
+;; (add-to-list 'display-buffer-alist
+;;              `(,(rx bos "*helm" (* not-newline) "*" eos)
+;;                (display-buffer-in-side-window)
+;;                (inhibit-same-window . t)
+;;                (window-height . 0.4)))
 
 
 
