@@ -54,4 +54,18 @@
 
 (global-set-key (kbd "C-x c f") 'lk/clojure-format-current-buffer)
 
+
+(defun lk/start-lein-nrepl ()
+  "Starts lein repl for the project it can find"
+  (interactive)
+  (require 'term)
+  (let* ((cmd "lein")
+         (args "repl :headless")
+         (switches (split-string-and-unquote args))
+         (termbuf (apply 'make-term "lein repl" cmd nil switches)))
+    (set-buffer termbuf)
+    (term-mode)
+    (term-char-mode)
+    (switch-to-buffer termbuf)))
+
 (provide 'lk/clojure)
