@@ -28,7 +28,7 @@
   If argument is passed (String) is interpreted as a regex to
   find a namespace"
   ([]
-   (refresh-all)
+   (refresh)
    (test/run-all-tests))
   ([pattern]
    (let [regex (re-pattern pattern)]
