@@ -9,6 +9,7 @@
 (defn init! []
   (ns.repl/disable-reload!))
 
+(def run-test test/run-all-tests)
 (def refresh ns.repl/refresh)
 (def refresh-all ns.repl/refresh-all)
 
@@ -31,7 +32,7 @@
    (test/run-all-tests))
   ([pattern]
    (let [regex (re-pattern pattern)]
-     (refresh-all)
+     (refresh)
      (test/run-all-tests regex))))
 
 (println "yo")

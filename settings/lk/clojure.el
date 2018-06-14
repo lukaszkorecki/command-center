@@ -60,7 +60,7 @@
   (interactive)
   (require 'term)
   (let* ((cmd "lein")
-         (args "repl :headless")
+         (args "trampoline repl :headless")
          (switches (split-string-and-unquote args))
          (termbuf (apply 'make-term "lein repl" cmd nil switches)))
     (set-buffer termbuf)
