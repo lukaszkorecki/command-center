@@ -7,6 +7,7 @@
             [clojure.java.io :as io])
   (:import (java.io File)))
 
+(def multithread (atom false))
 (defn init! []
   (ns.repl/disable-reload! *ns*))
 
@@ -24,13 +25,15 @@
   find a namespace"
   ([]
    (refresh)
-   (eftest/run-tests (eftest/find-tests "test")))
+   (eftest/run-tests (eftest/find-tests "test")
+                      {:multithread? @multithread}))
   ([pattern]
    (let [regex (re-pattern pattern)
          nss (filter (fn [v] (re-find regex (str v)))
                      (eftest/find-tests "test"))]
      (refresh)
-     (eftest/run-tests nss))))
+     (eftest/run-tests nss
+                       {:multithread? @multithread}))))
 
 (println "yo")
 (init!)
