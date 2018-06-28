@@ -44,10 +44,11 @@
     (message command)
     (shell-command command)))
 
+(global-set-key (kbd "C-x g f") 'lk/open-current-file-in-gh)
+
 (use-package git
 	     :bind (("C-x C-g" . vc-git-grep)
-              ( "C-x g p" . lk/open-pr)
-              ( "C-x g f" . lk/open-current-file-in-gh)))
+              ( "C-x g p" . lk/open-pr)))
 
 ;; magit stuff
 
