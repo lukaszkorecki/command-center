@@ -49,7 +49,7 @@
   (interactive)
   (let ((file-name (buffer-file-name (current-buffer))))
     (compilation-start
-     (format "lein cljfmt fix %s" file-name)
+     (format "lein trampoline cljfmt fix %s" file-name)
      'compilation-mode)))
 
 (global-set-key (kbd "C-x c f") 'lk/clojure-format-current-buffer)
@@ -60,7 +60,7 @@
   (interactive)
   (let ((file-name (buffer-file-name (current-buffer))))
     (compilation-start
-     (format "lein kibit %s" file-name)
+     (format "lein trampoline kibit %s" file-name)
      'compilation-mode)))
 
 (global-set-key (kbd "C-x c v") 'lk/clojure-check-current-buffer)
