@@ -54,6 +54,17 @@
 
 (global-set-key (kbd "C-x c f") 'lk/clojure-format-current-buffer)
 
+(defun lk/clojure-check-current-buffer ()
+  "Format current buffer with Kibit - assume it's installed already
+     (it is as it was added to ~/.lein/profiles.clj)"
+  (interactive)
+  (let ((file-name (buffer-file-name (current-buffer))))
+    (compilation-start
+     (format "lein kibit %s" file-name)
+     'compilation-mode)))
+
+(global-set-key (kbd "C-x c v") 'lk/clojure-check-current-buffer)
+
 
 (defun lk/start-lein-nrepl ()
   "Starts lein repl for the project it can find"
