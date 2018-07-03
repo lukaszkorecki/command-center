@@ -1,6 +1,8 @@
 (use-package clojure-mode-extra-font-locking)
 (use-package clojure-mode)
-(use-package monroe)
+(use-package monroe
+  :ensure t
+  :pin melpa)
 
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)
@@ -25,7 +27,6 @@
 (defun lk/clj-scratch-start-text ()
   (insert-file-contents "~/.emacs.d/settings/lk/scratch-template.clj"))
 
-
 (defun lk/create-clojure-scratch ()
   "Creates a scratch buffer, similar to Emacs' *scratch*
      and injects template from lk/clj-scratch-start-text"
@@ -49,7 +50,7 @@
   (interactive)
   (let ((file-name (buffer-file-name (current-buffer))))
     (compilation-start
-     (format "lein trampoline cljfmt fix %s" file-name)
+     (format "lein cljfmt fix %s" file-name)
      'compilation-mode)))
 
 (global-set-key (kbd "C-x c f") 'lk/clojure-format-current-buffer)
@@ -60,23 +61,9 @@
   (interactive)
   (let ((file-name (buffer-file-name (current-buffer))))
     (compilation-start
-     (format "lein trampoline kibit %s" file-name)
+     (format "lein kibit %s" file-name)
      'compilation-mode)))
 
 (global-set-key (kbd "C-x c v") 'lk/clojure-check-current-buffer)
-
-
-(defun lk/start-lein-nrepl ()
-  "Starts lein repl for the project it can find"
-  (interactive)
-  (require 'term)
-  (let* ((cmd "lein")
-         (args "trampoline repl :headless")
-         (switches (split-string-and-unquote args))
-         (termbuf (apply 'make-term "lein repl" cmd nil switches)))
-    (set-buffer termbuf)
-    (term-mode)
-    (term-char-mode)
-    (switch-to-buffer termbuf)))
 
 (provide 'lk/clojure)
