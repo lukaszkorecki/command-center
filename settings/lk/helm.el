@@ -2,6 +2,7 @@
 (use-package projectile)
 (use-package grizzl)
 (use-package helm
+  :ensure t
   :init (setq helm-M-x-fuzzy-match t)
   :bind (( "C-c n b" . helm-buffers-list)
 

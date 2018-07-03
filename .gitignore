@@ -17,3 +17,5 @@ recentf
 /.emacs.desktop*
 /.mc-lists.el
 /network-security.data
+elpa25
+elpa26
