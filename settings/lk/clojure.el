@@ -24,15 +24,14 @@
 ;; inf-clojure/monroe based clj-scratch buffer
 ;; Adopted from cider's scratch
 (defconst lk/clj-scratch-name "*clj-scratch*")
-(defun lk/clj-scratch-start-text ()
-  (insert-file-contents "~/.emacs.d/settings/lk/scratch-template.clj"))
 
 (defun lk/create-clojure-scratch ()
+  (interactive)
   "Creates a scratch buffer, similar to Emacs' *scratch*
      and injects template from lk/clj-scratch-start-text"
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
-    (lk/clj-scratch-start-text)
+    (monroe-load-file "~/.emacs.d/settings/lk/scratch.clj")
     (current-buffer)))
 
 (defun lk/clojure-scratch ()

@@ -9,7 +9,13 @@
 
 (def multithread (atom false))
 (defn init! []
-  (ns.repl/disable-reload! *ns*))
+  (ns.repl/disable-reload! *ns*)
+  (println (str ">>> in ns " *ns*))
+  (println "(scratch/t) - run all tests
+(scratch/t \".*some-ns.*\") - run tests for matching namespaces
+(scratch/refresh) - refresh all namespaces
+(scrtach/refresh-all) - refresh all project + dep namespaces
+(scratch/list-ns) - find all namespaces in SRC"))
 
 (def refresh ns.repl/refresh)
 (def refresh-all ns.repl/refresh-all)
@@ -26,7 +32,7 @@
   ([]
    (refresh)
    (eftest/run-tests (eftest/find-tests "test")
-                      {:multithread? @multithread}))
+                     {:multithread? @multithread}))
   ([pattern]
    (let [regex (re-pattern pattern)
          nss (filter (fn [v] (re-find regex (str v)))
@@ -35,5 +41,4 @@
      (eftest/run-tests nss
                        {:multithread? @multithread}))))
 
-(println "yo")
 (init!)
