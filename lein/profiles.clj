@@ -1,4 +1,5 @@
 {:user {:dependencies [[org.clojure/tools.namespace "0.3.0-alpha4"]
+                       [com.cemerick/pomegranate "1.0.0"]
                        [eftest "0.5.2"]]
         :repl-options {:color false}
         :plugins [[lein-cljfmt "0.4.1" :exclusions [org.clojure/clojure]]
