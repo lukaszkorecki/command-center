@@ -91,32 +91,31 @@
 (defun vc-status-mode-line ()
   "Builds a source control string or nil."
   (when vc-mode
-    `(" ["
+    `(" "
       ,(s-trim (substring-no-properties vc-mode))
-      "] ")))
+      " ")))
 
 ;; customize the mode-line
 (setq-default
  mode-line-format
  (list
-  " ⎈ | %l | %c | "
-  ;; window number etc
-  '(:eval (propertize
-           (format " [B: %s] [W: %s] " (lk/count-buffers) (window-number))
-           'face 'font-lock-comment-face))
+  '(:eval (vc-status-mode-line))
   ;; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
+
+  " L:%l C:%c | "
+  ;; window number etc
+  '(:eval (propertize
+           (format "B:%s | W:%s " (lk/count-buffers) (window-number))
+           'face 'font-lock-comment-face))
+
   ;; major mode
   '(:eval (propertize "%m " 'face 'font-lock-comment-face))
-  ;; list minor modes
-  '(:eavl (propertize 'minor-mode-alist 'face 'font-lock-variable-name-face))
-  ;; encoding and line ending
-  '(:eval (propertize "%z " 'face 'font-lock-string-face))
+
   ;; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
-  '(:eval (vc-status-mode-line))
-  '(global-mode-string global-mode-string)))
 
+  '(global-mode-string global-mode-string)))
 
 ;; Disable certain commands
 (put 'downcase-region 'disabled nil)
