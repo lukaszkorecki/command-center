@@ -106,6 +106,10 @@
 (mac-switch-meta)
 (mac-switch-meta)
 
+;; more better bookmarks
+(global-set-key (kbd "C-c b s") 'bookmark-set)
+(global-set-key (kbd "C-c b j") 'bookmark-jump)
+(global-set-key (kbd "C-c b l") 'list-bookmarks)
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here
