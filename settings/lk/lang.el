@@ -23,8 +23,8 @@
   (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
 
 (use-package dockerfile-mode
-    :init
-    (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
+  :init
+  (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
 
 (use-package restclient)
 (use-package sql-indent)
@@ -63,7 +63,7 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
-; web-mode stuff
+;; web-mode stuff
 (use-package web-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))

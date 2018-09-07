@@ -34,7 +34,6 @@
   :bind
   (( "C-c w" . window-number-switch)))
 
-
 (require 'lk/customizations)
 (require 'lk/helm)
 
@@ -99,15 +98,14 @@
 (setq-default
  mode-line-format
  (list
+'(:eval (propertize
+           (format "> W:%s " (window-number))
+           'face 'font-lock-comment-face))
   '(:eval (vc-status-mode-line))
   ;; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
 
   " L:%l C:%c | "
-  ;; window number etc
-  '(:eval (propertize
-           (format "B:%s | W:%s " (lk/count-buffers) (window-number))
-           'face 'font-lock-comment-face))
 
   ;; major mode
   '(:eval (propertize "%m " 'face 'font-lock-comment-face))
