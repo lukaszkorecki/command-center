@@ -50,11 +50,16 @@
 	     :bind (("C-x C-g" . vc-git-grep)
               ( "C-x g p" . lk/open-pr)))
 
+(use-package dumb-jump
+  :bind
+  (("C-c n j" . dumb-jump))
+  :config
+  (setq dumb-jump-selector 'helm))
+
 ;; magit stuff
 
 (use-package magit
 	     :bind (( "C-c m s" . magit-status)))
-
 
 ;; Editing and general syntax highlighting
 (use-package move-text)
