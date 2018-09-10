@@ -14,4 +14,20 @@
   :init
   (load-theme 'solarized-light 't))
 
-(provide 'lk/theme)
+(use-package ansi-color)
+;; yes/no -> y/n
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; turn off splash screen
+(setq inhibit-startup-message t)
+
+;; turn off initial scratch buffer message
+(setq initial-scratch-message "")
+
+;; always match parens
+(show-paren-mode t)
+(setq show-paren-delay 0)
+
+
+
+(provide 'lk/ui)

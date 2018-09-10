@@ -18,6 +18,12 @@
   (end-of-line)
   (join-line))
 
+
+;; Disable certain commands
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'magit-clean 'disabled nil)
+
 ;; disable c-z which maps to minimize
 (global-unset-key (kbd "C-z"))
 ;; set in helm-projectile later, originally used in dired/tramp
@@ -29,8 +35,6 @@
 (global-set-key (kbd "C-x j") 'lk/join-lines)
 
 ;; Git and git-surf helpers
-
-
 (defun lk/open-pr ()
   (interactive)
   (shell-command "git surf -p"))

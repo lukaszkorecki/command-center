@@ -27,29 +27,19 @@
       (add-to-list 'byte-compile-not-obsolete-funcs
                    'preceding-sexp))))
 
-(use-package s)
+
 (use-package better-defaults)
 
 (use-package window-number
   :bind
   (("C-c n w" . window-number-switch)))
 
-(require 'lk/customizations)
 (require 'lk/helm)
 
 ;; make it pretty!
-(require 'lk/theme)
+(require 'lk/ui)
 
-(use-package ansi-color)
-;; yes/no -> y/n
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; turn off splash screen
-(setq inhibit-startup-message t)
-
-;; turn off initial scratch buffer message
-(setq initial-scratch-message "")
-
+;; Editing
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (use-package whitespace)
@@ -71,10 +61,6 @@
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
 
-;; always match parens
-(show-paren-mode t)
-(setq show-paren-delay 0)
-
 ;; language customizations
 (require 'lk/lang)
 
@@ -82,43 +68,9 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
-;; vc mode line needs refreshing every now and then
-(setq auto-revert-check-vc-info t)
 
-(use-package s)
+;; load rest of customizations
+(require 'lk/customizations)
 
-(defun vc-status-mode-line ()
-  "Builds a source control string or nil."
-  (when vc-mode
-    `(" "
-      ,(s-trim (substring-no-properties vc-mode))
-      " ")))
-
-;; customize the mode-line
-(setq-default
- mode-line-format
- (list
-'(:eval (propertize
-           (format "> W:%s " (window-number))
-           'face 'font-lock-comment-face))
-  '(:eval (vc-status-mode-line))
-  ;; buffername
-  '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
-
-  " L:%l C:%c | "
-
-  ;; major mode
-  '(:eval (propertize "%m " 'face 'font-lock-comment-face))
-
-  ;; modified * / RO % / no changes -
-  '(:eval (propertize " %*" 'face 'font-lock-warning-face))
-
-  '(global-mode-string global-mode-string)))
-
-;; Disable certain commands
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'magit-clean 'disabled nil)
-;; end
-(provide 'init)
-;;; init.el ends here
+;; load modeline
+(require 'lk/modeline)
