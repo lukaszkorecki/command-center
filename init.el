@@ -32,7 +32,7 @@
 
 (use-package window-number
   :bind
-  (( "C-c w" . window-number-switch)))
+  (("C-c n w" . window-number-switch)))
 
 (require 'lk/customizations)
 (require 'lk/helm)

@@ -52,7 +52,7 @@
 
 (use-package dumb-jump
   :bind
-  (("C-c n j" . dumb-jump))
+  (("C-c n j" . dumb-jump-go))
   :config
   (setq dumb-jump-selector 'helm))
 
