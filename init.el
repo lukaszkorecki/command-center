@@ -31,8 +31,10 @@
 (use-package better-defaults)
 
 (use-package window-number
+  :init
+  (global-unset-key (kbd "C-j"))
   :bind
-  (("C-c n w" . window-number-switch)))
+  (("C-j" . window-number-switch)))
 
 (require 'lk/helm)
 
