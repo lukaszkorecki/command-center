@@ -29,7 +29,6 @@
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (setq projectile-use-git-grep t)
   (setq projectile-completion-system 'grizzl)
-  :after (helm)
   :bind (("C-c n p" . helm-projectile-find-file)))
 
 ;; dock helm window in the bottom
