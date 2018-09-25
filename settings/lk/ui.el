@@ -8,18 +8,31 @@
 
 (add-hook 'window-setup-hook 'on-after-init)
 
-(use-package color-theme)
+(use-package color-theme
+  :ensure t)
 (use-package solarized-theme
+  :ensure t
   :after (color-theme)
   :init
-  (load-theme 'solarized-light 't))
+  (load-theme 'solarized-dark 't))
 
-(use-package ansi-color)
+(use-package ansi-color
+  :ensure t)
+
 ;; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; turn off splash screen
 (setq inhibit-startup-message t)
+
+;; turn off the bell
+(setq ring-bell-function 'ignore)
+
+;; show buffer file name in title bar
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
 
 ;; turn off initial scratch buffer message
 (setq initial-scratch-message "")
