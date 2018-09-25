@@ -6,47 +6,60 @@
 ;;; Code:
 
 (use-package gitignore-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.gitignore$" . gitignore-mode)))
 
 (use-package python-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 (use-package markdown-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode)))
 
 (use-package jinja2-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
 
 (use-package dockerfile-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
 
-(use-package restclient)
-(use-package sql-indent)
-(use-package terraform-mode)
-(use-package ansible)
+(use-package restclient
+    :ensure t)
+(use-package sql-indent
+    :ensure t)
+(use-package terraform-mode
+    :ensure t)
+(use-package ansible
+    :ensure t)
 
 (use-package scss-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
   (setq css-indent-offset 2))
 
 (use-package nginx-mode
+  :ensure t
   :init
   (setq nginx-indent-offset 2))
 
 (use-package yaml-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
 ;; Javascripts
 (use-package rjsx-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
   (setq js-indent-level 2)
@@ -60,13 +73,16 @@
   (setq-default js2-strict-trailing-comma-warning nil))
 
 (use-package json-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
 ;; web-mode stuff
 (use-package web-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode)))

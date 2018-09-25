@@ -2,6 +2,7 @@
 ;;;; Commentary:
 ;;; Code:
 (use-package ruby-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
   (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))

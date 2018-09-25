@@ -1,6 +1,11 @@
-(use-package s)
-(use-package window-number)
-(use-package git)
+(use-package s
+  :ensure t)
+
+(use-package window-number
+  :ensure t)
+
+(use-package git
+  :ensure t)
 
 ;; vc mode line needs refreshing every now and then
 (setq auto-revert-check-vc-info t)

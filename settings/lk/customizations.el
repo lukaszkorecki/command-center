@@ -51,10 +51,12 @@
 (global-set-key (kbd "C-x g f") 'lk/open-current-file-in-gh)
 
 (use-package git
-	     :bind (("C-x C-g" . vc-git-grep)
-              ( "C-x g p" . lk/open-pr)))
+  :ensure t
+	:bind (("C-x C-g" . vc-git-grep)
+         ( "C-x g p" . lk/open-pr)))
 
 (use-package dumb-jump
+  :ensure t
   :bind
   (("C-c n j" . dumb-jump-go))
   :config
@@ -63,11 +65,15 @@
 ;; magit stuff
 
 (use-package magit
-	     :bind (( "C-c m s" . magit-status)))
+  :ensure t
+	:bind (( "C-c m s" . magit-status)))
 
 ;; Editing and general syntax highlighting
-(use-package move-text)
-(use-package rainbow-delimiters)
+(use-package move-text
+  :ensure t)
+
+(use-package rainbow-delimiters
+  :ensure t)
 
 ;; Window and buffer management
 
@@ -75,6 +81,7 @@
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
 (use-package transpose-frame
+  :ensure t
   :bind (( "C-c t" . transpose-frame)))
 
 ;; bind awkard M-[ & M-] to something better
@@ -94,10 +101,12 @@
   (length (buffer-list)))
 
 (use-package sane-term
-	     :bind (( "C-x n T" . sane-term)
-                    ("C-x n t" . sane-term-create)))
+    :ensure t
+	  :bind (( "C-x n T" . sane-term)
+           ("C-x n t" . sane-term-create)))
 
-(use-package vr
+(use-package visual-regexp
+  :ensure t
   :ensure visual-regexp
   :bind (( "C-x r" . vr/replace)))
 

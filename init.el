@@ -28,9 +28,11 @@
                    'preceding-sexp))))
 
 
-(use-package better-defaults)
+(use-package better-defaults
+  :ensure t)
 
 (use-package window-number
+  :ensure t
   :init
   (global-unset-key (kbd "C-j"))
   :bind
@@ -38,13 +40,14 @@
 
 (require 'lk/helm)
 
-;; make it pretty!
 (require 'lk/ui)
 
 ;; Editing
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(use-package whitespace)
+(use-package whitespace
+  :ensure t)
+
 (setq whitespace-style '(face empty tabs lines-tail trailing))
 ;; add final newline automaticaly
 (setq require-final-newline t)

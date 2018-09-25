@@ -1,5 +1,9 @@
-(use-package clojure-mode-extra-font-locking)
-(use-package clojure-mode)
+(use-package clojure-mode-extra-font-locking
+  :ensure t)
+
+(use-package clojure-mode
+  :ensure t)
+
 (use-package monroe
   :ensure t
   :pin melpa)
