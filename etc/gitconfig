@@ -1,0 +1,72 @@
+# vi: ft=gitconfig
+[user]
+  email = lukasz@korecki.me
+  name = Łukasz Korecki
+	signkey = 0A46786C9281B170
+	signingkey = 9745E464
+[include]
+  path = ~/.private/gitconfig.include
+[color]
+  ui = true
+  diff = true
+[core]
+  pager = less -F -X
+  excludesfile = ~/.gitignore_global
+[grep]
+  linenumber = true
+  extendedRegexp = true
+
+[push]
+  default = current
+
+[alias]
+  update = !git fetch -a -p && git pull -r && git remove-merged-branches
+  c = commit
+  cm = commit -m
+  ca = commit --amend
+
+  remove-merged-branches = !git branch --merged master | grep -v 'master$' | xargs git branch -d
+
+  co = checkout
+  g = !git --no-pager grep --color -n
+  l = log
+  lo = log --graph --oneline --abbrev-commit
+  ll = log --graph --pretty='format:%h | %an | %s'
+  pr = pull --rebase
+  pl = !git pull -r -u origin $(git cb)
+
+  pfff = !git push --force origin $(git cb)
+
+  re-continue = rebase --continue
+  re-skip = rebase --skip
+  pull-all = pull --recurse-submodules -r
+  ss = status
+  s = status -sb
+  m = merge --no-ff
+  zip-current-branch = !git archive --format zip --output ./$(pwd | rev | cut -d/ -f1 | rev).zip $(git cb)
+  last = rev-parse HEAD
+  root = rev-parse --show-toplevel
+
+  d = diff
+  dc = diff --cached
+  wd = diff --color-words
+  wdc = diff --color-words --cached
+
+  serve = daemon --reuseaddr --verbose  --port=4000 --base-path=. --export-all ./.git
+
+  cb = !git rev-parse --abbrev-ref HEAD 2>/dev/null
+  edit-modified = !vim -p $(git ls-files -m )
+  push-and-track= !git push -u origin $(git cb)
+  safe-pull = !git stash && git pull -r origin $(git cb) && git stash pop
+
+  llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
+  changelog = log --pretty=format:'%Cgreen%d %Creset%s' --date=iso
+[branch]
+  autosetupmerge = true
+
+[url "github.com:"]
+  insteadOf = gh:
+[url "bitbucket.org:"]
+  insteadOf = bb:
+[url "git@github.com:"]
+	insteadOf = https://github.com/

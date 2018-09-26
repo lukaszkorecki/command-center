@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
+ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
+ln -fvs ~/.emacs.d/etc/gitignore_global ~/.gitignore_global

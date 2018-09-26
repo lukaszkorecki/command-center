@@ -1,0 +1,16 @@
+*#
+*~
+*.bak
+*.swp
+*.deb
+*.#*
+app/assets/images/v2/
+app/assets/javascripts/search_app-v2.js
+app/assets/stylesheets/search_app-v2.scss
+coll.tst
+node_modules/
+deps.log
+.kein
+**/*clj-scratch*
+**/.DS_Store
+TAGS
