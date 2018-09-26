@@ -68,6 +68,10 @@
 ;; language customizations
 (require 'lk/lang)
 
+;; When saving a file that starts with `#!', make it executable.
+(add-hook 'after-save-hook
+            'executable-make-buffer-file-executable-if-script-p)
+
 ;; customizations file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
