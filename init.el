@@ -13,10 +13,10 @@
 
 ;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'exec-path "~/.DotFiles/bin")
+(add-to-list 'exec-path "~/.emacs.d/etc/bin")
 
 (setenv "PATH" (concat (getenv "PATH")
-                       ":/usr/local/bin:~/.DotFiles/bin"))
+                       ":/usr/local/bin:~/.emacs.d/etc/bin"))
 
 ;; reduce GC thrash
 (setq gc-cons-threshold 20000000)
