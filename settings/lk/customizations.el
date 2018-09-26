@@ -66,7 +66,10 @@
 
 (use-package magit
   :ensure t
-	:bind (( "C-c m s" . magit-status)))
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read)
+	:bind
+  (( "C-c m s" . magit-status)))
 
 ;; Editing and general syntax highlighting
 (use-package move-text

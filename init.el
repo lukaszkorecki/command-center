@@ -38,8 +38,7 @@
   :bind
   (("C-j" . window-number-switch)))
 
-(require 'lk/helm)
-
+(require 'lk/ivy)
 (require 'lk/ui)
 
 ;; Editing
