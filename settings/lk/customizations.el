@@ -26,7 +26,7 @@
 
 ;; disable c-z which maps to minimize
 (global-unset-key (kbd "C-z"))
-;; set in helm-projectile later, originally used in dired/tramp
+;; set in projectile later, originally used in dired/tramp
 (global-unset-key (kbd "C-c n p"))
 
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)

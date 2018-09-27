@@ -8,10 +8,11 @@
 (use-package projectile
   :ensure t
   :config
-  (projectile-global-mode)
+  (projectile-mode +1)
   (setq projectile-remember-window-configs t)
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (setq projectile-completion-system 'ivy)
+  (projectile-mode +1)
   :bind
   ("C-c n p" . projectile-find-file))
 
