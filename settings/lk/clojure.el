@@ -29,13 +29,13 @@
 ;; Adopted from cider's scratch
 (defconst lk/clj-scratch-name "*clj-scratch*")
 
-(defun lk/create-clojure-scratch ()
+(defun lk/init-clojure-scratch ()
   (interactive)
   "Creates a scratch buffer, similar to Emacs' *scratch*
      and injects template from lk/clj-scratch-start-text"
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
-    (monroe-load-file "~/.emacs.d/settings/lk/scratch.clj")
+    (monroe-load-file "~/.emacs.d/etc/scratch.clj")
     (current-buffer)))
 
 (defun lk/clojure-scratch ()
@@ -43,7 +43,7 @@
      if we have one already"
   (interactive)
   (pop-to-buffer (or (get-buffer lk/clj-scratch-name)
-                     (lk/create-clojure-scratch))))
+                     (lk/init-clojure-scratch))))
 
 (global-set-key (kbd "C-x c s") 'lk/clojure-scratch)
 

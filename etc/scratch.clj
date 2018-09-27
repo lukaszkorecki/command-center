@@ -9,6 +9,7 @@
 
 (def multithread (atom false))
 (defn init! []
+  (ns scratch)
   (ns.repl/disable-reload! *ns*)
   (println (str ">>> in ns " *ns*))
   (println "(scratch/t) - run all tests
