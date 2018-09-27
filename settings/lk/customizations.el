@@ -37,12 +37,12 @@
 ;; Git and git-surf helpers
 (defun lk/open-pr ()
   (interactive)
-  (shell-command "git surf -p"))
+  (shell-command "~/.emacs.d/etc/bin/git-surf -p"))
 
 (defun lk/open-current-file-in-gh ()
   (interactive)
   (let* ((line-no (line-number-at-pos))
-         (command (format "git surf -r%s,%s %s"
+         (command (format "~/.emacs.d/etc/bin/git-surf -r%s,%s %s"
                           line-no line-no
                           (file-name-nondirectory (buffer-file-name)))))
     (message command)
@@ -53,14 +53,14 @@
 (use-package git
   :ensure t
 	:bind (("C-x C-g" . vc-git-grep)
-         ( "C-x g p" . lk/open-pr)))
+         ("C-x g p" . lk/open-pr)))
 
 (use-package dumb-jump
   :ensure t
   :bind
   (("C-c n j" . dumb-jump-go))
   :config
-  (setq dumb-jump-selector 'helm))
+  (setq dumb-jump-selector 'ivy))
 
 ;; magit stuff
 
