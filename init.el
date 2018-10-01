@@ -20,13 +20,11 @@
 
 ;; reduce GC thrash
 (setq gc-cons-threshold 20000000)
-(set-language-environment "UTF-8")
 (when (>= emacs-major-version 25)
   (eval-after-load 'bytecomp
     (lambda ()
       (add-to-list 'byte-compile-not-obsolete-funcs
                    'preceding-sexp))))
-
 
 (use-package better-defaults
   :ensure t)
@@ -60,6 +58,8 @@
 ;; customizations file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+(setq abbrev-file-name "~/.emacs.d/abbrev.el")
 
 
 ;; load rest of customizations
