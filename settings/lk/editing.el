@@ -6,10 +6,13 @@
 
 ;; strip whitespace
 (use-package whitespace
-  :ensure t)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+  :ensure t
+  :init
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  :config
+  (setq whitespace-style '(face empty tabs lines-tail trailing))
+  (setq whitespace-line-column 80))
 
-(setq whitespace-style '(face empty tabs lines-tail trailing))
 ;; add final newline automaticaly
 (setq require-final-newline t)
 
