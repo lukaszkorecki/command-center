@@ -42,22 +42,7 @@
 (require 'lk/ui)
 
 ;; Editing
-;; strip whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(use-package whitespace
-  :ensure t)
-
-(setq whitespace-style '(face empty tabs lines-tail trailing))
-;; add final newline automaticaly
-(setq require-final-newline t)
-
-;; indenting
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
-(setq-default standard-indent 2)
-
-(setq x-alt-keysym 'meta) ; make alt work as meta in x11
-(define-key global-map (kbd "RET") 'newline-and-indent)
+(require 'lk/editing)
 
 ;; no backup files
 (setq-default make-backup-files nil)
