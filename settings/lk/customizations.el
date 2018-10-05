@@ -5,6 +5,20 @@
 
 
 ;; Editing helpers
+(defun lk/show-kill-ring ()
+  "Insert all `kill-ring' content in a new buffer named *copy history*.
+Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
+  (interactive)
+  (let* ((buf-name "*copy history*")
+         (_ignore (kill-buffer (get-buffer buf-name)))
+         (copy-buf (generate-new-buffer buf-name)))
+    (progn
+      (switch-to-buffer copy-buf)
+      (funcall 'fundamental-mode)
+      (setq buffer-offer-save t)
+      (dolist (x kill-ring)
+        (insert x "\n\n>>>>---------------------------------\n\n"))
+      (goto-char (point-min)))))
 
 (defun lk/select-line ()
   "Select current line"
@@ -33,6 +47,8 @@
 
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
+
+(global-set-key (kbd "C-c n k") 'lk/show-kill-ring)
 
 ;; Git and git-surf helpers
 (defun lk/open-pr ()
