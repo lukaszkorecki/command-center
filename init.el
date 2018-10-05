@@ -37,6 +37,7 @@
   (("C-j" . window-number-switch)))
 
 (require 'lk/ivy)
+(require 'lk/company)
 (require 'lk/ui)
 
 ;; Editing
