@@ -46,6 +46,8 @@
 
 ;; no backup files
 (setq-default make-backup-files nil)
+;; no lockfiles
+(setq create-lockfiles nil)
 
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
