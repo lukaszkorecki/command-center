@@ -95,6 +95,9 @@
 (eval-after-load "sql"
   '(load-library "sql-indent"))
 
+(require 'apex-mode)
+(add-to-list 'auto-mode-alist '("\\.cls.+" . apex-mode))
+
 (require 'lk/ruby)
 (require 'lk/clojure)
 
