@@ -72,6 +72,11 @@
   ;; es6 is ok with trailing commas
   (setq-default js2-strict-trailing-comma-warning nil))
 
+(use-package typescript-mode
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.(ts|tsx)$" . typescript-mode)))
+
 (use-package json-mode
   :ensure t
   :init
