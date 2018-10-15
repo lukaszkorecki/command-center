@@ -5,7 +5,7 @@
 My emacs and shell setup. Focused on:
 
 - Clojure
-- Shell scripting 
+- Shell scripting
 - Ops stuff (Ansible, Terraform etc)
 - Occasionally;
   - Ruby
@@ -24,7 +24,7 @@ My emacs and shell setup. Focused on:
 
 # Details
 
-- I use `bash`, I tried `zsh` in the past and it was not worth the effort 
+- I use `bash`, I tried `zsh` in the past and it was not worth the effort
 - you can see my old .files here: https://github.com/lukaszkorecki/DotFiles
 - Emacs config is pretty light-weight, essential packages are:
   - ivy

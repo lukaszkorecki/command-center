@@ -41,6 +41,10 @@
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
+;; show imenu-list
+(use-package imenu-list
+  :ensure t
+  :bind (( "C-c n l" . imenu-list-smart-toggle)))
 
 
 (provide 'lk/ui)

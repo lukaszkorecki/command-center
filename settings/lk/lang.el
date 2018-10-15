@@ -18,8 +18,9 @@
 (use-package markdown-mode
   :ensure t
   :init
-  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-  (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode)))
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md$" . markdown-mode)
+         ("\\.markdown$" . markdown-mode)))
 
 (use-package jinja2-mode
   :ensure t
