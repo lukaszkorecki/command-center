@@ -64,7 +64,6 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
   (setq js-indent-level 2)
-
   ;; settings for js2 mode
   (add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
   (setq-default js-switch-indent-offset 4)
@@ -72,6 +71,15 @@
   (setq-default js2-indent-switch-body t)
   ;; es6 is ok with trailing commas
   (setq-default js2-strict-trailing-comma-warning nil))
+
+(use-package eslint-fix
+  :ensure t)
+
+(use-package flymake-eslint
+  :ensure t
+  :init
+  (add-hook 'js2-mode-hook 'flymake-eslint-load)
+  (add-hook 'rjsx-mode-hook 'flymake-eslint-load))
 
 (use-package typescript-mode
   :ensure t
