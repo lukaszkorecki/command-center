@@ -90,6 +90,22 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 (use-package ibuffer-vc
   :ensure t)
 
+(use-package ibuffer-git
+  :ensure t
+  :init
+  (setq ibuffer-formats
+      '((mark modified read-only vc-status-mini " "
+              (name 18 18 :left :elide)
+              " "
+              " "
+              (mode 16 16 :left :elide)
+              " "
+              (git-status-mini)
+              " "
+              (git-status 8 8 :right)
+              " "
+              filename-and-process))))
+
 ;; Editing and general syntax highlighting
 (use-package move-text
   :ensure t)
