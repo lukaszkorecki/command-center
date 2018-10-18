@@ -14,6 +14,7 @@
   (println (str ">>> in ns " *ns*))
   (println "(scratch/t) - run all tests
 (scratch/t \".*some-ns.*\") - run tests for matching namespaces
+(scratch/time+ \"tag\"  (some expr)) - like time, but better
 (scratch/refresh) - refresh all namespaces
 (scrtach/refresh-all) - refresh all project + dep namespaces
 (scratch/list-ns) - find all namespaces in SRC"))
@@ -41,5 +42,20 @@
      (refresh)
      (eftest/run-tests nss
                        {:multithread? @multithread}))))
+
+
+(defmacro time+
+  "Like time but:
+  - accepts a `tag` argument
+  - prints out start + end time
+  - rounds up ms - less precise"
+  [tag & body]
+  (printf "start |%s| %s\n"  tag (java.time.LocalDateTime/now))
+  `(let [start-time# ^Long (System/currentTimeMillis)
+         return# (do
+                   ~@body)
+         time# ^Long (- (System/currentTimeMillis) start-time#)]
+     (printf "end |%s| %s - %sms\n" ~tag   (str (java.time.LocalDateTime/now)) time#)
+     return#))
 
 (init!)
