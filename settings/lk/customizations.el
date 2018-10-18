@@ -78,7 +78,7 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
   :config
   (setq dumb-jump-selector 'ivy))
 
-;; magit stuff
+;; Git stuff
 
 (use-package magit
   :ensure t
@@ -86,6 +86,9 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
   (setq magit-completing-read-function 'ivy-completing-read)
 	:bind
   (( "C-c m s" . magit-status)))
+
+(use-package ibuffer-vc
+  :ensure t)
 
 ;; Editing and general syntax highlighting
 (use-package move-text
