@@ -75,12 +75,6 @@
 (use-package eslint-fix
   :ensure t)
 
-(use-package flymake-eslint
-  :ensure t
-  :init
-  (add-hook 'js2-mode-hook 'flymake-eslint-load)
-  (add-hook 'rjsx-mode-hook 'flymake-eslint-load))
-
 (use-package typescript-mode
   :ensure t
   :init
