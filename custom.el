@@ -17,7 +17,7 @@
  '(magit-merge-arguments nil)
  '(package-selected-packages
    (quote
-    (flymake-eslint eslint-fix imenu-list typescript-mode vr dumb-jump yaml-mode window-numbering window-number web-mode visual-regexp use-package transpose-frame terraform-mode sql-indent solarized-theme scss-mode sane-term rjsx-mode restclient rainbow-delimiters python-mode nginx-mode move-text monroe markdown-mode magit json-mode jinja2-mode inf-clojure gitignore-mode git dockerfile-mode color-theme clojure-mode-extra-font-locking better-defaults ansible)))
+    (ace-window eslint-fix imenu-list typescript-mode vr dumb-jump yaml-mode window-numbering window-number web-mode visual-regexp use-package transpose-frame terraform-mode sql-indent solarized-theme scss-mode sane-term rjsx-mode restclient rainbow-delimiters python-mode nginx-mode move-text monroe markdown-mode magit json-mode jinja2-mode inf-clojure gitignore-mode git dockerfile-mode color-theme clojure-mode-extra-font-locking better-defaults ansible)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote

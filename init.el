@@ -30,13 +30,6 @@
 (use-package better-defaults
   :ensure t)
 
-(use-package window-number
-  :ensure t
-  :init
-  (global-unset-key (kbd "C-j"))
-  :bind
-  (("C-j" . window-number-switch)))
-
 (require 'lk/ivy)
 (require 'lk/company)
 (require 'lk/ui)
@@ -64,7 +57,6 @@
 (load custom-file)
 
 (setq abbrev-file-name "~/.emacs.d/abbrev.el")
-
 
 ;; load rest of customizations
 (require 'lk/customizations)

@@ -46,5 +46,11 @@
   :ensure t
   :bind (( "C-c n l" . imenu-list-smart-toggle)))
 
+(use-package ace-window
+  :ensure t
+  :init
+  (setq aw-keys  '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-ignore-current t)
+  :bind (( "M-o" . ace-window)))
 
 (provide 'lk/ui)
