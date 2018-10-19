@@ -61,5 +61,8 @@
 ;; load rest of customizations
 (require 'lk/customizations)
 
+;; twitter, org, erc, etc
+(require 'lk/apps)
+
 ;; load modeline
 (require 'lk/modeline)
