@@ -1,6 +1,6 @@
 * Eighty Megs And Constantly Surprising  🎩
 
-My emacs and ~~/~ setup. Focused on:
+My emacs and ~/~ setup. Focused on:
 
 - Clojure (read below)
 - Shell scripting in Bash
@@ -15,8 +15,8 @@ My emacs and ~~/~ setup. Focused on:
 * Setup
 
 1. Fork this repo
-2. Clone to ~~/.emacs.d~
-3. ~bash ~/.emacs.d/etc/setup && source ~/.bashrc~
+2. Clone to  ~$HOME/.emacs.d~
+3. ~bash $HOME/.emacs.d/etc/setup && source ~/.bashrc~
 3. Start Emacs, ~use-package~ will take over
 
 
@@ -29,6 +29,11 @@ My emacs and ~~/~ setup. Focused on:
   - projectile
   - monroe and clojure-mode
 
+** Conventions
+
+Most *navigation* shortcuts start with ~C-c n ...~
+
+Most *execution* shorcuts start with ~C-x ...~
 
 ** Clojure
 
@@ -41,11 +46,11 @@ All functions are in [[settings/lk/clojure.el][settings/lk/clojure.el]]
 
 Creates a scratch buffer and loads handy functions into the REPL process.
 Tests can be run via ~(scratch/t)~ function, which also accepts
-a regex ~~(scratch/t ".*component.pg-test")~
+a regex ~(scratch/t ".*component.pg-test")~
 
 The code which defines the ~scratch~ namespace depends on couple of things:
 
-1. Leiningen profile which loads ~tools.namespace~, ~eftest~ etc
+1. Leiningen profile which loads ~tools.namespace~, [[https://github.com/weavejester/eftest][eftest]] etc
 2. Simple namespace definition, found in [[etc/scratch.clj][etc/scratch.clj]]
 
 *** ~lk/clojure-format-current-buffer~
