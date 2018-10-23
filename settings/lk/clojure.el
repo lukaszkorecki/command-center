@@ -69,15 +69,5 @@
 
 (global-set-key (kbd "C-x c v") 'lk/clojure-check-current-buffer)
 
-(defun lk/clojure-tags ()
- "Create tags file."
- (interactive)
- (let ((root-directory (locate-dominating-file default-directory
-                                               "project.clj"))
-       (script-path "~/.emacs.d/settings/lk/clj-tags.sh"))
-   (shell-command
-    (format
-     "%s %s" script-path root-directory))))
-
 
 (provide 'lk/clojure)
