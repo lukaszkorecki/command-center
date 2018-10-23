@@ -30,4 +30,4 @@
   :config
   (setq dumb-jump-selector 'ivy))
 
-(provide 'lk/ivy)
+(provide 'lk/navigation)

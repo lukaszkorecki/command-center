@@ -30,8 +30,8 @@
 (use-package better-defaults
   :ensure t)
 
-(require 'lk/ivy)
-(require 'lk/company)
+(require 'lk/navigation)
+(require 'lk/autocomplete)
 (require 'lk/git)
 (require 'lk/ui)
 

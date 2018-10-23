@@ -12,4 +12,4 @@
   (global-company-mode))
 
 
-(provide 'lk/company)
+(provide 'lk/autocomplete)
