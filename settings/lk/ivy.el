@@ -23,4 +23,11 @@
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (projectile-mode +1))
 
+(use-package dumb-jump
+  :ensure t
+  :bind
+  (("C-c n j" . dumb-jump-go))
+  :config
+  (setq dumb-jump-selector 'ivy))
+
 (provide 'lk/ivy)

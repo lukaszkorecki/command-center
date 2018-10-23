@@ -32,18 +32,12 @@
 
 (require 'lk/ivy)
 (require 'lk/company)
+(require 'lk/git)
 (require 'lk/ui)
 
 ;; Editing
 (require 'lk/editing)
 
-;; no backup files
-(setq-default make-backup-files nil)
-;; no lockfiles
-(setq create-lockfiles nil)
-
-(setq echo-keystrokes 0.1
-      use-dialog-box nil visible-bell nil)
 
 ;; language customizations
 (require 'lk/lang)
@@ -58,7 +52,7 @@
 
 (setq abbrev-file-name "~/.emacs.d/abbrev.el")
 
-;; load rest of customizations
+;; load rest of customizations and extra packages
 (require 'lk/customizations)
 
 ;; twitter, org, erc, etc
