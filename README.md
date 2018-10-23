@@ -1,15 +1,13 @@
 # Eighty Megs And Constantly Surprising :tophat:
 
-> It's **that** simple. Now don't you want to become a **cult leader**?
-
-My emacs and shell setup. Focused on:
+My emacs and `~/` setup. Focused on:
 
 - Clojure
-- Shell scripting
+- Shell scripting in Bash
 - Ops stuff (Ansible, Terraform etc)
 - Occasionally;
   - Ruby
-  - Javascript
+  - Javascript/Typescript/React
   - Scheme
   - Common Lisp
   - Python
@@ -27,6 +25,6 @@ My emacs and shell setup. Focused on:
 - I use `bash`, I tried `zsh` in the past and it was not worth the effort
 - you can see my old .files here: https://github.com/lukaszkorecki/DotFiles
 - Emacs config is pretty light-weight, essential packages are:
-  - ivy
+  - ivy, company
   - projectile
   - monroe and clojure-mode
