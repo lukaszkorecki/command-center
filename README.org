@@ -1,0 +1,57 @@
+* Eighty Megs And Constantly Surprising  🎩
+
+My emacs and ~~/~ setup. Focused on:
+
+- Clojure (read below)
+- Shell scripting in Bash
+- Ops stuff (Ansible, Terraform etc)
+- Occasionally;
+  - Ruby
+  - Javascript/Typescript/React
+  - Scheme
+  - Common Lisp
+  - Python
+
+* Setup
+
+1. Fork this repo
+2. Clone to ~~/.emacs.d~
+3. ~bash ~/.emacs.d/etc/setup && source ~/.bashrc~
+3. Start Emacs, ~use-package~ will take over
+
+
+* Details
+
+- I use ~bash~, I tried ~zsh~ in the past and it was not worth the effort
+- you can see my old .files here: https://github.com/lukaszkorecki/DotFiles
+- Emacs config is pretty light-weight, essential packages are:
+  - ivy, company
+  - projectile
+  - monroe and clojure-mode
+
+
+** Clojure
+
+I've built couple of convenient things around [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]] and
+ [[https://github.com/sanel/monroe][Monroe]], an nREPL client.
+
+All functions are in [[settings/lk/clojure.el][settings/lk/clojure.el]]
+
+*** ~lk/clojure-scratch~
+
+Creates a scratch buffer and loads handy functions into the REPL process.
+Tests can be run via ~(scratch/t)~ function, which also accepts
+a regex ~~(scratch/t ".*component.pg-test")~
+
+The code which defines the ~scratch~ namespace depends on couple of things:
+
+1. Leiningen profile which loads ~tools.namespace~, ~eftest~ etc
+2. Simple namespace definition, found in [[etc/scratch.clj][etc/scratch.clj]]
+
+*** ~lk/clojure-format-current-buffer~
+
+Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current buffer via *compilation-mode*
+
+*** ~lk/clojure/check-current-buffer~
+
+Delegates to [[https://github.com/jonase/kibit][Kibit]] to check current buffer via *compilation-mode*
