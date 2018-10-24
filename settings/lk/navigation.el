@@ -1,9 +1,13 @@
 (use-package ivy
   :ensure t
   :diminish ivy-mode
+  :init
+  (setq ivy-height 25)
   :config
   (ivy-mode 1)
-  (bind-key "C-c C-r" 'ivy-resume))
+  :bind
+  ("C-c n s" . swiper)
+  ("C-c C-r" . ivy-resume))
 
 (use-package counsel
   :ensure t
