@@ -3,7 +3,6 @@
   :diminish ivy-mode
   :init
   (setq ivy-height 25)
-  :config
   (ivy-mode 1)
   :bind
   ("C-c n s" . swiper)
