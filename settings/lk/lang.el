@@ -78,7 +78,9 @@
 (use-package typescript-mode
   :ensure t
   :init
-  (add-to-list 'auto-mode-alist '("\\.(ts|tsx)$" . typescript-mode)))
+  (setq typescript-indent-level 2)
+  (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode)))
 
 (use-package json-mode
   :ensure t
