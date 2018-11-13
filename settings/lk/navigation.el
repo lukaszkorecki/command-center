@@ -19,12 +19,14 @@
 (use-package projectile
   :after ivy
   :ensure t
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :init
-  (setq projectile-completion-system 'ivy)
+  (projectile-mode +1)
   :config
+  (setq projectile-completion-system 'ivy)
   (setq projectile-remember-window-configs t)
-  (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
-  (projectile-mode +1))
+  (setq projectile-git-command "git ls-files -z -c --recurse-submodules"))
 
 (use-package dumb-jump
   :ensure t
