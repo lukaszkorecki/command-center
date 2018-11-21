@@ -2,6 +2,7 @@
   (:require [clojure.test :as test]
             [clojure.repl :as repl]
             [eftest.runner :as eftest]
+            clojure.pprint
             [clojure.tools.namespace.find :as ns.find]
             [clojure.tools.namespace.repl :as ns.repl]
             [clojure.java.io :as io])
@@ -17,10 +18,12 @@
 (scratch/time+ \"tag\"  (some expr)) - like time, but better
 (scratch/refresh) - refresh all namespaces
 (scrtach/refresh-all) - refresh all project + dep namespaces
+(scratch/pp) alias for clojure.pprint/pprint
 (scratch/list-ns) - find all namespaces in SRC"))
 
 (def refresh ns.repl/refresh)
 (def refresh-all ns.repl/refresh-all)
+(def pp clojure.pprint/pprint)
 
 (defn list-ns
   "Return list of symbols of namespaces found in src dir"
