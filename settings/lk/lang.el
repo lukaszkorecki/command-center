@@ -15,7 +15,7 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
-(use-package markdown-mode
+(use-package poly-markdown
   :ensure t
   :init
   :mode (("README\\.md\\'" . gfm-mode)
@@ -33,12 +33,15 @@
   (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
 
 (use-package restclient
-    :ensure t)
+  :ensure t)
+
 (use-package sql-indent
-    :ensure t)
+  :ensure t)
+
 (use-package terraform-mode
-    :ensure t)
-(use-package ansible
+  :ensure t)
+
+(use-package poly-ansible
     :ensure t)
 
 (use-package scss-mode
@@ -59,6 +62,14 @@
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
 ;; Javascripts
+(defun lk/prettier-format-current-buffer ()
+  (interactive)
+  (interactive)
+  (let ((file-name (buffer-file-name (current-buffer))))
+    (compilation-start
+     (format "prettier --write %s" file-name)
+     'compilation-mode)))
+
 (use-package rjsx-mode
   :ensure t
   :init
@@ -70,7 +81,9 @@
   (setq-default js2-basic-offset 2)
   (setq-default js2-indent-switch-body t)
   ;; es6 is ok with trailing commas
-  (setq-default js2-strict-trailing-comma-warning nil))
+  (setq-default js2-strict-trailing-comma-warning nil)
+  :bind
+  (( "C-x c f" . lk/prettier-format-current-buffer )))
 
 (use-package eslint-fix
   :ensure t)
@@ -80,7 +93,9 @@
   :init
   (setq typescript-indent-level 2)
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode)))
+  (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
+  :bind
+  (( "C-x c f" . lk/prettier-format-current-buffer )))
 
 (use-package json-mode
   :ensure t
