@@ -25,8 +25,10 @@
 
 (use-package sane-term
     :ensure t
-	  :bind (( "C-x n T" . sane-term)
-           ("C-x n t" . sane-term-create)))
+	  :bind (( "C-x n t" . sane-term)
+           ("C-x n T" . sane-term-create)))
+
+(global-set-key (kbd "C-x n e") 'eshell)
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here
