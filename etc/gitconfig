@@ -70,3 +70,5 @@
   insteadOf = bb:
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[github]
+	user = lukaszkorecki
