@@ -44,7 +44,8 @@
   :bind
   (("C-x c f" .  lk/clojure-format-current-buffer)
    ("C-x c v" . lk/clojure-check-current-buffer)
-   ("C-x c s" . lk/clojure-scratch)))
+   ("C-x c s" . lk/clojure-scratch)
+   ("C-x c j" . monroe-nrepl-server-start)))
 
 (use-package monroe
   :ensure t
