@@ -21,3 +21,4 @@ elpa25
 elpa26
 /bookmarks
 /README.html
+*.sqlite

@@ -1,8 +1,4 @@
 ;; Git and git-surf helpers
-(defun lk/open-pr ()
-  (interactive)
-  (shell-command "~/.emacs.d/etc/bin/git-surf -p"))
-
 (defun lk/open-current-file-in-gh ()
   (interactive)
   (let* ((line-no (line-number-at-pos))
@@ -16,8 +12,7 @@
 
 (use-package git
   :ensure t
-	:bind (("C-x C-g" . vc-git-grep)
-         ("C-x g p" . lk/open-pr)))
+	:bind (("C-x C-g" . vc-git-grep)))
 
 (use-package magit
   :ensure t
@@ -25,6 +20,10 @@
   (setq magit-completing-read-function 'ivy-completing-read)
 	:bind
   (( "C-c m s" . magit-status)))
+
+(use-package forge
+  :ensure t
+  :bind (("C-x g p" . forge-visit-pullreq)))
 
 (use-package ibuffer-vc
   :ensure t)
