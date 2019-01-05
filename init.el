@@ -60,3 +60,4 @@
 
 ;; load modeline
 (require 'lk/modeline)
+(put 'narrow-to-region 'disabled nil)

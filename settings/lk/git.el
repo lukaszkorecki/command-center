@@ -21,10 +21,6 @@
 	:bind
   (( "C-c m s" . magit-status)))
 
-(use-package forge
-  :ensure t
-  :bind (("C-x g p" . forge-visit-pullreq)))
-
 (use-package ibuffer-vc
   :ensure t)
 
