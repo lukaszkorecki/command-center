@@ -13,7 +13,7 @@
 (use-package color-theme
   :ensure t
   :init
-  (load-theme 'tango-dark 't))
+  (load-theme 'wombat 't))
 
 (use-package ansi-color
   :ensure t)
