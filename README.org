@@ -19,6 +19,10 @@ My emacs and ~/~ setup. Focused on:
 3. ~bash $HOME/.emacs.d/etc/setup && source ~/.bashrc~
 3. Start Emacs, ~use-package~ will take over
 
+** Other tools and packages
+
+~cd etc && brew bundle~
+
 
 * Details
 
