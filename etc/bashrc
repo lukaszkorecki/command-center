@@ -117,12 +117,14 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-alias be='b exec '
+alias be='bundle exec '
 alias m='bundle exec dotenv -f .env.test m'
 alias gcd='cd $(git root)'
 
+alias tm=tmux
+
 alias emacs-cli='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-export EDITOR='emacs-cli'
+export EDITOR='/Applications/Emacs.app/Contents/MacOS/Emacs'
 
 # get branch
 
