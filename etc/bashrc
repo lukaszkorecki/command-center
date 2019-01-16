@@ -137,7 +137,8 @@ prompt() {
   fi
 
   local __here=$(basename $(pwd))
-  echo "$__branch - $__here : "
+  local __sigil="$(Color 2)☢︎$(ResetColor)"
+  echo "$__sigil $__branch - $__here : "
 }
 PROMPT_COMMAND='PS1=$(prompt)'
 # plug-in the history hack
