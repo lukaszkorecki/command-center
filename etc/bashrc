@@ -121,7 +121,7 @@ alias be='bundle exec '
 alias m='bundle exec dotenv -f .env.test m'
 alias gcd='cd $(git root)'
 
-alias tm=tmux
+alias tm=' cd ; tmux '
 
 alias emacs-cli='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 export EDITOR='/Applications/Emacs.app/Contents/MacOS/Emacs'
