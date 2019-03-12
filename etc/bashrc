@@ -118,7 +118,6 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias be='bundle exec '
-alias m='bundle exec dotenv -f .env.test m'
 alias gcd='cd $(git root)'
 
 alias tm=' cd ; tmux '
