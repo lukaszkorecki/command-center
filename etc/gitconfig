@@ -25,7 +25,7 @@
   cm = commit -m
   ca = commit --amend
 
-  remove-merged-branches = !git branch --merged master | grep -v 'master$' | xargs git branch -d
+  cleanup-branches = !git fetch -a -p && git branch --merged master | grep -v 'master$' | xargs git branch -d
 
   co = checkout
   g = !git --no-pager grep --color -n
