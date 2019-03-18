@@ -1,7 +1,7 @@
 (ns scratch
   (:require [clojure.test :as test]
             [clojure.repl :as repl]
-            [eftest.runner :as eftest]
+            [kaocha.repl]
             clojure.pprint
             [clojure.tools.namespace.find :as ns.find]
             [clojure.tools.namespace.repl :as ns.repl]
@@ -27,25 +27,22 @@
 
 (defn list-ns
   "Return list of symbols of namespaces found in src dir"
-  []
-  (ns.find/find-namespaces-in-dir (File. "./src/")))
+  ([root]
+   (ns.find/find-namespaces-in-dir (File. root)))
+   ([]
+    (list-ns "./src/")))
+
+(defn find-ns [re]
+  (filter #(re-find re (str %)) (list-ns)))
+
+(defn find-test-ns [re]
+  (filter #(re-find re (str %)) (list-ns "./test/"))))
 
 (defn t
-  "Reload and run tests. Without arguments run all tests.
-  If argument is passed (String) is interpreted as a regex to
-  find a namespace"
   ([]
-   (refresh)
-   (eftest/run-tests (eftest/find-tests "test")
-                     {:multithread? @multithread}))
-  ([pattern]
-   (let [regex (re-pattern pattern)
-         nss (filter (fn [v] (re-find regex (str v)))
-                     (eftest/find-tests "test"))]
-     (refresh)
-     (eftest/run-tests nss
-                       {:multithread? @multithread}))))
-
+   (kaocha.repl/run :unit))
+  ([& an-ns]
+   (apply kaocha.repl/run an-ns)))
 
 (defmacro time+
   "Like time but:
