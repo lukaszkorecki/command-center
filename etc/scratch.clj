@@ -36,7 +36,7 @@
   (filter #(re-find re (str %)) (list-ns)))
 
 (defn find-test-ns [re]
-  (filter #(re-find re (str %)) (list-ns "./test/"))))
+  (filter #(re-find re (str %)) (list-ns "./test/")))
 
 (defn t
   ([]
