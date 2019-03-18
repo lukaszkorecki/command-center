@@ -1,4 +1,5 @@
-(ns scratch
+(ns R
+  (:refer-clojure :exclude [find-ns])
   (:require [clojure.test :as test]
             [clojure.repl :as repl]
             [kaocha.repl]
@@ -8,18 +9,22 @@
             [clojure.java.io :as io])
   (:import (java.io File)))
 
-(def multithread (atom false))
+(defn help []
+  (println (str ">>> in ns " *ns*))
+  (println "(R/t) - run all tests
+(R/find-test-ns  #\"some-regex\") - find test namespace matching regex
+(R/find-ns  #\"some-regex\") - find namespace matching regex
+(R/t (R/find-test-ns  #\"some-regex\")) - run tests for matching namespaces
+(R/time+ \"tag\"  (some expr)) - like time, but better
+(R/refresh) - refresh all namespaces
+(scrtach/refresh-all) - refresh all project + dep namespaces
+(R/pp) alias for clojure.pprint/pprint
+(R/list-ns) - find all namespaces in SRC"))
+
 (defn init! []
   (ns scratch)
   (ns.repl/disable-reload! *ns*)
-  (println (str ">>> in ns " *ns*))
-  (println "(scratch/t) - run all tests
-(scratch/t \".*some-ns.*\") - run tests for matching namespaces
-(scratch/time+ \"tag\"  (some expr)) - like time, but better
-(scratch/refresh) - refresh all namespaces
-(scrtach/refresh-all) - refresh all project + dep namespaces
-(scratch/pp) alias for clojure.pprint/pprint
-(scratch/list-ns) - find all namespaces in SRC"))
+  (help))
 
 (def refresh ns.repl/refresh)
 (def refresh-all ns.repl/refresh-all)
@@ -41,8 +46,8 @@
 (defn t
   ([]
    (kaocha.repl/run :unit))
-  ([& an-ns]
-   (apply kaocha.repl/run an-ns)))
+  ([ns-list]
+   (apply kaocha.repl/run ns-list)))
 
 (defmacro time+
   "Like time but:
