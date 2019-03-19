@@ -15,6 +15,7 @@
 (R/find-test-ns  #\"some-regex\") - find test namespace matching regex
 (R/find-ns  #\"some-regex\") - find namespace matching regex
 (R/t (R/find-test-ns  #\"some-regex\")) - run tests for matching namespaces
+(R/t! (R/find-test-ns  #\"some-regex\")) - run tests for matching namespaces but also refresh (dangerous!)
 (R/time+ \"tag\"  (some expr)) - like time, but better
 (R/refresh) - refresh all namespaces
 (scrtach/refresh-all) - refresh all project + dep namespaces
@@ -47,6 +48,14 @@
   ([]
    (kaocha.repl/run :unit))
   ([ns-list]
+   (apply kaocha.repl/run ns-list)))
+
+(defn t!
+  ([]
+   (refresh)
+   (kaocha.repl/run :unit))
+  ([ns-list]
+   (refresh)
    (apply kaocha.repl/run ns-list)))
 
 (defmacro time+
