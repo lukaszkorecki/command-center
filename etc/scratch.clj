@@ -20,7 +20,9 @@
 (R/refresh) - refresh all namespaces
 (scrtach/refresh-all) - refresh all project + dep namespaces
 (R/pp) alias for clojure.pprint/pprint
-(R/list-ns) - find all namespaces in SRC"))
+(R/list-ns) - find all namespaces in SRC
+(R/start-system! 'some.user-ns) - refresh and start a system in some.user-ns
+(R/stop-system! 'some.user-ns) - stop a system in some.user-ns "))
 
 (defn init! []
   (ns scratch)
@@ -71,5 +73,23 @@
          time# ^Long (- (System/currentTimeMillis) start-time#)]
      (printf "end |%s| %s - %sms\n" ~tag   (str (java.time.LocalDateTime/now)) time#)
      return#))
+
+(defn start-system!
+  "Given a namespace, usually some-service.user, do the following:
+  - refresh
+  - require the user ns
+  - start  system, invoking somer-service.user/start
+  Warning: best if the system is not running, or things will go south"
+  [an-ns]
+  (refresh)
+  (require an-ns)
+  (let [f (ns-resolve an-ns 'start)]
+    (f)))
+
+(defn stop-system!
+  "Given a namespace, usually some-service.user, stop the system"
+  [an-ns]
+  (let [f (ns-resolve an-ns 'stop)]
+    (f)))
 
 (init!)
