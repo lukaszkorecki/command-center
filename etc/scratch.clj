@@ -9,6 +9,8 @@
             [clojure.java.io :as io])
   (:import (java.io File)))
 
+(ns.repl/disable-reload! *ns*)
+
 (defn help []
   (println (str ">>> in ns " *ns*))
   (println "(R/t) - run all tests
@@ -74,6 +76,8 @@
      (printf "end |%s| %s - %sms\n" ~tag   (str (java.time.LocalDateTime/now)) time#)
      return#))
 
+(def system-status (atom {}))
+
 (defn start-system!
   "Given a namespace, usually some-service.user, do the following:
   - refresh
@@ -81,15 +85,22 @@
   - start  system, invoking somer-service.user/start
   Warning: best if the system is not running, or things will go south"
   [an-ns]
-  (refresh)
-  (require an-ns)
-  (let [f (ns-resolve an-ns 'start)]
-    (f)))
+  (if (get @system-status an-ns)
+    (println "!!  System possibly running")
+    (do
+      (println "!! Refreshing and reloading " an-ns)
+      (refresh)
+      (require an-ns)
+      (let [f (ns-resolve an-ns 'start)]
+        (f)
+        (swap! system-status (fn [s] (assoc s an-ns true)))
+        ))))
 
 (defn stop-system!
   "Given a namespace, usually some-service.user, stop the system"
   [an-ns]
   (let [f (ns-resolve an-ns 'stop)]
-    (f)))
+    (f)
+    (swap! system-status (fn [s] (assoc s an-ns false)))))
 
 (init!)
