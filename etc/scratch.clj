@@ -62,20 +62,6 @@
    (refresh)
    (apply kaocha.repl/run ns-list)))
 
-(defmacro time+
-  "Like time but:
-  - accepts a `tag` argument
-  - prints out start + end time
-  - rounds up ms - less precise"
-  [tag & body]
-  (printf "start |%s| %s\n"  tag (java.time.LocalDateTime/now))
-  `(let [start-time# ^Long (System/currentTimeMillis)
-         return# (do
-                   ~@body)
-         time# ^Long (- (System/currentTimeMillis) start-time#)]
-     (printf "end |%s| %s - %sms\n" ~tag   (str (java.time.LocalDateTime/now)) time#)
-     return#))
-
 (def system-status (atom {}))
 
 (defn start-system!
