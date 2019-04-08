@@ -68,14 +68,12 @@ export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignorespace:ignoredups
 
 # load extra shell env files only if they are readable
-bashCompletion="/usr/share/bash-completion/bash_completion"
-[[ -r $bashCompletion ]] && source $bashCompletion
-
 [[ -r ~/.private/env.sh ]] && source ~/.private/env.sh
 
 # bash completion on OSX (needs brew install bash-completion)
 if [[ $(uname) = "Darwin" ]] ; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    echo 'loadingn completion'
     . $(brew --prefix)/etc/bash_completion
   fi
 fi
