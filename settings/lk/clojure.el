@@ -33,7 +33,7 @@
   (interactive)
   (let ((file-name (buffer-file-name (current-buffer))))
     (compilation-start
-     (format "joker --lint %s" file-name)
+     (format "clj-kondo --lint %s" file-name)
      'compilation-mode)))
 
 (use-package clojure-mode-extra-font-locking
