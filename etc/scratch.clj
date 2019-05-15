@@ -39,8 +39,8 @@
   "Return list of symbols of namespaces found in src dir"
   ([root]
    (ns.find/find-namespaces-in-dir (File. root)))
-   ([]
-    (list-ns "./src/")))
+  ([]
+   (list-ns "./src/")))
 
 (defn find-ns [re]
   (filter #(re-find re (str %)) (list-ns)))
@@ -79,8 +79,7 @@
       (require an-ns)
       (let [f (ns-resolve an-ns 'start)]
         (f)
-        (swap! system-status (fn [s] (assoc s an-ns true)))
-        ))))
+        (swap! system-status (fn [s] (assoc s an-ns true)))))))
 
 (defn stop-system!
   "Given a namespace, usually some-service.user, stop the system"
