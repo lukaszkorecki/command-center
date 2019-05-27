@@ -36,6 +36,13 @@
      (format "clj-kondo --lint %s" file-name)
      'compilation-mode)))
 
+(defun lk/clojure-check-project ()
+  (interactive)
+  (let ((dir (locate-dominating-file default-directory "project.clj")))
+    (compilation-start
+     (format "clj-kondo --lint %s" dir)
+     'compilation-mode)))
+
 (use-package clojure-mode-extra-font-locking
   :ensure t)
 
