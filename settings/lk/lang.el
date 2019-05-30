@@ -22,6 +22,9 @@
          ("\\.md$" . markdown-mode)
          ("\\.markdown$" . markdown-mode)))
 
+(use-package edit-indirect
+  :ensure t)
+
 (use-package jinja2-mode
   :ensure t
   :init
