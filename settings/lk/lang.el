@@ -77,6 +77,7 @@
   :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
   (setq js-indent-level 2)
   ;; settings for js2 mode
   (add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
@@ -86,7 +87,9 @@
   ;; es6 is ok with trailing commas
   (setq-default js2-strict-trailing-comma-warning nil)
   :bind
-  (( "C-x c f" . lk/prettier-format-current-buffer )))
+  (:map js2-mode-map
+        (( "C-x c f" . lk/prettier-format-current-buffer ))))
+
 
 (use-package eslint-fix
   :ensure t)
@@ -98,7 +101,8 @@
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
   :bind
-  (( "C-x c f" . lk/prettier-format-current-buffer )))
+  (:map typescript-mode-map
+        (( "C-x c f" . lk/prettier-format-current-buffer ))))
 
 (use-package json-mode
   :ensure t

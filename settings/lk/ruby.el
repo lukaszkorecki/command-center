@@ -22,7 +22,8 @@
   (add-to-list 'auto-mode-alist '("Guardfile" . ruby-mode))
   (setq-default ruby-indent-level 2)
   :bind
-  (("C-x c f" .  lk/ruby-format-current-buffer)))
+  (:map ruby-mode-map
+        (("C-x c f" .  lk/ruby-format-current-buffer))))
 
 (provide 'lk/ruby)
 ;;; ruby.el ends here
