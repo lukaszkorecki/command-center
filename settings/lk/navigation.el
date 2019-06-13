@@ -35,4 +35,10 @@
   :config
   (setq dumb-jump-selector 'ivy))
 
+(defun lk/find-todos-etc ()
+  (interactive)
+  (vc-git-grep "(TODO|FIXME|NOTE|XXX|HACK):" " " (vc-git-root default-directory)))
+
+(global-set-key (kbd "C-c n t") 'lk/find-todos-etc)
+
 (provide 'lk/navigation)
