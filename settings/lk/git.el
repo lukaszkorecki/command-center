@@ -8,7 +8,14 @@
     (message command)
     (shell-command command)))
 
-(global-set-key (kbd "C-x g f") 'lk/open-current-file-in-gh)
+(global-set-key (kbd "C-c g f") 'lk/open-current-file-in-gh)
+
+
+(defun lk/open-current-pr-in-gh ()
+  (interactive)
+    (shell-command "~/.emacs.d/etc/bin/git-surf -p"))
+
+(global-set-key (kbd "C-c g h") 'lk/open-current-pr-in-gh)
 
 (use-package git
   :ensure t
