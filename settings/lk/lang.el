@@ -73,6 +73,14 @@
      (format "prettier --write %s" file-name)
      'compilation-mode)))
 
+(defun lk/eslint-check-current-buffer ()
+  (interactive)
+  (interactive)
+  (let ((file-name (buffer-file-name (current-buffer))))
+    (compilation-start
+     (format "eslint --no-eslintrc " file-name)
+     'compilation-mode)))
+
 (use-package rjsx-mode
   :ensure t
   :init
@@ -88,7 +96,8 @@
   (setq-default js2-strict-trailing-comma-warning nil)
   :bind
   (:map js2-mode-map
-        (( "C-x c f" . lk/prettier-format-current-buffer ))))
+        (( "C-x c f" . lk/prettier-format-current-buffer ))
+        (( "C-x c v" . lk/eslint-check-current-buffer ))))
 
 
 (use-package eslint-fix
