@@ -75,11 +75,9 @@
 
 (defun lk/eslint-check-current-buffer ()
   (interactive)
-  (interactive)
-  (let ((file-name (buffer-file-name (current-buffer))))
-    (compilation-start
-     (format "eslint --no-eslintrc " file-name)
-     'compilation-mode)))
+  (compilation-start
+   (format "eslint  %s" buffer-file-name)
+   'compilation-mode))
 
 (use-package rjsx-mode
   :ensure t
