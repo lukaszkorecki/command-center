@@ -22,20 +22,13 @@
   "Format current buffer with CljFmt - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (let ((file-name (buffer-file-name (current-buffer))))
-    (compilation-start
-     (format "lein cljfmt fix %s" file-name)
-     'compilation-mode)))
+  (lk/invoke-compile-tool-in-project "project.clj" "lein cljfmt fix %s"))
 
 (defun lk/clojure-check-current-buffer ()
   "Format current buffer with Kibit - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (let* ((pj-dir (locate-dominating-file default-directory "project.clj"))
-         (default-directory pj-dir))
-    (compilation-start
-     (format "clj-kondo --lint %s" (file-realtive-name buffer-file-name))
-     'compilation-mode)))
+  (lk/invoke-compile-tool-in-project "project.clj" "clj-kondo --lint %s"))
 
 (defun lk/clojure-check-project ()
   (interactive)
@@ -49,6 +42,8 @@
 
 (use-package clojure-mode
   :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   :bind
   (:map clojure-mode-map
         (("C-x c f" .  lk/clojure-format-current-buffer)

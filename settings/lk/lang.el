@@ -5,6 +5,16 @@
 
 ;;; Code:
 
+;; Utils
+
+(defun lk/invoke-compile-tool-in-project
+    (project-file command-string-with-format)
+  (let* ((pj-dir (locate-dominating-file default-directory project-file))
+         (default-directory pj-dir))
+    (compilation-start
+     (format command-string-with-format (file-relative-name buffer-file-name))
+     'compilation-mode)))
+
 (use-package gitignore-mode
   :ensure t
   :init
@@ -67,20 +77,11 @@
 ;; Javascripts
 (defun lk/prettier-format-current-buffer ()
   (interactive)
-  (let* ((file-name (buffer-file-name (current-buffer)))
-         (tproj (locate-dominating-file default-directory "package.json" ))
-         (default-directory tproj))
-    (compilation-start
-     (format "prettier --write %s" (file-relative-name buffer-file-name))
-     'compilation-mode)))
+  (lk/invoke-compile-tool-in-project "package.json" "prettier --write %s"))
 
 (defun lk/eslint-check-current-buffer ()
   (interactive)
-  (let* ((tproj (locate-dominating-file default-directory "package.json" ))
-         (default-directory tproj))
-    (compilation-start
-     (format "eslint  %s" (file-relative-name buffer-file-name))
-     'compilation-mode)))
+  (lk/invoke-compile-tool-in-project "package.json" "eslint %s"))
 
 (use-package rjsx-mode
   :ensure t
@@ -106,11 +107,7 @@
 
 (defun lk/tslint-check-current-buffer ()
   (interactive)
-  (let* ((tproj (locate-dominating-file default-directory "tsconfig.json" ))
-         (default-directory tproj))
-    (compilation-start
-     (format "tslint -p ./tsconfig.json %s"(file-relative-name buffer-file-name))
-     'compilation-mode)))
+  (lk/invoke-compile-tool-in-project "tsconfig.json" "tslint -p ./tsconfig.json %s"))
 
 (use-package typescript-mode
   :ensure t
