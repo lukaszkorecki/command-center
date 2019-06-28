@@ -31,9 +31,10 @@
   "Format current buffer with Kibit - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (let ((file-name (buffer-file-name (current-buffer))))
+  (let* ((pj-dir (locate-dominating-file default-directory "project.clj"))
+         (default-directory pj-dir))
     (compilation-start
-     (format "clj-kondo --lint %s" file-name)
+     (format "clj-kondo --lint %s" (file-realtive-name buffer-file-name))
      'compilation-mode)))
 
 (defun lk/clojure-check-project ()

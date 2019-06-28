@@ -67,17 +67,20 @@
 ;; Javascripts
 (defun lk/prettier-format-current-buffer ()
   (interactive)
-  (interactive)
-  (let ((file-name (buffer-file-name (current-buffer))))
+  (let* ((file-name (buffer-file-name (current-buffer)))
+         (tproj (locate-dominating-file default-directory "package.json" ))
+         (default-directory tproj))
     (compilation-start
-     (format "prettier --write %s" file-name)
+     (format "prettier --write %s" (file-relative-name buffer-file-name))
      'compilation-mode)))
 
 (defun lk/eslint-check-current-buffer ()
   (interactive)
-  (compilation-start
-   (format "eslint  %s" buffer-file-name)
-   'compilation-mode))
+  (let* ((tproj (locate-dominating-file default-directory "package.json" ))
+         (default-directory tproj))
+    (compilation-start
+     (format "eslint  %s" (file-relative-name buffer-file-name))
+     'compilation-mode)))
 
 (use-package rjsx-mode
   :ensure t
@@ -101,6 +104,14 @@
 (use-package eslint-fix
   :ensure t)
 
+(defun lk/tslint-check-current-buffer ()
+  (interactive)
+  (let* ((tproj (locate-dominating-file default-directory "tsconfig.json" ))
+         (default-directory tproj))
+    (compilation-start
+     (format "tslint -p ./tsconfig.json %s"(file-relative-name buffer-file-name))
+     'compilation-mode)))
+
 (use-package typescript-mode
   :ensure t
   :init
@@ -109,7 +120,8 @@
   (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
   :bind
   (:map typescript-mode-map
-        (( "C-x c f" . lk/prettier-format-current-buffer ))))
+        (( "C-x c v" . lk/tslint-check-current-buffer)
+         ( "C-x c f" . lk/prettier-format-current-buffer ))))
 
 (use-package json-mode
   :ensure t

@@ -6,9 +6,10 @@
   "Format current buffer with CljFmt - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (let ((file-name (buffer-file-name (current-buffer))))
+  (let* ((pj-dir (locate-dominating-file default-directory "Gemfile"))
+         (default-directory pj-dir))
     (compilation-start
-     (format "rubocop -a %s" file-name)
+     (format "rubocop -a %s" (file-relative-name buffer-file-name))
      'compilation-mode)))
 
 (use-package ruby-mode
