@@ -117,7 +117,7 @@
   (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
   :bind
   (:map typescript-mode-map
-        (( "C-x c v" . lk/tslint-check-current-buffer)
+        (( "C-x c v" . lk/eslint-check-current-buffer)
          ( "C-x c f" . lk/prettier-format-current-buffer ))))
 
 (use-package json-mode
