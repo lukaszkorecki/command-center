@@ -3,6 +3,7 @@
 set -e
 base_branch=${1:-master}
 
-for file in $(git diff HEAD..$base_branch --stat |  awk '/(\.rb|Rakefile|Gemfile)/ { print $1  }'  | egrep -v "schema.rb|Gemfile.lock" ) ; do
-  test -e $file && rubocop -a $file
+for file in $(git diff --name-status $(git cb)..$base_branch | grep -v '^D' | awk '/.rb$/ { print $2 }' | grep -v 'schema.rb') ; do
+  echo "> $file"
+  rubocop -a $file || echo skip $file
 done
