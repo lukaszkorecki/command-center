@@ -77,6 +77,7 @@
 ;; Javascripts
 (defun lk/prettier-format-current-buffer ()
   (interactive)
+  (lk/invoke-compile-tool-in-project "package.json" "eslint --fix %s")
   (lk/invoke-compile-tool-in-project "package.json" "prettier --write %s"))
 
 (defun lk/eslint-check-current-buffer ()
