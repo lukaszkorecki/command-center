@@ -4,6 +4,7 @@
             [clojure.repl :as repl]
             [kaocha.repl]
             clojure.pprint
+            [cemerick.pomegranate]
             [clojure.tools.namespace.find :as ns.find]
             [clojure.tools.namespace.repl :as ns.repl]
             [clojure.java.io :as io])
@@ -24,7 +25,8 @@
 (R/pp) alias for clojure.pprint/pprint
 (R/list-ns) - find all namespaces in SRC
 (R/start-system! 'some.user-ns) - refresh and start a system in some.user-ns
-(R/stop-system! 'some.user-ns) - stop a system in some.user-ns "))
+(R/stop-system! 'some.user-ns) - stop a system in some.user-ns
+(R/add-dependency ['cheshire \"5.8.1\"]) - add a library to current repl process"))
 
 (defn init! []
   (ns scratch)
@@ -87,5 +89,15 @@
   (let [f (ns-resolve an-ns 'stop)]
     (f)
     (swap! system-status (fn [s] (assoc s an-ns false)))))
+
+(defn add-dependency
+  "Adds dependencies within a running REPL
+  Stolen from https://clojureverse.org/t/how-to-use-a-dependency-from-clojure-repl-without-starting-a-lein-project/1596/5
+  Usage: (add-dependency ['cheshire \"5.8.1\"])"
+  [dep-vec]
+  (cemerick.pomegranate/add-dependencies
+   :coordinates [dep-vec]
+   :repositories (merge @(resolve 'cemerick.pomegranate.aether/maven-central)
+                        {"clojars" "https://clojars.org/repo"})))
 
 (init!)
