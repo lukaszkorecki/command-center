@@ -8,7 +8,7 @@
      and injects template from lk/clj-scratch-start-text"
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
-    (monroe-load-file "~/.emacs.d/etc/scratch.clj")
+    (monroe-load-file "~/.emacs.d/etc/repl.clj")
     (current-buffer)))
 
 (defun lk/clojure-scratch ()

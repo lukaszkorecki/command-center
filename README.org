@@ -55,7 +55,7 @@ a regex ~(scratch/t ".*component.pg-test")~
 The code which defines the ~scratch~ namespace depends on couple of things:
 
 1. Leiningen profile which loads ~tools.namespace~, [[https://github.com/weavejester/eftest][eftest]] etc
-2. Simple namespace definition, found in [[etc/scratch.clj][etc/scratch.clj]]
+2. Simple namespace definition, found in [[etc/scratch.clj][etc/repl.clj]]
 
 *** ~lk/clojure-format-current-buffer~
 
@@ -63,4 +63,4 @@ Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current
 
 *** ~lk/clojure/check-current-buffer~
 
-Delegates to [[https://github.com/jonase/kibit][Kibit]] to check current buffer via *compilation-mode*
+Delegates to [[https://github.com/borkdude/clj-kondo][clj-kondo]] to check current buffer via *compilation-mode*
