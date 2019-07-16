@@ -25,10 +25,16 @@
   (lk/invoke-compile-tool-in-project "project.clj" "lein cljfmt fix %s"))
 
 (defun lk/clojure-check-current-buffer ()
-  "Format current buffer with Kibit - assume it's installed already
+  "Format current buffer with clj-kondo - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
   (lk/invoke-compile-tool-in-project "project.clj" "clj-kondo --lint %s"))
+
+(defun lk/clojure-slamhound-current-buffer ()
+  "Infer imports for current file via slamhound - assume it's installed already
+     (it is as it was added to ~/.lein/profiles.clj)"
+  (interactive)
+  (lk/invoke-compile-tool-in-project "project.clj" "lein slamhound %s"))
 
 (defun lk/clojure-check-project ()
   (interactive)
