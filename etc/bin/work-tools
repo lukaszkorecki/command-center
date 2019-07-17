@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 apps=(MailMate
- iTerm
- Docker
- Emacs
- "Fantastical 2"
- Todoist)
+      Slack
+      iTerm
+      Docker
+      Emacs
+      "Fantastical 2"
+      Todoist)
 
 start() {
   echo "Starting all apps"
@@ -17,13 +18,13 @@ start() {
 
 
 stop() {
-    echo "Stopping all apps"
-    echo open -a "$i"
-    for i in "${apps[@]}" ; do
+  echo "Stopping all apps"
+  echo open -a "$i"
+  for i in "${apps[@]}" ; do
     echo "Killing $i"
     pkill -f "$i"
   done
-  }
+}
 
 
 main() {
