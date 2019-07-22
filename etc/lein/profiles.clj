@@ -1,7 +1,7 @@
 {:repl {:dependencies [^:displace [org.clojure/clojure "1.10.0"]
                        [com.cemerick/pomegranate "0.4.0"]
                        [lambdaisland/kaocha "0.0-389"]
-                       [org.clojure/tools.namespace "0.3.0-alpha4"]]
+                       [org.clojure/tools.namespace "0.3.0"]]
         :repl-options {:color false}}
  :user {:dependencies [^:displace [org.clojure/clojure "1.10.0"]
 
