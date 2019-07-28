@@ -16,7 +16,7 @@ tools:
 	@cd ~/.emacs.d/etc && brew bundle
 
 work-stop:
-  @bash ~/.emacs.d/bin/work-tools stop
+	bash ~/.emacs.d/etc/bin/work-tools stop
 
 work-start:
-  @bash ~/.emacs.d/bin/work-tools start
+	bash ~/.emacs.d/etc/bin/work-tools start
