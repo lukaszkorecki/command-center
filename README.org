@@ -29,7 +29,7 @@ Everything ships as part of ~.emacs.d~ directory because it's 🆗
 
 *** Other tools and packages
 
-~cd etc && brew bundle~
+~cd ~/.emacs.d/etc && brew bundle~
 
 
 ** Details
