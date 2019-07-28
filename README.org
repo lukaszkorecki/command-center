@@ -1,6 +1,12 @@
-* Eighty Megs And Constantly Surprising  🎩
+* This is the config dir for all the things
 
-My emacs and ~/~ setup. Focused on:
+.files, Emacs config and utility scripts and such.
+
+Everything ships as part of ~.emacs.d~ directory because it's 🆗
+
+** Eighty Megs And Constantly Surprising  🎩
+
+   My emacs and $HOME setup. Focused on:
 
 - Clojure (read below)
 - Shell scripting in Bash
@@ -12,19 +18,21 @@ My emacs and ~/~ setup. Focused on:
   - Common Lisp
   - Python
 
-* Setup
+** Setup
+
+(If you want to use these (probably a bad idea, given that I built all of this stuff to fit _my workflow_).
 
 1. Fork this repo
 2. Clone to  ~$HOME/.emacs.d~
 3. ~bash $HOME/.emacs.d/etc/setup && source ~/.bashrc~
 3. Start Emacs, ~use-package~ will take over
 
-** Other tools and packages
+*** Other tools and packages
 
 ~cd etc && brew bundle~
 
 
-* Details
+** Details
 
 - I use ~bash~, I tried ~zsh~ in the past and it was not worth the effort
 - you can see my old .files here: https://github.com/lukaszkorecki/DotFiles
@@ -33,13 +41,13 @@ My emacs and ~/~ setup. Focused on:
   - projectile
   - monroe and clojure-mode
 
-** Conventions
+*** Conventions
 
 Most *navigation* shortcuts start with ~C-c n ...~
 
 Most *execution* shorcuts start with ~C-x ...~
 
-** Clojure
+*** Clojure
 
 I've built couple of convenient things around [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]] and
  [[https://github.com/sanel/monroe][Monroe]], an nREPL client.
@@ -63,4 +71,4 @@ Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current
 
 *** ~lk/clojure/check-current-buffer~
 
-Delegates to [[https://github.com/borkdude/clj-kondo][clj-kondo]] to check current buffer via *compilation-mode*
+    Delegates to [[https://github.com/borkdude/clj-kondo][clj-kondo]] to check current buffer via *compilation-mode*
