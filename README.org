@@ -20,11 +20,11 @@ Everything ships as part of ~.emacs.d~ directory because it's 🆗
 
 ** Setup
 
-(If you want to use these (probably a bad idea, given that I built all of this stuff to fit _my workflow_).
+If you want to use these yourself - probably a bad idea, given that I built all of this stuff to fit _my workflow_.
 
 1. Fork this repo
 2. Clone to  ~$HOME/.emacs.d~
-3. ~bash $HOME/.emacs.d/etc/setup && source ~/.bashrc~
+3. ~cd .emacs.d && make~
 3. Start Emacs, ~use-package~ will take over
 
 *** Other tools and packages
