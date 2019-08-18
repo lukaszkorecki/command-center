@@ -20,8 +20,10 @@
     (progn
       (setq mac-option-modifier nil)
       (setq mac-command-modifier 'meta))))
-(mac-switch-meta)
-(mac-switch-meta)
+
+(when (string-equal system-type "darwin")
+  (mac-switch-meta)
+  (mac-switch-meta))
 
 (use-package sane-term
     :ensure t
