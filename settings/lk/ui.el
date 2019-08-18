@@ -10,11 +10,6 @@
 
 (add-hook 'window-setup-hook 'on-after-init)
 
-(use-package color-theme
-  :ensure t
-  :init
-  (load-theme 'wombat 't))
-
 (use-package ansi-color
   :ensure t)
 
