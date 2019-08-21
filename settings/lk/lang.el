@@ -48,9 +48,6 @@
 (use-package restclient
   :ensure t)
 
-(use-package sql-indent
-  :ensure t)
-
 (use-package terraform-mode
   :ensure t)
 
@@ -139,9 +136,6 @@
 (setq sh-indentation 2)
 (setq sh-basic-offset 2)
 
-;; better sql indentation
-(eval-after-load "sql"
-  '(load-library "sql-indent"))
 
 (require 'apex-mode)
 (add-to-list 'auto-mode-alist '("\\.cls.+" . apex-mode))
