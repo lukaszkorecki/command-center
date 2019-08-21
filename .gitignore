@@ -22,3 +22,4 @@ elpa26
 /bookmarks
 /README.html
 *.sqlite
+/transient/*
