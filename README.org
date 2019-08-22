@@ -72,3 +72,7 @@ Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current
 *** ~lk/clojure/check-current-buffer~
 
     Delegates to [[https://github.com/borkdude/clj-kondo][clj-kondo]] to check current buffer via *compilation-mode*
+
+* Vritual Machine
+
+Get Vagrant + VirtualBox and run ~vagrant up~ in the ~vm~ directory.
