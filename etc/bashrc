@@ -71,9 +71,8 @@ export HISTCONTROL=ignorespace:ignoredups
 [[ -r ~/.private/env.sh ]] && source ~/.private/env.sh
 
 # bash completion on OSX (needs brew install bash-completion)
-if [[ $(uname) = "Darwin" ]] ; then
+if [[ $(uname) = "Darwin" ]] && [[ "$(which brew)" != "" ]]  ; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    echo 'loadingn completion'
     . $(brew --prefix)/etc/bash_completion
   fi
 fi
