@@ -23,3 +23,4 @@ elpa26
 /README.html
 *.sqlite
 /transient/*
+/vm/.vagrant/*
