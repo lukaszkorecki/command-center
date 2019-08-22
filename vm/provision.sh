@@ -2,19 +2,34 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+log() {
+  logger -t SETUP -s "$*"
+}
+
 if [[ $(cat /etc/timezone) != "Etc/UTC" ]] ; then
+  log "Setting up timezone to UTC"
   echo "Etc/UTC" > /etc/timezone
   sudo dpkg-reconfigure -f noninteractive tzdata
-
+else
+  log "Timezone is in UTC"
 fi
 
-
 if [[ "$(which curl)" == "" ]] ; then
-
-  sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+  log "Installing dev tools and runtimes"
+  sudo apt install -y apt-transport-https ca-certificates software-properties-common \
+       emacs25 emacs25-common \
+       tmux curl \
+       ruby2.5 ruby2.5-dev \
+       zlib1g-dev liblzma-dev \
+       build-essential patch \
+       openjdk-8-jre-headless \
+       libpq-dev
+else
+  log "Dev tools installed"
 fi
 
 if [[ "$(which gcloud)" == "" ]] ; then
+  log "Installing gcloud, yarn, docker"
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
@@ -27,30 +42,32 @@ if [[ "$(which gcloud)" == "" ]] ; then
   sudo apt -y update
 
   sudo apt install -y yarn docker-ce \
-       emacs25 emacs25-common \
-       tmux curl ruby2.5 ruby2.5-dev \
-       zlib1g-dev liblzma-dev \
-       build-essential patch \
-       openjdk-8-jre-headless \
-       libpq-dev \
        google-cloud-sdk
 
   sudo usermod -aG docker vagrant
+  sudo shutdown -r now
+else
+  log "Gcloud/yarn/docker already installed"
 fi
 
 if [[ "$(which bundler)" == "" ]] ; then
+  log "installing bundler"
   sudo gem install bundler -v 1.17.1
+else
+  log "bundler already installed"
 fi
-
-
-
 
 if [[ "$(which envkey-source)" == "" ]] ; then
+  log "installing envkey"
   curl -s https://raw.githubusercontent.com/envkey/envkey-source/master/install.sh | bash
+else
+  log "envkey installled"
 fi
 
-
 if [[ "$(which docker-compose)" == "" ]] ; then
+  log "installing docker compose"
   sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
+else
+  log "docker compose already installed"
 fi
