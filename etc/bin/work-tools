@@ -2,12 +2,12 @@
 
 apps=(MailMate
       Slack
-      Docker
       Emacs
       Dash
       "Fantastical 2"
       Dropbox
-      iTerm)
+      Terminal
+      )
 
 start() {
   echo "Starting all apps"
