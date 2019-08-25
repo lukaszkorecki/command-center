@@ -2,12 +2,21 @@
 
 apps=(MailMate
       Slack
-      Emacs
       Dash
       "Fantastical 2"
-      Dropbox
-      Terminal
-      )
+      iTerm
+     )
+
+
+startDevVm() {
+  cd ~/dev-machine
+  vagrant up
+}
+
+stopDevVm() {
+  cd ~/dev-machine
+  vagrant stop
+}
 
 start() {
   echo "Starting all apps"
@@ -30,8 +39,10 @@ stop() {
 main() {
   if [[ "$1" = "start" ]] ; then
     start
+    startDevVm
   elif [[ "$1" = "stop" ]] ; then
     stop
+    stopDevVm
   else
     echo "usage: work-tools start|stop"
   fi
