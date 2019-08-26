@@ -9,7 +9,9 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_version = "1.0.282"
-  config.vm.network "forwarded_port", guest: 3034, host: 3034
+  [ 3034, 9091, 9099, 15672, 9989 ].each do |port|
+    config.vm.network "forwarded_port", guest: port, host: port
+  end
 
   config.vm.synced_folder "./share", "/vagrant"
 
