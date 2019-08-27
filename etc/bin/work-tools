@@ -5,6 +5,9 @@ apps=(MailMate
       Dash
       "Fantastical 2"
       iTerm
+      Todoist
+      CloudApp
+      "1Password 7"
      )
 
 start() {
