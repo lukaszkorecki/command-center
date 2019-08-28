@@ -24,3 +24,4 @@ elpa26
 *.sqlite
 /transient/*
 /vm/.vagrant/*
+/vm/share/*
