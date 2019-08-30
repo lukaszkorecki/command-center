@@ -132,8 +132,14 @@ prompt() {
     __branch="${__branch:0:24}…"
   fi
 
+  if [ $(uname) = 'Darwin' ] ; then
+    __sig=A
+  else
+    __sig=L
+  fi
+
   local __here=$(basename $(pwd))
-  echo "# $__branch - $__here : "
+  echo "$__sig # $__branch - $__here : "
 }
 PROMPT_COMMAND='PS1=$(prompt)'
 # plug-in the history hack
