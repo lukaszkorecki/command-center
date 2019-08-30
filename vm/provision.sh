@@ -25,7 +25,8 @@ if [[ "$(which curl)" == "" ]] ; then
        zlib1g-dev liblzma-dev \
        build-essential patch \
        libpq-dev \
-       bash-completion
+       bash-completion \
+       nfs-server
 else
   log "Dev tools installed"
 fi
