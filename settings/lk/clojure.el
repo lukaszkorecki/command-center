@@ -40,7 +40,7 @@
   (interactive)
   (let ((dir (locate-dominating-file default-directory "project.clj")))
     (compilation-start
-     (format "clj-kondo --lint %s" dir)
+     (format "docker run -v %s/src:/src --rm borkdude/clj-kondo clj-kondo --lint src" dir)
      'compilation-mode)))
 
 (use-package clojure-mode-extra-font-locking
