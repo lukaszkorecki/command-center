@@ -25,3 +25,4 @@ elpa26
 /transient/*
 /vm/.vagrant/*
 /vm/share/*
+etc/lein/self-installs/*.jar 
