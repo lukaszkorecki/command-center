@@ -152,3 +152,6 @@ if [ -f '~/bin/google-cloud-sdk/path.bash.inc' ]; then source '~/bin/google-clou
 
 # The next line enables shell command completion for gcloud.
 if [ -f '~/bin/google-cloud-sdk/completion.bash.inc' ]; then source '~/bin/google-cloud-sdk/completion.bash.inc'; fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+

@@ -1,15 +1,3 @@
-folder_options = if ENV['VAGRANT_NFS']
-                   {
-                     type: 'nfs',
-                     linux__nfs_options: ['rw' ,'sync',
-                                          'all_squash','anonuid=1000',
-                                          'insecure','no_subtree_check']
-                   }
-                 else
-                   { }
-                 end
-
-
 Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
   config.vm.box = "hashicorp/bionic64"
@@ -22,7 +10,7 @@ Vagrant.configure("2") do |config|
   end
 
 
-  config.vm.synced_folder "./share", "/vagrant", folder_options
+  config.vm.synced_folder "./share", "/vagrant"
 
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 4
