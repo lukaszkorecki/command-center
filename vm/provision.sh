@@ -26,7 +26,7 @@ if [[ "$(which curl)" == "" ]] ; then
        build-essential patch \
        libpq-dev \
        bash-completion \
-       nfs-server
+       keychain
 else
   log "Dev tools installed"
 fi
