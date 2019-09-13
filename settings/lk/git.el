@@ -48,4 +48,8 @@
               filename-and-process))))
 
 
+(use-package keychain-environment
+  :ensure t
+  :init (keychain-refresh-environment))
+
 (provide 'lk/git)

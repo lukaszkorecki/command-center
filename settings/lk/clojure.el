@@ -41,7 +41,7 @@
   "Format current buffer with clj-kondo - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (let* ((dir  (locate-dominating-file default-directory "project.clj"))
+  (let* ((dir (locate-dominating-file default-directory "project.clj"))
          (cmd-string (format "docker run -v %s/src:/src --rm borkdude/clj-kondo clj-kondo --lint %s" dir "%s")))
     (lk/invoke-compile-tool-in-project "project.clj" cmd-string)))
 
