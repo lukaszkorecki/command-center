@@ -25,6 +25,7 @@ ResetColor() {
 # if main ssh key is not loaded - warn about it!
 if [[ -z  "$(ssh-add -L | grep id_rsa)" ]] ; then
   echo "!! Main private key is not loaded! !!" >&2
+  echo "!! Run keychain ~/.ssh/id_rsa" >&2
 fi
 
 LoadSshKeys() {
@@ -154,4 +155,3 @@ if [ -f '~/bin/google-cloud-sdk/path.bash.inc' ]; then source '~/bin/google-clou
 if [ -f '~/bin/google-cloud-sdk/completion.bash.inc' ]; then source '~/bin/google-cloud-sdk/completion.bash.inc'; fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
