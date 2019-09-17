@@ -21,7 +21,7 @@
 (R/t! (R/find-test-ns  #\"some-regex\")) - run tests for matching namespaces but also refresh (dangerous!)
 (R/time+ \"tag\"  (some expr)) - like time, but better
 (R/refresh) - refresh all namespaces
-(scrtach/refresh-all) - refresh all project + dep namespaces
+(R/refresh-all) - refresh all project + dep namespaces
 (R/pp) alias for clojure.pprint/pprint
 (R/list-ns) - find all namespaces in SRC
 (R/start-system! 'some.user-ns) - refresh and start a system in some.user-ns
@@ -87,7 +87,7 @@
 (defn stop-system!
   "Given a namespace, usually some-service.user, stop the system"
   ([]
-   (stop-system! (first (key @system-status))))
+   (stop-system! (first (keys @system-status))))
   ([an-ns]
   (let [f (ns-resolve an-ns 'stop)]
     (f)
