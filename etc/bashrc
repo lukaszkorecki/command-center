@@ -134,9 +134,9 @@ prompt() {
   fi
 
   if [ $(uname) = 'Darwin' ] ; then
-    __sig=A
+    __sig=☯︎
   else
-    __sig=L
+    __sig=☭
   fi
 
   local __here=$(basename $(pwd))
