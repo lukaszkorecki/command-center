@@ -118,8 +118,8 @@ alias egrep='egrep --color=auto'
 alias be='bundle exec '
 alias gcd='cd $(git root)'
 
-alias emacs-cli='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-export EDITOR='/Applications/Emacs.app/Contents/MacOS/Emacs'
+alias emacsd='emacs --daemon'
+export EDITOR=emacsclient
 
 # get branch
 
