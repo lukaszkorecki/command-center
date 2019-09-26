@@ -6,7 +6,6 @@ apps=(MailMate
       "Fantastical 2"
       iTerm
       CloudApp
-      "1Password 7"
      )
 
 start() {
