@@ -5,11 +5,10 @@ jabba-install() {
   jabba use adopt@1.11.28-0
 }
 
-
-
-if [[ "$(which jabba)" == "" ]] ; then
+if [[ -s "/home/vagrant/.jabba/jabba.sh" ]] ; then
+  source "/home/vagrant/.jabba/jabba.sh"
+  jabba use adopt@1.11.28-0
+else
   echo Jabba not installed!
   echo "run jabba-install"
-else
-  jabba use adopt@1.11.28-0
 fi

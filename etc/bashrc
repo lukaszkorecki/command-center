@@ -154,4 +154,4 @@ if [ -f '~/bin/google-cloud-sdk/completion.bash.inc' ]; then source '~/bin/googl
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-source "~/.emacs.d/etc/jabba.sh"
+test -e  "${HOME}/.emacs.d/etc/jabba.sh" && source "${HOME}/.emacs.d/etc/jabba.sh"
