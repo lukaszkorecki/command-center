@@ -153,3 +153,5 @@ if [ -f '~/bin/google-cloud-sdk/path.bash.inc' ]; then source '~/bin/google-clou
 if [ -f '~/bin/google-cloud-sdk/completion.bash.inc' ]; then source '~/bin/google-cloud-sdk/completion.bash.inc'; fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+source "~/.emacs.d/etc/jabba.sh"
