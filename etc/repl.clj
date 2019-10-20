@@ -20,6 +20,7 @@
 (defn init! []
   (ns scratch)
   (ns.repl/disable-reload! *ns*)
+  (ns.repl/set-refresh-dirs "src" "test")
   (help))
 
 (def ^{:doc "Refresh changed namespaces"}  refresh ns.repl/refresh)
