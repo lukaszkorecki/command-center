@@ -26,3 +26,4 @@ elpa26
 /vm/.vagrant/*
 /vm/share/*
 etc/lein/self-installs/*.jar 
+/etc/lein/repl-history

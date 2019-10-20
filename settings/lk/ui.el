@@ -59,6 +59,11 @@
   :ensure t
   :bind (( "C-c t" . transpose-frame)))
 
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar)
+  :bind (( "C-c s t" . dired-sidebar-toggle-sidebar)))
+
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
 
