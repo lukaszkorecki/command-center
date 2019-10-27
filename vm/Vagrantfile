@@ -9,11 +9,11 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: port, host: port
   end
 
-  (9000..9100).each do |port|
+  (9000..10000).each do |port|
     config.vm.network "forwarded_port", guest: port, host: port
   end
 
-  (8000..9100).each do |port|
+  (8000..8100).each do |port|
     config.vm.network "forwarded_port", guest: port, host: port
   end
 
