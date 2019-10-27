@@ -5,10 +5,17 @@ Vagrant.configure("2") do |config|
 
   config.vm.network 'private_network', ip: '192.168.34.10'
 
-  [ 3034, 9091, 9099, 15672, 9989 ].each do |port|
+  [ 3000, 3034].each do |port|
     config.vm.network "forwarded_port", guest: port, host: port
   end
 
+  (9000..9100).each do |port|
+    config.vm.network "forwarded_port", guest: port, host: port
+  end
+
+  (8000..9100).each do |port|
+    config.vm.network "forwarded_port", guest: port, host: port
+  end
 
   config.vm.synced_folder "./share", "/vagrant"
 
