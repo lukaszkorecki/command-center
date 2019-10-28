@@ -12,13 +12,13 @@
 
 (ns.repl/disable-reload! *ns*)
 
-(defn help []
-  (println (str ">>> in ns " *ns*))
+(defn help [& n]
+  (println (str ">>> in ns " 'R))
   (mapv (fn [[k v]]
-          (println v)) (ns-publics *ns*)))
+          (println v)) (ns-publics 'R))
+  ::ok)
 
 (defn init! []
-  (ns scratch)
   (ns.repl/disable-reload! *ns*)
   (ns.repl/set-refresh-dirs "src" "test")
   (help))

@@ -85,6 +85,8 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts$" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx$" . rjsx-mode))
   (setq js-indent-level 2)
   ;; settings for js2 mode
   (add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
