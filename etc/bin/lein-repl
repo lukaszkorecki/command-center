@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# print all classpaths, and find the src dir, then CD into the project root
+# note, it will blow up if project.clj in current buffer dir is not a lein project file
+cd $(lein classpath | sed 's/:/\n/g' | grep -v m2 | grep src)/..
 echo "Starting in $PWD"
 
 if [[ -e ./script/lein ]] ; then
