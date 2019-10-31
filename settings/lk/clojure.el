@@ -62,7 +62,10 @@
 
 (use-package monroe
   :ensure t
-  :pin melpa)
+  :pin melpa
+  :init
+  (setq monroe-nrepl-server-cmd "lein-repl"))
+
 
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)

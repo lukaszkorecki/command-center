@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+echo "Starting in $PWD"
+
+if [[ -e ./script/lein ]] ; then
+  echo "Using script/lein"
+  ./script/lein $@
+else
+  echo "Using global lein"
+  lein $@
+fi
