@@ -62,12 +62,14 @@
 (require 'lk/modeline)
 (put 'narrow-to-region 'disabled nil)
 
+(defun lk/fix-utf ()
+  (interactive)
+  ;; unicode reules everything around me
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  (define-coding-system-alias 'UTF-8 'utf-8))
 
-;; unicode reules everything around me
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-
-(define-coding-system-alias 'UTF-8 'utf-8)
+(lk/fix-utf)
