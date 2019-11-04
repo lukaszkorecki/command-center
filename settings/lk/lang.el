@@ -122,7 +122,8 @@
 (use-package json-mode
   :ensure t
   :init
-  (add-to-list 'auto-mode-alist '("\\.(json|avsc|avpr)$" . json-mode)))
+  (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
+  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
 ;; web-mode stuff
 (use-package web-mode
