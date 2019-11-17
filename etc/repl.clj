@@ -63,23 +63,25 @@
 (def system-status (atom {}))
 
 (defn start-system!
-  "Given a namespace, usually some-service.user, do the following:
+  "Given a namespace, usually some-service, do the following:
+  - find some-service.user namespace (by convention)
   - refresh
-  - require the user ns
+  - require the user ns e.g. some-service.user
   - start  system, invoking somer-service.user/start
   Warning: best if the system is not running, or things will go south
 
-  Example: (R/start-system! 'foo.user)"
-  [an-ns]
-  (if (get @system-status an-ns)
-    (println "!!  System possibly running")
-    (do
-      (println "!! Refreshing and reloading " an-ns)
-      (refresh)
-      (require an-ns)
-      (let [f (ns-resolve an-ns 'start)]
-        (f)
-        (swap! system-status (fn [s] (assoc s an-ns true)))))))
+  Example: (R/start-system! 'foo)"
+  [pj-ns-root]
+  (let [an-ns (symbol pj-ns-root ".user")]
+    (if (get @system-status an-ns)
+      (println "!!  System possibly running")
+      (do
+        (println "!! Refreshing and reloading " an-ns)
+        (refresh)
+        (require an-ns)
+        (let [f (ns-resolve an-ns 'start)]
+          (f)
+          (swap! system-status (fn [s] (assoc s an-ns true))))))))
 
 (defn stop-system!
   "Given a namespace, usually some-service.user, stop the system. If not passed, stops currently running system"
