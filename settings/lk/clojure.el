@@ -60,12 +60,14 @@
          ("C-x c s" . lk/clojure-scratch)
          ("C-x c j" . monroe-nrepl-server-start))))
 
+(use-package clj-refactor
+  :ensure t)
+
 (use-package monroe
   :ensure t
   :pin melpa
   :init
   (setq monroe-nrepl-server-cmd "lein-repl"))
-
 
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)

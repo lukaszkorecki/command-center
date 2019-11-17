@@ -67,4 +67,10 @@
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
 
+(use-package highlight-indent-guides
+  :ensure t
+  :init
+  (setq highlight-indent-guides-method 'character)
+  (add-hook 'yaml-mode 'highlight-indent-guides-mode))
+
 (provide 'lk/ui)
