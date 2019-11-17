@@ -72,7 +72,7 @@
 
   Example: (R/start-system! 'foo)"
   [pj-ns-root]
-  (let [an-ns (symbol pj-ns-root ".user")]
+  (let [an-ns (symbol (str pj-ns-root ".user"))]
     (if (get @system-status an-ns)
       (println "!!  System possibly running")
       (do
