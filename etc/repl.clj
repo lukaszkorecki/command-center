@@ -74,7 +74,7 @@
   [pj-ns-root]
   (let [an-ns (symbol (str pj-ns-root ".user"))]
     (if (get @system-status an-ns)
-      (println "!!  System possibly running")
+      (println "!! System possibly running" an-ns)
       (do
         (println "!! Refreshing and reloading " an-ns)
         (refresh)
@@ -92,10 +92,15 @@
     (f)
     (swap! system-status (fn [s] (assoc s an-ns false))))))
 
+(defn sys
+  "Pull out the system for passing around"
+  []
+   (var-get (ns-resolve (first (keys @system-status)) 'SYS)))
+
 (defn c
   "Pul out a compont from a running system"
   [component-name]
-  (let [sys (var-get (ns-resolve (first (keys @system-status)) 'SYS))]
+  (let [sys (sys)]
     (get sys component-name)))
 
 (defn add-dependency
