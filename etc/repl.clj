@@ -78,10 +78,12 @@
       (do
         (println "!! Refreshing and reloading " an-ns)
         (refresh)
-        (require an-ns)
-        (let [f (ns-resolve an-ns 'start)]
-          (f)
-          (swap! system-status (fn [s] (assoc s an-ns true))))))))
+        (map #(ns-unmap an-ns %) (keys (ns-aliases an-ns)))
+        (require [an-ns] :reload)
+        (if-let [f (ns-resolve an-ns 'start)]
+          (do
+            (f)
+            (swap! system-status (fn [s] (assoc s an-ns true)))))))))
 
 (defn stop-system!
   "Given a namespace, usually some-service.user, stop the system. If not passed, stops currently running system"
