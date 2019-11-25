@@ -1,7 +1,38 @@
 #!/usr/bin/env bash
 
+# Check if we're in a dir which has valid project file, if not, go down
+goDown() {
+  echo "Checking $PWD"
+  if [[ "$PWD" == "/" ]] ; then
+    echo "What"
+    exit 1
+  fi
+
+  if [[ -e ./project.clj ]] ;then
+    # is valid project?
+    grep -q defproject project.clj
+    res=$?
+    if [[ "$res" == "0" ]] ; then
+      echo "Valid project.clj found"
+    else
+      cd ..
+      goDown
+    fi
+
+  else # no project keep looking
+    cd ..
+    goDown
+  fi
+}
+
+
+
 # print all classpaths, and find the src dir, then CD into the project root
 # note, it will blow up if project.clj in current buffer dir is not a lein project file
+echo $PWD
+goDown
+
+echo "=========="
 cd $(lein classpath | sed 's/:/\n/g' | grep -v m2 | grep src)/..
 echo "Starting in $PWD"
 
