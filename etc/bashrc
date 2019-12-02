@@ -138,7 +138,7 @@ prompt() {
   fi
 
   local __here=$(basename $(pwd))
-  echo "$__sig # $__branch - $__here : "
+  echo "$__sig $? # $__branch - $__here : "
 }
 PROMPT_COMMAND='PS1=$(prompt)'
 # plug-in the history hack
