@@ -4,11 +4,11 @@ apps=(MailMate
       Slack
       Dash
       "Fantastical 2"
-      iTerm
       CloudApp
+      Todoist
      )
 
-start() {
+start_mac() {
   echo "Starting all apps"
   for i in "${apps[@]}" ; do
     echo "Opening $i"
@@ -18,16 +18,39 @@ start() {
   vagrant up
 }
 
+start_linux() {
+  emacsd
+  ssh-add ~/.ssh/id_rsa
+  keychain ~/.ssh/id_rsa
+
+  pgrep -f tmux
+  if [[ "$?" == "1" ]] ; then
+    tmux
+  else
+    tmuxt att
+  fi
+}
+
+start() {
+  if [[ "$(uname)" == "Darwin" ]] ; then
+    start_mac
+  else
+    start_linux
+  fi
+}
+
 
 stop() {
-  echo "Stopping all apps"
-  for i in "${apps[@]}" ; do
-    echo "Killing $i"
-    pkill -f "$i"
-  done
+  if [[ "$(uname)" == "Darwin" ]] ; then
+    echo "Stopping all apps"
+    for i in "${apps[@]}" ; do
+      echo "Killing $i"
+      pkill -f "$i"
+    done
 
-  cd ~/dev-machine
-  vagrant suspend
+    cd ~/dev-machine
+    vagrant suspend
+  fi
 }
 
 
