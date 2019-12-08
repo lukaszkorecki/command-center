@@ -13,7 +13,8 @@
          (default-directory pj-dir))
     (compilation-start
      (format command-string-with-format (file-relative-name buffer-file-name))
-     'compilation-mode)))
+     'compilation-mode)
+    (revert-buffer :ignore-auto :noconfirm)))
 
 (use-package gitignore-mode
   :ensure t
