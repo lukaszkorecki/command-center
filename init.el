@@ -4,6 +4,7 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 
+(setq package-check-signature nil) ; ignore GPG/PGP errors, since we only use melpa
 (package-initialize)
 (eval-when-compile
   (require 'use-package))
