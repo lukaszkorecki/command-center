@@ -77,8 +77,8 @@
       (println "!! System possibly running" an-ns)
       (do
         (println "!! Refreshing and reloading " an-ns)
+        (remove-ns an-ns)
         (refresh)
-        (map #(ns-unmap an-ns %) (keys (ns-aliases an-ns)))
         (require [an-ns] :reload)
         (if-let [f (ns-resolve an-ns 'start)]
           (do
