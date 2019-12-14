@@ -5,7 +5,6 @@ apps=(MailMate
       Dash
       "Fantastical 2"
       CloudApp
-      Todoist
      )
 
 start_mac() {
@@ -19,6 +18,10 @@ start_mac() {
 }
 
 start_linux() {
+  # just in case :-)
+  pkill -9 -f emacs
+  pkill -9 -f tmux
+  # ...and then
   emacsd
   ssh-add ~/.ssh/id_rsa
   keychain ~/.ssh/id_rsa
