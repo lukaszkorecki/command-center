@@ -2,7 +2,9 @@
                        [com.cemerick/pomegranate "1.1.0"]
                        [lambdaisland/kaocha "0.0-554"]
                        [nrepl "0.6.0"]
+                       [hashp "0.1.0"]
                        [org.clojure/tools.namespace "0.3.1"]]
+        :injections [(require 'hashp.core)]
         :repl-options {:color false}}
  :user {:dependencies [^:displace [org.clojure/clojure "1.10.1"]
                        [cljfmt "0.6.6"]]

@@ -73,4 +73,7 @@
   (setq highlight-indent-guides-method 'character)
   (add-hook 'yaml-mode 'highlight-indent-guides-mode))
 
+(use-package color-theme-solarized
+  :ensure t)
+
 (provide 'lk/ui)
