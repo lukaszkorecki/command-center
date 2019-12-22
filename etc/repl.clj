@@ -70,9 +70,10 @@
   - start  system, invoking somer-service.user/start
   Warning: best if the system is not running, or things will go south
 
-  Example: (R/start-system! 'foo)"
-  [pj-ns-root]
-  (let [an-ns (symbol (str pj-ns-root ".user"))]
+  Example: (R/start-system! 'foo.user)"
+  [an-ns]
+  (do
+    (printf "!! Starting %s\n" an-ns)
     (if (get @system-status an-ns)
       (println "!! System possibly running" an-ns)
       (do

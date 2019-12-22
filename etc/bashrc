@@ -124,6 +124,14 @@ export EDITOR=emacsclient
 # get branch
 
 prompt() {
+  local __res=$?
+
+  if [[ $__res == 0 ]] ; then
+    __res="$(Color 2)$__res$(ResetColor)"
+  else
+    __res="$(Color 1)$__res$(ResetColor)"
+  fi
+
   local __branch=$(git cb)
   if [ "$__branch" = '' ] ; then
     __branch=' '
@@ -138,7 +146,8 @@ prompt() {
   fi
 
   local __here=$(basename $(pwd))
-  echo "$__sig $? # $__branch - $__here : "
+
+  echo "$__sig $__res # $__branch - $__here : "
 }
 PROMPT_COMMAND='PS1=$(prompt)'
 # plug-in the history hack
