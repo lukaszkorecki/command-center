@@ -125,11 +125,11 @@ export EDITOR=emacsclient
 
 prompt() {
   local __res=$?
-
+  local __padded_res=$(printf '%03d' $__res)
   if [[ $__res == 0 ]] ; then
-    __res="$(Color 2)$__res$(ResetColor)"
+    __res="\[$(Color 2)$__padded_res$(ResetColor)\]"
   else
-    __res="$(Color 1)$__res$(ResetColor)"
+    __res="\[$(Color 1)$__padded_res$(ResetColor)\]"
   fi
 
   local __branch=$(git cb)
@@ -139,15 +139,9 @@ prompt() {
     __branch="${__branch:0:24}…"
   fi
 
-  if [ $(uname) = 'Darwin' ] ; then
-    __sig=☯︎
-  else
-    __sig=☭
-  fi
-
   local __here=$(basename $(pwd))
 
-  echo "$__sig $__res # $__branch - $__here : "
+  echo "$__res # $__branch - $__here : "
 }
 PROMPT_COMMAND='PS1=$(prompt)'
 # plug-in the history hack
