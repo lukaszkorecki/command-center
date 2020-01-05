@@ -7,6 +7,8 @@ apps=(MailMate
       CloudApp
      )
 
+vagrantName=${2:-work}
+
 start_mac() {
   echo "Starting all apps"
   for i in "${apps[@]}" ; do
@@ -14,7 +16,7 @@ start_mac() {
     open -a "$i"
   done
   cd ~/dev-machine
-  vagrant up
+  vagrant up $vagrantName
 }
 
 start_linux() {
@@ -52,7 +54,7 @@ stop() {
     done
 
     cd ~/dev-machine
-    vagrant suspend
+    vagrant suspend $vagrantName
   fi
 }
 

@@ -16,7 +16,7 @@ else
   log "Timezone is in UTC"
 fi
 
-if [[ "$(which curl)" == "" ]] ; then
+if [[ "$(which keychain)" == "" ]] ; then
   log "Installing dev tools and runtimes"
   sudo apt install -y apt-transport-https ca-certificates software-properties-common \
        emacs25 emacs25-common \
@@ -36,7 +36,7 @@ if [[ "$(which java)" == "" ]] ; then
   curl -fsSL https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
   sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
   sudo apt-get update
-  sudo apt-get install -y  adoptopenjdk-8-hotspot
+  sudo apt-get install -y  adoptopenjdk-11-hotspot
 else
   log "Java installed already"
 fi

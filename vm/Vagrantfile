@@ -1,4 +1,4 @@
-Vagrant.configure("2") do |config|
+a_vm = proc do |config|
   config.ssh.forward_agent = true
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_version = "1.0.282"
@@ -25,5 +25,11 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", path: './provision.sh'
+
+end
+
+Vagrant.configure("2") do |config|
+  config.vm.define "work", &a_vm
+  config.vm.define "dev", &a_vm
 
 end
