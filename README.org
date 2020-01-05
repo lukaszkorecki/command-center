@@ -52,17 +52,17 @@ Most *execution* shorcuts start with ~C-x ...~
 I've built couple of convenient things around [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]] and
  [[https://github.com/sanel/monroe][Monroe]], an nREPL client.
 
-All functions are in [[settings/lk/clojure.el][settings/lk/clojure.el]]
+All functions are in [[settings/lk/clojure.el][settings/lk/clojure.el]] and repl.clj
 
 *** ~lk/clojure-scratch~
 
 Creates a scratch buffer and loads handy functions into the REPL process.
-Tests can be run via ~(scratch/t)~ function, which also accepts
-a regex ~(scratch/t ".*component.pg-test")~
+Tests can be run via ~(R/t)~ function, which also accepts
+a regex ~(R/t! ".*component.pg-test")~
 
-The code which defines the ~scratch~ namespace depends on couple of things:
+The code which defines the ~R~ (R for REPL) namespace depends on couple of things:
 
-1. Leiningen profile which loads ~tools.namespace~, [[https://github.com/weavejester/eftest][eftest]] etc
+1. Leiningen profile which loads ~tools.namespace~, [[kaocha][https://github.com/lambdaisland/kaocha]] etc
 2. Simple namespace definition, found in [[etc/scratch.clj][etc/repl.clj]]
 
 *** ~lk/clojure-format-current-buffer~
@@ -75,4 +75,6 @@ Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current
 
 * Vritual Machine
 
-Get Vagrant + VirtualBox and run ~vagrant up~ in the ~vm~ directory.
+Get Vagrant + VirtualBox and run ~vagrant up work|dev~ in the ~vm~ directory.
+
+I've separated one for work stuff, and other for side projects, experiments etc. *VMs cannot be started at the same time*, pick one!
