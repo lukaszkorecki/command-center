@@ -17,7 +17,7 @@
  '(magit-merge-arguments nil)
  '(package-selected-packages
    (quote
-    (color-theme-sanityinc-solarized color-theme-solarized highlight-indent-guides dired-sidebar keychain-environment edit-indirect flyspell-correct-ivy poly-markdown poly-ansible twittering-mode ibuffer-git ibuffer-vc ace-window flymake-eslint eslint-fix imenu-list typescript-mode vr dumb-jump yaml-mode window-numbering window-number web-mode visual-regexp use-package transpose-frame terraform-mode sql-indent solarized-theme scss-mode sane-term rjsx-mode restclient rainbow-delimiters python-mode nginx-mode move-text monroe markdown-mode magit json-mode jinja2-mode inf-clojure gitignore-mode git dockerfile-mode clojure-mode-extra-font-locking better-defaults ansible)))
+    (window-number sane-term monroe clojure-mode-extra-font-locking web-mode json-mode typescript-mode eslint-fix rjsx-mode nginx-mode scss-mode poly-ansible terraform-mode restclient dockerfile-mode edit-indirect poly-markdown visual-regexp use-package transpose-frame rainbow-delimiters python-mode projectile move-text magit keychain-environment imenu-list ibuffer-vc ibuffer-git highlight-indent-guides gitignore-mode git dumb-jump dired-sidebar counsel company color-theme-solarized better-defaults ace-window)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote

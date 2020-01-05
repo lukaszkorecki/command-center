@@ -6,6 +6,15 @@
 
 (setq package-check-signature nil) ; ignore GPG/PGP errors, since we only use melpa
 (package-initialize)
+
+
+(defun lk/install-use-package ()
+  (interactive)
+  (package-refresh-contents)
+  (dolist (package '(use-package))
+   (unless (package-installed-p package)
+       (package-install package))))
+
 (eval-when-compile
   (require 'use-package))
 (setq use-package-always-ensure t)
@@ -56,7 +65,7 @@
 ;; load rest of customizations and extra packages
 (require 'lk/customizations)
 
-;; twitter, org, erc, etc
+;; perhaps org, erc, etc
 (require 'lk/apps)
 
 ;; load modeline

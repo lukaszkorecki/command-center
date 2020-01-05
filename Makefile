@@ -13,10 +13,4 @@ setup:
 	@ln -fvs ~/.emacs.d/etc/tmux.conf  ~/.tmux.conf
 
 tools:
-	@cd ~/.emacs.d/etc && brew bundle
-
-work-stop:
-	bash ~/.emacs.d/etc/bin/work-tools stop
-
-work-start:
-	bash ~/.emacs.d/etc/bin/work-tools start
+	@cd ~/.emacs.d/ && emacs -q --batch --eval "(progn (package-refresh-contents) (package-install 'use-package))"
