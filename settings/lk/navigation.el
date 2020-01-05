@@ -5,7 +5,7 @@
   (setq ivy-height 25)
   (ivy-mode 1)
   :bind
-  ("C-c n s" . swiper)
+  ("C-c S" . swiper)
   ("C-c C-r" . ivy-resume))
 
 (use-package counsel
@@ -21,12 +21,11 @@
   :ensure t
   :bind-keymap
   ("C-c p" . projectile-command-map)
-  :init
-  (projectile-mode +1)
   :config
   (setq projectile-completion-system 'ivy)
   (setq projectile-remember-window-configs t)
-  (setq projectile-git-command "git ls-files -z -c --recurse-submodules"))
+  (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
+  (projectile-mode +1))
 
 (use-package dumb-jump
   :ensure t
@@ -40,5 +39,7 @@
   (vc-git-grep "(TODO|FIXME|NOTE|XXX|HACK):" " " (vc-git-root default-directory)))
 
 (global-set-key (kbd "C-c n t") 'lk/find-todos-etc)
+
+
 
 (provide 'lk/navigation)

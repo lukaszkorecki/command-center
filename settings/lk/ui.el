@@ -1,10 +1,12 @@
 ;; set font size
-(when (display-graphic-p)
-  (set-face-attribute 'default nil
-                      :family "Monaco"
-                      :height 110))
+
 
 (defun on-after-init ()
+  (when (display-graphic-p)
+    (set-face-attribute 'default nil
+                        :family "Monaco"
+                        :height 110))
+
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
@@ -75,5 +77,12 @@
 
 (use-package color-theme-solarized
   :ensure t)
+
+;; Fix ansi-term rendering and add support for ace window
+ (add-hook 'term-mode-hook 'my-term-mode-hook)
+ (defun my-term-mode-hook ()
+   ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=20611
+   (local-set-key (kbd "M-o") 'ace-window)
+   (setq bidi-paragraph-direction 'left-to-right))
 
 (provide 'lk/ui)
