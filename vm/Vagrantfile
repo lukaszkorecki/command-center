@@ -25,6 +25,8 @@ def vm_config(ip, extended_port_ranges)
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.define "work", &(vm_config('192.168.34.10', [[3000,3034], (9000..10000), (8000..8100)]))
-  config.vm.define "dev", &(vm_config('192.168.34.11', [[3000, 3034, 9100]]))
+  config.vm.define "work", &(vm_config('192.168.34.10',
+                                       [[3000,3034], (9000..10000), (8000..8100)]))
+  config.vm.define "dev", &(vm_config('192.168.34.11',
+                                      [[3000, 3034, 8025], (9000..10000)]))
 end
