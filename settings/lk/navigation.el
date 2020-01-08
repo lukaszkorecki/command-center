@@ -41,5 +41,21 @@
 (global-set-key (kbd "C-c n t") 'lk/find-todos-etc)
 
 
+(use-package ace-window
+  :ensure t
+  :init
+  (setq aw-keys  '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-ignore-current t)
+  :bind (( "M-o" . ace-window)))
+
+
+;; Window and buffer management
+
+(global-set-key (kbd "C-x |") 'split-window-horizontally)
+(global-set-key (kbd "C-x -") 'split-window-vertically)
+
+(use-package transpose-frame
+  :ensure t
+  :bind (( "C-c t" . transpose-frame)))
 
 (provide 'lk/navigation)

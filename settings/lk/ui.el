@@ -40,31 +40,6 @@
 (use-package rainbow-delimiters
   :ensure t)
 
-;; show imenu-list
-(use-package imenu-list
-  :ensure t
-  :bind (( "C-c n l" . imenu-list-smart-toggle)))
-
-(use-package ace-window
-  :ensure t
-  :init
-  (setq aw-keys  '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (setq aw-ignore-current t)
-  :bind (( "M-o" . ace-window)))
-
-;; Window and buffer management
-
-(global-set-key (kbd "C-x |") 'split-window-horizontally)
-(global-set-key (kbd "C-x -") 'split-window-vertically)
-
-(use-package transpose-frame
-  :ensure t
-  :bind (( "C-c t" . transpose-frame)))
-
-(use-package dired-sidebar
-  :ensure t
-  :commands (dired-sidebar-toggle-sidebar)
-  :bind (( "C-c s t" . dired-sidebar-toggle-sidebar)))
 
 (setq echo-keystrokes 0.1
       use-dialog-box nil visible-bell nil)
@@ -78,11 +53,9 @@
 (use-package color-theme-solarized
   :ensure t)
 
-;; Fix ansi-term rendering and add support for ace window
- (add-hook 'term-mode-hook 'my-term-mode-hook)
- (defun my-term-mode-hook ()
-   ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=20611
-   (local-set-key (kbd "M-o") 'ace-window)
-   (setq bidi-paragraph-direction 'left-to-right))
+;; Fix ansi-term rendering
+(add-hook 'term-mode-hook 'my-term-mode-hook)
+(defun my-term-mode-hook ()
+  (setq bidi-paragraph-direction 'left-to-right))
 
 (provide 'lk/ui)
