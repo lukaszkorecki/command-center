@@ -9,7 +9,4 @@ jabba-install() {
 if [[ -s "/home/vagrant/.jabba/jabba.sh" ]] ; then
   source "/home/vagrant/.jabba/jabba.sh"
   jabba use $JAVA_VERSION
-else
-  echo Jabba not installed!
-  echo "run jabba-install"
 fi
