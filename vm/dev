@@ -43,4 +43,6 @@ ssh ubuntu@$ip \
     -L 3034:localhost:3034 \
     -L 8025:localhost:8025 \
     -L 3005:localhost:3005 \
-    -L 9100:localhost:9100
+    -L 9100:localhost:9100 \
+    -L 3001:localhost:3001 \
+    -L 9630:localhost:9630
