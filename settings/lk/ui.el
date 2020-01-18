@@ -50,9 +50,6 @@
   (setq highlight-indent-guides-method 'character)
   (add-hook 'yaml-mode 'highlight-indent-guides-mode))
 
-(use-package color-theme-solarized
-  :ensure t)
-
 ;; Fix ansi-term rendering
 (add-hook 'term-mode-hook 'my-term-mode-hook)
 (defun my-term-mode-hook ()
