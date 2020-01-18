@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# ./start stop :-)
+if [[ "$1" == "stop" ]] ; then
+  multipass stop dev
+fi
+
+
+# Create the machine if not there
+if [[ "$(multipass list | grep dev)" == "" ]] ;then
+  multipass launch \
+            --cpus 4 \
+            --mem 3G \
+            --disk 10G \
+            --name dev \
+            18.04
+
+fi
+
+# start if not running
+if [[ "$(multipass list | egrep dev.+Running)" == "" ]] ; then
+  multipass start dev
+fi
+
+# start shel
+if [[ "$1" == "shell" ]] ; then
+  multipass shell dev
+fi
+
+# If we don't have it - get the multipass ssh key, we will need sudo for that
+if [[ ! -e ~/.ssh/multipass.id_rsa  ]] ; then
+  sudo cp /var/root/Library/Application\ Support/multipassd/ssh-keys/id_rsa ~/.ssh/multipass.id_rsa
+  sudo chown $USER:staff .ssh/multipass.id_rsa
+fi
+
+# finally, shell in via SSH so that keys work, forward the agent and tunnel some port
+ip=$( multipass list | awk '/dev/ { print $3 }')
+
+ssh ubuntu@$ip \
+    -i ~/.ssh/multipass.id_rsa \
+    -A \
+    -L 3000:localhost:3000 \
+    -L 3034:localhost:3034 \
+    -L 8025:localhost:8025 \
+    -L 3005:localhost:3005 \
+    -L 9100:localhost:9100
