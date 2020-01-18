@@ -58,7 +58,9 @@ if [[ "$(which gcloud)" == "" ]] ; then
        google-cloud-sdk
 
   sudo usermod -aG docker vagrant
+  sudo usermod -aG docker ubuntu
   sudo shutdown -r now
+
 else
   log "Gcloud/yarn/docker already installed"
 fi
