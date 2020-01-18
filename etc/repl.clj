@@ -4,7 +4,6 @@
             [clojure.repl :as repl]
             [kaocha.repl]
             clojure.pprint
-            [cemerick.pomegranate]
             [clojure.tools.namespace.find :as ns.find]
             [clojure.tools.namespace.repl :as ns.repl]
             [clojure.java.io :as io])
@@ -105,15 +104,5 @@
   [component-name]
   (let [sys (sys)]
     (get sys component-name)))
-
-(defn add-dependency
-  "Adds dependencies within a running REPL
-  Stolen from https://clojureverse.org/t/how-to-use-a-dependency-from-clojure-repl-without-starting-a-lein-project/1596/5
-  Usage: (add-dependency ['cheshire \"5.8.1\"])"
-  [dep-vec]
-  (cemerick.pomegranate/add-dependencies
-   :coordinates [dep-vec]
-   :repositories (merge @(resolve 'cemerick.pomegranate.aether/maven-central)
-                        {"clojars" "https://clojars.org/repo"})))
 
 (init!)
