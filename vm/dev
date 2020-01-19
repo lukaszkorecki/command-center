@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-# ./start stop :-)
+# ./dev stop :-)
 if [[ "$1" == "stop" ]] ; then
   multipass stop dev
+  exit 0
+fi
+
+if [[ "$1" == "suspend" ]] ; then
+  multipass stop dev
+  exit 0
 fi
 
 
