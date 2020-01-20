@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 name=$1
 command=$2
 
@@ -12,7 +14,7 @@ if [[ "$name" == "" ]] ; then
 fi
 
 if [[ "$name" == "work" || "$name" == "dev" ]] ; then
-  echo > $name
+  echo > $name $command
 else
   echo Unknown machine name: $name
   exit 1
