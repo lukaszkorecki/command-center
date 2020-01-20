@@ -52,8 +52,8 @@ if [[ "$(multipass list | grep $name)" == "" ]] ;then
 fi
 
 if [[ "$command" == "provision" ]] ; then
-  multipass tranfser ./provision.sh work:/tmp/provision.sh
-  multipass exec work -- sudo bash /tmp/provision.sh
+  multipass transfer ./provision.sh $name:/tmp/provision.sh
+  multipass exec $name -- sudo bash /tmp/provision.sh
   exit 0
 fi
 

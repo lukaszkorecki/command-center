@@ -8,7 +8,7 @@ apps=(MailMate
      )
 
 command=$1
-vagrantName=${2:-work}
+vmName=${2:-work}
 
 start_mac() {
   echo "Starting all apps"
@@ -17,7 +17,7 @@ start_mac() {
     open -a "$i"
   done
   cd ~/dev-machine
-  vagrant up $vagrantName
+  ./multipass $vmName ssh
 }
 
 start_linux() {
@@ -55,7 +55,7 @@ stop() {
     done
 
     cd ~/dev-machine
-    vagrant suspend $vagrantName
+    ./multipass $vmName suspend
   fi
 }
 
