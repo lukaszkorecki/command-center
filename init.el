@@ -1,8 +1,9 @@
 ;;;; init --- loads all customizations and packages
 ;;;; Commentary - Prolly needs splitting more
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (setq package-check-signature nil) ; ignore GPG/PGP errors, since we only use melpa
 (package-initialize)
