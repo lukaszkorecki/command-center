@@ -51,6 +51,13 @@ if [[ "$(multipass list | grep $name)" == "" ]] ;then
 
 fi
 
+if [[ "$command" == "provision" ]] ; then
+  multipass tranfser ./provision.sh work:/tmp/provision.sh
+  multipass exec work -- sudo bash /tmp/provision.sh
+  exit 0
+fi
+
+
 # start if not running
 if [[ "$(multipass info $name --format json | jq -r .info.$name.state)" != "Running" ]] ; then
   multipass start $name
