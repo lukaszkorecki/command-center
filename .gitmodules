@@ -1,0 +1,3 @@
+[submodule "drifter"]
+	path = drifter
+	url = git@github.com:lukaszkorecki/drifter.git
