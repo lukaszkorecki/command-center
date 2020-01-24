@@ -40,6 +40,7 @@ LoadSshKeys() {
 
 # custom scripts and tools
 export PATH=$HOME/.emacs.d/etc/bin:$PATH
+export PATH=$HOME/.emacs.d/vm:$PATH
 export PATH=$HOME/.private/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$HOME/bin/google-cloud-sdk/bin:$PATH

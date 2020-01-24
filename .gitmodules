@@ -1,3 +1,6 @@
 [submodule "drifter"]
 	path = drifter
 	url = git@github.com:lukaszkorecki/drifter.git
+[submodule "vm"]
+	path = vm
+	url = git@github.com:lukaszkorecki/drifter.git
