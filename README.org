@@ -29,7 +29,7 @@ If you want to use these yourself - probably a bad idea, given that I built all 
 
 *** Other tools and packages
 
-~cd ~/.emacs.d/etc && brew bundle~
+None, I work in a Linux VM
 
 
 ** Details
@@ -75,6 +75,5 @@ Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current
 
 * Vritual Machine
 
-Get Vagrant + VirtualBox and run ~vagrant up work|dev~ in the ~vm~ directory.
-
-I've separated one for work stuff, and other for side projects, experiments etc. *VMs cannot be started at the same time*, pick one!
+Is powered by [[https://Multipass.run][https://multipass.run]]
+See https://github.com/lukaszkorecki/drifter as my light weight Vagrant replacement.
