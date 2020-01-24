@@ -16,8 +16,9 @@ start_mac() {
     echo "Opening $i"
     open -a "$i"
   done
-  cd ~/dev-machine
-  ./multipass $vmName ssh
+
+  cd ~/.emacs.d/vm
+  ./drifter $vmName ssh
 }
 
 start_linux() {
@@ -53,9 +54,8 @@ stop() {
       echo "Killing $i"
       pkill -f "$i"
     done
-
-    cd ~/dev-machine
-    ./multipass $vmName suspend
+    cd ~/.emacs.d/vm
+    ./drifter $vmName suspend
   fi
 }
 
