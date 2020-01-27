@@ -127,11 +127,7 @@ export EDITOR=emacsclient
 prompt() {
   local __res=$?
   local __padded_res=$(printf '%03d' $__res)
-  if [[ $__res == 0 ]] ; then
-    __res="\[$(Color 2)$__padded_res$(ResetColor)\]"
-  else
-    __res="\[$(Color 1)$__padded_res$(ResetColor)\]"
-  fi
+  __res=$padded_res
 
   local __branch=$(git cb)
   if [ "$__branch" = '' ] ; then
