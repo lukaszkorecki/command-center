@@ -2,9 +2,9 @@
 
 apps=(MailMate
       Slack
-      "Fantastical 2"
       CloudApp
-      Todoist
+      Dash
+      "iTerm 2"
      )
 
 command=$1
