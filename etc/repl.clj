@@ -70,7 +70,15 @@
   Warning: best if the system is not running, or things will go south
 
   Example: (R/start-system! 'foo.user)"
-  [an-ns]
+  ([]
+   ;; automagically guess the <app>.user namespace
+   (let [an-ns (-> *ns*
+                   str
+                   (clojure.string/replace #"\..+" ".user")
+                   symbol)]
+     (require an-ns)
+     (start-system! an-ns)))
+  ([an-ns]
   (do
     (printf "!! Starting %s\n" an-ns)
     (if (get @system-status an-ns)
@@ -83,7 +91,7 @@
         (if-let [f (ns-resolve an-ns 'start)]
           (do
             (f)
-            (swap! system-status (fn [s] (assoc s an-ns true)))))))))
+            (swap! system-status (fn [s] (assoc s an-ns true))))))))))
 
 (defn stop-system!
   "Given a namespace, usually some-service.user, stop the system. If not passed, stops currently running system"
