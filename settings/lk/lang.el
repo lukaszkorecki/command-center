@@ -140,6 +140,11 @@
 (setq sh-basic-offset 2)
 
 
+(use-package go-mode
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
+
 (require 'apex-mode)
 (add-to-list 'auto-mode-alist '("\\.cls.+" . apex-mode))
 

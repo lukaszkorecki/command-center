@@ -14,3 +14,4 @@ deps.log
 **/*clj-scratch*
 **/.DS_Store
 TAGS
+vendor/
