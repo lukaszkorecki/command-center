@@ -31,6 +31,8 @@
   :init
   (projectile-mode +1))
 
+(projectile-mode t)
+
 (use-package dumb-jump
   :ensure t
   :bind
