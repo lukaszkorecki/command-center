@@ -17,6 +17,8 @@
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+(define-key global-map (kbd "C-c R") 'revert-buffer)
+
 (defun lk/show-kill-ring ()
   "Insert all `kill-ring' content in a new buffer named *copy history*.
 Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
