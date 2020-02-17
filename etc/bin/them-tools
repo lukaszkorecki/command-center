@@ -19,7 +19,7 @@ start_mac() {
   done
 
   cd ~/.emacs.d/vm
-  ./drifter $vmName ssh
+  ./drifter $vmName start
 }
 
 start_linux() {
