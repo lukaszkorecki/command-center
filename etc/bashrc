@@ -125,10 +125,6 @@ export EDITOR=emacsclient
 # get branch
 
 prompt() {
-  local __res=$?
-  local __padded_res=$(printf '%03d' $__res)
-  __res=$padded_res
-
   local __branch=$(git cb)
   if [ "$__branch" = '' ] ; then
     __branch=' '
@@ -138,7 +134,7 @@ prompt() {
 
   local __here=$(basename $(pwd))
 
-  echo "$__res # $__branch - $__here : "
+  echo "# $__branch - $__here : "
 }
 PROMPT_COMMAND='PS1=$(prompt)'
 # plug-in the history hack
