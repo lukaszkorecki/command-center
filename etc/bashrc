@@ -36,6 +36,7 @@ LoadSshKeys() {
 
   echo "> Adding id_rsa key"
   ssh-add ~/.ssh/id_rsa
+  keychain ~/.ssh/id_rsa
 }
 
 # custom scripts and tools
