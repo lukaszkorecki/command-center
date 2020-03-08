@@ -19,7 +19,7 @@ start_mac() {
   done
 
   cd ~/.emacs.d/vm
-  ./drifter $vmName start
+  ./drifter -n $vmName -c start
 }
 
 start_linux() {
@@ -56,7 +56,7 @@ stop() {
       pkill -f "$i"
     done
     cd ~/.emacs.d/vm
-    ./drifter $vmName stop
+    ./drifter -n $vmName -c stop
   fi
 }
 
