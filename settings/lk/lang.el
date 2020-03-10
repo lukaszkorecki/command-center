@@ -136,8 +136,19 @@
   (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode)))
 
 ;; sh mode
-(setq sh-indentation 2)
-(setq sh-basic-offset 2)
+
+(defun lk/bash-check-current-buffer ()
+  "Run shellcheck on current file"
+  (interactive)
+  (lk/invoke-compile-tool-in-project "." "docker run --rm -v $PWD:/mnt koalaman/shellcheck:stable %s"))
+
+(use-package sh-script
+  :init
+  (setq sh-indentation 2)
+  (setq sh-basic-offset 2)
+  :bind
+  (:map sh-mode-map
+        (("C-x c v" . lk/bash-check-current-buffer))))
 
 
 (use-package go-mode
