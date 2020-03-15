@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v op 2>&1 > /dev/null ; then
+  echo "install 1password cli"
+  exit 1
+fi
+
+
+
+itemId="$(op list items  | jq -r '.[] |  .overview.title + "|" + .uuid '   | grep clojars | cut -d'|' -f2)"
+fields="$(op get item "$itemId" |  jq -r  '.details.fields[]' )"
+username="$(echo "$fields"  | jq -r '.name + "|"  + .value' | grep username | cut -d'|' -f 2 )"
+password="$(echo "$fields"  | jq -r '.name + "|"  + .value' | grep password | cut -d'|' -f 2 )"
+
+CLOJARS_USERNAME="$username" CLOJARS_PASSWORD="$password" lein deploy clojars
