@@ -28,3 +28,4 @@ elpa26
 etc/lein/self-installs/*.jar 
 /etc/lein/repl-history
 /etc/bin/circleci
+/etc/lein/self-installs/
