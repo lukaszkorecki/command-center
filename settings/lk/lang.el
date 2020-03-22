@@ -61,6 +61,13 @@
   (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
   (setq css-indent-offset 2))
 
+(use-package rainbow-mode
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.scss$" . rainbow-mode))
+  (add-to-list 'auto-mode-alist '("\\.css$" . rainbow-mode))
+  (rainbow-mode))
+
 (use-package nginx-mode
   :ensure t
   :init
