@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+for main in $(find . -name main.tf ) ; do
+  echo $PWD/$(dirname $main)
+  cd $PWD/$(dirname $main)
+  if test -e ./tf ; then
+    ./tf fmt
+  else
+    terraform fmt
+
+  fi
+  cd -
+done
