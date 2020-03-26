@@ -33,6 +33,9 @@
          ("\\.md$" . markdown-mode)
          ("\\.markdown$" . markdown-mode)))
 
+(use-package markdown-toc
+  :ensure t)
+
 (use-package edit-indirect
   :ensure t)
 
