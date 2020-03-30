@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+date
+sudo chronyd -a 'burst 4/4'
+sudo chronyd -q 'server pool.ntp.org iburst'
+date
+sudo chronyd -a makestep
