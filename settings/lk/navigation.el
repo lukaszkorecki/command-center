@@ -64,4 +64,8 @@
   :ensure t
   :bind (( "C-c t" . transpose-frame)))
 
+
+(use-package emamux
+  :ensure t)
+
 (provide 'lk/navigation)
