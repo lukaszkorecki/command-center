@@ -55,4 +55,9 @@
 (defun my-term-mode-hook ()
   (setq bidi-paragraph-direction 'left-to-right))
 
+
+(use-package color-theme-approximate
+  :config
+  (color-theme-approximate-on))
+
 (provide 'lk/ui)

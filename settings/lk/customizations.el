@@ -32,5 +32,9 @@
 
 (global-set-key (kbd "C-x n e") 'eshell)
 
+(use-package which-key
+  :ensure t
+  :init (which-key-mode))
+
 (provide 'lk/customizations)
 ;;; customizations.el ends here
