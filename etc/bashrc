@@ -123,6 +123,7 @@ alias gcd='cd $(git root)'
 
 alias emacsd='emacs --daemon'
 export EDITOR=emacsclient
+export e="TERM=xterm-256color emacs"
 
 # get branch
 
