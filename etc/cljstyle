@@ -1,0 +1,10 @@
+{
+ :max-blank-lines 2
+ :line-break-functions? false
+ :reformat-types? false
+ :line-break-vars? false
+ :remove-consecutive-blank-lines? true
+ :indents {
+           defrecord [[:inner 1]]
+           }
+ }
