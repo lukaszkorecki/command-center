@@ -5,6 +5,7 @@ apps=(MailMate
       CloudApp
       iTerm
       Todoist
+      Dash
       "Fantastical 2"
      )
 
