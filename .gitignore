@@ -25,7 +25,10 @@ elpa26
 /transient/*
 /vm/.vagrant/*
 /vm/share/*
-etc/lein/self-installs/*.jar 
+etc/lein/self-installs/*.jar
 /etc/lein/repl-history
 /etc/bin/circleci
 /etc/lein/self-installs/
+/etc/bin/cljstyle
+/etc/bin/bb
+/etc/bin/clj-kondo

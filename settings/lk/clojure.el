@@ -32,18 +32,15 @@
 
 (defun lk/clojure-check-project ()
   (interactive)
-  (let ((dir (locate-dominating-file default-directory "project.clj")))
-    (compilation-start
-     (format "docker run -v %s/src:/src --rm borkdude/clj-kondo clj-kondo --lint src" dir)
-     'compilation-mode)))
+    (let* ((dir (locate-dominating-file default-directory "project.clj"))
+         (cmd-string (format "clj-kondo --lint %s" dir)))
+    (lk/invoke-compile-tool-in-project "project.clj" cmd-string)))
 
 (defun lk/clojure-check-current-buffer ()
   "Format current buffer with clj-kondo - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (let* ((dir (locate-dominating-file default-directory "project.clj"))
-         (cmd-string (format "docker run -v %s/src:/src --rm borkdude/clj-kondo clj-kondo --lint %s" dir "%s")))
-    (lk/invoke-compile-tool-in-project "project.clj" cmd-string)))
+  (lk/invoke-compile-tool-in-project "project.clj" "clj-kondo --lint %s"))
 
 (use-package clojure-mode-extra-font-locking
   :ensure t)
