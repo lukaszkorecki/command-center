@@ -1,3 +1,6 @@
+.ONESHELL:
+
+
 all: setup packages install-emacs get-clojure-tools
 
 install-emacs:
@@ -20,12 +23,12 @@ packages:
 	@cd ~/.emacs.d/ && emacs -q --batch --no-init-file -l ./deps.el
 
 install-emacs:
-	sudo apt-get remove emacs* || true
+	sudo apt-get -y  remove emacs* || true
 	sudo add-apt-repository ppa:kelleyk/emacs
 	sudo apt-get -y update
 	sudo apt install -y emacs26
 
-get-clojure-tools: get-clj-kondo get-bb get-cljstyle get-clojure-lps
+get-clojure-tools: get-clj-kondo get-bb get-cljstyle get-clojure-lsp
 
 
 get-clj-kondo:
@@ -51,4 +54,4 @@ get-clojure-lsp:
 	mv /tmp/clojure-lsp ~/.emacs.d/etc/bin/
 	chmod +x  ~/.emacs.d/etc/bin/clojure-lsp
 
-.PHONY: all setup packages get-binaries get-cljstyle get-bb get-clj-kondo get-clojure-lsp get-clojure-tools
+.PHONY: all setup packages get-cljstyle get-bb get-clj-kondo get-clojure-lsp get-clojure-tools
