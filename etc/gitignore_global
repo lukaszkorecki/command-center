@@ -16,3 +16,4 @@ deps.log
 TAGS
 vendor/
 /.clj-kondo/config.edn
+/.lsp/
