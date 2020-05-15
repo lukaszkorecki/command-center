@@ -17,7 +17,7 @@
  '(magit-merge-arguments nil)
  '(package-selected-packages
    (quote
-    (color-theme-approximate which-key emamux markdown-toc rainbow-mode sh-mode go-mode window-number sane-term monroe clojure-mode-extra-font-locking web-mode json-mode typescript-mode eslint-fix rjsx-mode nginx-mode scss-mode poly-ansible terraform-mode restclient dockerfile-mode edit-indirect poly-markdown visual-regexp use-package transpose-frame rainbow-delimiters python-mode projectile move-text magit keychain-environment imenu-list ibuffer-vc ibuffer-git highlight-indent-guides gitignore-mode git dumb-jump dired-sidebar counsel company better-defaults ace-window)))
+    (flycheck yasnippet lsp-ivy company-lsp lsp-ui lsp-mode cider color-theme-approximate which-key emamux markdown-toc rainbow-mode sh-mode go-mode window-number sane-term monroe clojure-mode-extra-font-locking web-mode json-mode typescript-mode eslint-fix rjsx-mode nginx-mode scss-mode poly-ansible terraform-mode restclient dockerfile-mode edit-indirect poly-markdown visual-regexp use-package transpose-frame rainbow-delimiters python-mode projectile move-text magit keychain-environment imenu-list ibuffer-vc ibuffer-git highlight-indent-guides gitignore-mode git dumb-jump dired-sidebar counsel company better-defaults ace-window)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote

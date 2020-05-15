@@ -1,5 +1,4 @@
 ;;;; init --- loads all customizations and packages
-
 (package-initialize)
 
 (load-file "~/.emacs.d/deps.el")
@@ -72,3 +71,5 @@
   (define-coding-system-alias 'UTF-8 'utf-8))
 
 (lk/fix-utf)
+
+(require 'lk/lsp)
