@@ -1,7 +1,4 @@
-
-
-
-all: setup tools
+all: setup packages install-emacs get-clojure-tools
 
 setup:
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
@@ -13,11 +10,16 @@ setup:
 	@ln -fvs ~/.emacs.d/etc/tmux.conf  ~/.tmux.conf
 	@ln -fvs ~/.emacs.d/etc/cljstyle  ~/.cljstyle
 
-tools:
+packages:
 	@cd ~/.emacs.d/ && emacs -q --batch --no-init-file -l ./deps.el
 
+install-emacs:
+	sudo apt-get remove emacs* || true
+	sudo add-apt-repository ppa:kelleyk/emacs
+	sudo apt-get -y update
+	sudo apt install -y emacs26
 
-get-binaries: get-clj-kondo get-bb get-cljstyle
+get-clojure-tools: get-clj-kondo get-bb get-cljstyle get-clojure-lps
 
 
 get-clj-kondo:
@@ -38,5 +40,9 @@ get-cljstyle:
 	tar xzvf /tmp/cljstyle.tar.gz
 	mv cljstyle ~/.emacs.d/etc/bin/
 
+get-clojure-lsp:
+	curl -L --output /tmp/clojure-lsp https://github.com/snoe/clojure-lsp/releases/download/release-20200514T134144/clojure-lsp
+	mv /tmp/clojure-lsp ~/.emacs.d/etc/bin/
+	chmod +x  ~/.emacs.d/etc/bin/clojure-lsp
 
-.PHONY: all setup tools get-binaries get-cljstyle get-bb get-clj-kondo
+.PHONY: all setup packages get-binaries get-cljstyle get-bb get-clj-kondo get-clojure-lsp get-clojure-tools

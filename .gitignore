@@ -32,3 +32,5 @@ etc/lein/self-installs/*.jar
 /etc/bin/cljstyle
 /etc/bin/bb
 /etc/bin/clj-kondo
+/.lsp-session-v1
+/etc/bin/clojure-lsp
