@@ -1,5 +1,11 @@
 all: setup packages install-emacs get-clojure-tools
 
+install-emacs:
+	sudo apt-get remove emacs* || true
+	sudo add-apt-repository ppa:kelleyk/emacs
+	sudo apt-get -y update
+	sudo apt install -y emacs26
+
 setup:
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.profile

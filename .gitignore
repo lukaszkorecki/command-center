@@ -34,3 +34,4 @@ etc/lein/self-installs/*.jar
 /etc/bin/clj-kondo
 /.lsp-session-v1
 /etc/bin/clojure-lsp
+/etc/bin/ngrok
