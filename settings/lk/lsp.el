@@ -23,6 +23,8 @@
 
 (use-package lsp-ui
   :ensure t
+  :bind (("C-c n n" . lsp-ui-find-next-reference)
+         ("C-c n p" . lsp-ui-find-prev-reference))
   :commands lsp-ui-mode)
 
 (use-package flycheck
