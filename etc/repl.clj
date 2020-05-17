@@ -22,10 +22,6 @@
   (ns.repl/set-refresh-dirs "src" "test")
   (help))
 
-(def ^{:doc "Refresh changed namespaces"}  refresh ns.repl/refresh)
-(def ^{:doc "Refresh everything"}  refresh-all ns.repl/refresh-all)
-(def ^{:doc "Pretty pretint a thing"} pp clojure.pprint/pprint)
-
 (defn list-ns
   "Return list of symbols of namespaces found in src dir"
   ([root]
@@ -112,5 +108,26 @@
   [component-name]
   (let [sys (sys)]
     (get sys component-name)))
+
+(defn safe-to-refresh? []
+(or (empty? @system-status)
+    (= #{false} (-> @system-status vals set))))
+
+(defn  refresh
+  "Refresh changed namespaces"
+  []
+  (if (safe-to-refresh?)
+    (ns.repl/refresh)
+    ::system-running!))
+
+(defn refresh-all
+  "Refresh everything"
+  []
+  (if (safe-to-refresh?)
+    (ns.repl/refresh-all)
+    ::system-running!))
+
+(def ^{:doc "Pretty pretint a thing"} pp clojure.pprint/pprint)
+
 
 (init!)
