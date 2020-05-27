@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+curl v2.wttr.in/marina\ del\ rey,ca
