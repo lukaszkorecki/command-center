@@ -26,7 +26,7 @@
   ca = commit --amend
 
   cleanup-branches = !git fetch -a -p && git branch --merged master | grep -v 'master$' | xargs git branch -d
-
+  recent="!f(){ git branch --sort=-committerdate | head -n ${1:-5}; };f"
   co = checkout
   g = !git --no-pager grep --color -n
   l = log
