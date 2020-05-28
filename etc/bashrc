@@ -23,22 +23,22 @@ ResetColor() {
   echo "$(tput sgr0)"
 }
 
-# if main ssh key is not loaded - warn about it!
-if [[ -z  "$(ssh-add -L | grep id_rsa)" ]] ; then
-  echo "!! Main private key is not loaded! !!" >&2
-  echo "!! Run LoadSshKeys" >&2
-fi
+# Sort out SSH stuff
+
 
 LoadSshKeys() {
-  if ssh-add -l 2>&1 | grep 'Could not open a conn' ; then
+  ssh-add -l 2>&1
+  if [[ "$?" != "0" ]] ; then
     echo "> Reactivating ssh-agent"
     eval `ssh-agent`
   fi
 
-  echo "> Adding id_rsa key"
-  ssh-add ~/.ssh/id_rsa
+  env TERM='' SSH_ASKPASS=~/.private/bin/askpass DISPLAY=:0:0 setsid ssh-add ~/.ssh/id_rsa  </dev/null
   keychain ~/.ssh/id_rsa
 }
+
+LoadSshKeys
+
 
 # custom scripts and tools
 export PATH=$HOME/.emacs.d/etc/bin:$PATH
@@ -49,6 +49,7 @@ export PATH=$HOME/bin/google-cloud-sdk/bin:$PATH
 export PATH=~/Dropbox/Scripts:$PATH
 export PATH=./node_modules/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
+
 
 # colors in less and ls
 export LESS="-rRSM~gIsw"
