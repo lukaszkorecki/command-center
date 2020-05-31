@@ -45,6 +45,7 @@
 (use-package clojure-mode-extra-font-locking
   :ensure t)
 
+
 (use-package clojure-mode
   :ensure t
   :init
@@ -55,7 +56,9 @@
          ("C-x c v" . lk/clojure-check-current-buffer)
          ("C-x c p" . lk/clojure-check-project)
          ("C-x c s" . lk/clojure-scratch)
-         ("C-x c j" . monroe-nrepl-server-start))))
+         ("C-x c j" . monroe-nrepl-server-start)
+         ("C-x c m" . monroe)
+         ("C-x c i" . lk/init-clojure-scratch))))
 
 (use-package monroe
   :ensure t
