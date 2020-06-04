@@ -64,7 +64,9 @@
   (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
   (setq css-indent-offset 2))
 
+(require 'css-mode)
 (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
+
 
 (use-package rainbow-mode
   :ensure t

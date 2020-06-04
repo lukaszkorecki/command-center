@@ -34,7 +34,7 @@ LoadSshKeys() {
   fi
 
   env TERM='' SSH_ASKPASS=~/.private/bin/askpass DISPLAY=:0:0 setsid ssh-add ~/.ssh/id_rsa  </dev/null
-  keychain ~/.ssh/id_rsa
+  keychain -Q ~/.ssh/id_rsa
 }
 
 LoadSshKeys

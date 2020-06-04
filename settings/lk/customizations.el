@@ -42,6 +42,10 @@
   (setq which-key-idle-secondary-delay 0.05)
   (which-key-mode))
 
+(use-package todoist
+  :ensure t
+  :init
+  (setq todoist-show-all 't))
 
 (provide 'lk/customizations)
 ;;; customizations.el ends here
