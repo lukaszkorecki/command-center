@@ -81,6 +81,11 @@ if [[ $(uname) = "Darwin" ]] && [[ "$(which brew)" != "" ]]  ; then
   fi
 fi
 
+if [[ -f /usr/share/bash-completion/bash_completion  ]] ; then
+  . /usr/share/bash-completion/bash_completion
+fi
+
+
 history() {
   _bash_history_sync
   builtin history "$@"
