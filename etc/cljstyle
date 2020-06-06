@@ -4,7 +4,8 @@
  :reformat-types? false
  :line-break-vars? false
  :remove-consecutive-blank-lines? true
- :indents {
+ :max-consecutive-blank-lines 2
+ :indents {with-transaction [[:inner 0]]
            defrecord [[:inner 1]]
            }
  }
