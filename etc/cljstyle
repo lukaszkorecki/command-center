@@ -7,5 +7,16 @@
  :max-consecutive-blank-lines 2
  :indents {with-transaction [[:inner 0]]
            defrecord [[:inner 1]]
-           }
+           defprotocol [[:inner 1]]
+           ;; stature
+           count-on-exception [[:inner 0]]
+           with-timing [[:inner 0]]
+           ;; compojure
+           defroutes [[:inner 0]]
+           POST [[:inner 0]]
+           DELETE [[:inner 0]]
+           GET [[:inner 0]]
+           PUT [[:inner 0]]
+
+          }
  }
