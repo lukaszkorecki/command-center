@@ -93,7 +93,7 @@
 
 (defun lk/eslint-check-current-buffer ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "package.json" "eslint --fix %s"))
+  (lk/invoke-compile-tool-in-project "package.json" "tslint --fix %s"))
 
 (use-package rjsx-mode
   :ensure t
