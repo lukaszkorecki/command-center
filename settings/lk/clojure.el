@@ -67,7 +67,8 @@
   (setq monroe-nrepl-server-cmd "lein-run")
   :bind
   (:map monroe-mode-map
-        (("C-x c l" . lk/init-clojure-scratch))))
+        (("C-x c s" . lk/clojure-scratch)
+         ("C-x c l" . lk/init-clojure-scratch))))
 
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)
