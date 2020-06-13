@@ -35,7 +35,8 @@
   :commands company-lsp)
 
 (use-package lsp-ivy
-  :ensure t)
+  :ensure t
+  :bind (("C-x c n" . lsp-ivy-workspace-symbol)))
 
 
 
