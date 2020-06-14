@@ -18,6 +18,6 @@
            DELETE [[:inner 0]]
            GET [[:inner 0]]
            PUT [[:inner 0]]
-
+           defroute [[:inner 0]]
           }
  }
