@@ -57,9 +57,11 @@
 
 (use-package clojure-mode
   :ensure t
-  :requires monroe
   :init
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  (require 'monroe)
+  (rainbow-delimiters-mode t)
+  (clojure-enable-monroe)
   :bind
   (:map clojure-mode-map
         (("C-x c f" .  lk/clojure-format-current-buffer)
@@ -74,6 +76,7 @@
 
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)
+  (require 'monroe)
   (clojure-enable-monroe))
 
 (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
