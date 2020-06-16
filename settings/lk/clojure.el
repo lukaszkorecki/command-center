@@ -46,8 +46,18 @@
   :ensure t)
 
 
+(use-package monroe
+  :ensure t
+  :init
+  (setq monroe-nrepl-server-cmd "lein-run")
+  :bind (("C-x c m" . monroe)
+         :map monroe-mode-map
+              ("C-x c s" . lk/clojure-scratch)
+              ("C-x c l" . lk/init-clojure-scratch)))
+
 (use-package clojure-mode
   :ensure t
+  :requires monroe
   :init
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   :bind
@@ -60,15 +70,7 @@
          ("C-x c m" . monroe)
          ("C-x c i" . lk/init-clojure-scratch))))
 
-(use-package monroe
-  :ensure t
-  :pin melpa
-  :init
-  (setq monroe-nrepl-server-cmd "lein-run")
-  :bind
-  (:map monroe-mode-map
-        (("C-x c s" . lk/clojure-scratch)
-         ("C-x c l" . lk/init-clojure-scratch))))
+
 
 (defun lk/clj-mode-hook ()
   (rainbow-delimiters-mode t)

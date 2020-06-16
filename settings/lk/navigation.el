@@ -55,6 +55,12 @@
   :bind (( "M-o" . ace-window)))
 
 
+(add-hook 'term-mode-hook
+          (lambda ()
+            (define-key term-raw-map (kbd "M-o") 'ace-window)))
+
+
+
 ;; Window and buffer management
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
