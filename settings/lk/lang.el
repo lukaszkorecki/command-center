@@ -62,6 +62,7 @@
   :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
+  :config
   (setq css-indent-offset 2))
 
 (require 'css-mode)

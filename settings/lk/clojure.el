@@ -52,8 +52,8 @@
   (setq monroe-nrepl-server-cmd "lein-run")
   :bind (("C-x c m" . monroe)
          :map monroe-mode-map
-              ("C-x c s" . lk/clojure-scratch)
-              ("C-x c l" . lk/init-clojure-scratch)))
+         (
+          ("C-x c l" . lk/init-clojure-scratch))))
 
 (use-package clojure-mode
   :ensure t
@@ -70,6 +70,9 @@
          ("C-x c s" . lk/clojure-scratch)
          ("C-x c j" . monroe-nrepl-server-start)
          ("C-x c m" . monroe)
+         ("C-c C-z" . monroe-switch-to-repl)
+         ("C-c C-l" . monroe-load-file)
+         ("C-x c s" . lk/clojure-scratch)
          ("C-x c i" . lk/init-clojure-scratch))))
 
 

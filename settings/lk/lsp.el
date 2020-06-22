@@ -6,7 +6,6 @@
 (use-package lsp-mode
   :ensure t
   :hook ((clojure-mode . lsp)
-         (clojurec-mode . lsp)
          (clojurescript-mode . lsp))
   :config
   ;; add paths to your local installation of project mgmt tools, like lein
@@ -14,9 +13,7 @@
                   "/usr/local/bin" path-separator
                   (getenv "PATH")))
   (dolist (m '(clojure-mode
-               clojurec-mode
-               clojurescript-mode
-               clojurex-mode))
+               clojurescript-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
   (setq lsp-enable-indentation nil
         lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
