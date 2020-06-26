@@ -73,6 +73,8 @@
          ("C-c C-z" . monroe-switch-to-repl)
          ("C-c C-l" . monroe-load-file)
          ("C-x c s" . lk/clojure-scratch)
+         ("C-x c c v" . clojure-convert-collection-to-vector)
+         ("C-x c c s" . clojure-convert-collection-to-set)
          ("C-x c i" . lk/init-clojure-scratch))))
 
 

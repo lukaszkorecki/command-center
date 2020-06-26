@@ -171,6 +171,16 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
 
+
+(use-package sqlup-mode
+  :ensure t
+  :init
+  (add-hook 'sql-mode-hook 'sqlup-mode)
+  (mapc (lambda (kw)
+          (add-to-list 'sqlup-blacklist kw))
+        '("name" "key" "value" "id"  "source")))
+
+
 (require 'apex-mode)
 (add-to-list 'auto-mode-alist '("\\.cls.+" . apex-mode))
 
