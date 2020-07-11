@@ -178,7 +178,7 @@
   (add-hook 'sql-mode-hook 'sqlup-mode)
   (mapc (lambda (kw)
           (add-to-list 'sqlup-blacklist kw))
-        '("name" "key" "value" "id"  "source" "type" "to")))
+        '("name" "key" "value" "id"  "source" "type" "to" "user")))
 
 
 (require 'apex-mode)
