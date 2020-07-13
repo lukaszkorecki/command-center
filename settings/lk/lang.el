@@ -177,6 +177,7 @@
   :init
   (add-hook 'sql-mode-hook 'sqlup-mode)
   (mapc (lambda (kw)
+          (require 'sqlup-mode)
           (add-to-list 'sqlup-blacklist kw))
         '("name" "key" "value" "id"  "source" "type" "to" "user")))
 
