@@ -134,19 +134,19 @@
 (defn t
   "Run tests via kaocha - either all or a list of vars"
   ([]
-   (kaocha.repl/run :unit))
+   (kaocha.repl/run :unit {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))
   ([ns-list]
-   (apply kaocha.repl/run ns-list)))
+   (apply kaocha.repl/run (conj ns-list {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))))
 
 
 (defn t!
   "Run tests via kaocha, but refresh first - runs all tests or a list of vars"
   ([]
    (refresh)
-   (kaocha.repl/run :unit))
+   (kaocha.repl/run :unit {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))
   ([ns-list]
    (refresh)
-   (apply kaocha.repl/run ns-list)))
+   (apply kaocha.repl/run (conj ns-list {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))))
 
 
 (init!)

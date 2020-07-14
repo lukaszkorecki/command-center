@@ -1,0 +1,2 @@
+{:kaocha/fail-fast? true
+ :kaocha/color? false}
