@@ -8,7 +8,6 @@
   :hook ((clojure-mode . lsp)
          (clojurescript-mode . lsp))
   :config
-  ;; add paths to your local installation of project mgmt tools, like lein
   (setenv "PATH" (concat
                   "/usr/local/bin" path-separator
                   (getenv "PATH")))
