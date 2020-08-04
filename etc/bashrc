@@ -24,8 +24,6 @@ ResetColor() {
 }
 
 # Sort out SSH stuff
-
-
 LoadSshKeys() {
   ssh-add -l 2>&1
   if [[ "$?" != "0" ]] ; then
@@ -37,7 +35,17 @@ LoadSshKeys() {
   keychain -Q ~/.ssh/id_rsa
 }
 
-LoadSshKeys
+if [[ "$(uname)" == "Linux" ]] ; then
+  LoadSshKeys
+fi
+
+
+# Load key via macos keychain, also shut up about ZSH
+if [[ "$(uname)" == "Darwin" ]] ; then
+  ssh-add -K ~/.ssh/id_rsa
+  export BASH_SILENCE_DEPRECATION_WARNING=1
+fi
+
 
 
 # custom scripts and tools
