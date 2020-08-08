@@ -45,15 +45,13 @@
 (use-package clojure-mode-extra-font-locking
   :ensure t)
 
-
 (use-package monroe
   :ensure t
   :init
   (setq monroe-nrepl-server-cmd "lein-run")
   :bind (("C-x c m" . monroe)
          :map monroe-mode-map
-         (
-          ("C-x c l" . lk/init-clojure-scratch))))
+         (("C-x c l" . lk/init-clojure-scratch))))
 
 (use-package clojure-mode
   :ensure t
