@@ -62,7 +62,7 @@
 
 (defun lk/fix-utf ()
   (interactive)
-  ;; unicode reules everything around me
+  ;; unicode rules everything around me
   (setq locale-coding-system 'utf-8)
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)

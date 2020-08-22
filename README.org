@@ -73,7 +73,7 @@ Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current
 
     Delegates to [[https://github.com/borkdude/clj-kondo][clj-kondo]] to check current buffer via *compilation-mode*
 
-* Vritual Machine
+* Virtual Machine
 
 Is powered by [[https://Multipass.run][https://multipass.run]]
 See https://github.com/lukaszkorecki/drifter as my light weight Vagrant replacement.
