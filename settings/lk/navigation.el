@@ -5,7 +5,7 @@
   (setq ivy-height 25)
   (ivy-mode 1)
   :bind
-  ("C-c S" . swiper)
+  ("C-c s" . swiper)
   ("C-c C-r" . ivy-resume))
 
 (use-package counsel
