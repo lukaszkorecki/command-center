@@ -28,3 +28,8 @@ WHERE
 	AND pid <> pg_backend_pid();
 
  ```
+
+
+# Switching databases in `psql`
+
+`\c dbname`
