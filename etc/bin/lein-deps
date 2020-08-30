@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo 'creating deps.txt'
+lein deps :tree 2>&1 | tee deps.txt
