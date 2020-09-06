@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-apps=(MailMate
+apps=(Spark
       Slack
-      Dash
       "Fantastical 2"
+      Todoist
      )
 
 command=$1
