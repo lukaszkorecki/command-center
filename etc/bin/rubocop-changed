@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 set -e
-base_branch=${1:-master}
+base_branch=${1:-origin/master}
 
-for file in $(git diff --name-status $(git cb)..$base_branch | grep -v '^D' | awk '/.rb$/ { print $2 }' | grep -v 'schema.rb') ; do
+for file in $(git diff --name-status $(git cb)..$base_branch | awk '/.rb$/ { print $2 }' | grep -v 'schema.rb') ; do
   echo "> $file"
   rubocop -a $file || echo skip $file
 done
