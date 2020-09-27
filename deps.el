@@ -1,7 +1,7 @@
 (progn
   (require 'package)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (setq package-check-signature nil)
   (package-initialize)
   (dolist (package '(use-package))

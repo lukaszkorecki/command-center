@@ -60,44 +60,4 @@
   :config
   (color-theme-approximate-on))
 
-
-;; mmmmmmmmmm
-
-(use-package mmm-mode
-  :ensure t
-  :defer t
-  :bind
-  (("C-c m m" . mmm-parse-buffer)
-   ("C-c m r" . mmm-reparse-current-region))
-  :config
-  (progn
-    (setq mmm-global-mode 'maybe)
-      (setq mmm-submode-decoration-level 0)
-  (mmm-add-mode-ext-class 'sql-mode "\\.clj$" 'sql-clj)
-
-  (require 'mmm-auto)
-  (mmm-add-classes
-   '((markdown-clojure
-      :submode clojure-mode
-      :front "^```clojure[\n\r]+"
-      :back "^```$")))
-  ;; trying to have sql-in-clojure a bit more usable
-  ;; something like this:
-  ;;     (def create-users
-  ;;   #_sql :start "
-  ;; select * from users
-  ;; " #_sql :end)
-
-  (mmm-add-classes
-     '((sql-clojure
-        :submode sql-mode
-        :front "^\s*#_sql :start \"[\n\r]+"
-        :back "^\s*\"#_sql :end\)$"
-
-        )))
-    (mmm-add-mode-ext-class 'clojure-mode nil 'sql-clojure)))
-
-
-
-
 (provide 'lk/ui)
