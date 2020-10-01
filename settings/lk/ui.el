@@ -60,4 +60,10 @@
   :config
   (color-theme-approximate-on))
 
+(use-package bufler
+  :ensure t
+  :bind
+  (("C-x b" . bufler-switch-buffer)
+   ("C-x C-b" . bufler-list)))
+
 (provide 'lk/ui)
