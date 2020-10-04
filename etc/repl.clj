@@ -14,7 +14,11 @@
 
 
 (ns.repl/disable-reload! *ns*)
-(def ^{:doc "Pretty print a thing"} pp clojure.pprint/pprint)
+
+(defn pp
+  [thing]
+  (clojure.pprint/pprint thing)
+  thing)
 
 
 (defn help [& n]
