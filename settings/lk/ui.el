@@ -56,9 +56,13 @@
   (setq bidi-paragraph-direction 'left-to-right))
 
 
-(use-package color-theme-approximate
-  :config
-  (color-theme-approximate-on))
+(when (string-equal system-type "darwin")
+  (load-theme "tango-dark"))
+
+(when (not  (string-equal system-type "darwin"))
+  (use-package color-theme-approximate
+    :config
+    (color-theme-approximate-on)))
 
 (use-package bufler
   :ensure t
