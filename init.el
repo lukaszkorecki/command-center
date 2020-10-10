@@ -13,6 +13,12 @@
 ;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
+(add-to-list 'exec-path "/home/ubuntu/.emacs.d/etc/bin")
+
+;; Ensure we can run remote binaries over ssh
+(require 'tramp)
+(add-to-list 'tramp-remote-path "~/.emacs.d/etc/bin")
+(add-to-list 'tramp-remote-path "/home/ubuntu/.emacs.d/etc/bin")
 
 (setenv "PATH" (concat (getenv "PATH")
                        ":/usr/local/bin:~/.emacs.d/etc/bin"))

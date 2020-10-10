@@ -22,7 +22,7 @@
   "Format current buffer with CljFmt - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "cljstyle fix %s"))
+  (lk/invoke-compile-tool-in-project "project.clj" "~/.emacs.d/etc/bin/cljstyle fix %s"))
 
 (defun lk/clojure-slamhound-current-buffer ()
   "Infer imports for current file via slamhound - assume it's installed already
@@ -33,14 +33,14 @@
 (defun lk/clojure-check-project ()
   (interactive)
     (let* ((dir (locate-dominating-file default-directory "project.clj"))
-         (cmd-string (format "clj-kondo --lint %s" dir)))
+         (cmd-string (format "~/.emacs.d/etc/bin/clj-kondo --lint %s" dir)))
     (lk/invoke-compile-tool-in-project "project.clj" cmd-string)))
 
 (defun lk/clojure-check-current-buffer ()
   "Format current buffer with clj-kondo - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "clj-kondo --lint %s"))
+  (lk/invoke-compile-tool-in-project "project.clj" "~/.emacs.d/etc/bin/clj-kondo --lint %s"))
 
 (use-package clojure-mode-extra-font-locking
   :ensure t)
