@@ -68,6 +68,11 @@ export PATH=$PATH:/usr/local/go/bin/
 export GOPATH=~/pjs/
 export PATH=$PATH:$GOPATH/bin
 
+# clojure
+export LEIN_REPL_ACK_PORT=9102
+export LEIN_REPL_PORT=9101
+export LEIN_REPL_HHOST=0.0.0.0
+
 # append to the history file, don't overwrite it
 export HISTCONTROL=ignoreboth
 export WORDCHARS=''
