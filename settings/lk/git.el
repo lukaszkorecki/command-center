@@ -1,4 +1,8 @@
 ;; Git and git-surf helpers
+
+(when (string-equal system-type "Darwin")
+)
+
 (defun lk/open-current-file-in-gh ()
   (interactive)
   (let* ((line-no (line-number-at-pos))
@@ -24,6 +28,7 @@
 (use-package magit
   :ensure t
   :config
+  (setq magit-git-executable "/usr/bin/git")
   (setq magit-completing-read-function 'ivy-completing-read)
 	:bind
   (( "C-c m s" . magit-status)))

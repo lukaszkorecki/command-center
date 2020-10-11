@@ -57,7 +57,10 @@
 
 
 (when (string-equal system-type "darwin")
-  (load-theme "tango-dark"))
+  (use-package darcula-theme
+    :ensure t
+    :init (require 'darcula-theme
+                   (load-theme 'darcula))))
 
 (when (not  (string-equal system-type "darwin"))
   (use-package color-theme-approximate
