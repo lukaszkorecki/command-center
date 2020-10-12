@@ -54,6 +54,7 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 
 ;; disable c-z which maps to minimize
 (global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x z"))
 ;; set in projectile later, originally used in dired/tramp
 (global-unset-key (kbd "C-c n p"))
 
