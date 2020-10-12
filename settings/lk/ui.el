@@ -60,7 +60,7 @@
   (use-package darcula-theme
     :ensure t
     :init (require 'darcula-theme
-                   (load-theme 'darcula))))
+                   (load-theme 'darcula t))))
 
 (when (not  (string-equal system-type "darwin"))
   (use-package color-theme-approximate
@@ -70,7 +70,7 @@
 (use-package bufler
   :ensure t
   :bind
-  (("C-x b" . bufler-switch-buffer)
-   ("C-x C-b" . bufler-list)))
+  (("C-x B" . bufler-switch-buffer)
+   ("C-x C-B" . bufler-list)))
 
 (provide 'lk/ui)
