@@ -21,10 +21,8 @@
   ;; fix not finding things in the load path... No idea why this breaks for
   ;; some packages, but works for others...
   (mapc (lambda (d)
-          (if (not
-               (or
-                (string-equal d ".")
-                (string-equal d "..")))
-              (add-to-list 'load-path (format "~/.emacs.d/elpa/%s" d))
-            ))
+          (when
+              (not
+               (or (string-equal d ".") (string-equal d "..")))
+            (add-to-list 'load-path (format "~/.emacs.d/elpa/%s" d))))
         (directory-files "~/.emacs.d/elpa/")))
