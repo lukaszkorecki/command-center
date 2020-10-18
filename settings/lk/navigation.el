@@ -29,6 +29,7 @@
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
   (add-to-list 'projectile-globally-ignored-directories "target")
   :init
+  (require 'projectile)
   (projectile-mode +1))
 
 (projectile-mode t)

@@ -3,12 +3,6 @@
 
 (load-file "~/.emacs.d/deps.el")
 
-(eval-when-compile
-  (require 'use-package))
-(setq use-package-always-ensure t)
-
-(add-to-list 'load-path "~/.emacs.d/settings")
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
 
 ;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")

@@ -69,6 +69,8 @@
 
 (use-package bufler
   :ensure t
+  :init
+  (require 'bufler)
   :bind
   (("C-x B" . bufler-switch-buffer)
    ("C-x C-B" . bufler-list)))
