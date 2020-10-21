@@ -87,14 +87,18 @@
   (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
+
+(setq nodejs-path
+      "/home/ubuntu/.nvm/versions/node/v10.22.1/bin/node")
+
 ;; Javascripts
 (defun lk/prettier-format-current-buffer ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "package.json" "prettier --write %s"))
+  (lk/invoke-compile-tool-in-project "package.json" "/home/ubuntu/.nvm/versions/node/v10.22.1/bin/node ./node_modules/.bin/prettier --write %s"))
 
 (defun lk/eslint-check-current-buffer ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "package.json" "eslint --fix %s"))
+  (lk/invoke-compile-tool-in-project "package.json" "/home/ubuntu/.nvm/versions/node/v10.22.1/bin/node ./node_modules/.bin/eslint --fix %s"))
 
 (use-package rjsx-mode
   :ensure t
