@@ -56,24 +56,22 @@
   (setq bidi-paragraph-direction 'left-to-right))
 
 
+(when (not  (string-equal system-type "darwin"))
+  (use-package color-theme-approximate
+    :config
+    (color-theme-approximate-on)))
+
 (when (string-equal system-type "darwin")
   (use-package darcula-theme
     :ensure t
     :init (require 'darcula-theme
                    (load-theme 'darcula t))))
 
-(when (not  (string-equal system-type "darwin"))
-  (use-package color-theme-approximate
-    :config
-    (color-theme-approximate-on)))
-
 (use-package bufler
   :ensure t
   :init
   (require 'bufler)
   :bind
-  (("C-x B" . bufler-switch-buffer)
-   ("C-x C-B" . bufler-list)
-   ("C-x n b" . bufler-switch-buffer)))
+  (("C-x C-B" . bufler-list)))
 
 (provide 'lk/ui)
