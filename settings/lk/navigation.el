@@ -32,14 +32,6 @@
   (require 'projectile)
   (projectile-mode +1))
 
-(projectile-mode t)
-
-(use-package dumb-jump
-  :ensure t
-  :bind
-  (("C-c n j" . dumb-jump-go))
-  :config
-  (setq dumb-jump-selector 'ivy))
 
 (defun lk/find-todos-etc ()
   (interactive)
@@ -53,17 +45,12 @@
   :init
   (setq aw-keys  '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-ignore-current t)
+  (add-hook 'term-mode-hook
+            (lambda ()
+              (define-key term-raw-map (kbd "M-o") 'ace-window)))
   :bind (( "M-o" . ace-window)))
 
-
-(add-hook 'term-mode-hook
-          (lambda ()
-            (define-key term-raw-map (kbd "M-o") 'ace-window)))
-
-
-
 ;; Window and buffer management
-
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
@@ -74,5 +61,10 @@
 
 (use-package emamux
   :ensure t)
+
+(defun lk/open-locally ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
 
 (provide 'lk/navigation)

@@ -73,6 +73,7 @@
   (require 'bufler)
   :bind
   (("C-x B" . bufler-switch-buffer)
-   ("C-x C-B" . bufler-list)))
+   ("C-x C-B" . bufler-list)
+   ("C-x n b" . bufler-switch-buffer)))
 
 (provide 'lk/ui)
