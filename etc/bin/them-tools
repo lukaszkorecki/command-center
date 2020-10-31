@@ -4,6 +4,8 @@ apps=(Slack
       "Fantastical 2"
       Todoist
       MailMate
+      Emacs
+      Dash
      )
 
 command=$1
