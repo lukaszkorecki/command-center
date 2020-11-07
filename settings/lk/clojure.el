@@ -45,6 +45,12 @@
   (interactive)
   (lk/invoke-compile-tool-in-project "project.clj" "~/.emacs.d/etc/bin/clj-kondo --lint %s"))
 
+(defun lk/clj-rebuild-tags ()
+  (interactive)
+  (lk/invoke-compile-tool-in-project "Makefile"
+  "git ls-files | egrep  '*.clj.+' | xargs etags --regex=@/home/ubuntu/.emacs.d/settings/lk/clojure.etags TAGS"))
+
+
 (use-package clojure-mode-extra-font-locking
   :ensure t)
 
@@ -74,6 +80,7 @@
          ("C-c C-z" . monroe-switch-to-repl)
          ("C-c C-l" . monroe-load-file)
          ("C-x c s" . lk/clojure-scratch)
+         ("C-x c t" . lk/clj-rebuild-tags)
          ("C-x c c v" . clojure-convert-collection-to-vector)
          ("C-x c c s" . clojure-convert-collection-to-set)
          ("C-x c i" . lk/init-clojure-scratch))))
