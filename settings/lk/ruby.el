@@ -8,6 +8,13 @@
   (interactive)
   (lk/invoke-compile-tool-in-project "Gemfile" "rubocop -a %s"))
 
+
+(defun lk/rb-rebuild-tags ()
+  (interactive)
+  (lk/invoke-compile-tool-in-project "Gemfile"
+  "git ls-files | egrep  '*.rb' | xargs etags --language=ruby TAGS"))
+
+
 (use-package ruby-mode
   :ensure t
   :init
@@ -19,7 +26,9 @@
   (setq-default ruby-indent-level 2)
   :bind
   (:map ruby-mode-map
-        (("C-x c f" .  lk/ruby-format-current-buffer))))
+        (("C-x c f" .  lk/ruby-format-current-buffer)
+         ("C-x c t" . lk/rb-rebuild-tags )
+         )))
 
 (provide 'lk/ruby)
 ;;; ruby.el ends here
