@@ -1,5 +1,25 @@
+# make make behave properly
+SHELL := bash
 .ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -c
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
 
+
+# support tooling for mac and linux
+
+kondo_version := 2020.11.07
+babashka_version := 0.2.4
+cljstyle_version = 0.14.0
+
+os := $(shell uname)
+platform := linux
+ifeq ($(os),Darwin)
+	platform := macos
+endif
+
+
+# tasks
 
 all: setup packages install-emacs get-clojure-tools
 
@@ -28,30 +48,25 @@ install-emacs:
 	sudo apt-get -y update
 	sudo apt install -y emacs26
 
-get-clojure-tools: get-clj-kondo get-bb get-cljstyle get-clojure-lsp
+get-clojure-tools: get-clj-kondo get-bb get-cljstyle
 
 
 get-clj-kondo:
-	curl -L --output /tmp/clj-kondo.zip https://github.com/borkdude/clj-kondo/releases/download/v2020.05.09/clj-kondo-2020.05.09-linux-static-amd64.zip
+	curl -L --output /tmp/clj-kondo.zip https://github.com/borkdude/clj-kondo/releases/download/v$(kondo_version)/clj-kondo-$(kondo_version)-$(platform)-amd64.zip
 	unzip /tmp/clj-kondo.zip
 	mv clj-kondo ~/.emacs.d/etc/bin/
 
 
 
 get-bb:
-	curl -L --output /tmp/bb.zip https://github.com/borkdude/babashka/releases/download/v0.0.94/babashka-0.0.94-linux-static-amd64.zip
+	curl -L --output /tmp/bb.zip https://github.com/borkdude/babashka/releases/download/v$(babashka_version)/babashka-$(babashka_version)-$(platform)-amd64.zip
 	unzip /tmp/bb.zip
 	mv bb ~/.emacs.d/etc/bin/
 
 
 get-cljstyle:
-	curl -L --output /tmp/cljstyle.tar.gz https://github.com/greglook/cljstyle/releases/download/0.12.1/cljstyle_0.12.1_linux.tar.gz
+	curl -L --output /tmp/cljstyle.tar.gz https://github.com/greglook/cljstyle/releases/download/$(cljstyle_version)/cljstyle_$(cljstyle_version)_$(platform).tar.gz
 	tar xzvf /tmp/cljstyle.tar.gz
 	mv cljstyle ~/.emacs.d/etc/bin/
 
-get-clojure-lsp:
-	curl -L --output /tmp/clojure-lsp https://github.com/snoe/clojure-lsp/releases/download/release-20200514T134144/clojure-lsp
-	mv /tmp/clojure-lsp ~/.emacs.d/etc/bin/
-	chmod +x  ~/.emacs.d/etc/bin/clojure-lsp
-
-.PHONY: all setup packages get-cljstyle get-bb get-clj-kondo get-clojure-lsp get-clojure-tools
+.PHONY: all setup packages get-cljstyle get-bb get-clj-kondo  get-clojure-tools

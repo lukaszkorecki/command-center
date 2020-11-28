@@ -8,6 +8,7 @@
      and injects template from lk/clj-scratch-start-text"
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
+    (message (pwd))
     (if (string-match ".+ssh:.+" (pwd))
         ;; assume TRAMP and load the repl file from a remote host
         (monroe-load-file "/home/ubuntu/.emacs.d/etc/repl.clj")
