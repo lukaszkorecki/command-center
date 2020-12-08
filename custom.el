@@ -15,7 +15,7 @@
  '(fci-rule-color "#373b41")
  '(magit-merge-arguments nil)
  '(package-selected-packages
-   '(darcula-theme bufler window-number todoist which-key sane-term monroe clojure-mode-extra-font-locking sqlup-mode go-mode web-mode json-mode typescript-mode eslint-fix rjsx-mode nginx-mode rainbow-mode scss-mode poly-ansible terraform-mode restclient dockerfile-mode jinja2-mode edit-indirect markdown-toc poly-markdown python-mode gitignore-mode visual-regexp move-text color-theme-approximate highlight-indent-guides rainbow-delimiters keychain-environment ibuffer-git ibuffer-vc magit git company emamux transpose-frame ace-window dumb-jump projectile counsel ivy better-defaults use-package))
+   '(undo-tree darcula-theme bufler window-number todoist which-key sane-term monroe clojure-mode-extra-font-locking sqlup-mode go-mode web-mode json-mode typescript-mode eslint-fix rjsx-mode nginx-mode rainbow-mode scss-mode poly-ansible terraform-mode restclient dockerfile-mode jinja2-mode edit-indirect markdown-toc poly-markdown python-mode gitignore-mode visual-regexp move-text color-theme-approximate highlight-indent-guides rainbow-delimiters keychain-environment ibuffer-git ibuffer-vc magit git company emamux transpose-frame ace-window dumb-jump projectile counsel ivy better-defaults use-package))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    '((20 . "#cc6666")

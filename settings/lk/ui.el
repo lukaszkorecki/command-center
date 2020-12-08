@@ -76,4 +76,8 @@
   :bind
   (("C-x C-B" . bufler-list)))
 
+
+(use-package undo-tree
+  :ensure t)
+
 (provide 'lk/ui)
