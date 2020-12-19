@@ -57,7 +57,7 @@ export PATH=$HOME/bin/google-cloud-sdk/bin:$PATH
 export PATH=~/Dropbox/Scripts:$PATH
 export PATH=./node_modules/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
-
+export PATH=~/node_root/bin:$PATH
 
 # colors in less and ls
 export LESS="-rRSM~gIsw"

@@ -86,8 +86,11 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 
 (use-package visual-regexp
   :ensure t
-  :ensure visual-regexp
-  :bind (( "C-x r" . vr/replace)))
+  :init
+  (global-set-key (kbd "C-x R") 'vr/replace)
+  :bind (( "C-x R" . vr/replace)))
+
+
 
 ;; no backup files
 (setq-default make-backup-files nil)

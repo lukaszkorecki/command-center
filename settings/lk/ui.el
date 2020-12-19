@@ -78,6 +78,7 @@
 
 
 (use-package undo-tree
-  :ensure t)
+  :ensure t
+  :init (global-undo-tree-mode 't))
 
 (provide 'lk/ui)
