@@ -17,3 +17,8 @@ TAGS
 vendor/
 /.clj-kondo/config.edn
 /.lsp/
+/.m2/
+.leiningen*
+lein-trampoline*
+hsperfdata*
+form-init*
