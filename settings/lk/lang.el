@@ -90,7 +90,7 @@
 
 (setq nodejs-path
       (if (string-equal system-type "darwin")
-        "/Users/lukasz/node_root/bin/node"
+        "/Users/lukasz/bin/node/bin/node"
         "/home/ubuntu/.nvm/versions/node/v10.22.1/bin/node"))
 
 ;; Javascripts
