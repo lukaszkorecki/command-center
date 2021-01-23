@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+base_branch=${1:-origin/master}
+
+for file in $(git diff --name-status $(git cb)..$base_branch | awk '/.(js|ts)x?$/ { print $2 }' ) ; do
+  echo "> $file"
+  prettier --write $file || echo skip $file
+done

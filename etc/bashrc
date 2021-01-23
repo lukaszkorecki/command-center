@@ -87,13 +87,6 @@ export HISTCONTROL=ignorespace:ignoredups
 # load extra shell env files only if they are readable
 [[ -r ~/.private/env.sh ]] && source ~/.private/env.sh
 
-# bash completion on OSX (needs brew install bash-completion)
-if [[ $(uname) = "Darwin" ]] && [[ "$(which brew)" != "" ]]  ; then
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-  fi
-fi
-
 if [[ -f /usr/share/bash-completion/bash_completion  ]] ; then
   . /usr/share/bash-completion/bash_completion
 fi
@@ -132,12 +125,11 @@ alias egrep='grep -E --color=auto'
 alias be='bundle exec '
 alias gcd='cd $(git root)'
 
-alias emacsd='emacs --daemon'
+
 export EDITOR=emacsclient
 
-if [[ test -d /Applications/Emacs.app ]] ; then
-  alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-fi
+[[  -d /Applications/Emacs.app ]] && alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+alias emacsd='emacs --daemon'
 
 # get branch
 
