@@ -73,6 +73,13 @@ export PATH=$PATH:$GOPATH/bin
 export LEIN_REPL_PORT=9102
 export LEIN_REPL_HHOST=0.0.0.0
 
+if [[ -d ~/bin/jdk/Contents/Home/bin ]] ; then
+  export PATH=$PATH:~/bin/jdk/Contents/Home/bin
+  export JAVA_CMD=~/bin/jdk/Contents/Home/bin/java
+  export JAVAHOME=~/bin/jdk/Contents/Home
+fi
+
+
 # append to the history file, don't overwrite it
 export HISTCONTROL=ignoreboth
 export WORDCHARS=''

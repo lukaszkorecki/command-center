@@ -23,12 +23,6 @@ endif
 
 all: setup packages install-emacs get-clojure-tools
 
-install-emacs:
-	sudo apt-get remove emacs* || true
-	sudo add-apt-repository ppa:kelleyk/emacs
-	sudo apt-get -y update
-	sudo apt install -y emacs26
-
 setup:
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.profile
@@ -54,19 +48,26 @@ get-clojure-tools: get-clj-kondo get-bb get-cljstyle
 get-clj-kondo:
 	curl -L --output /tmp/clj-kondo.zip https://github.com/borkdude/clj-kondo/releases/download/v$(kondo_version)/clj-kondo-$(kondo_version)-$(platform)-amd64.zip
 	unzip /tmp/clj-kondo.zip
-	mv clj-kondo ~/.emacs.d/etc/bin/
+	mv clj-kondo ~/bin/
 
 
 
 get-bb:
 	curl -L --output /tmp/bb.zip https://github.com/borkdude/babashka/releases/download/v$(babashka_version)/babashka-$(babashka_version)-$(platform)-amd64.zip
 	unzip /tmp/bb.zip
-	mv bb ~/.emacs.d/etc/bin/
+	mv bb ~/bin/
 
 
 get-cljstyle:
 	curl -L --output /tmp/cljstyle.tar.gz https://github.com/greglook/cljstyle/releases/download/$(cljstyle_version)/cljstyle_$(cljstyle_version)_$(platform).tar.gz
 	tar xzvf /tmp/cljstyle.tar.gz
-	mv cljstyle ~/.emacs.d/etc/bin/
+	mv cljstyle ~/bin/
+
+
+install-java:
+	curl -L -v https://download.java.net/java/ga/jdk11/openjdk-11_osx-x64_bin.tar.gz -O /tmp/openjdk-11_osx-x64_bin.tar.gz
+	cd /tmp
+	tar xf openjdk-11_osx-x64_bin.tar.gz
+	mv openjdk-11_osx-x64_bin ~/bin/jdk
 
 .PHONY: all setup packages get-cljstyle get-bb get-clj-kondo  get-clojure-tools
