@@ -57,7 +57,8 @@ export PATH=$HOME/bin/google-cloud-sdk/bin:$PATH
 export PATH=~/Dropbox/Scripts:$PATH
 export PATH=./node_modules/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
-export PATH=~/node_root/bin:$PATH
+export PATH=~/bin/node/bin:$PATH
+export PATH=~/bin/yarn-v1.22.5/bin:$PATH
 
 # colors in less and ls
 export LESS="-rRSM~gIsw"
@@ -133,6 +134,10 @@ alias gcd='cd $(git root)'
 
 alias emacsd='emacs --daemon'
 export EDITOR=emacsclient
+
+if [[ test -d /Applications/Emacs.app ]] ; then
+  alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+fi
 
 # get branch
 
