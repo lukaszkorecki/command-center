@@ -157,4 +157,12 @@
    (apply kaocha.repl/run (conj ns-list {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))))
 
 
+(defn clear-aliases
+  "Reset aliases for given ns or current if no args given"
+  ([]
+  (clear-aliases *ns*))
+  (
+  [an-ns]
+  (mapv #(ns-unalias an-ns %) (keys (ns-aliases an-ns)))))
+
 (init!)
