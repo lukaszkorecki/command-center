@@ -4,7 +4,6 @@ apps=(Slack
       "Fantastical 2"
       Todoist
       MailMate
-      Emacs
       Dash
      )
 
@@ -15,7 +14,7 @@ start_mac() {
   echo "Starting all apps"
   for i in "${apps[@]}" ; do
     echo "Opening $i"
-    open -a "$i"
+    open -a "$i" -g
   done
 
   cd ~/.emacs.d/vm
