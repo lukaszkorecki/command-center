@@ -8,7 +8,7 @@ apps=(Slack
      )
 
 command=$1
-vmName=${2:-wrk}
+vmName=$2
 
 start_mac() {
   echo "Starting all apps"
@@ -17,8 +17,12 @@ start_mac() {
     open -a "$i" -g
   done
 
-  cd ~/.emacs.d/vm
-  ./drifter "$vmName" start
+
+  if [[ "$vmName" != "" ]] ; then
+    cd ~/.emacs.d/vm
+    ./drifter "$vmName" start
+  fi
+
 }
 
 start_linux() {
@@ -54,8 +58,11 @@ stop() {
       echo "Killing $i"
       pkill -f "$i"
     done
-    cd ~/.emacs.d/vm
-    ./drifter "$vmName" stop
+
+    if [[ "$vmName" != "" ]] ; then
+      cd ~/.emacs.d/vm
+      ./drifter "$vmName" stop
+    fi
   fi
 }
 
