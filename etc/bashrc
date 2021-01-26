@@ -2,7 +2,7 @@
 export LANG=en_US.UTF-8
 unset LC_ALL ; unset LC_LANG
 unset command_not_found_handle
-
+export UNAME=$(uname)
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -35,13 +35,13 @@ LoadSshKeys() {
   keychain -Q ~/.ssh/id_rsa
 }
 
-if [[ "$(uname)" == "Linux" ]] ; then
+if [[ "$UNAME" == "Linux" ]] ; then
   LoadSshKeys
 fi
 
 
 # Load key via macos keychain, also shut up about ZSH
-if [[ "$(uname)" == "Darwin" ]] ; then
+if [[ "$UNAME" == "Darwin" ]] ; then
   ssh-add -K ~/.ssh/id_rsa
   export BASH_SILENCE_DEPRECATION_WARNING=1
 fi
@@ -146,7 +146,7 @@ export EDITOR=emacsclient
 alias emacsd='emacs --daemon'
 
 
-export UNAME=$(uname)
+
 # get branch + promp
 
 prompt() {
@@ -173,16 +173,3 @@ PROMPT_COMMAND='PS1=$(prompt)'
 PROMPT_COMMAND="$PROMPT_COMMAND ; _bash_history_sync "
 
 export HOMEBREW_NO_AUTO_UPDATE=1
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/bin/google-cloud-sdk/path.bash.inc' ]; then source '~/bin/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '~/bin/google-cloud-sdk/completion.bash.inc' ]; then source '~/bin/google-cloud-sdk/completion.bash.inc'; fi
-
-test -e  "${HOME}/.emacs.d/etc/jabba.sh" && source "${HOME}/.emacs.d/etc/jabba.sh"
-test -e  "${HOME}/.emacs.d/etc/nvm.sh" && source "${HOME}/.emacs.d/etc/nvm.sh"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
