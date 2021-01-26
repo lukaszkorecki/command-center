@@ -73,6 +73,7 @@ export PATH=$PATH:$GOPATH/bin
 export LEIN_REPL_PORT=9102
 export LEIN_REPL_HHOST=0.0.0.0
 
+# Set Java env vars based on the custom installation path
 if [[ -d ~/bin/jdk/Contents/Home/bin ]] ; then
   export PATH=$PATH:~/bin/jdk/Contents/Home/bin
   export JAVA_CMD=~/bin/jdk/Contents/Home/bin/java
@@ -92,11 +93,16 @@ export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignorespace:ignoredups
 
 # load extra shell env files only if they are readable
-[[ -r ~/.private/env.sh ]] && source ~/.private/env.sh
+loadIfFound() {
+ [[  -f "$1" ]] && source "$1"
+}
 
-if [[ -f /usr/share/bash-completion/bash_completion  ]] ; then
-  . /usr/share/bash-completion/bash_completion
-fi
+loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion"
+loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion"
+loadIfFound "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash"
+loadIfFound "~/.private.env.sh"
+loadIfFound "/usr/share/bash-completion/bash_completion"
+
 
 
 history() {
@@ -135,10 +141,13 @@ alias gcd='cd $(git root)'
 
 export EDITOR=emacsclient
 
+# Use GUI emacs bin, but in terminal
 [[  -d /Applications/Emacs.app ]] && alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias emacsd='emacs --daemon'
 
-# get branch
+
+export UNAME=$(uname)
+# get branch + promp
 
 prompt() {
   local __branch=$(git cb)
@@ -150,7 +159,14 @@ prompt() {
 
   local __here=$(basename $(pwd))
 
-  echo "# $__branch - $__here : "
+  local sig='#'
+
+  if [[ "$UNAME" == "Darwin" ]] ; then
+    sig='%'
+  fi
+
+
+  echo "$sig $__branch - $__here : "
 }
 PROMPT_COMMAND='PS1=$(prompt)'
 # plug-in the history hack
