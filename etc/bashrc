@@ -53,12 +53,11 @@ export PATH=$HOME/.emacs.d/etc/bin:$PATH
 export PATH=$HOME/.emacs.d/vm:$PATH
 export PATH=$HOME/.private/bin:$PATH
 export PATH=$HOME/bin:$PATH
-export PATH=$HOME/bin/google-cloud-sdk/bin:$PATH
-export PATH=~/Dropbox/Scripts:$PATH
 export PATH=./node_modules/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/bin/node/bin:$PATH
 export PATH=~/bin/yarn-v1.22.5/bin:$PATH
+export PATH=/Applications/Emacs.app//Contents/MacOS/bin-x86_64-10_10:$PATH
 
 # colors in less and ls
 export LESS="-rRSM~gIsw"
@@ -78,6 +77,7 @@ if [[ -d ~/bin/jdk/Contents/Home/bin ]] ; then
   export PATH=$PATH:~/bin/jdk/Contents/Home/bin
   export JAVA_CMD=~/bin/jdk/Contents/Home/bin/java
   export JAVAHOME=~/bin/jdk/Contents/Home
+  export JAVA_HOME=$JAVAHOME
 fi
 
 
@@ -102,7 +102,6 @@ loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc
 loadIfFound "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash"
 loadIfFound "~/.private.env.sh"
 loadIfFound "/usr/share/bash-completion/bash_completion"
-
 
 
 history() {
