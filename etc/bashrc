@@ -94,14 +94,14 @@ export HISTCONTROL=ignorespace:ignoredups
 
 # load extra shell env files only if they are readable
 loadIfFound() {
- [[  -f "$1" ]] && source "$1"
+ [[  -f "$1" ]] && source "$1" || echo "loader: $1 not found!"
 }
 
 loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion"
 loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion"
 loadIfFound "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash"
-loadIfFound "~/.private.env.sh"
-loadIfFound "/usr/share/bash-completion/bash_completion"
+loadIfFound "~/.private/env.sh"
+
 
 
 history() {
