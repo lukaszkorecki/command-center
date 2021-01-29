@@ -100,7 +100,7 @@ loadIfFound() {
 loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion"
 loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion"
 loadIfFound "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash"
-loadIfFound "~/.private/env.sh"
+loadIfFound "$HOME/.private/env.sh"
 
 
 
