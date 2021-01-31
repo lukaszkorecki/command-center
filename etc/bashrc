@@ -55,7 +55,7 @@ export PATH=$HOME/.private/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=./node_modules/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
-export PATH=~/bin/node/bin:$PATH
+
 export PATH=~/bin/yarn-v1.22.5/bin:$PATH
 export PATH=/Applications/Emacs.app//Contents/MacOS/bin-x86_64-10_10:$PATH
 
@@ -102,6 +102,7 @@ loadIfFound "/System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc
 loadIfFound "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash"
 loadIfFound "$HOME/.private/env.sh"
 
+loadIfFound "$HOME/.emacs.d/etc/node.sh"
 
 
 history() {
