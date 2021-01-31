@@ -5,24 +5,17 @@ apps=(Slack
       Todoist
       MailMate
       Dash
+      Docker
+      Emacs
      )
 
 command=$1
-vmName=$2
-
 start_mac() {
   echo "Starting all apps"
   for i in "${apps[@]}" ; do
     echo "Opening $i"
     open -a "$i" -g
   done
-
-
-  if [[ "$vmName" != "" ]] ; then
-    cd ~/.emacs.d/vm
-    ./drifter "$vmName" start
-  fi
-
 }
 
 start_linux() {
@@ -58,11 +51,6 @@ stop() {
       echo "Killing $i"
       pkill -f "$i"
     done
-
-    if [[ "$vmName" != "" ]] ; then
-      cd ~/.emacs.d/vm
-      ./drifter "$vmName" stop
-    fi
   fi
 }
 
