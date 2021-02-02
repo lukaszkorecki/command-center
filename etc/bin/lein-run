@@ -8,13 +8,12 @@ goDown() {
     exit 1
   fi
 
-  if [[ -e ./project.clj ]] ;then
+  if [[ -e $PWD/project.clj ]] ;then
     # is valid project?
-    grep -q defproject project.clj
-    res=$?
-    if [[ "$res" == "0" ]] ; then
+    if grep -q defproject project.clj ; then
       echo "Valid project.clj found"
     else
+      echo 'try again'
       cd ..
       goDown
     fi
@@ -33,7 +32,8 @@ echo $PWD
 goDown
 
 echo "=========="
-cd $(lein classpath | sed 's/:/\n/g' | grep -v m2 | grep src)/..
+# WTF?
+# cd $(lein classpath | sed 's/:/\n/g' | grep -v m2 | grep src)/..
 echo "Starting in $PWD"
 
 if [[ -e ./script/lein ]] ; then

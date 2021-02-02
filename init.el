@@ -14,8 +14,11 @@
 (add-to-list 'tramp-remote-path "~/.emacs.d/etc/bin")
 (add-to-list 'tramp-remote-path "/home/ubuntu/.emacs.d/etc/bin")
 
+;; Replicate PATHs from ~/.bashrc
 (setenv "PATH" (concat (getenv "PATH")
-                       ":/usr/local/bin:~/.emacs.d/etc/bin"))
+                       ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin"))
+
+(setenv "JAVA_HOME" "~/bin/jdk/Contents/Home")
 
 ;; reduce GC thrash
 (setq gc-cons-threshold 20000000)
