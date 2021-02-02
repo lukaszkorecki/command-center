@@ -32,6 +32,7 @@
 (require 'lk/autocomplete)
 (require 'lk/git)
 (require 'lk/ui)
+(require 'lk/lsp)
 
 ;; Editing
 (require 'lk/editing)

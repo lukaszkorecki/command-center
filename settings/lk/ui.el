@@ -81,4 +81,10 @@
   :ensure t
   :init (global-undo-tree-mode 't))
 
+(use-package treemacs
+  :ensure t)
+
+(use-package treemacs-projectile
+  :ensure t)
+
 (provide 'lk/ui)

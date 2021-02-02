@@ -42,7 +42,7 @@ install-emacs:
 	sudo apt-get -y update
 	sudo apt install -y emacs26
 
-get-clojure-tools: get-clj-kondo get-bb get-cljstyle
+get-clojure-tools: get-clj-kondo get-bb get-cljstyle get-clojure-lsp
 
 
 get-clj-kondo:
@@ -71,3 +71,10 @@ install-java:
 	mv openjdk-11_osx-x64_bin ~/bin/jdk
 
 .PHONY: all setup packages get-cljstyle get-bb get-clj-kondo  get-clojure-tools
+
+
+get-clojure-lsp:
+	curl -L --output /tmp/clojure-lsp.zip https://github.com/clojure-lsp/clojure-lsp/releases/download/2021.02.02-14.02.23/clojure-lsp-native-macos-amd64.zip
+	unzip /tmp/clojure-lsp.zip
+	mv clojure-lsp ~/bin/
+	chmod +x ~/bin/clojure-lsp
