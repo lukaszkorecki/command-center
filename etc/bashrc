@@ -56,7 +56,7 @@ export PATH=$HOME/bin:$PATH
 export PATH=./node_modules/.bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
-export PATH=~/bin/yarn-v1.22.5/bin:$PATH
+export PATH=$HOME/bin/yarn-v1.22.5/bin:$PATH
 export PATH=/Applications/Emacs.app//Contents/MacOS/bin-x86_64-10_10:$PATH
 
 # colors in less and ls
@@ -73,10 +73,10 @@ export LEIN_REPL_PORT=9102
 export LEIN_REPL_HHOST=0.0.0.0
 
 # Set Java env vars based on the custom installation path
-if [[ -d ~/bin/jdk/Contents/Home/bin ]] ; then
-  export PATH=$PATH:~/bin/jdk/Contents/Home/bin
-  export JAVA_CMD=~/bin/jdk/Contents/Home/bin/java
-  export JAVAHOME=~/bin/jdk/Contents/Home
+if [[ -d $HOME/bin/jdk/Contents/Home/bin ]] ; then
+  export PATH=$PATH:$HOME/bin/jdk/Contents/Home/bin
+  export JAVA_CMD=$HOME/bin/jdk/Contents/Home/bin/java
+  export JAVAHOME=$HOME/bin/jdk/Contents/Home
   export JAVA_HOME=$JAVAHOME
 fi
 
