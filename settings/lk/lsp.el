@@ -2,6 +2,7 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   (setq lsp-clojure-custom-server-command "~/bin/clojure-lsp")
+  (setq lsp-headerline-breadcrumb-mode nil)
   :hook ((clojure-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
