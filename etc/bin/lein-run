@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+export PATH=$PATH:$HOME/bin/jdk/Contents/Home/bin
+export JAVA_CMD=$HOME/bin/jdk/Contents/Home/bin/java
+export JAVAHOME=$HOME/bin/jdk/Contents/Home
+export JAVA_HOME=$JAVAHOME
+
+
 # Check if we're in a dir which has valid project file, if not, go down
 goDown() {
   echo "Checking $PWD"

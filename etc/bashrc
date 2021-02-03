@@ -73,12 +73,11 @@ export LEIN_REPL_PORT=9102
 export LEIN_REPL_HHOST=0.0.0.0
 
 # Set Java env vars based on the custom installation path
-if [[ -d $HOME/bin/jdk/Contents/Home/bin ]] ; then
-  export PATH=$PATH:$HOME/bin/jdk/Contents/Home/bin
-  export JAVA_CMD=$HOME/bin/jdk/Contents/Home/bin/java
-  export JAVAHOME=$HOME/bin/jdk/Contents/Home
-  export JAVA_HOME=$JAVAHOME
-fi
+export PATH=$PATH:$HOME/bin/jdk/Contents/Home/bin
+export JAVA_CMD=$HOME/bin/jdk/Contents/Home/bin/java
+export JAVAHOME=$HOME/bin/jdk/Contents/Home
+export JAVA_HOME=$JAVAHOME
+
 
 
 # append to the history file, don't overwrite it
