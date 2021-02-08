@@ -65,8 +65,10 @@
   :config
   (setq css-indent-offset 2))
 
-(require 'css-mode)
-(add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
+(use-package css-mode
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.css$" . css-mode)))
 
 
 (use-package rainbow-mode

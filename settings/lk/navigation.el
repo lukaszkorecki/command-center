@@ -22,6 +22,7 @@
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :config
+  (require 'projectile)
   (setq projectile-completion-system 'ivy)
   (setq projectile-remember-window-configs t)
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
@@ -29,7 +30,6 @@
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
   (add-to-list 'projectile-globally-ignored-directories "target")
   :init
-  (require 'projectile)
   (projectile-mode +1))
 
 
