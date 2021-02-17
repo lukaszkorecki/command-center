@@ -35,3 +35,4 @@ etc/lein/self-installs/*.jar
 /.lsp-session-v1
 /etc/bin/clojure-lsp
 /etc/bin/ngrok
+/.cache/
