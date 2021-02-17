@@ -81,7 +81,9 @@
   :init (global-undo-tree-mode 't))
 
 (use-package treemacs
-  :ensure t)
+  :ensure t
+  :init
+  (setq treemacs-space-between-root-nodes nil))
 
 (use-package treemacs-projectile
   :ensure t)

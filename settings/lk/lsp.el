@@ -20,4 +20,8 @@
 (use-package lsp-ui
   :ensure t)
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 (provide 'lk/lsp)

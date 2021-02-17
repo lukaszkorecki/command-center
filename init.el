@@ -14,13 +14,20 @@
 (add-to-list 'tramp-remote-path "~/.emacs.d/etc/bin")
 (add-to-list 'tramp-remote-path "/home/ubuntu/.emacs.d/etc/bin")
 
-;; Replicate PATHs from ~/.bashrc
+(use-package exec-path-from-shell
+  :ensure t
+  :init (exec-path-from-shell-initialize))
+
+;; Replicate PATHs from ~/.bashrc, although might not be necessary
+;; because of the above
 (setenv "PATH" (concat (getenv "PATH")
                        ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin"))
 
 
 ;; reduce GC thrash
-(setq gc-cons-threshold 20000000)
+(setq gc-cons-threshold 20000000
+      read-process-output-max (* 1024 1024))
+
 (when (>= emacs-major-version 25)
   (eval-after-load 'bytecomp
     (lambda ()
