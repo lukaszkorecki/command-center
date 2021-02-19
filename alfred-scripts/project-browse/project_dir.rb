@@ -7,16 +7,17 @@ require 'json'
 CACHE_LOCATION = '~/.cache/project_browse_cache.json'
 PROJECTS_DIR_ROOT = '~/pj/'
 
-cache_path = File.expand_path(CACHE_LOCATION)
-FileUtils.touch(cache_path) unless File.exist?(cache_path)
+CACHE_PATH = File.expand_path(CACHE_LOCATION)
+FileUtils.touch(CACHE_PATH) unless File.exist?(CACHE_PATH)
 
-cache = File.new(cache_path, 'r+')
-cached_data = cache.read
+cached_data = File.read(CACHE_PATH)
 
 cache_empty = cached_data.size.zero?
 
 now = Time.now.to_i
+cache = File.open(CACHE_PATH)
 last_time = cache.mtime.to_i
+cache.close
 
 diff_in_minutes = (now - last_time) / 60
 
@@ -42,10 +43,9 @@ if cache_empty || diff_in_minutes > 4 * 60 # if 4 hours old, rebuild the cache
 
   json = { items: items }.to_json
 
-  cache.write json
+  File.write(CACHE_PATH, json)
 
   cached_data = json
 end
-cache.close
 
 puts JSON.parse(cached_data).to_json
