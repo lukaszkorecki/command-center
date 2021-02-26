@@ -23,6 +23,23 @@ ResetColor() {
   echo "$(tput sgr0)"
 }
 
+
+notify() {
+  title="$1"
+  content="$2"
+
+  if [[ "$content" == "" ]] ; then
+    content="$title"
+    title=""
+  fi
+
+  if [[ "title" != "" ]] ; then
+    osascript -e "display notification \"$content\" with title \"$title\""
+  else
+    osascript -e "display notification \"$content\""
+  fi
+}
+
 # Sort out SSH stuff
 LoadSshKeys() {
   ssh-add -l 2>&1
