@@ -23,7 +23,7 @@ diff_in_minutes = (now - last_time) / 60
 
 $stderr.write "Diff: ##{diff_in_minutes}"
 
-if cache_empty || diff_in_minutes > 4 * 60 # if 4 hours old, rebuild the cache
+if cache_empty || diff_in_minutes > 24 * 60 # if 24 hours old, rebuild the cache
   $stderr.write 'cache is old, recreating'
   root = File.expand_path(PROJECTS_DIR_ROOT)
 
