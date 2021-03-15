@@ -6,7 +6,7 @@
   "Format current buffer with CljFmt - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (lk/invoke-compile-tool-in-project "Gemfile" "rubocop -a %s"))
+  (lk/invoke-compile-tool-in-project "Gemfile" "rubocop -A %s"))
 
 
 (defun lk/rb-rebuild-tags ()
