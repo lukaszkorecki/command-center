@@ -41,7 +41,7 @@
   ss = status
   s = status -sb
   m = merge --no-ff
-  zip-current-branch = !git archive --format zip --output ./$(pwd | rev | cut -d/ -f1 | rev).zip $(git cb)
+  zip-current-branch = !git archive --format zip --output ./$(basename $(pwd)).zip $(git cb)
   last = rev-parse HEAD
   root = rev-parse --show-toplevel
 
