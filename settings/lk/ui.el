@@ -78,7 +78,8 @@
 
 (use-package undo-tree
   :ensure t
-  :init (global-undo-tree-mode 't))
+  :init (global-undo-tree-mode nil)
+  :bind (("C-c u" . undo-tree-visualize)))
 
 (use-package treemacs
   :ensure t

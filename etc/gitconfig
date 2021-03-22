@@ -2,8 +2,6 @@
 [user]
   email = lukasz@korecki.me
   name = Łukasz Korecki
-	signkey = 0A46786C9281B170
-	signingkey = 9745E464
 [include]
   path = ~/.private/gitconfig.include
 [color]
@@ -20,7 +18,7 @@
   default = current
 
 [alias]
-  update = !git fetch -a -p && git pull -r && git remove-merged-branches
+  update = !git fetch -a -p && git pull -r && git cleanup-branches
   c = commit
   cm = commit -m
   ca = commit --amend
@@ -55,13 +53,14 @@
   serve = daemon --reuseaddr --verbose  --port=4000 --base-path=. --export-all ./.git
 
   cb = !git rev-parse --abbrev-ref HEAD 2>/dev/null
-  edit-modified = !vim -p $(git ls-files -m )
   push-and-track= !git push -u origin $(git cb)
+  pull-and-track = !git pull origin $(git cb)
   safe-pull = !git stash && git pull -r origin $(git cb) && git stash pop
 
   llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
   changelog = log --pretty=format:'%Cgreen%d %Creset%s' --date=iso
   cl =!git clone git@github.com:$1.git
+
 [branch]
   autosetupmerge = true
 

@@ -13,7 +13,8 @@
 
 (use-package lsp-ivy
   :ensure t
-  :commands lsp-ivy-workspace-symbol)
+  :commands lsp-ivy-workspace-symbol
+  :bind (("C-c w i" . lsp-ivy-workspace-symbol)))
 
 (use-package lsp-treemacs
   :ensure t
