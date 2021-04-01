@@ -5,7 +5,9 @@
                  [org.clojure/tools.namespace "0.3.1"]]
         :repl-options {:color false}}
  :user {
-        :dependencies [^:displace [org.clojure/clojure "1.10.1"]]
-  :plugins [[lein-ancient "0.6.15"]]}
+        :dependencies [^:displace [org.clojure/clojure "1.10.3"]
+]
+        :plugins [[lein-ancient "0.6.15"]
+                                         [lein-licenses "0.2.2"]]}
  :kaocha {
           :dependencies [[lambdaisland/kaocha "1.0.672"]]}}
