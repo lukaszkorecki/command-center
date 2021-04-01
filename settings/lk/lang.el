@@ -181,6 +181,11 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
 
+(use-package lua-mode
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode)))
+
 
 (use-package sqlup-mode
   :ensure t
