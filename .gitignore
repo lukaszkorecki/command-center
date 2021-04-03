@@ -36,3 +36,4 @@ etc/lein/self-installs/*.jar
 /etc/bin/clojure-lsp
 /etc/bin/ngrok
 /.cache/
+/history

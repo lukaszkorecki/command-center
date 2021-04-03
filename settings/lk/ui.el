@@ -66,7 +66,7 @@
 (when (string-equal system-type "darwin")
   (use-package solarized-theme
     :ensure t
-    :init (load-theme 'solarized-light t)))
+    :init (load-theme 'solarized-dark t)))
 
 (use-package bufler
   :ensure t
