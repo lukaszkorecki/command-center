@@ -87,7 +87,6 @@ export GOPATH=~/pjs/
 export PATH=$PATH:$GOPATH/bin
 
 # clojure
-export LEIN_REPL_PORT=9102
 export LEIN_REPL_HHOST=0.0.0.0
 
 # Set Java env vars based on the custom installation path
