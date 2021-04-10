@@ -23,7 +23,7 @@ endif
 
 # tasks
 
-all: setup  install-tools packages
+all: setup  install-tools
 
 setup:
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
@@ -35,9 +35,6 @@ setup:
 	@ln -fvs ~/.emacs.d/etc/tmux.conf  ~/.tmux.conf
 	@ln -fvs ~/.emacs.d/etc/cljstyle  ~/.cljstyle
 	@ln -fvs ~/.emacs.d/etc/wezterm.lua ~/.wezterm.lua
-
-packages:
-	@cd ~/.emacs.d/ && /Applications/Emacs.app/Contents/MacOS/Emacs -nw -q --batch --no-init-file -l ./deps.el
 
 
 ensure-bin:
@@ -54,8 +51,8 @@ get-clj-kondo: ensure-bin
 
 
 get-bb: ensure-bin
-	curl -L --output /tmp/bb.zip https://github.com/borkdude/babashka/releases/download/v$(babashka_version)/babashka-$(babashka_version)-$(platform)-amd64.zip
-	unzip /tmp/bb.zip
+	curl -L --output /tmp/bb.tar.gz https://github.com/borkdude/babashka/releases/download/v$(babashka_version)/babashka-$(babashka_version)-$(platform)-amd64.tar.gz
+	tar xzvf /tmp/bb.tar.gz
 	mv bb ~/bin/
 
 
@@ -65,15 +62,18 @@ get-cljstyle: ensure-bin
 	mv cljstyle ~/bin/
 
 
+download-java:
+	open https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz
+
 install-java: ensure-bin
-	curl -L -v https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz -O /tmp/openjdk-11_osx-x64_bin.tar.gz
+	mv ~/Downloads/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar /tmp/openjdk-11_osx-x64_bin.tar
 	cd /tmp
-	tar xf openjdk-11_osx-x64_bin.tar.gz
+	tar xfv openjdk-11_osx-x64_bin.tar
 	mv openjdk-11_osx-x64_bin ~/bin/jdk
 
 
 get-clojure-lsp: ensure-bin
-	curl -L --output /tmp/clojure-lsp.zip https://github.com/clojure-lsp/clojure-lsp/releases/download/$(lsp_verion)/clojure-lsp-native-macos-amd64.zip
+	curl -H 'User-Agent: Safari' -L --output /tmp/clojure-lsp.zip https://github.com/clojure-lsp/clojure-lsp/releases/download/$(lsp_version)/clojure-lsp-native-macos-amd64.zip
 	unzip /tmp/clojure-lsp.zip
 	mv clojure-lsp ~/bin/
 	chmod +x ~/bin/clojure-lsp
@@ -95,6 +95,12 @@ install-lein: ensure-bin
 install-docker:
 	curl 'https://desktop.docker.com/mac/stable/Docker.dmg' -L -o /tmp/Docker.dmg
 	open /tmp/Docker.dmg
+
+
+intall-iterm:
+	curl https://iterm2.com/downloads/stable/latest -L -O /tmp/iterm2.zip
+	unzip /tmp/iterm2.zip
+	mv /tmp/iTerm.app /Applications/
 
 
 .PHONY: all setup packages get-cljstyle get-bb get-clj-kondo  install-tools install-java install-node install-docker ensure-bin

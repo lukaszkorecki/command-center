@@ -75,6 +75,7 @@ export PATH=/usr/local/bin:$PATH
 
 export PATH=$HOME/bin/yarn-v1.22.5/bin:$PATH
 export PATH=/Applications/Emacs.app//Contents/MacOS/bin-x86_64-10_10:$PATH
+export PATH=~/bin/node/bin:$PATH
 
 # colors in less and ls
 export LESS="-rRSM~gIsw"
