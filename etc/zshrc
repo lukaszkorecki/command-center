@@ -1,0 +1,17 @@
+# -*- mode: sh -*-
+
+
+export PATH=$HOME/.emacs.d/etc/bin:$PATH
+export PATH=$HOME/.emacs.d/vm:$PATH
+export PATH=$HOME/.private/bin:$PATH
+export PATH=$HOME/bin:$PATH
+export PATH=./node_modules/.bin:$PATH
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/bin/yarn-v1.22.5/bin:$PATH
+export PATH=/Applications/Emacs.app//Contents/MacOS/bin-x86_64-10_10:$PATH
+export PATH=~/bin/node/bin:$PATH
+
+export PATH=$PATH:$HOME/bin/jdk/Contents/Home/bin
+export JAVA_CMD=$HOME/bin/jdk/Contents/Home/bin/java
+export JAVAHOME=$HOME/bin/jdk/Contents/Home
+export JAVA_HOME=$JAVAHOME

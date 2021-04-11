@@ -26,6 +26,7 @@ endif
 all: setup  install-tools
 
 setup:
+	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.profile
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
