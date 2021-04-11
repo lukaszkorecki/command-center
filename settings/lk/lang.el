@@ -197,10 +197,34 @@
         '("name" "key" "value" "id"  "source" "type" "to" "user")))
 
 
-(require 'apex-mode)
-(add-to-list 'auto-mode-alist '("\\.cls.+" . apex-mode))
+(use-package polymode
+  :ensure t
+  :mode ("\.clj$" . poly-clojure-sql-mode)
+  :config
+  (setq polymode-prefix-key (kbd "C-c n"))
+  (define-hostmode poly-clojure-hostmode :mode 'clojure-mode))
+
+(define-hostmode poly-clojure-sql-hostmode
+  :mode 'clojure-mode
+  )
+
+  (define-innermode poly-sql-expr-clojure-innermode
+    :mode 'sql-mode
+    :head-matcher ".*\"--SQL"
+    :tail-matcher ".*--SQL\""
+    :head-mode 'host
+    :tail-mode 'host)
+
+(define-polymode poly-clojure-sql-mode
+  :hostmode 'poly-clojure-hostmode
+  :innermodes '(poly-sql-expr-clojure-innermode)
+  ;;(define-key poly-clojure-sql-mode-map (kbd "C-c C-c") 'polymode-eval-chunk)
+  )
+
+;; continues in clojure.el!
 
 (require 'lk/ruby)
 (require 'lk/clojure)
 
 (provide 'lk/lang)
+;;; lang.el ends here

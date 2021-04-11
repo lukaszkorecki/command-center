@@ -106,4 +106,9 @@
   (ANY 2)
   (context 2))
 
+;; polymode for clojure + sql
+
+
+
 (provide 'lk/clojure)
+;;; clojure.el ends here
