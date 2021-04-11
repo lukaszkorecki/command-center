@@ -2,11 +2,13 @@
 
 apps=(Slack
       "Fantastical 2"
+      Fantastical
       Todoist
       MailMate
       Dash
       Docker
       Emacs
+      1Password
      )
 
 command=$1
