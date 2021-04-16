@@ -27,5 +27,20 @@ RPROMPT=\$vcs_info_msg_0_
 zstyle ':vcs_info:git:*' formats '%F{240}(%b)%r%f'
 zstyle ':vcs_info:*' enable git
 
+# make path operations work like bash (e.g. M-backspace deletes path fragments)
+autoload -U select-word-style
+select-word-style bash
 # auto-cd
 setopt AUTO_CD
+
+
+if [[ -e ~/.private/env.sh  ]] ; then
+  source ~/.private/env.sh
+fi
+
+autoload -Uz compinit && compinit
+
+# load completions
+source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.zsh
+source /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion
+source /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion
