@@ -37,3 +37,4 @@ etc/lein/self-installs/*.jar
 /etc/bin/ngrok
 /.cache/
 /history
+/etc/bin/jet
