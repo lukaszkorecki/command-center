@@ -25,7 +25,7 @@ endif
 
 all: setup  install-tools
 
-setup:
+setup: zsh-completion
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.profile
@@ -104,4 +104,11 @@ intall-iterm:
 	mv /tmp/iTerm.app /Applications/
 
 
-.PHONY: all setup packages get-cljstyle get-bb get-clj-kondo  install-tools install-java install-node install-docker ensure-bin
+zsh-completion:
+	mkdir -p  ~/.emacs.d/etc/zsh/
+	ln -s /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.zsh ~/.emacs.d/etc/zsh/_git
+	ln -s /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion ~/.emacs.d/etc/zsh/_docker
+	ln -s  /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion ~/.emacs.d/etc/zsh/_docker-compose
+
+
+.PHONY: all setup packages get-cljstyle get-bb get-clj-kondo  install-tools install-java install-node install-docker ensure-bin zsh-completion

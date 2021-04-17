@@ -42,7 +42,8 @@ if [[ -e ~/.private/env.sh  ]] ; then
 fi
 
 ## load completions
+
 autoload -Uz compinit && compinit
-source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.zsh
-source /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion
-source /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion
+autoload _git
+autoload _docker
+autoload _docker-compose
