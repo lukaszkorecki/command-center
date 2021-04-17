@@ -8,6 +8,7 @@ CACHE_LOCATION = '~/.cache/project_browse_cache.json'
 PROJECTS_DIR_ROOT = '~/pj/'
 
 CACHE_PATH = File.expand_path(CACHE_LOCATION)
+FileUtils.mkdir_p File.expand_path '~/.cache'
 FileUtils.touch(CACHE_PATH) unless File.exist?(CACHE_PATH)
 
 cached_data = File.read(CACHE_PATH)
