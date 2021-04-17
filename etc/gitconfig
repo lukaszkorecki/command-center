@@ -23,6 +23,7 @@
   cm = commit -m
   ca = commit --amend
 
+
   cleanup-branches = !git fetch -a -p origin master && git branch --merged master | grep -v 'master$' | xargs git branch -d || true
   recent="!f(){ git branch --sort=-committerdate | head -n ${1:-5}; };f"
   co = checkout
@@ -44,7 +45,6 @@
   zip-current-branch = !git archive --format zip --output ./$(basename $(pwd)).zip $(git cb)
   last = rev-parse HEAD
   root = rev-parse --show-toplevel
-
   d = diff
   dc = diff --cached
   wd = diff --color-words

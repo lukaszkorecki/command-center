@@ -6,6 +6,9 @@
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-keep-workspace-alive nil)
+  (add-to-list
+   'lsp-file-watch-ignored-directories
+   "node_modules")
   (setq lsp-restart nil)
   :hook ((clojure-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
