@@ -9,6 +9,7 @@ apps=(Slack
       Docker
       Emacs
       1Password
+      "1Password 7"
      )
 
 command=$1
