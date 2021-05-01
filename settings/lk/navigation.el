@@ -17,21 +17,19 @@
   ("C-c n g" . counsel-git-grep))
 
 (use-package projectile
-  :after ivy
   :ensure t
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
+ :bind (:map projectile-mode-map
+              ("s-p" . projectile-command-map)
+              ("C-c p" . projectile-command-map))
+  :init
+  (projectile-mode +1)
   :config
-  (require 'projectile)
   (setq projectile-completion-system 'ivy)
-  (setq projectile-remember-window-configs t)
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (add-to-list 'projectile-globally-ignored-directories "vendor")
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
   (add-to-list 'projectile-globally-ignored-directories "target")
-  :init
-  (projectile-version)
-  (projectile-mode +1))
+)
 
 
 (defun lk/find-todos-etc ()

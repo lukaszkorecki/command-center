@@ -6,7 +6,6 @@
     (set-face-attribute 'default nil
                         :family "Monaco"
                         :height 110))
-
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 

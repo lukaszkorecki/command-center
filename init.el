@@ -1,5 +1,4 @@
 ;;;; init --- loads all customizations and packages
-(package-initialize)
 
 (load-file "~/.emacs.d/deps.el")
 
@@ -7,7 +6,7 @@
 ;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
-(add-to-list 'exec-path "/home/ubuntu/.emacs.d/etc/bin")
+
 
 ;; Ensure we can run remote binaries over ssh
 (require 'tramp)
@@ -38,6 +37,7 @@
   :ensure t)
 
 (require 'lk/navigation)
+
 (require 'lk/autocomplete)
 (require 'lk/git)
 (require 'lk/ui)
