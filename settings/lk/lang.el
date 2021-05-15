@@ -65,10 +65,6 @@
   :config
   (setq css-indent-offset 2))
 
-(use-package css-mode
-  :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.css$" . css-mode)))
 
 
 (use-package rainbow-mode
@@ -167,13 +163,6 @@
   (interactive)
   (lk/invoke-compile-tool-in-project "." "docker run --rm -v $PWD:/mnt koalaman/shellcheck:stable %s"))
 
-(use-package sh-script
-  :init
-  (setq sh-indentation 2)
-  (setq sh-basic-offset 2)
-  :bind
-  (:map sh-mode-map
-        (("C-x c v" . lk/bash-check-current-buffer))))
 
 
 (use-package go-mode

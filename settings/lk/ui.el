@@ -11,8 +11,6 @@
 
 (add-hook 'window-setup-hook 'on-after-init)
 
-(use-package ansi-color
-  :ensure t)
 
 ;; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
