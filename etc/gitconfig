@@ -4,6 +4,10 @@
   name = Łukasz Korecki
 [include]
   path = ~/.private/gitconfig.include
+
+[includeIf "gitdir:~/pj/uz/"]
+  path = ~/.private/gitconfig.uz
+
 [color]
   ui = true
   diff = true
