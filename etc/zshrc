@@ -17,6 +17,8 @@ export JAVA_HOME=$JAVAHOME
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias gcd='cd $(git root)'
 
+export EDITOR=emacs
+
 ## prompt
 export PROMPT="%1~ # "
 
