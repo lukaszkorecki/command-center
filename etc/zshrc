@@ -9,6 +9,8 @@ export PATH=/usr/local/bin:$PATH
 
 export PATH=~/bin/node/bin:$PATH
 
+export PATH=~/bin/google-cloud-sdk/bin:$PATH
+
 export PATH=$PATH:$HOME/bin/jdk/Contents/Home/bin
 export JAVA_CMD=$HOME/bin/jdk/Contents/Home/bin/java
 export JAVAHOME=$HOME/bin/jdk/Contents/Home
