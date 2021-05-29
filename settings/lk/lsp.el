@@ -1,3 +1,8 @@
+;;; lsp.el -- LSP configuration + supporting packages
+;;; Commentary:
+;;; Only Clojure is supported, other languages might be added
+
+;;; Code:
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
@@ -6,6 +11,7 @@
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-keep-workspace-alive nil)
+  (setq lsp-file-watch-threshold 1000)
   (setq lsp-restart nil)
   :hook ((clojure-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
@@ -29,3 +35,4 @@
   :init (global-flycheck-mode))
 
 (provide 'lk/lsp)
+;;; lsp.el ends here
