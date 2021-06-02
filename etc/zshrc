@@ -52,3 +52,12 @@ autoload -Uz compinit && compinit
 autoload _git
 autoload _docker
 autoload _docker-compose
+
+# History Configuration
+HISTSIZE=5000
+SAVEHIST=5000
+HISTFILE=~/.zsh_history
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
