@@ -1,13 +1,11 @@
-(ns R
+(ns ^{:clojure.tools.namespace.repl/load false} R
   (:refer-clojure :exclude [find-ns])
   (:require
-    [clojure.java.io :as io]
     [clojure.pprint]
-    [clojure.repl :as repl]
-    [clojure.test :as test]
     [clojure.tools.namespace.find :as ns.find]
     [clojure.tools.namespace.repl :as ns.repl]
-    [kaocha.repl])
+    [kaocha.repl]
+    [clojure.string :as str])
   (:import
     (java.io
       File)))
@@ -21,9 +19,9 @@
   thing)
 
 
-(defn help [& n]
+(defn help [& _n]
   (println (str ">>> in ns " 'R))
-  (mapv (fn [[k v]]
+  (mapv (fn [[_k v]]
           (println v)) (ns-publics 'R))
   ::ok)
 
@@ -95,12 +93,11 @@
    ;; automagically guess the <app>.user namespace
    (let [an-ns (-> *ns*
                    str
-                   (clojure.string/replace #"\..+" ".user")
+                   (str/replace #"\..+" ".user")
                    symbol)]
      (require an-ns)
      (start-system! an-ns)))
   ([an-ns]
-   (do
      (printf "!! Starting %s\n" an-ns)
      (if (get @system-status an-ns)
        (println "!! System possibly running" an-ns)
@@ -112,7 +109,7 @@
          (if-let [f (ns-resolve an-ns 'start)]
            (do
              (f)
-             (swap! system-status (fn [s] (assoc s an-ns true))))))))))
+             (swap! system-status (fn [s] (assoc s an-ns true)))))))))
 
 
 (defn stop-system!
