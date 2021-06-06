@@ -61,9 +61,9 @@
     (color-theme-approximate-on)))
 
 (when (string-equal system-type "darwin")
-  (use-package solarized-theme
+  (use-package darcula-theme
     :ensure t
-    :init (load-theme 'solarized-light t)))
+    :init (load-theme 'darcula t)))
 
 (use-package bufler
   :ensure t
