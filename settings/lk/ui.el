@@ -4,8 +4,8 @@
 (defun on-after-init ()
   (when (display-graphic-p)
     (set-face-attribute 'default nil
-                        :family "Monaco"
-                        :height 130))
+                        :family "Menlo"
+                        :height 125))
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
