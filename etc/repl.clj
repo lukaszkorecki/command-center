@@ -43,7 +43,10 @@
 (defn find-ns
   "Find namespace vars by a regex"
   [re]
-  (vec (filter #(re-find re (str %)) (list-ns))))
+  (let [nss (vec (filter #(re-find re (str %)) (list-ns)))]
+    (printf "found %s ns\n" (count nss))
+    nss
+    ))
 
 
 (defn find-test-ns
@@ -52,8 +55,10 @@
   (let [re (cond
              (string? pattern) (re-pattern pattern)
              (= java.util.regex.Pattern (class pattern)) pattern
-             :else (throw (ex-info "this is not a patternable thing" {:pattern pattern})))]
-  (vec (filter #(re-find re (str %)) (list-ns "./test/")))))
+             :else (throw (ex-info "this is not a patternable thing" {:pattern pattern})))
+        nss (vec (filter #(re-find re (str %)) (list-ns "./test/")))]
+    (printf "found %s nss\n" (count nss))
+    nss))
 
 
 (def system-status (atom {}))
