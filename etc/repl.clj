@@ -2,16 +2,17 @@
   (:refer-clojure :exclude [find-ns])
   (:require
     [clojure.pprint]
+    [clojure.string :as str]
     [clojure.tools.namespace.find :as ns.find]
     [clojure.tools.namespace.repl :as ns.repl]
-    [kaocha.repl]
-    [clojure.string :as str])
+    [kaocha.repl])
   (:import
     (java.io
       File)))
 
 
 (ns.repl/disable-reload! *ns*)
+
 
 (defn pp
   [thing]
@@ -45,8 +46,7 @@
   [re]
   (let [nss (vec (filter #(re-find re (str %)) (list-ns)))]
     (printf "found %s ns\n" (count nss))
-    nss
-    ))
+    nss))
 
 
 (defn find-test-ns
@@ -103,18 +103,18 @@
      (require an-ns)
      (start-system! an-ns)))
   ([an-ns]
-     (printf "!! Starting %s\n" an-ns)
-     (if (get @system-status an-ns)
-       (println "!! System possibly running" an-ns)
-       (do
-         (println "!! Refreshing and reloading " an-ns)
-         (remove-ns an-ns)
-         (refresh)
-         (require [an-ns] :reload)
-         (if-let [f (ns-resolve an-ns 'start)]
-           (do
-             (f)
-             (swap! system-status (fn [s] (assoc s an-ns true)))))))))
+   (printf "!! Starting %s\n" an-ns)
+   (if (get @system-status an-ns)
+     (println "!! System possibly running" an-ns)
+     (do
+       (println "!! Refreshing and reloading " an-ns)
+       (remove-ns an-ns)
+       (refresh)
+       (require [an-ns] :reload)
+       (if-let [f (ns-resolve an-ns 'start)]
+         (do
+           (f)
+           (swap! system-status (fn [s] (assoc s an-ns true)))))))))
 
 
 (defn stop-system!
@@ -140,7 +140,6 @@
     (get sys component-name)))
 
 
-
 (defn t
   "Run tests via kaocha - either all or a list of vars"
   ([]
@@ -162,9 +161,9 @@
 (defn clear-aliases
   "Reset aliases for given ns or current if no args given"
   ([]
-  (clear-aliases *ns*))
-  (
-  [an-ns]
-  (mapv #(ns-unalias an-ns %) (keys (ns-aliases an-ns)))))
+   (clear-aliases *ns*))
+  ([an-ns]
+   (mapv #(ns-unalias an-ns %) (keys (ns-aliases an-ns)))))
+
 
 (init!)
