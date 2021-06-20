@@ -24,7 +24,7 @@ SELECT
 FROM
 	pg_stat_activity
 WHERE
-	pg_stat_activity.datname like '%SOME_DB%'
+	pg_stat_activity.datname like '%test%'
 	AND pid <> pg_backend_pid();
 
  ```
