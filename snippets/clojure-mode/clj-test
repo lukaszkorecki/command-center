@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Instert standard clojure.test require
+# key: clj-test
+# --
+[clojure.test :refer [deftest testing is use-fixtures]]

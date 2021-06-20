@@ -12,4 +12,8 @@
   (global-company-mode))
 
 
+(use-package yasnippet
+  :ensure t
+  :init (yas-global-mode t))
+
 (provide 'lk/autocomplete)
