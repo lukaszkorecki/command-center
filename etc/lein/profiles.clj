@@ -5,5 +5,6 @@
         :repl-options {:color false}}
  :user {:dependencies [^:displace [org.clojure/clojure "1.10.3"]]
         :plugins [[lein-ancient "0.6.15"]
+                  [lein-nvd "1.4.1"]
                   [lein-licenses "0.2.2"]]}
  :kaocha {:dependencies [[lambdaisland/kaocha "1.0.672"]]}}

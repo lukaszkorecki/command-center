@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: clj-log
+# key: clj
+# --
+
+[clojure.tools.logging :as log]

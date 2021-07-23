@@ -13,6 +13,7 @@ babashka_version := 0.3.1
 cljstyle_version = 0.15.0
 lsp_version = 2021.03.30-20.42.34
 node_version = 14.16.0
+ripgrep_version := 13.0.0
 
 os := $(shell uname)
 platform := linux
@@ -41,7 +42,15 @@ setup: zsh-completion
 ensure-bin:
 	mkdir -p ~/bin
 
-install-tools: ensure-bin get-clj-kondo get-bb get-cljstyle get-clojure-lsp install-java install-node install-docker
+install-tools: ensure-bin get-clj-kondo get-bb get-cljstyle get-clojure-lsp install-java install-node install-docker install-ripgrep
+
+
+install-ripgrep:
+
+
+	curl -L --output /tmp/rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/$(ripgrep_version)/ripgrep-$(ripgrep_version)-x86_64-apple-darwin.tar.gz
+	tar xzvf /tmp/rg.tar.gz
+	mv ripgrep-$(ripgrep_version)-x86_64-apple-darwin/rg ~/bin/
 
 
 get-clj-kondo: ensure-bin

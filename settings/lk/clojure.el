@@ -37,14 +37,14 @@
 (defun lk/clojure-check-project ()
   (interactive)
     (let* ((dir (locate-dominating-file default-directory "project.clj"))
-         (cmd-string (format "~/bin/clj-kondo --lint %s" dir)))
+         (cmd-string (format "~/bin/clj-kondo --parallel --lint %s" dir)))
     (lk/invoke-compile-tool-in-project "project.clj" cmd-string)))
 
 (defun lk/clojure-check-current-buffer ()
   "Format current buffer with clj-kondo - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "~/bin/clj-kondo --lint %s"))
+  (lk/invoke-compile-tool-in-project "project.clj" "~/bin/clj-kondo --lint %s 2>&1"))
 
 (defun lk/clj-rebuild-tags ()
   (interactive)
