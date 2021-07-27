@@ -14,6 +14,7 @@
 
 (use-package yasnippet
   :ensure t
-  :init (yas-global-mode t))
+  :init (yas-global-mode t)
+  :bind (("C-c i" . yas-insert-snippet)))
 
 (provide 'lk/autocomplete)
