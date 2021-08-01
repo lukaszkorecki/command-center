@@ -38,3 +38,4 @@ etc/lein/self-installs/*.jar
 /.cache/
 /history
 /etc/bin/jet
+/ripgrep-13.0.0-x86_64-apple-darwin/

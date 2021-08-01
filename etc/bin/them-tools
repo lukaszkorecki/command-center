@@ -14,58 +14,36 @@ apps=(Slack
 
 command=$1
 start_mac() {
-  echo "Starting all apps"
-  for i in "${apps[@]}" ; do
-    echo "Opening $i"
-    open -a "$i" -g
-  done
-}
-
-start_linux() {
-  # just in case :-)
-  pkill -9 -f emacs
-  pkill -9 -f tmux
-  # ...and then
-  emacsd
-  ssh-add ~/.ssh/id_rsa
-  keychain ~/.ssh/id_rsa
-
-  pgrep -f tmux
-  if [[ "$?" == "1" ]] ; then
-    tmux
-  else
-    tmuxt att
-  fi
+    echo "Starting all apps"
+    for i in "${apps[@]}" ; do
+        echo "Opening $i"
+        open -g  -a "$i"
+    done
 }
 
 start() {
-  if [[ "$(uname)" == "Darwin" ]] ; then
     start_mac
-  else
-    start_linux
-  fi
+
 }
 
 
 stop() {
-  if [[ "$(uname)" == "Darwin" ]] ; then
     echo "Stopping all apps"
     for i in "${apps[@]}" ; do
-      echo "Killing $i"
-      pkill -f "$i"
+        echo "Killing $i"
+        pkill -f "$i"
     done
-  fi
 }
 
 
 main() {
-  if [[ "$command" = "start" ]] ; then
-    start
-  elif [[ "$command" = "stop" ]] ; then
-    stop
-  else
-    echo "usage: work-tools start|stop"
-  fi
+    if [[ "$command" = "start" ]] ; then
+        start
+    elif [[ "$command" = "stop" ]] ; then
+        stop
+    else
+        echo "usage: work-tools start|stop"
+    fi
 }
 
 
