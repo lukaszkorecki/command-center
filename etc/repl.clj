@@ -126,6 +126,11 @@
      (f)
      (swap! system-status (fn [s] (assoc s an-ns false))))))
 
+(defn restart-system!
+  "Restarts the system with an optiona reload"
+  []
+  (when (stop-system!)
+    (start-system!)))
 
 (defn sys
   "Pull out the system for passing around"
