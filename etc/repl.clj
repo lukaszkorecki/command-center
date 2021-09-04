@@ -145,22 +145,30 @@
     (get sys component-name)))
 
 
+(def kaocha-conf  {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"})
+
 (defn t
   "Run tests via kaocha - either all or a list of vars"
   ([]
-   (kaocha.repl/run :unit {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))
+   (kaocha.repl/run :unit kaocha-conf))
   ([ns-list]
-   (apply kaocha.repl/run (conj ns-list {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))))
+   (apply kaocha.repl/run (conj (if (coll? ns-list)
+                                  ns-list
+                                  [ns-list])
+                                kaocha-conf))))
 
 
 (defn t!
-  "Run tests via kaocha, but refresh first - runs all tests or a list of vars"
+  "Run tests via kaocha, but refresh first - runs all tests or a list (or one) of ns vars"
   ([]
    (refresh)
-   (kaocha.repl/run :unit {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))
+   (kaocha.repl/run :unit kaocha-conf))
   ([ns-list]
    (refresh)
-   (apply kaocha.repl/run (conj ns-list {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"}))))
+   (apply kaocha.repl/run (conj (if (coll? ns-list)
+                                  ns-list
+                                  [ns-list])
+                                kaocha-conf))))
 
 
 (defn clear-aliases
