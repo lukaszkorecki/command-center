@@ -80,6 +80,7 @@
          ("C-x c m" . monroe)
          ("C-c C-z" . monroe-switch-to-repl)
          ("C-c C-l" . monroe-load-file)
+         ("C-c m l " . lsp-clojure-move-to-let)
          ("C-x c s" . lk/clojure-scratch)
          ("C-x c t" . lk/clj-rebuild-tags)
          ("C-x c c v" . clojure-convert-collection-to-vector)
