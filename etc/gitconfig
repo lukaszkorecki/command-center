@@ -28,14 +28,14 @@
   ca = commit --amend
 
 
-  cleanup-branches = !git fetch -a -p origin master && git branch --merged master | grep -v 'master$' | xargs git branch -d || true
+  cleanup-branches = !git fetch -a -p && git branch --merged master | grep -v 'master$' | xargs git branch -d || true
   recent="!f(){ git branch --sort=-committerdate | head -n ${1:-5}; };f"
   co = checkout
   g = !git --no-pager grep --color -n
   l = log
   lo = log --graph --oneline --abbrev-commit
   ll = log --graph --pretty='format:%h | %an | %s'
-  pr = pull --rebase
+  pr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; } ; f"
   pl = !git pull -r -u origin $(git cb)
 
   pfff = !git push --force origin $(git cb)
