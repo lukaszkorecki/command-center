@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Json / cheshire
+# key: json
+# --
+[cheshire.core :as json]

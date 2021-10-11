@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: switch-case
+# key: switch
+# --
+
+
+case "$var" in
+  lol)
+  ;;
+  *)
+  echo "no match for $var"
+  ;;
+esac
