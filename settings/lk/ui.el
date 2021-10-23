@@ -60,8 +60,19 @@
     :config
     (color-theme-approximate-on)))
 
-(when (string-equal system-type "darwin")
-  (load-theme 'solarized-light))
+;; disable for now!
+;;(when (string-equal system-type "darwin")
+;;  (load-theme 'solarized-light))
+
+
+(use-package moom
+  :ensure t
+  :init
+  (moom-mode t)
+  (moom-toggle-font-module)
+  :bind (("C-c w f" . moom-fill-screen)
+         ("C-c w l" . moom-fill-left)
+         ("C-c w r" . moom-fill-right)))
 
 (use-package bufler
   :ensure t
