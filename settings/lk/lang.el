@@ -188,29 +188,14 @@
         '("name" "key" "value" "id"  "source" "type" "to" "user" "at" )))
 
 
-(use-package polymode
-  :ensure t
-  :mode ("\.clj$" . poly-clojure-sql-mode)
-  :config
-  (setq polymode-prefix-key (kbd "C-c n"))
-  (define-hostmode poly-clojure-hostmode :mode 'clojure-mode))
+(defun lk/swiper-hugsql-names ()
+  (interactive)
+  (swiper ":name "))
 
-(define-hostmode poly-clojure-sql-hostmode
-  :mode 'clojure-mode
-  )
-
-  (define-innermode poly-sql-expr-clojure-innermode
-    :mode 'sql-mode
-    :head-matcher ".*\"--SQL"
-    :tail-matcher ".*--SQL\""
-    :head-mode 'host
-    :tail-mode 'host)
-
-(define-polymode poly-clojure-sql-mode
-  :hostmode 'poly-clojure-hostmode
-  :innermodes '(poly-sql-expr-clojure-innermode)
-  ;;(define-key poly-clojure-sql-mode-map (kbd "C-c C-c") 'polymode-eval-chunk)
-  )
+(add-hook
+ 'sql-mode-hook
+ (lambda ()
+   (local-set-key (kbd "C-c n i") 'lk/swiper-hugsql-names)))
 
 ;; continues in clojure.el!
 
