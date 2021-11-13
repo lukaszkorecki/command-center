@@ -16,10 +16,6 @@
      'compilation-mode)
     (revert-buffer :ignore-auto :noconfirm)))
 
-(use-package gitignore-mode
-  :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.gitignore$" . gitignore-mode)))
 
 (use-package python-mode
   :ensure t

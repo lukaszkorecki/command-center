@@ -13,6 +13,7 @@
   (setq lsp-keep-workspace-alive nil)
   (setq lsp-file-watch-threshold 1000)
   (setq lsp-restart nil)
+  :config
   (add-to-list 'lsp-file-watch-ignored-directories  ".*node_modules.*")
   :hook ((clojure-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
