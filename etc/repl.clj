@@ -179,4 +179,33 @@
    (mapv #(ns-unalias an-ns %) (keys (ns-aliases an-ns)))))
 
 
+;; Tap helpers
+
+(def tap-log (atom []))
+(def tap-ref (atom nil))
+
+(defn init-tap-log!
+  "Initialize a tap> listener and store the ref to it"
+  []
+  (reset! tap-ref (add-tap (fn [input]
+                             (swap! tap-log conj input)))))
+
+
+(defn get-log []
+  @tap-log)
+
+(defn reset-tap-log!
+  "Clear the log"
+  []
+  (reset! tap-log []))
+
+(defn stop-log-tap!
+  "Clear tap log"
+  []
+  (remove-tap @tap-ref)
+  (reset-tap-log!)
+  (reset! tap-ref nil))
+
+
+
 (init!)
