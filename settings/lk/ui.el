@@ -95,4 +95,9 @@
 (use-package treemacs-projectile
   :ensure t)
 
+(use-package unicode-fonts
+   :ensure t
+   :config
+    (unicode-fonts-setup))
+
 (provide 'lk/ui)
