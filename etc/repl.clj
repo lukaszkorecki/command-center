@@ -104,6 +104,8 @@
      (start-system! an-ns)))
   ([an-ns]
    (printf "!! Starting %s\n" an-ns)
+   (when (= "R" (str an-ns))
+     (throw (ex-info "nope" {:ns (str an-ns)})))
    (if (get @system-status an-ns)
      (println "!! System possibly running" an-ns)
      (do
