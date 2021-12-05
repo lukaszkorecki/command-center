@@ -13,11 +13,14 @@
   (setq lsp-keep-workspace-alive nil)
   (setq lsp-file-watch-threshold 1000)
   (setq lsp-restart nil)
+  (setq lsp-ui-sideline-enable nil)
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\node_modules\\'")
   :hook ((clojure-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :commands lsp
+  :bind
+  (("C-c l a" . lsp-ui-sideline--code-actions)))
 
 (use-package lsp-ivy
   :ensure t
