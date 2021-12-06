@@ -8,10 +8,10 @@ MAKEFLAGS += --no-builtin-rules
 
 # support tooling for mac and linux
 
-kondo_version := 2021.10.19
-babashka_version := 0.6.1
+kondo_version := 2021.12.01
+babashka_version := 0.6.8
+lsp_version = 2021.12.01-12.28.16
 cljstyle_version = 0.15.0
-lsp_version = 2021.10.20-16.49.47
 node_version = 14.16.0
 ripgrep_version := 13.0.0
 
