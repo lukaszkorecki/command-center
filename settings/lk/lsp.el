@@ -37,7 +37,8 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)
+  :bind (("C-c n e" . flycheck-next-error)))
 
 (provide 'lk/lsp)
 ;;; lsp.el ends here
