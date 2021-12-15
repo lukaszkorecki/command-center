@@ -1,6 +1,7 @@
 (ns ^{:clojure.tools.namespace.repl/load false} R
   (:refer-clojure :exclude [find-ns])
   (:require
+   [clojure.repl]
     [clojure.pprint]
     [clojure.string :as str]
     [clojure.tools.namespace.find :as ns.find]
@@ -15,6 +16,7 @@
 
 
 (defn pp
+  "Alias for pprint, but returns passed in data"
   [thing]
   (clojure.pprint/pprint thing)
   thing)
@@ -22,19 +24,26 @@
 
 (defn help [& _n]
   (println (str ">>> in ns " 'R))
-  (mapv (fn [[_k v]]
-          (println v)) (ns-publics 'R))
+  (->> (ns-publics  'R)
+       (sort-by (fn [[_ v]] (str v)))
+       (mapv (fn [[_k v]]
+               (printf "%s - %s %s\n" (.replaceAll (str v) "#'" "")
+                       (:arglists (meta v))
+                       (:doc (meta v)))
+  )))
   ::ok)
 
 
-(defn init! []
+(defn- init!
+  "Initialize the helper namespace"
+   []
   (ns.repl/disable-reload! *ns*)
   (ns.repl/set-refresh-dirs "src" "test")
   (help))
 
 
 (defn list-ns
-  "Return list of symbols of namespaces found in src dir"
+  "Return list of symbols of namespaces found in src dir. Default: ./src"
   ([root]
    (ns.find/find-namespaces-in-dir (File. root)))
   ([]
@@ -61,16 +70,18 @@
     nss))
 
 
-(def system-status (atom {}))
+(def ^:private system-status (atom {}))
 
 
-(defn safe-to-refresh? []
+(defn safe-to-refresh?
+  "Check if refresh is safe, by verifying that application system is not running"
+  []
   (or (empty? @system-status)
       (= #{false} (-> @system-status vals set))))
 
 
 (defn  refresh
-  "Refresh changed namespaces"
+  "Refresh changed namespaces, only if its safe"
   []
   (if (safe-to-refresh?)
     (ns.repl/refresh)
@@ -78,7 +89,7 @@
 
 
 (defn refresh-all
-  "Refresh everything"
+  "Refresh everything, only if its safe"
   []
   (if (safe-to-refresh?)
     (ns.repl/refresh-all)
@@ -113,10 +124,9 @@
        (remove-ns an-ns)
        (refresh)
        (require [an-ns] :reload)
-       (if-let [f (ns-resolve an-ns 'start)]
-         (do
-           (f)
-           (swap! system-status (fn [s] (assoc s an-ns true)))))))))
+       (when-let [f (ns-resolve an-ns 'start)]
+         (f)
+         (swap! system-status (fn [s] (assoc s an-ns true))))))))
 
 
 (defn stop-system!
@@ -141,16 +151,16 @@
 
 
 (defn c
-  "Pul out a compont from a running system"
+  "Pul out a compont from a running system, pass keyword for the component name"
   [component-name]
   (let [sys (sys)]
     (get sys component-name)))
 
 
-(def kaocha-conf  {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"})
+(def ^:private kaocha-conf  {:config "/home/ubuntu/.emacs.d/etc/kaocha.edn"})
 
 (defn t
-  "Run tests via kaocha - either all or a list of vars"
+  "Run tests via kaocha - either all or a list of vars. WILL NOT REFRESH"
   ([]
    (kaocha.repl/run :unit kaocha-conf))
   ([ns-list]
@@ -183,29 +193,31 @@
 
 ;; Tap helpers
 
-(def tap-log (atom []))
-(def tap-ref (atom nil))
+(def ^:private tap-log (atom []))
+(def ^:private tap-ref (atom nil))
 
-(defn init-tap-log!
+(defn tap-log-init!
   "Initialize a tap> listener and store the ref to it"
   []
   (reset! tap-ref (add-tap (fn [input]
                              (swap! tap-log conj input)))))
 
 
-(defn get-log []
+(defn tap-log-get
+  "Return tap logged data"
+  []
   @tap-log)
 
-(defn reset-tap-log!
+(defn tap-log-reset!
   "Clear the log"
   []
   (reset! tap-log []))
 
-(defn stop-log-tap!
-  "Clear tap log"
+(defn tap-log-stop!
+  "Clear tap log and remove the listener"
   []
   (remove-tap @tap-ref)
-  (reset-tap-log!)
+  (tap-log-reset!)
   (reset! tap-ref nil))
 
 
