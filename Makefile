@@ -8,6 +8,8 @@ MAKEFLAGS += --no-builtin-rules
 
 # support tooling for mac and linux
 
+
+clj_version := 1.10.3.1040
 kondo_version := 2021.12.16
 babashka_version := 0.6.8
 lsp_version = 2021.12.01-12.28.16
@@ -46,12 +48,15 @@ install-tools: ensure-bin get-clj-kondo get-bb get-cljstyle get-clojure-lsp inst
 
 
 install-ripgrep:
-
-
 	curl -L --output /tmp/rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/$(ripgrep_version)/ripgrep-$(ripgrep_version)-x86_64-apple-darwin.tar.gz
 	tar xzvf /tmp/rg.tar.gz
 	mv ripgrep-$(ripgrep_version)-x86_64-apple-darwin/rg ~/bin/
 
+
+install-clj:
+	curl -L --output /tmp/clj.tar.gz https://download.clojure.org/install/clojure-tools-1.10.3.1040.tar.gz
+	tar xzvf /tmp/clj.tar.gz
+	./install.sh
 
 get-clj-kondo: ensure-bin
 	curl -L --output /tmp/clj-kondo.zip https://github.com/borkdude/clj-kondo/releases/download/v$(kondo_version)/clj-kondo-$(kondo_version)-$(platform)-amd64.zip
