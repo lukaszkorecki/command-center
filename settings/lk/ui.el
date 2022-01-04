@@ -1,5 +1,8 @@
 ;; set font size
 
+(setq-default show-trailing-whitespace t)
+(setq-default indicate-empty-lines t)
+(setq-default indicate-buffer-boundaries 'left)
 
 (defun on-after-init ()
   (when (display-graphic-p)
@@ -41,7 +44,8 @@
 
 
 (setq echo-keystrokes 0.1
-      use-dialog-box nil visible-bell nil)
+      use-dialog-box nil
+      visible-bell nil)
 
 (use-package highlight-indent-guides
   :ensure t
