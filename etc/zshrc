@@ -22,16 +22,16 @@ alias gcd='cd $(git root)'
 export EDITOR=emacs
 
 ## prompt
-export PROMPT="%1~ # "
-
-# right-side prompt with git info
+# git config
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%F{240}(%b)%r%f'
+zstyle ':vcs_info:git:*' formats '%F{240}(%b)'
 zstyle ':vcs_info:*' enable git
+
+BR=$'\n'
+export PROMPT="# %1~ \$vcs_info_msg_0_ ${BR}# "
 
 ## navigation
 # make path operations work like bash (e.g. M-backspace deletes path fragments)
