@@ -102,6 +102,10 @@
 (use-package unicode-fonts
    :ensure t
    :config
-    (unicode-fonts-setup))
+   (unicode-fonts-setup))
+
+;; just exit if terminated or C-x C-c is invoked
+(setq confirm-kill-processes nil)
+(setq confirm-kill-emacs nil)
 
 (provide 'lk/ui)
