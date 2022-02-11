@@ -33,6 +33,10 @@
 	:bind
   (( "C-c m s" . magit-status)))
 
+(defun lk/magit-clear-buffers ()
+  (interactive)
+  (kill-matching-buffers ".*magit.*"))
+
 (use-package ibuffer-vc
   :ensure t)
 

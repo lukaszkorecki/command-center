@@ -63,6 +63,10 @@
          :map monroe-mode-map
          (("C-x c l" . lk/init-clojure-scratch))))
 
+(defun lk/monroe-kill-all ()
+  (interactive)
+  (kill-matching-buffers ".*monroe.*"))
+
 (use-package clojure-mode
   :ensure t
   :init
