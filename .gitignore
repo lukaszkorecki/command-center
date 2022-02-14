@@ -41,3 +41,4 @@ etc/lein/self-installs/*.jar
 /ripgrep-13.0.0-x86_64-apple-darwin/
 eln-cache/*
 clojure-tools/
+/projects
