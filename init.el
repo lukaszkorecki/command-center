@@ -20,7 +20,7 @@
 ;; Replicate PATHs from ~/.bashrc, although might not be necessary
 ;; because of the above
 (setenv "PATH" (concat (getenv "PATH")
-                       ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin"))
+                       ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin"))
 
 
 ;; reduce GC thrash

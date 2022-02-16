@@ -81,10 +81,10 @@ download-java:
 	open https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz
 
 install-java: ensure-bin
-	mv ~/Downloads/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar /tmp/openjdk-11_osx-x64_bin.tar
-	cd /tmp
-	tar xfv openjdk-11_osx-x64_bin.tar
-	mv openjdk-11_osx-x64_bin ~/bin/jdk
+	cp ~/Downloads/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz /tmp/openjdk-11_osx-x64_bin.tar.gz
+	cd /tmp && \
+      tar xfv openjdk-11_osx-x64_bin.tar.gz && \
+      cp -rv jdk-11.0.10+9 ~/bin/jdk
 
 
 get-clojure-lsp: ensure-bin
