@@ -11,21 +11,10 @@ export PATH=~/bin/node/bin:$PATH
 export PATH=~/bin/clj/bin:$PATH
 export PATH=~/bin/google-cloud-sdk/bin:$PATH
 
-# check if there's homebrew managed JDK
-if [[ -e /usr/local/opt/openjdk ]] ; then
-    export PATH="/usr/local/opt/openjdk/bin:$PATH"
-    export JAVA_CMD=/usr/local/opt/openjdk/bin/java
-    export JAVAHOME=/usr/local/opt/openjdk/
-    export JAVA_HOME=$JAVAHOME
-# self install!
-elif [[ -e $HOME/bin/jdk/Contents/Home ]] ; then
-    export PATH=$PATH:$HOME/bin/jdk/Contents/Home/bin
-    export JAVA_CMD=$HOME/bin/jdk/Contents/Home/bin/java
-    export JAVAHOME=$HOME/bin/jdk/Contents/Home
-    export JAVA_HOME=$JAVAHOME
-else
-    echo "No JDK found!"
-fi
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export JAVA_CMD=/usr/local/opt/openjdk/bin/java
+export JAVAHOME=/usr/local/opt/openjdk/
+export JAVA_HOME=$JAVAHOME
 
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias gcd='cd $(git root)'

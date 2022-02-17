@@ -42,3 +42,4 @@ etc/lein/self-installs/*.jar
 eln-cache/*
 clojure-tools/
 /projects
+/.dap-breakpoints

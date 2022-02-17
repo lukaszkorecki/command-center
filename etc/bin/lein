@@ -4,6 +4,8 @@
 # somewhere on your $PATH, like ~/bin. The rest of Leiningen will be
 # installed upon first run into the ~/.lein/self-installs directory.
 
+env | grep JAVA
+
 function msg {
     echo "$@" 1>&2
 }
