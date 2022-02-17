@@ -72,3 +72,5 @@ HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
+
+ [[ $(ssh-add -l | grep -v agent) == "" ]] && ssh-add -A
