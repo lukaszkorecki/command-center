@@ -5,124 +5,19 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-
-# support tooling for mac and linux
-
-
-clj_version := 1.10.3.1040
-kondo_version := 2021.12.16
-babashka_version := 0.6.8
-lsp_version = 2021.12.01-12.28.16
-cljstyle_version = 0.15.0
-node_version = 14.16.0
-ripgrep_version := 13.0.0
-
-os := $(shell uname)
-platform := linux
-ifeq ($(os),Darwin)
-	platform := macos
-endif
-
-
-# tasks
-
-all: setup  install-tools
-
-setup: zsh-completion
+setup: brew-bundle zsh-completion
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.profile
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
 	@ln -fvs ~/.emacs.d/etc/gitignore_global ~/.gitignore_global
-	@ln -fvs ~/.emacs.d/etc/lein ~/.lein
 	@ln -fvs ~/.emacs.d/init.el ~/.emacs
-	@ln -fvs ~/.emacs.d/etc/tmux.conf  ~/.tmux.conf
-	@ln -fvs ~/.emacs.d/etc/cljstyle  ~/.cljstyle
-	@ln -fvs ~/.emacs.d/etc/wezterm.lua ~/.wezterm.lua
 
-
-ensure-bin:
-	mkdir -p ~/bin
-
-install-tools: ensure-bin get-clj-kondo get-bb get-cljstyle get-clojure-lsp install-java install-node install-docker install-ripgrep
-
-
-install-ripgrep:
-	curl -L --output /tmp/rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/$(ripgrep_version)/ripgrep-$(ripgrep_version)-x86_64-apple-darwin.tar.gz
-	tar xzvf /tmp/rg.tar.gz
-	mv ripgrep-$(ripgrep_version)-x86_64-apple-darwin/rg ~/bin/
-
-
-install-clj:
-	curl -L --output /tmp/clj.tar.gz https://download.clojure.org/install/clojure-tools-1.10.3.1040.tar.gz
-	tar xzvf /tmp/clj.tar.gz
-	./install.sh
-
-get-clj-kondo: ensure-bin
-	curl -L --output /tmp/clj-kondo.zip https://github.com/borkdude/clj-kondo/releases/download/v$(kondo_version)/clj-kondo-$(kondo_version)-$(platform)-amd64.zip
-	unzip /tmp/clj-kondo.zip
-	mv clj-kondo ~/bin/
-
-
-
-get-bb: ensure-bin
-	curl -L --output /tmp/bb.tar.gz https://github.com/borkdude/babashka/releases/download/v$(babashka_version)/babashka-$(babashka_version)-$(platform)-amd64.tar.gz
-	tar xzvf /tmp/bb.tar.gz
-	mv bb ~/bin/
-
-
-get-cljstyle: ensure-bin
-	curl -L --output /tmp/cljstyle.tar.gz https://github.com/greglook/cljstyle/releases/download/$(cljstyle_version)/cljstyle_$(cljstyle_version)_$(platform).tar.gz
-	tar xzvf /tmp/cljstyle.tar.gz
-	mv cljstyle ~/bin/
-
-
-download-java:
-	open https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz
-
-install-java: ensure-bin
-	cp ~/Downloads/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz /tmp/openjdk-11_osx-x64_bin.tar.gz
-	cd /tmp && \
-      tar xfv openjdk-11_osx-x64_bin.tar.gz && \
-      cp -rv jdk-11.0.10+9 ~/bin/jdk
-
-
-get-clojure-lsp: ensure-bin
-	curl -H 'User-Agent: Safari' -L --output /tmp/clojure-lsp.zip https://github.com/clojure-lsp/clojure-lsp/releases/download/$(lsp_version)/clojure-lsp-native-macos-amd64.zip
-	unzip /tmp/clojure-lsp.zip
-	mv clojure-lsp ~/bin/
-	chmod +x ~/bin/clojure-lsp
-
-
-install-node: ensure-bin
-	cd /tmp
-	curl -L https://nodejs.org/dist/v$(node_version)/node-v$(node_version)-darwin-x64.tar.gz -o  node.tar.gz
-	tar zxvf node.tar.gz
-	mv node-v$(node_version)-darwin-x64 ~/bin/node
-	npm install -g yarn
-
-
-install-lein: ensure-bin
-	curl -L "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein" -o ~/bin/lein
-	~/bin/lein
-
-
-install-docker:
-	curl 'https://desktop.docker.com/mac/stable/Docker.dmg' -L -o /tmp/Docker.dmg
-	open /tmp/Docker.dmg
-
-
-intall-iterm:
-	curl https://iterm2.com/downloads/stable/latest -L -O /tmp/iterm2.zip
-	unzip /tmp/iterm2.zip
-	mv /tmp/iTerm.app /Applications/
-
+brew-bundle:
+	HOMEBREW_AUTO_UPDATE_SECS=9600 brew bundle
 
 zsh-completion:
 	mkdir -p  ~/.emacs.d/etc/zsh/
 	ln -s /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.zsh ~/.emacs.d/etc/zsh/_git
 	ln -s /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion ~/.emacs.d/etc/zsh/_docker
 	ln -s  /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion ~/.emacs.d/etc/zsh/_docker-compose
-
-
-.PHONY: all setup packages get-cljstyle get-bb get-clj-kondo  install-tools install-java install-node install-docker ensure-bin zsh-completion
