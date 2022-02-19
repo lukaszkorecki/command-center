@@ -4,7 +4,7 @@ tap "homebrew/core"
 
 # core language packages
 
-brew "node@16"
+brew "node"
 brew "openjdk"
 brew "clojure"
 brew "rlwrap"
