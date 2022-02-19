@@ -26,7 +26,7 @@
   "Format current buffer with CljFmt - assume it's installed already
      (it is as it was added to ~/.lein/profiles.clj)"
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "~/bin/cljstyle fix %s"))
+  (lk/invoke-compile-tool-in-project "project.clj" "/usr/local/bin/cljstyle fix %s"))
 
 (defun lk/clojure-slamhound-current-buffer ()
   "Infer imports for current file via slamhound - assume it's installed already
