@@ -1,5 +1,7 @@
-;;;; init --- loads all customizations and packages
+;;; Commentary:
+;;  loads all customizations and packages
 
+;;; Code:
 (load-file "~/.emacs.d/deps.el")
 
 

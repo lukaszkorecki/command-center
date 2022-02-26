@@ -1,11 +1,12 @@
+;;; package --- clojure setup
+;;; Commentary:
 ;; inf-clojure/monroe based clj-scratch buffer
 ;; Adopted from cider's scratch
+;;; Code:
 (defconst lk/clj-scratch-name "*monroe-clj-scratch*")
 
 (defun lk/init-clojure-scratch ()
   (interactive)
-  "Creates a scratch buffer, similar to Emacs' *scratch*
-     and injects template from lk/clj-scratch-start-text"
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
     (message (pwd))
@@ -16,35 +17,25 @@
     (current-buffer)))
 
 (defun lk/clojure-scratch ()
-  "Command to create clojure scratch buffer or to switch to it
-     if we have one already"
   (interactive)
   (pop-to-buffer (or (get-buffer lk/clj-scratch-name)
                      (lk/init-clojure-scratch))))
 
-(defun lk/clojure-format-current-buffer ()
-  "Format current buffer with CljFmt - assume it's installed already
-     (it is as it was added to ~/.lein/profiles.clj)"
+(defun lk/clojure-format-current-buffer
+  ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "/usr/local/bin/cljstyle fix %s"))
-
-(defun lk/clojure-slamhound-current-buffer ()
-  "Infer imports for current file via slamhound - assume it's installed already
-     (it is as it was added to ~/.lein/profiles.clj)"
-  (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "lein slamhound %s"))
+  (lk/invoke-compile-tool-in-project "project.clj" "cljstyle fix %s"))
 
 (defun lk/clojure-check-project ()
   (interactive)
     (let* ((dir (locate-dominating-file default-directory "project.clj"))
-         (cmd-string (format "~/bin/clj-kondo --parallel --lint %s" dir)))
+         (cmd-string (format "clj-kondo --parallel --lint %s" dir)))
     (lk/invoke-compile-tool-in-project "project.clj" cmd-string)))
 
-(defun lk/clojure-check-current-buffer ()
-  "Format current buffer with clj-kondo - assume it's installed already
-     (it is as it was added to ~/.lein/profiles.clj)"
+(defun lk/clojure-check-current-buffer
+  ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "~/bin/clj-kondo --lint %s 2>&1"))
+  (lk/invoke-compile-tool-in-project "project.clj" "clj-kondo --lint %s 2>&1"))
 
 (defun lk/clj-rebuild-tags ()
   (interactive)
