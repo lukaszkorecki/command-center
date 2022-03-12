@@ -6,7 +6,6 @@
                        [lambdaisland/kaocha "1.63.998"] ;; for the alias
                        ]
         :aliases {"kaocha" ["run" "-m" "kaocha.runner"]}
-
         :plugins [[lein-ancient "1.0.0-RC3"]
                   [lein-nvd "1.7.0"]
                   [lein-licenses "0.2.2"]]}}
