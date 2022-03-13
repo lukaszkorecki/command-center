@@ -29,8 +29,8 @@
 (setq gc-cons-threshold 20000000
       read-process-output-max (* 1024 1024))
 
-;; just exit, it's fine
-(setq confirm-kill-emacs nil)
+;; just exit, it's fine...?
+;; (setq confirm-kill-emacs nil)
 
 (when (>= emacs-major-version 25)
   (eval-after-load 'bytecomp
