@@ -1,7 +1,8 @@
 {:repl {:dependencies [[org.clojars.lukaszkorecki/rumble "0.1.0-SNAPSHOT-2"]
                        ^:displace [nrepl "0.9.0"]]
-        :injections [ (require '[rumble.repl :as R])]
+        :injections [(require '[rumble.repl :as R])]
         :repl-options {:color false}}
+ :dev {:injections [(require '[rumble.repl :as R])]}
  :user {:dependencies [^:displace [org.clojure/clojure "1.10.3"]
                        [lambdaisland/kaocha "1.63.998"] ;; for the alias
                        ]
