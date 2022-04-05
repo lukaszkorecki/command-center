@@ -49,7 +49,10 @@
   :ensure t)
 
 (use-package terraform-mode
-  :ensure t)
+  :ensure t
+  :bind
+  (:map terraform-mode-map
+        (("C-x c f"   (lk/invoke-compile-tool-in-project "main.tf" "terraform fmt %s")))))
 
 (use-package poly-ansible
     :ensure t)
@@ -58,11 +61,10 @@
   :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
+  (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
   :config
   (setq css-indent-offset 2))
 
- (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
-(add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
 
 (use-package rainbow-mode
   :ensure t
