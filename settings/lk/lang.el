@@ -52,7 +52,7 @@
   :ensure t
   :bind
   (:map terraform-mode-map
-        (("C-x c f"   (lk/invoke-compile-tool-in-project "main.tf" "terraform fmt %s")))))
+        (("C-x c f" . terraform-format-buffer))))
 
 (use-package poly-ansible
     :ensure t)
