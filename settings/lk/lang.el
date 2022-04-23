@@ -7,144 +7,68 @@
 
 ;; Utils
 
-(defun lk/invoke-compile-tool-in-project
-    (project-file command-string-with-format)
-  (let* ((pj-dir (locate-dominating-file default-directory project-file))
+(defun lk/invoke-compile-tool-in-project (project-file command-string-with-format)
+  (let* ((pj-dir
+          (locate-dominating-file default-directory project-file))
          (default-directory pj-dir))
     (compilation-start
-     (format command-string-with-format (file-relative-name buffer-file-name))
+     (format command-string-with-format
+             (file-relative-name buffer-file-name))
      'compilation-mode)
     (revert-buffer :ignore-auto :noconfirm)))
 
 
 (use-package python-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
+  :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 (use-package poly-markdown
-  :straight t
-  :init
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md$" . markdown-mode)
-         ("\\.markdown$" . markdown-mode)))
+  :init :mode
+  (("README\\.md\\'" . gfm-mode)
+   ("\\.md$" . markdown-mode)
+   ("\\.markdown$" . markdown-mode)))
 
-(use-package markdown-toc
-  :straight t)
-
-(use-package edit-indirect
-  :straight t)
+(use-package edit-indirect)
 
 (use-package jinja2-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
+  :init (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
 
 (use-package dockerfile-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
 
-(use-package restclient
-  :straight t)
+  :init (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
+
+(use-package restclient)
 
 (use-package terraform-mode
-  :straight t
-  :bind
-  (:map terraform-mode-map
-        (("C-x c f" . terraform-format-buffer))))
+  :bind (:map terraform-mode-map (("C-x c f" . terraform-format-buffer))))
 
-(use-package poly-ansible
-    :straight t)
 
 (use-package scss-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
   (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
-  :config
-  (setq css-indent-offset 2))
+  :config (setq css-indent-offset 2))
 
 
 (use-package rainbow-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.scss$" . rainbow-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.scss$" . rainbow-mode))
   (add-to-list 'auto-mode-alist '("\\.css$" . rainbow-mode))
   (rainbow-mode))
 
-(use-package nginx-mode
-  :straight t
-  :init
-  (setq nginx-indent-offset 2))
+(use-package nginx-mode :init (setq nginx-indent-offset 2))
 
 (use-package yaml-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
 
-;; Javascripts
-(defun lk/prettier-format-current-buffer ()
-  (interactive)
-  (lk/invoke-compile-tool-in-project "package.json"
-                                     "node ./node_modules/.bin/prettier --write %s"))
-
-(defun lk/eslint-check-current-buffer ()
-  (interactive)
-  (lk/invoke-compile-tool-in-project "package.json"
-                                     "node ./node_modules/.bin/eslint --fix %s"))
-
-(use-package rjsx-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx$" . rjsx-mode))
-  (setq js-indent-level 2)
-  ;; settings for js2 mode
-  (add-hook 'js2-mode-hook (lambda () (abbrev-mode)))
-  (setq-default js-switch-indent-offset 4)
-  (setq-default js2-basic-offset 2)
-  (setq-default js2-indent-switch-body t)
-  ;; es6 is ok with trailing commas
-  (setq-default js2-strict-trailing-comma-warning nil)
-  :bind
-  (:map js2-mode-map
-        (( "C-x c f" . lk/prettier-format-current-buffer ))
-        (( "C-x c v" . lk/eslint-check-current-buffer ))))
-
-
-(use-package eslint-fix
-  :straight t)
-
-(defun lk/tslint-check-current-buffer ()
-  (interactive)
-  (lk/invoke-compile-tool-in-project "tsconfig.json" "tslint -p ./tsconfig.json %s"))
-
-(use-package typescript-mode
-  :straight t
-  :init
-  (setq typescript-indent-level 2)
-  (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
-  :bind
-  (:map typescript-mode-map
-        (( "C-x c v" . lk/eslint-check-current-buffer)
-         ( "C-x c f" . lk/prettier-format-current-buffer ))))
-
 (use-package json-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
+
+  :init (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
 ;; web-mode stuff
 (use-package web-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
+
+  :init (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
@@ -161,38 +85,37 @@
 
 
 (use-package go-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
-
-(use-package lua-mode
-  :straight t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode)))
+  :init (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
 
 
 (use-package sqlup-mode
-  :straight t
-  :init
-  (add-hook 'sql-mode-hook 'sqlup-mode)
-  (mapc (lambda (kw)
-          (require 'sqlup-mode)
-          (add-to-list 'sqlup-blacklist kw))
-        '("name" "key" "value" "id"  "source" "type" "to" "user" "at" )))
+  :init (add-hook 'sql-mode-hook 'sqlup-mode)
+  (mapc
+   (lambda (kw)
+     (require 'sqlup-mode)
+     (add-to-list 'sqlup-blacklist kw))
+   '("name" "key" "value" "id"  "source" "type" "to" "user" "at" )))
 
 
 (defun lk/swiper-hugsql-names ()
+  "List db function names via swiper when working with HugSQL files."
   (interactive)
   (swiper ":name "))
 
 (add-hook
  'sql-mode-hook
- (lambda ()
-   (local-set-key (kbd "C-c n i") 'lk/swiper-hugsql-names)))
+ (lambda () (local-set-key (kbd "C-c n i") 'lk/swiper-hugsql-names)))
 
-;; continues in clojure.el!
+
+;; formatter for elisp
+
+(use-package elfmt
+  :straight (:host github :repo "riscy/elfmt" :branch "master")
+  :bind (:map emacs-lisp-mode-map (("C-x c f" . elfmt))))
+
 
 (require 'lk/ruby)
+(require 'lk/js)
 (require 'lk/clojure)
 
 (provide 'lk/lang)

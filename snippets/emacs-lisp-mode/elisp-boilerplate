@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: elisp boilerplate
+# key: elisp-boilerplate
+# --
+
+;;; `(file-name-nondirectory (buffer-file-name))` --- ...
+;;; Commentary:
+
+;;; Code:
+
+
+(provide '`(file-name-sans-extension (file-name-nondirectory (buffer-file-name)))`)
+;;; `(file-name-nondirectory (buffer-file-name))` ends here

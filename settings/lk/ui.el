@@ -1,3 +1,9 @@
+;;; ui.el --- ...
+;;; Commentary:
+
+;;; Code:
+
+
 ;; set font size
 
 (setq-default show-trailing-whitespace t)
@@ -6,9 +12,7 @@
 
 (defun on-after-init ()
   (when (display-graphic-p)
-    (set-face-attribute 'default nil
-                        :family "PT Mono"
-                        :height 125))
+    (set-face-attribute 'default nil :family "PT Mono" :height 125))
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
@@ -28,9 +32,10 @@
 
 ;; show buffer file name in title bar
 (setq frame-title-format
-      '((:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
+      '((:eval
+         (if (buffer-file-name)
+             (abbreviate-file-name (buffer-file-name))
+           "%b"))))
 
 ;; turn off initial scratch buffer message
 (setq initial-scratch-message "")
@@ -39,19 +44,12 @@
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
-(use-package rainbow-delimiters
-  :straight t)
+(use-package rainbow-delimiters)
 
 
 (setq echo-keystrokes 0.1
       use-dialog-box nil
       visible-bell nil)
-
-(use-package highlight-indent-guides
-  :straight t
-  :init
-  (setq highlight-indent-guides-method 'character)
-  (add-hook 'yaml-mode 'highlight-indent-guides-mode))
 
 ;; Fix ansi-term rendering
 (add-hook 'term-mode-hook 'my-term-mode-hook)
@@ -59,53 +57,38 @@
   (setq bidi-paragraph-direction 'left-to-right))
 
 
-(when (not  (string-equal system-type "darwin"))
+(when (not (string-equal system-type "darwin"))
   (use-package color-theme-approximate
-    :config
-    (color-theme-approximate-on)))
-
-;; disable for now!
-;;(when (string-equal system-type "darwin")
-;;  (load-theme 'solarized-light))
-
+    :config (color-theme-approximate-on)))
 
 (use-package moom
-  :straight t
-  :init
-  (moom-mode t)
+
+  :init (moom-mode t)
   (moom-toggle-font-module)
   :bind (("C-c w f" . moom-fill-screen)
          ("C-c w l" . moom-fill-left)
          ("C-c w r" . moom-fill-right)))
 
 (use-package bufler
-  :straight t
-  :init
-  (require 'bufler)
-  :bind
-  (("C-x C-B" . bufler-list)))
+  :init (require 'bufler)
+  :bind (("C-x C-b" . bufler-list)))
 
 
 (use-package undo-tree
-  :straight t
   :init (global-undo-tree-mode nil)
   :bind (("C-c u" . undo-tree-visualize)))
 
 (use-package treemacs
-  :straight t
-  :init
-  (setq treemacs-space-between-root-nodes nil))
+  :init (setq treemacs-space-between-root-nodes nil))
 
-(use-package treemacs-projectile
-  :straight t)
+(use-package treemacs-projectile)
 
 (use-package unicode-fonts
-   :straight t
-   :config
-   (unicode-fonts-setup))
+  :config (unicode-fonts-setup))
 
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
 (setq confirm-kill-emacs nil)
 
 (provide 'lk/ui)
+;;; ui.el ends here

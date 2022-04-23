@@ -1,7 +1,12 @@
+;;; autocomplete.el --- ...
+;;; Commentary:
+
+;;; Code:
+
+
+
 (use-package company
-  :straight t
-  :config
-  (setq company-idle-delay 0.5)
+  :config (setq company-idle-delay 0.5)
   (setq company-show-numbers t)
   (setq company-tooltip-limit 10)
   (setq company-minimum-prefix-length 2)
@@ -13,8 +18,9 @@
 
 
 (use-package yasnippet
-  :straight t
   :init (yas-global-mode t)
   :bind (("C-c i" . yas-insert-snippet)))
 
 (provide 'lk/autocomplete)
+
+;;; autocomplete.el ends here

@@ -1,3 +1,9 @@
+;;; /Users/lukasz/.emacs.d/init.el --- /Users/lukasz/.emacs.d/init.el
+;;; Commentary:
+
+;;; Code:
+
+
 ;;; Commentary:
 ;;  loads all customizations and packages
 
@@ -20,19 +26,21 @@
 
 ;; Replicate PATHs from ~/.bashrc, although might not be necessary
 ;; because of the above
-(setenv "PATH" (concat (getenv "PATH")
-                       ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin"))
+(setenv "PATH"
+        (concat
+         (getenv "PATH")
+         ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin"))
 
 
 ;; reduce GC thrash
 (setq gc-cons-threshold 20000000
-      read-process-output-max (* 1024 1024))
+      read-process-output-max
+      (* 1024 1024))
 
 (when (>= emacs-major-version 25)
   (eval-after-load 'bytecomp
     (lambda ()
-      (add-to-list 'byte-compile-not-obsolete-funcs
-                   'preceding-sexp))))
+      (add-to-list 'byte-compile-not-obsolete-funcs 'preceding-sexp))))
 
 (use-package better-defaults)
 
@@ -52,7 +60,7 @@
 
 ;; When saving a file that starts with `#!', make it executable.
 (add-hook 'after-save-hook
-            'executable-make-buffer-file-executable-if-script-p)
+          'executable-make-buffer-file-executable-if-script-p)
 
 ;; customizations file
 (setq custom-file "~/.emacs.d/custom.el")

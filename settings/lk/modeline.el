@@ -1,11 +1,13 @@
-(use-package s
-  :straight t)
+;;; modeline.el --- modeline, you know it
+;;; Commentary:
 
-(use-package window-number
-  :straight t)
+;;; Code:
 
-(use-package git
-  :straight t)
+
+
+(use-package s)
+
+(use-package window-number)
 
 ;; vc mode line needs refreshing every now and then
 (setq auto-revert-check-vc-info t)
@@ -13,17 +15,16 @@
 (defun vc-status-mode-line ()
   "Builds a source control string or nil."
   (when vc-mode
-    `(" "
-      ,(s-trim (substring-no-properties vc-mode))
-      " ")))
+    `(" " ,(s-trim (substring-no-properties vc-mode)) " ")))
 
 ;; customize the mode-line
 (setq-default
  mode-line-format
  (list
-'(:eval (propertize
-           (format "> W:%s " (window-number))
-           'face 'font-lock-comment-face))
+  '(:eval
+    (propertize
+     (format "> W:%s " (window-number))
+     'face 'font-lock-comment-face))
   '(:eval (vc-status-mode-line))
   ;; buffername
   '(:eval (propertize "%b " 'face 'font-lock-keyword-face))
@@ -40,3 +41,4 @@
 
 
 (provide 'lk/modeline)
+;;; modeline.el ends here

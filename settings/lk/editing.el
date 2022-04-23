@@ -1,5 +1,12 @@
+;;; editing.el --- ...
+;;; Commentary:
+
+;;; Code:
+
+
+
 ;; strip whitespace
-  (add-hook 'before-save-hook 'delete-trailing-whitespace )
+(add-hook 'before-save-hook 'delete-trailing-whitespace )
 
 
 ;; add final newline automaticaly
@@ -63,8 +70,7 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 
 
 ;; Editing and general syntax highlighting
-(use-package move-text
-  :straight t)
+(use-package move-text)
 
 
 ;; bind awkard M-[ & M-] to something better
@@ -80,9 +86,8 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
   (insert-char "\n" 1))
 
 (use-package visual-regexp
-  :straight t
-  :init
-  (global-set-key (kbd "C-x R") 'vr/replace)
+
+  :init (global-set-key (kbd "C-x R") 'vr/replace)
   :bind (( "C-x R" . vr/replace)))
 
 
@@ -94,3 +99,4 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 
 
 (provide 'lk/editing)
+;;; editing.el ends here

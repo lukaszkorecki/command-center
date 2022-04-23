@@ -1,3 +1,9 @@
+;;; deps.el --- deps.el loads straight.el and sets up use-package
+;;; Commentary:
+
+;;; Code:
+
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -14,3 +20,7 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 (add-to-list 'load-path "~/.emacs.d/settings")
+
+
+(provide 'deps)
+;;; deps.el ends here

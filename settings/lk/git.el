@@ -1,14 +1,22 @@
-;; Git and git-surf helpers
+;;; git.el --- git tools, Magit mostly
+;;; Commentary:
 
-(when (string-equal system-type "Darwin")
-)
+;;; Code:
+
+
+
+;; Git and git-surf helpers
+(use-package git)
+
+(when (string-equal system-type "Darwin"))
 
 (defun lk/open-current-file-in-gh ()
   (interactive)
   (let* ((line-no (line-number-at-pos))
-         (command (format "~/.emacs.d/etc/bin/git-surf -r%s,%s %s"
-                          line-no line-no
-                          (file-name-nondirectory (buffer-file-name)))))
+         (command
+          (format "~/.emacs.d/etc/bin/git-surf -r%s,%s %s"
+                  line-no line-no
+                  (file-name-nondirectory (buffer-file-name)))))
     (message command)
     (shell-command command)))
 
@@ -17,48 +25,45 @@
 
 (defun lk/open-current-pr-in-gh ()
   (interactive)
-    (shell-command "~/.emacs.d/etc/bin/git-surf -p"))
+  (shell-command "~/.emacs.d/etc/bin/git-surf -p"))
 
 (global-set-key (kbd "C-c g h") 'lk/open-current-pr-in-gh)
 
 (use-package git
-  :straight t
+
 	:bind (("C-x C-g" . vc-git-grep)))
 
 (use-package magit
-  :straight t
-  :config
-  (setq magit-git-executable "/usr/bin/git")
+
+  :config (setq magit-git-executable "/usr/bin/git")
   (setq magit-completing-read-function 'ivy-completing-read)
-	:bind
-  (( "C-c m s" . magit-status)))
+	:bind (( "C-c m s" . magit-status)))
 
 (defun lk/magit-clear-buffers ()
   (interactive)
   (kill-matching-buffers ".*magit.*"))
 
-(use-package ibuffer-vc
-  :straight t)
+(use-package ibuffer-vc)
 
 (use-package ibuffer-git
-  :straight t
-  :init
-  (setq ibuffer-formats
-      '((mark modified read-only vc-status-mini " "
-              (name 18 18 :left :elide)
-              " "
-              " "
-              (mode 16 16 :left :elide)
-              " "
-              (git-status-mini)
-              " "
-              (git-status 8 8 :right)
-              " "
-              filename-and-process))))
+
+  :init (setq ibuffer-formats
+              '((mark modified read-only vc-status-mini " "
+                      (name 18 18 :left :elide)
+                      " "
+                      " "
+                      (mode 16 16 :left :elide)
+                      " "
+                      (git-status-mini)
+                      " "
+                      (git-status 8 8 :right)
+                      " "
+                      filename-and-process))))
 
 
 (use-package keychain-environment
-  :straight t
+
   :init (keychain-refresh-environment))
 
 (provide 'lk/git)
+;;; git.el ends here

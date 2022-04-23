@@ -1,49 +1,47 @@
+;;; navigation.el --- ...
+;;; Commentary:
+
+;;; Code:
+
+
+
 (use-package ivy
-  :straight t
   :diminish ivy-mode
-  :config
-  (setq ivy-height 25)
+  :config (setq ivy-height 25)
   (ivy-mode 1)
-  :bind
-  ("C-c s" . swiper)
+  :bind ("C-c s" . swiper)
   ("C-c C-r" . ivy-resume))
 
 (use-package counsel
-  :straight t
-  :bind
-  ("M-x" . counsel-M-x)
+  :bind ("M-x" . counsel-M-x)
   ("C-c n i" . counsel-imenu)
   ("C-c n b" . counsel-ibuffer)
   ("C-c n g" . counsel-git-grep)
   ("C-c n y" . counsel-yank-pop))
 
 (use-package projectile
-  :straight t
- :bind (:map projectile-mode-map
+  :bind (:map projectile-mode-map
               ("s-p" . projectile-command-map)
               ("C-c p" . projectile-command-map))
-  :init
-  (projectile-mode +1)
-  :config
-  (setq projectile-completion-system 'ivy)
+  :init (projectile-mode +1)
+  :config (setq projectile-completion-system 'ivy)
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (add-to-list 'projectile-globally-ignored-directories "vendor")
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
-  (add-to-list 'projectile-globally-ignored-directories "target")
-)
+  (add-to-list 'projectile-globally-ignored-directories "target"))
 
 
 (defun lk/find-todos-etc ()
   (interactive)
-  (vc-git-grep "(TODO|FIXME|NOTE|XXX|HACK):" " " (vc-git-root default-directory)))
+  (vc-git-grep
+   "(TODO|FIXME|NOTE|XXX|HACK):" " "
+   (vc-git-root default-directory)))
 
 (global-set-key (kbd "C-c n t") 'lk/find-todos-etc)
 
 
 (use-package ace-window
-  :straight t
-  :init
-  (setq aw-keys  '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :init (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-ignore-current t)
   (add-hook 'term-mode-hook
             (lambda ()
@@ -55,12 +53,10 @@
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
 (use-package transpose-frame
-  :straight t
   :bind (( "C-c t" . transpose-frame)))
 
 
-(use-package emamux
-  :straight t)
+(use-package emamux)
 
 (defun lk/open-locally ()
   (interactive)
@@ -68,3 +64,4 @@
 
 
 (provide 'lk/navigation)
+;;; navigation.el ends here
