@@ -1,5 +1,5 @@
 (use-package ivy
-  :ensure t
+  :straight t
   :diminish ivy-mode
   :config
   (setq ivy-height 25)
@@ -9,7 +9,7 @@
   ("C-c C-r" . ivy-resume))
 
 (use-package counsel
-  :ensure t
+  :straight t
   :bind
   ("M-x" . counsel-M-x)
   ("C-c n i" . counsel-imenu)
@@ -18,7 +18,7 @@
   ("C-c n y" . counsel-yank-pop))
 
 (use-package projectile
-  :ensure t
+  :straight t
  :bind (:map projectile-mode-map
               ("s-p" . projectile-command-map)
               ("C-c p" . projectile-command-map))
@@ -41,7 +41,7 @@
 
 
 (use-package ace-window
-  :ensure t
+  :straight t
   :init
   (setq aw-keys  '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-ignore-current t)
@@ -55,12 +55,12 @@
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
 (use-package transpose-frame
-  :ensure t
+  :straight t
   :bind (( "C-c t" . transpose-frame)))
 
 
 (use-package emamux
-  :ensure t)
+  :straight t)
 
 (defun lk/open-locally ()
   (interactive)

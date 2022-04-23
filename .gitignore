@@ -44,3 +44,4 @@ clojure-tools/
 /projects
 /.dap-breakpoints
 workspace
+straight/

@@ -22,11 +22,11 @@
 (global-set-key (kbd "C-c g h") 'lk/open-current-pr-in-gh)
 
 (use-package git
-  :ensure t
+  :straight t
 	:bind (("C-x C-g" . vc-git-grep)))
 
 (use-package magit
-  :ensure t
+  :straight t
   :config
   (setq magit-git-executable "/usr/bin/git")
   (setq magit-completing-read-function 'ivy-completing-read)
@@ -38,10 +38,10 @@
   (kill-matching-buffers ".*magit.*"))
 
 (use-package ibuffer-vc
-  :ensure t)
+  :straight t)
 
 (use-package ibuffer-git
-  :ensure t
+  :straight t
   :init
   (setq ibuffer-formats
       '((mark modified read-only vc-status-mini " "
@@ -58,7 +58,7 @@
 
 
 (use-package keychain-environment
-  :ensure t
+  :straight t
   :init (keychain-refresh-environment))
 
 (provide 'lk/git)

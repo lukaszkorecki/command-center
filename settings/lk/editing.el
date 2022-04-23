@@ -64,7 +64,7 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 
 ;; Editing and general syntax highlighting
 (use-package move-text
-  :ensure t)
+  :straight t)
 
 
 ;; bind awkard M-[ & M-] to something better
@@ -80,7 +80,7 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
   (insert-char "\n" 1))
 
 (use-package visual-regexp
-  :ensure t
+  :straight t
   :init
   (global-set-key (kbd "C-x R") 'vr/replace)
   :bind (( "C-x R" . vr/replace)))

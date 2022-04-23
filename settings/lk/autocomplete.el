@@ -1,5 +1,5 @@
 (use-package company
-  :ensure t
+  :straight t
   :config
   (setq company-idle-delay 0.5)
   (setq company-show-numbers t)
@@ -13,7 +13,7 @@
 
 
 (use-package yasnippet
-  :ensure t
+  :straight t
   :init (yas-global-mode t)
   :bind (("C-c i" . yas-insert-snippet)))
 

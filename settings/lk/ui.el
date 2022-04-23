@@ -40,7 +40,7 @@
 (setq show-paren-delay 0)
 
 (use-package rainbow-delimiters
-  :ensure t)
+  :straight t)
 
 
 (setq echo-keystrokes 0.1
@@ -48,7 +48,7 @@
       visible-bell nil)
 
 (use-package highlight-indent-guides
-  :ensure t
+  :straight t
   :init
   (setq highlight-indent-guides-method 'character)
   (add-hook 'yaml-mode 'highlight-indent-guides-mode))
@@ -70,7 +70,7 @@
 
 
 (use-package moom
-  :ensure t
+  :straight t
   :init
   (moom-mode t)
   (moom-toggle-font-module)
@@ -79,7 +79,7 @@
          ("C-c w r" . moom-fill-right)))
 
 (use-package bufler
-  :ensure t
+  :straight t
   :init
   (require 'bufler)
   :bind
@@ -87,20 +87,20 @@
 
 
 (use-package undo-tree
-  :ensure t
+  :straight t
   :init (global-undo-tree-mode nil)
   :bind (("C-c u" . undo-tree-visualize)))
 
 (use-package treemacs
-  :ensure t
+  :straight t
   :init
   (setq treemacs-space-between-root-nodes nil))
 
 (use-package treemacs-projectile
-  :ensure t)
+  :straight t)
 
 (use-package unicode-fonts
-   :ensure t
+   :straight t
    :config
    (unicode-fonts-setup))
 

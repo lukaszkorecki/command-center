@@ -26,14 +26,14 @@
   (mac-switch-meta))
 
 (use-package sane-term
-    :ensure t
+    :straight t
 	  :bind (( "C-x n t" . sane-term)
            ("C-x n T" . sane-term-create)))
 
 (global-set-key (kbd "C-x n e") 'eshell)
 
 (use-package which-key
-  :ensure t
+  :straight t
   :init
   (setq which-key-show-early-on-C-h t)
   ;; make sure which-key doesn't show normally but refreshes quickly after it is
@@ -43,7 +43,7 @@
   (which-key-mode))
 
 (use-package todoist
-  :ensure t
+  :straight t
   :init
   (setq todoist-show-all 't))
 

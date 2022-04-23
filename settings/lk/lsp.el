@@ -23,20 +23,20 @@
   (("C-c l a" . lsp-ui-sideline--code-actions)))
 
 (use-package lsp-ivy
-  :ensure t
+  :straight t
   :commands lsp-ivy-workspace-symbol
   :bind (("C-c w i" . lsp-ivy-workspace-symbol)))
 
 (use-package lsp-treemacs
-  :ensure t
+  :straight t
   :commands lsp-treemacs-errors-list)
 
 
 (use-package lsp-ui
-  :ensure t)
+  :straight t)
 
 (use-package flycheck
-  :ensure t
+  :straight t
   :init (global-flycheck-mode)
   :bind (("C-c n e" . flycheck-next-error)))
 

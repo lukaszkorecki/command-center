@@ -44,10 +44,10 @@
 
 
 (use-package clojure-mode-extra-font-locking
-  :ensure t)
+  :straight t)
 
 (use-package monroe
-  :ensure t
+  :straight t
   :init
   (setq monroe-nrepl-server-cmd "lein-run")
   :bind (("C-x c m" . monroe)
@@ -59,7 +59,7 @@
   (kill-matching-buffers ".*monroe.*"))
 
 (use-package clojure-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   (require 'monroe)

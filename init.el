@@ -16,7 +16,6 @@
 (add-to-list 'tramp-remote-path "/home/ubuntu/.emacs.d/etc/bin")
 
 (use-package exec-path-from-shell
-  :ensure t
   :init (exec-path-from-shell-initialize))
 
 ;; Replicate PATHs from ~/.bashrc, although might not be necessary
@@ -35,8 +34,7 @@
       (add-to-list 'byte-compile-not-obsolete-funcs
                    'preceding-sexp))))
 
-(use-package better-defaults
-  :ensure t)
+(use-package better-defaults)
 
 (require 'lk/navigation)
 

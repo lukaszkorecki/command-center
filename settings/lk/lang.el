@@ -18,47 +18,47 @@
 
 
 (use-package python-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 (use-package poly-markdown
-  :ensure t
+  :straight t
   :init
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md$" . markdown-mode)
          ("\\.markdown$" . markdown-mode)))
 
 (use-package markdown-toc
-  :ensure t)
+  :straight t)
 
 (use-package edit-indirect
-  :ensure t)
+  :straight t)
 
 (use-package jinja2-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
 
 (use-package dockerfile-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
 
 (use-package restclient
-  :ensure t)
+  :straight t)
 
 (use-package terraform-mode
-  :ensure t
+  :straight t
   :bind
   (:map terraform-mode-map
         (("C-x c f" . terraform-format-buffer))))
 
 (use-package poly-ansible
-    :ensure t)
+    :straight t)
 
 (use-package scss-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
   (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
@@ -67,19 +67,19 @@
 
 
 (use-package rainbow-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.scss$" . rainbow-mode))
   (add-to-list 'auto-mode-alist '("\\.css$" . rainbow-mode))
   (rainbow-mode))
 
 (use-package nginx-mode
-  :ensure t
+  :straight t
   :init
   (setq nginx-indent-offset 2))
 
 (use-package yaml-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
@@ -97,7 +97,7 @@
                                      "node ./node_modules/.bin/eslint --fix %s"))
 
 (use-package rjsx-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx$" . rjsx-mode))
@@ -117,14 +117,14 @@
 
 
 (use-package eslint-fix
-  :ensure t)
+  :straight t)
 
 (defun lk/tslint-check-current-buffer ()
   (interactive)
   (lk/invoke-compile-tool-in-project "tsconfig.json" "tslint -p ./tsconfig.json %s"))
 
 (use-package typescript-mode
-  :ensure t
+  :straight t
   :init
   (setq typescript-indent-level 2)
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
@@ -135,14 +135,14 @@
          ( "C-x c f" . lk/prettier-format-current-buffer ))))
 
 (use-package json-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
 ;; web-mode stuff
 (use-package web-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
@@ -161,18 +161,18 @@
 
 
 (use-package go-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
 
 (use-package lua-mode
-  :ensure t
+  :straight t
   :init
   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode)))
 
 
 (use-package sqlup-mode
-  :ensure t
+  :straight t
   :init
   (add-hook 'sql-mode-hook 'sqlup-mode)
   (mapc (lambda (kw)
