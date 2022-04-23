@@ -6,17 +6,17 @@
 
 help() {
   echo "Some useful help"
-  grep '##' "$0" | grep -v grep
+  grep '##' "\$0" | grep -v grep
   exit 0
 }
 
 while getopts "hs:" OPTIONS; do
-  case "$OPTIONS" in
+  case "\$OPTIONS" in
     h) ## help!
       help
     ;;
     s) ## set a var
-      someVar="$OPTARG"
+      someVar="\$OPTARG"
     ;;
     *)
       help
