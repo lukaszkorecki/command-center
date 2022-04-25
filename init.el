@@ -71,8 +71,6 @@
 ;; load rest of customizations and extra packages
 (require 'lk/customizations)
 
-;; perhaps org, erc, etc
-(require 'lk/apps)
 
 ;; load modeline
 (require 'lk/modeline)
