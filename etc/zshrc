@@ -63,3 +63,9 @@ setopt sharehistory
 setopt incappendhistory
 
  [[ $(ssh-add -l | grep -v agent) == "" ]] && ssh-add -A
+
+ if [[ $(which op) != "" ]] ; then
+     eval $(op signin)
+ else
+     echo "1password-cli not installed"
+ fi
