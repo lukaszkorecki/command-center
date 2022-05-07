@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 tap "homebrew/bundle"
 tap "homebrew/core"
+tap 'borkdude/brew'
 
 # core language packages
 
@@ -24,6 +25,8 @@ brew './formulas/clojure-lsp.rb'
 brew './formulas/cljstyle.rb'
 brew 'borkdude/brew/clj-kondo'
 brew 'leiningen'
+
+cask '1password-cli'
 
 # macOS apps, FIXME
 # mas "1Password 7", id: 1333542190

@@ -1,9 +1,9 @@
 class ClojureLsp < Formula
-  LSP_VERSION =  '2021.12.01-12.28.16'
+  LSP_VERSION =  '2022.05.03-12.35.40'
 
   version LSP_VERSION
   url "https://github.com/clojure-lsp/clojure-lsp/releases/download/#{LSP_VERSION}/clojure-lsp-native-macos-amd64.zip"
-  sha256 "6c53000ca9f4cee8164f9b737a28e506dde26b3991fa5d5145cb8124dc71ba68"
+  sha256 "32520aa126b0085a3582cc0f87fb62252146dc3e2a60c0c144b57dd3cc09fcd4"
 
 
   def install
