@@ -65,7 +65,7 @@ setopt incappendhistory
  [[ $(ssh-add -l | grep -v agent) == "" ]] && ssh-add -A
 
  # Load 1password CLI stuff
- if [[ $(which op) != "" ]] ; then
+ if [[ -e $(which op) ]] ; then
      # get previous session from the environment
      sessToken=$(security find-generic-password -s cli -a 1pcli -w || true)
      # if not found, get a new one
