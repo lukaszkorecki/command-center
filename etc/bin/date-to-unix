@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+d=$1
+date -jf '%Y-%m-%dT%H:%M:%S' "$d" +'%s'

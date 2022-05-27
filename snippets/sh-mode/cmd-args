@@ -6,7 +6,7 @@
 
 help() {
   echo "Some useful help"
-  grep '##' "\$0" | grep -v grep
+  grep '##' "\$0" | grep -v grep | sed 's/) ##/ - /'g
   exit 0
 }
 
