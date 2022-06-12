@@ -5,7 +5,7 @@
 ;;; Code:
 (use-package lsp-mode
   :init (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-clojure-custom-server-command "/usr/local/bin/clojure-lsp")
+  ;; (setq lsp-clojure-custom-server-command "/usr/local/bin/clojure-lsp")
   (setq lsp-headerline-breadcrumb-mode nil)
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-headerline-breadcrumb-enable nil)
