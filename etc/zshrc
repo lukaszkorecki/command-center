@@ -11,10 +11,21 @@ export PATH=~/bin/node/bin:$PATH
 export PATH=~/bin/clj/bin:$PATH
 export PATH=~/bin/google-cloud-sdk/bin:$PATH
 
+
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export JAVA_CMD=/usr/local/opt/openjdk/bin/java
-export JAVAHOME=/usr/local/opt/openjdk/
-export JAVA_HOME=$JAVAHOME
+if [[ -e /usr/local/opt/openjdk ]] ; then
+    export JAVA_CMD=/usr/local/opt/openjdk/bin/java
+    export JAVAHOME=/usr/local/opt/openjdk/
+    export JAVA_HOME=$JAVAHOME
+
+fi
+
+if [[ -e /opt/homebrew/opt/openjdk ]] ; then
+    export JAVA_CMD=/opt/homebrew/opt/openjdk/bin/java
+    export JAVAHOME=/opt/homebrew/opt/openjdk/
+    export JAVA_HOME=$JAVAHOME
+
+fi
 
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias gcd='cd $(git root)'
@@ -43,7 +54,7 @@ setopt AUTO_CD
 
 ## secrets and stuff
 if [[ -e ~/.private/env.sh  ]] ; then
-  source ~/.private/env.sh
+    source ~/.private/env.sh
 fi
 
 ## load completions
@@ -62,24 +73,28 @@ setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
 
- [[ $(ssh-add -l | grep -v agent) == "" ]] && ssh-add -A
+[[ $(ssh-add -l | grep -v agent) == "" ]] && ssh-add -A
 
- # Load 1password CLI stuff
- if [[ -e $(which op) ]] ; then
-     # get previous session from the environment
-     sessToken=$(security find-generic-password -s cli -a 1pcli -w || true)
-     # if not found, get a new one
-     if [[ "$sessToken" = "" ]] ; then
+# Load 1password CLI stuff
+if [[ -e $(which op) ]] ; then
+    # get previous session from the environment
+    sessToken=$(security find-generic-password -s cli -a 1pcli -w || true)
+    # if not found, get a new one
+    if [[ "$sessToken" = "" ]] ; then
         sessToken=$(op signin -f --raw)
-     fi
+    fi
 
-     # and now re-auth
-     eval $(op signin -f --session "$sessToken")
+    # and now re-auth
+    eval $(op signin -f --session "$sessToken")
 
-     # store token, keychain doesn't suport updates so we delete
-     # and store again
-     security delete-generic-password -s cli -a 1pcli 2>&1 || true
-     security add-generic-password -s cli -a 1pcli -w "$sessToken"
- else
-     echo "1password-cli not installed"
- fi
+    # store token, keychain doesn't suport updates so we delete
+    # and store again
+    security delete-generic-password -s cli -a 1pcli 2>&1 || true
+    security add-generic-password -s cli -a 1pcli -w "$sessToken"
+else
+    echo "1password-cli not installed"
+fi
+
+if [[ -e /opt/homebrew/bin/brew ]] ; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
