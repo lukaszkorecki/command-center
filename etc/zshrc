@@ -5,28 +5,30 @@ export PATH=$HOME/.emacs.d/etc/bin:$PATH
 
 export PATH=$HOME/bin:$PATH
 export PATH=./node_modules/.bin:$PATH
-export PATH=/usr/local/bin:$PATH
 
-export PATH=~/bin/node/bin:$PATH
-export PATH=~/bin/clj/bin:$PATH
-export PATH=~/bin/google-cloud-sdk/bin:$PATH
-
-
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-if [[ -e /usr/local/opt/openjdk ]] ; then
-    export JAVA_CMD=/usr/local/opt/openjdk/bin/java
-    export JAVAHOME=/usr/local/opt/openjdk/
-    export JAVA_HOME=$JAVAHOME
-
+if [[ -e $(which brew) ]]; then
+    brewPrefix=$(brew --prefix)
+else
+    brewPrefix=""
 fi
 
-if [[ -e /opt/homebrew/opt/openjdk ]] ; then
-    export JAVA_CMD=/opt/homebrew/opt/openjdk/bin/java
-    export JAVAHOME=/opt/homebrew/opt/openjdk/
-    export JAVA_HOME=$JAVAHOME
 
+if [[ "$brewPrefix" != "" ]] ; then
+    export PATH=$brewPrefix/bin:$PATH
+
+    pythonPath=$brewPrefix/opt/python/libexec/bin
+    if [[ -e $pythonPath ]] ; then
+        export PATH="$pythonPath:$PATH"
+    fi
+
+    export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
+    if [[ -e $brewPrefix/opt/openjdk ]] ; then
+        export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
+        export JAVAHOME=$brewPrefix/opt/openjdk/
+        export JAVA_HOME=$JAVAHOME
+
+    fi
 fi
-
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias gcd='cd $(git root)'
 
@@ -95,6 +97,6 @@ else
     echo "1password-cli not installed"
 fi
 
-if [[ -e /opt/homebrew/bin/brew ]] ; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -e $brewPrefix/bin/brew ]] ; then
+    eval "$($brewPrefix/bin/brew shellenv)"
 fi
