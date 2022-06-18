@@ -26,8 +26,9 @@ brew './formulas/cljstyle.rb'
 brew 'borkdude/brew/clj-kondo'
 brew 'leiningen'
 
-cask '1password-cli'
+
 
 # macOS apps, FIXME
+# cask '1password-cli'
 # mas "1Password 7", id: 1333542190
 # mas "Slack", id: 803453959
