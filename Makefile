@@ -21,3 +21,23 @@ zsh-completion:
 	ln -s /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.zsh ~/.emacs.d/etc/zsh/_git
 	ln -s /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion ~/.emacs.d/etc/zsh/_docker
 	ln -s  /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion ~/.emacs.d/etc/zsh/_docker-compose
+
+
+# macOS apps things, not related to Emacs
+
+start-comms:
+	open -g -a Slack
+	open -g -a Fantastical
+	open -g -a MailMate
+
+stop-comms:
+	pkill -f "(Slack|Fantastical|MailMate)"
+
+
+start-dev:
+	open -g -a Docker
+	open -g -a Emacs
+
+
+stop-dev:
+	pkill -f "(Emacs|Docker)"
