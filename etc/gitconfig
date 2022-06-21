@@ -70,3 +70,5 @@
 
 [github]
 	user = lukaszkorecki
+[pull]
+	ff = only
