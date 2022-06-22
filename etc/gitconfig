@@ -58,7 +58,7 @@
 
   cb = !git rev-parse --abbrev-ref HEAD 2>/dev/null
   push-and-track= !git push -u origin $(git cb)
-  pull-and-track = !git pull origin $(git cb)
+  pull-and-track = !git pull -r origin $(git cb)
   safe-pull = !git stash && git pull -r origin $(git cb) && git stash pop
 
   llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
