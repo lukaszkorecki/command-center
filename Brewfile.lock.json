@@ -2,13 +2,13 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "5e7826f5b7f075478796081cd33a247f44882c5c"
+        "revision": "c5686db55e69b4ac128a28bbcd8a571c4ac76112"
       },
       "homebrew/core": {
-        "revision": "8cf67a9bf32fb94e16b2382979ec0b56dda72002"
+        "revision": "ea0d1f8660261be675691fe72638a79c58797761"
       },
       "borkdude/brew": {
-        "revision": "0beb6cd053254e621715d7e636b5b254d933a231"
+        "revision": "c4fb6d975397c517f8da30e13473389a02d34982"
       }
     },
     "brew": {
@@ -91,15 +91,15 @@
         }
       },
       "clojure": {
-        "version": "1.11.1.1139",
+        "version": "1.11.1.1149",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
             "all": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/clojure/blobs/sha256:2bc9c1db736cc3ca955c0b3c2c26a9c5684766db1ed4802ccae63cd230010998",
-              "sha256": "2bc9c1db736cc3ca955c0b3c2c26a9c5684766db1ed4802ccae63cd230010998"
+              "url": "https://ghcr.io/v2/homebrew/core/clojure/blobs/sha256:c384f1fc2f0f7c6ac8c4ace645b9b09bf8877981711a842da90c086417ef3e71",
+              "sha256": "c384f1fc2f0f7c6ac8c4ace645b9b09bf8877981711a842da90c086417ef3e71"
             }
           }
         }
@@ -307,7 +307,7 @@
         "bottle": false
       },
       "./formulas/clojure-lsp.rb": {
-        "version": "2022.05.03-12.35.40",
+        "version": "2022.06.22-14.09.50",
         "bottle": false
       },
       "./formulas/cljstyle.rb": {
@@ -315,7 +315,7 @@
         "bottle": false
       },
       "borkdude/brew/clj-kondo": {
-        "version": "2022.05.31",
+        "version": "2022.06.22",
         "bottle": false
       },
       "leiningen": {
@@ -347,7 +347,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.5.2",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "8cf67a9bf32fb94e16b2382979ec0b56dda72002",
+        "Homebrew/homebrew-core": "ea0d1f8660261be675691fe72638a79c58797761",
         "CLT": "13.4.0.0.1.1651278267",
         "Xcode": "13.4",
         "macOS": "12.4"
