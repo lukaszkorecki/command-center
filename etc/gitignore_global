@@ -24,3 +24,4 @@ hsperfdata*
 form-init*
 /.clj-kondo/
 deps.txt
+**/.projectile

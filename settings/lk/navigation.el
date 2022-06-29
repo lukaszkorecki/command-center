@@ -28,7 +28,15 @@
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (add-to-list 'projectile-globally-ignored-directories "vendor")
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
-  (add-to-list 'projectile-globally-ignored-directories "target"))
+  (add-to-list 'projectile-globally-ignored-directories "target")
+  (setq projectile-project-root-functions
+        '(
+          projectile-root-local
+          projectile-root-top-down
+          projectile-root-bottom-up
+          projectile-root-top-down-recurring
+          ))
+  )
 
 
 (defun lk/find-todos-etc ()
