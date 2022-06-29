@@ -30,6 +30,14 @@ if [[ "$brewPrefix" != "" ]] ; then
         export JAVA_HOME=$JAVAHOME
 
     fi
+
+    export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
+    if [[ -e $brewPrefix/opt/openjdk ]] ; then
+        export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
+        export JAVAHOME=$brewPrefix/opt/openjdk/
+        export JAVA_HOME=$JAVAHOME
+
+    fi
 fi
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias gcd='cd $(git root)'
