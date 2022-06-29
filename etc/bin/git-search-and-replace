@@ -28,4 +28,4 @@ Usage:
 fi
 
 
-git grep "$search" | cut -d: -f1 | uniq | xargs sed -i' ' -e "$sedExpression"
+git grep "$search" | cut -d: -f1 | uniq | xargs sed -i "" -e "$sedExpression"

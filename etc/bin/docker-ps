@@ -1,1 +1,1 @@
-docker ps --format '{{.Image}}, {{ .Names}}'
+docker ps --format '{{.Image}}, {{ .Names}}'  | sort
