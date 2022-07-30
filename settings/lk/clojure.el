@@ -44,7 +44,6 @@
 (use-package clojure-mode-extra-font-locking)
 
 (use-package monroe
-  :init (setq monroe-nrepl-server-cmd "lein-run")
   :bind (("C-x c m" . monroe)
          :map monroe-mode-map
          (("C-x c l" . lk/init-clojure-scratch))))
@@ -58,6 +57,8 @@
   (require 'monroe)
   (rainbow-delimiters-mode t)
   (clojure-enable-monroe)
+ (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
+
   :bind (:map clojure-mode-map
               (("C-x c f" .  lk/clojure-format-current-buffer)
                ("C-x c v" . lk/clojure-check-current-buffer)

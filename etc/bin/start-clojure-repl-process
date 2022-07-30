@@ -36,7 +36,9 @@ echo "=========="
 # cd $(lein classpath | sed 's/:/\n/g' | grep -v m2 | grep src)/..
 echo "Starting in $PWD"
 
-if [[ -e ./script/lein ]] ; then
+if [[ -e ./script/repl ]] ; then
+    ./script/repl
+elif [[ -e ./script/lein ]] ; then
   echo "Using script/lein"
   ./script/lein $@
 else
