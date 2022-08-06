@@ -1,39 +1,32 @@
 #!/usr/bin/env bash
 
-# Check if we're in a dir which has valid project file, if not, go down
-goDown() {
-  echo "Checking $PWD"
-  if [[ "$PWD" == "/" ]] ; then
-    echo "What"
-    exit 1
-  fi
+set -eo pipefail
+emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+depsEdnLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "deps.edn"))' | tail -1 | xargs echo)
+projectCljLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "project.clj"))' | tail -1 | xargs echo)
 
-  if [[ -e $PWD/project.clj ]] || [[ -e $PWD/deps.edn ]] ;then
-     echo "Found deps.edn or project.clj"
-  else # no project keep looking
-    cd ..
-    goDown
-  fi
-}
+if [[ "$depsEdnLocation" != "nil" ]] ; then
+    echo "Found deps.edn in $depsEdnLocation"
+    path=${depsEdnLocation/#\~/$HOME}
+    cd $path
+    if [[ -e ./script/repl ]] ; then
+        echo "using script/repl"
+        ./script/repl
+    else
+        echo "using 'raw' clj"
+        clj -m nrepl.cmdline
+    fi
+fi
 
-
-
-# print all classpaths, and find the src dir, then CD into the project root
-# note, it will blow up if project.clj in current buffer dir is not a lein project file
-echo $PWD
-goDown
-
-echo "=========="
-# WTF?
-# cd $(lein classpath | sed 's/:/\n/g' | grep -v m2 | grep src)/..
-echo "Starting in $PWD"
-
-if [[ -e ./script/repl ]] ; then
-    ./script/repl
-elif [[ -e ./script/lein ]] ; then
-  echo "Using script/lein"
-  ./script/lein $@
-else
-  echo "Using global lein"
-  lein $@
+if [[ "$projectCljLocation" != "nil" ]] ; then
+    echo "Found project.clj in $projectCljLocation"
+    path=${projectCljLocation/#\~/$HOME}
+    cd $path
+    if [[ -e ./script/lein ]] ; then
+        echo "Using script/lein"
+        ./script/lein $@
+    else
+        echo "Using global lein"
+        lein $@
+    fi
 fi
