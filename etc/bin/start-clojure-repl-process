@@ -8,16 +8,8 @@ goDown() {
     exit 1
   fi
 
-  if [[ -e $PWD/project.clj ]] ;then
-    # is valid project?
-    if grep -q defproject project.clj ; then
-      echo "Valid project.clj found"
-    else
-      echo 'try again'
-      cd ..
-      goDown
-    fi
-
+  if [[ -e $PWD/project.clj ]] || [[ -e $PWD/deps.edn ]] ;then
+     echo "Found deps.edn or project.clj"
   else # no project keep looking
     cd ..
     goDown
