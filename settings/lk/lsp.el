@@ -15,6 +15,7 @@
   (setq lsp-ui-sideline-enable nil)
   :config (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\node_modules\\'")
   :hook ((clojure-mode . lsp)
+         (typescript-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :bind (("C-c l a" . lsp-ui-sideline--code-actions)))
