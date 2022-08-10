@@ -5,7 +5,7 @@
 [include]
   path = ~/.private/gitconfig.include
 
-[includeIf "gitdir:~/pj/uz/"]
+[includeIf "gitdir:~/pj/insights/"]
   path = ~/.private/gitconfig.uz
 
 [color]
