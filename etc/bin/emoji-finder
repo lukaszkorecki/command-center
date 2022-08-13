@@ -1,0 +1,95 @@
+#!/usr/bin/env bb
+
+(require '[babashka.fs :as fs]
+         '[clojure.string :as str]
+         '[clojure.pprint :refer [pprint]]
+         '[clojure.tools.cli :refer [parse-opts]]
+         '[cheshire.core :as json])
+
+(def data-url
+  "https://raw.githubusercontent.com/muan/unicode-emoji-json/main/data-by-emoji.json")
+
+
+(def cache-dir
+  (fs/expand-home "~/.config/emoji/"))
+
+
+(def cache-location
+  (str cache-dir "data-by-emoji.json"))
+
+
+(defn match-emoji [emoji-data search]
+  (let [searchable (->> emoji-data
+                        (map (fn [[em data]]
+                               (assoc data :emoji (name em)))))]
+    (if (string? search)
+      (filter #(re-find (re-pattern search) (:slug %)) searchable)
+      (take 10 searchable))
+  ))
+
+
+(defn as-alfred [matches]
+  (json/generate-string
+   {:items (mapv #(hash-map
+                  :title (:emoji %)
+                  :autocomplete (:emoji %)
+                  :arg [(:emoji %) (format ":%s:" (:slug %))]
+                  :match (:slug %)
+                  :variables {:emoji (:emoji %)}
+                  )
+                matches)}))
+
+(defn as-emoji [matches]
+  (str/join "\n" (mapv #(:emoji %) matches)))
+
+(defn as-slug [matches]
+  (str/join "\n" (mapv #(format ":%s:" (:slug %))  matches)))
+
+
+(defn main [args]
+  (let [{:keys [options errors summary]} (parse-opts args
+                                                     [["-s" "--search SEARCH" "Emoji to match"]
+                                                      ["-o" "--output TYPE" "Output type, allowed: alfred (for alfred workflows), emoji (just the emoji), slug (emoji slug e.g :banana:)"]
+                                                      ["-r" "--reset" "Reset emoji file cache and download again"]
+                                                      ["-h" "--help" "Help"]])]
+
+    ;; CLI handling
+    (when (or (:help options) (seq errors))
+      (println "Emoji finder CLI")
+      (println summary)
+      (when-not (seq errors)
+        (System/exit 0)))
+
+    (when (seq errors)
+      (println "ERROR!")
+      (mapv println errors)
+      (System/exit 127))
+
+;; check if emoji data is downloaded already, if not do it
+    ;; optionally support nuking the cache
+    (fs/create-dirs cache-dir)
+
+    (when (:reset options)
+      (fs/delete-if-exists cache-location))
+
+    (when-not (fs/exists? cache-location)
+      (spit cache-location (slurp data-url)))
+
+    ;; actual matching and printing of results
+    (let [matched (match-emoji (json/parse-string (slurp cache-location) true)
+                               (:search options))
+          formatted (cond
+                      (= "alfred" (:output options)) (as-alfred matched)
+                      (= "emoji" (:output options)) (as-emoji matched)
+                      (= "slug" (:output options)) (as-slug matched)
+                      :else (do
+                              (printf "! Unknown output type: %s\n"
+                                      (:output options))
+                              (pprint matched)))]
+
+      (println formatted))))
+
+
+
+;; entrypoint
+(main *command-line-args*)
