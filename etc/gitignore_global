@@ -26,3 +26,5 @@ form-init*
 deps.txt
 **/.projectile
 /backend/.cpcache/
+*.env
+**/*~undo-tree~
