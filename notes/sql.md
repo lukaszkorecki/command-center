@@ -33,3 +33,17 @@ WHERE
 # Switching databases in `psql`
 
 `\c dbname`
+
+# CTEs
+
+Because I always forget the syntax:
+
+
+```sql
+
+with
+  some_stuff as (select id from accounts where created_at < now() - interval '7 days'),
+  more_stuff as (select id from users where account_id in (select * from some_stuff))
+
+select teams where account_id in (select * from some_stuff) and user_id in (select * from more_stuff)
+```
