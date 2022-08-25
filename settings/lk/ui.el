@@ -88,7 +88,6 @@
 
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
-(setq confirm-kill-emacs nil)
 
 (provide 'lk/ui)
 ;;; ui.el ends here
