@@ -23,7 +23,7 @@
               ("H-p" . projectile-command-map)
               ("C-c p" . projectile-command-map))
   :init (projectile-mode +1)
-  :bind (("C-c n g" . 'projectile-grep))
+  :bind (("C-c C-g" . 'projectile-grep))
   :config (setq projectile-completion-system 'ivy)
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (add-to-list 'projectile-globally-ignored-directories "vendor")

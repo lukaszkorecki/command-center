@@ -6,9 +6,8 @@
 
 
 ;; Git and git-surf helpers
-(use-package git)
-
-(when (string-equal system-type "Darwin"))
+(use-package git
+  :bind (( "C-c g g" . vc-git-grep)))
 
 (defun lk/open-current-file-in-gh ()
   (interactive)
