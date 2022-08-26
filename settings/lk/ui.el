@@ -43,6 +43,7 @@
 ;; always match parens
 (show-paren-mode t)
 (setq show-paren-delay 0)
+(global-set-key (kbd "C-c f") 'toggle-frame-maximized)
 
 (use-package rainbow-delimiters)
 
@@ -60,14 +61,6 @@
 (when (not (string-equal system-type "darwin"))
   (use-package color-theme-approximate
     :config (color-theme-approximate-on)))
-
-(use-package moom
-
-  :init (moom-mode t)
-  (moom-toggle-font-module)
-  :bind (("C-c w f" . moom-fill-screen)
-         ("C-c w l" . moom-fill-left)
-         ("C-c w r" . moom-fill-right)))
 
 (use-package bufler
   :init (require 'bufler)

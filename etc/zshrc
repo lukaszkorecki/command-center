@@ -39,10 +39,19 @@ if [[ "$brewPrefix" != "" ]] ; then
 
     fi
 fi
+
+# Emacs stuff
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias gcd='cd $(git root)'
 
 export EDITOR=emacs
+
+# integration with Vterm:
+if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+    && [[ -n ${EMACS_VTERM_PATH} ]] \
+    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+fi
 
 ## prompt
 # git config

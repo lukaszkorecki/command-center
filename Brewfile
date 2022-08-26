@@ -26,3 +26,8 @@ brew './formulas/clojure-lsp.rb'
 brew './formulas/cljstyle.rb'
 brew 'borkdude/brew/clj-kondo'
 brew 'leiningen'
+
+# Vterm stuff, for Emacs
+
+brew 'libvterm'
+brew 'cmake'

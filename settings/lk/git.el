@@ -29,12 +29,7 @@
 
 (global-set-key (kbd "C-c g h") 'lk/open-current-pr-in-gh)
 
-(use-package git
-
-	:bind (("C-x C-g" . vc-git-grep)))
-
 (use-package magit
-
   :config (setq magit-git-executable "/usr/bin/git")
   (setq magit-completing-read-function 'ivy-completing-read)
 	:bind (( "C-c m s" . magit-status)))

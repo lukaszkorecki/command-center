@@ -24,9 +24,15 @@
   (mac-switch-meta)
   (mac-switch-meta))
 
-(use-package sane-term
-	:bind (( "C-x n t" . sane-term)
-         ("C-x n T" . sane-term-create)))
+(use-package vterm
+    :ensure t)
+
+(use-package multi-vterm
+  :ensure t
+  :bind (( "C-x t n" . multi-vterm )
+         ( "C-x n t" . multi-vterm)
+         ( "C-x t p" . multi-vterm-project )))
+
 
 (global-set-key (kbd "C-x n e") 'eshell)
 
