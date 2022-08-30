@@ -6,10 +6,20 @@
 
 
 ;; Git and git-surf helpers
-(use-package git
-  :bind (( "C-c g g" . vc-git-grep)))
 
-(defun lk/open-current-file-in-gh ()
+(defun lk/git-grep+
+    (regex)
+  "Like vc-git-grep but project current directory and any extension, Pass REGEX.."
+  (interactive "sRegex to search for: ")
+  (vc-git-grep regex "*" (projectile-acquire-root)))
+
+(use-package git
+  :bind (( "C-c g g" . lk/git-grep+)
+         ( "C-c g s" . vc-git-grep)))
+
+(defun lk/open-current-file-in-gh
+    ()
+  ":nodoc:"
   (interactive)
   (let* ((line-no (line-number-at-pos))
          (command
