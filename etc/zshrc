@@ -44,7 +44,7 @@ fi
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 alias gcd='cd $(git root)'
 
-export EDITOR=emacs
+export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 
 # integration with Vterm:
 if [[ "$INSIDE_EMACS" = 'vterm' ]] \
