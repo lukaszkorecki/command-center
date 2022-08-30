@@ -4,7 +4,7 @@
 
 (defun lk/ruby-format-current-buffer ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "Gemfile" "rubocop -A %s"))
+  (lk/invoke-compile-tool-in-project "rubocop -A %s"))
 
 
 (add-hook

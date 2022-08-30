@@ -23,17 +23,17 @@
 
 (defun lk/clojure-format-current-buffer ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "cljstyle fix %s"))
+  (lk/invoke-compile-tool-in-project "cljstyle fix %s"))
 
 (defun lk/clojure-check-project ()
   (interactive)
-  (let* ((dir (locate-dominating-file default-directory "project.clj"))
+  (let* ((dir (projectile-acquire-root))
          (cmd-string (format "clj-kondo --parallel --lint %s" dir)))
-    (lk/invoke-compile-tool-in-project "project.clj" cmd-string)))
+    (lk/invoke-compile-tool-in-project cmd-string)))
 
 (defun lk/clojure-check-current-buffer ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "project.clj" "clj-kondo --lint %s 2>&1"))
+  (lk/invoke-compile-tool-in-project  "clj-kondo --lint %s 2>&1"))
 
 
 (use-package clojure-mode-extra-font-locking)
@@ -45,7 +45,7 @@
 
 (defun lk/monroe-kill-all ()
   (interactive)
-  (kill-matching-buffers ".*monroe.*"))
+  (kill-matching-buffers ".*monroe.*" 't 't))
 
 (use-package clojure-mode
   :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))

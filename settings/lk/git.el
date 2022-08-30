@@ -45,7 +45,7 @@
 
 (defun lk/magit-clear-buffers ()
   (interactive)
-  (kill-matching-buffers ".*magit.*"))
+  (kill-matching-buffers ".*magit.*" 't 't))
 
 (use-package ibuffer-vc)
 

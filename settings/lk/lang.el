@@ -7,9 +7,8 @@
 
 ;; Utils
 
-(defun lk/invoke-compile-tool-in-project (project-file command-string-with-format)
-  (let* ((pj-dir
-          (locate-dominating-file default-directory project-file))
+(defun lk/invoke-compile-tool-in-project (command-string-with-format)
+  (let* ((pj-dir (projectile-acquire-root))
          (default-directory pj-dir))
     (compilation-start
      (format command-string-with-format
@@ -80,7 +79,7 @@
 (defun lk/bash-check-current-buffer ()
   "Run shellcheck on current file"
   (interactive)
-  (lk/invoke-compile-tool-in-project "." "docker run --rm -v $PWD:/mnt koalaman/shellcheck:stable %s"))
+  (lk/invoke-compile-tool-in-project "docker run --rm -v $PWD:/mnt koalaman/shellcheck:stable %s"))
 
 
 

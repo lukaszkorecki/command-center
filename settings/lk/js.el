@@ -7,14 +7,12 @@
 (defun lk/prettier-format-current-buffer ()
   "."
   (interactive)
-  (lk/invoke-compile-tool-in-project "package.json"
-                                     "node ./node_modules/.bin/prettier --write %s"))
+  (lk/invoke-compile-tool-in-project "node ./node_modules/.bin/prettier --write %s"))
 
 (defun lk/eslint-check-current-buffer ()
   "."
   (interactive)
-  (lk/invoke-compile-tool-in-project "package.json"
-                                     "node ./node_modules/.bin/eslint --fix %s"))
+  (lk/invoke-compile-tool-in-project "node ./node_modules/.bin/eslint --fix %s"))
 
 (use-package rjsx-mode
   :init (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
@@ -38,7 +36,7 @@
 (defun lk/tslint-check-current-buffer ()
   "."
   (interactive)
-  (lk/invoke-compile-tool-in-project "tsconfig.json" "tslint -p ./tsconfig.json %s"))
+  (lk/invoke-compile-tool-in-project "tslint -p ./tsconfig.json %s"))
 
 (use-package typescript-mode
 
