@@ -30,3 +30,5 @@ if [[ "$projectCljLocation" != "nil" ]] ; then
         lein $@
     fi
 fi
+
+echo "deps.edn or project.clj not found!"
