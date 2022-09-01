@@ -23,10 +23,10 @@
   (interactive)
   (let* ((line-no (line-number-at-pos))
          (command
-          (format "~/.emacs.d/etc/bin/git-surf -r%s,%s %s"
+          (format "~/.emacs.d/etc/bin/git-surf -r%s,%s -f %s"
                   line-no line-no
                   (file-name-nondirectory (buffer-file-name)))))
-    (message command)
+    (message (format "CMD: %s" command))
     (shell-command command)))
 
 (global-set-key (kbd "C-c g f") 'lk/open-current-file-in-gh)

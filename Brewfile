@@ -17,6 +17,7 @@ brew "ripgrep"
 brew 'jq'
 brew 'borkdude/brew/jet'
 brew 'gh'
+brew 'hub'
 
 brew './formulas/envkey-source.rb'
 brew 'dopplerhq/doppler/doppler'
