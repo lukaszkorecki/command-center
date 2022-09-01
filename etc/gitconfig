@@ -7,6 +7,9 @@
 
 [includeIf "gitdir:~/pj/insights/"]
   path = ~/.private/gitconfig.uz
+[includeIf "gitdir:~/pj/uz/"]
+  path = ~/.private/gitconfig.uz
+
 
 [color]
   ui = true
