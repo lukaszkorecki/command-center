@@ -3,21 +3,29 @@
 set -euo pipefail
 
 
-if [[ "$(which hub)" == "" ]] ;then
-   echo "missing hub binary!"
-   exit 1
+if [[ "$(which hub)" == "" ]] ; then
+    echo "missing hub binary!"
+    exit 1
+fi
+
+[[ -e ~/.private/env.sh ]]  && source ~/.private/env.sh
+
+if [[ "$GITHUB_TOKEN" == "" ]] ; then
+    echo "missingh GH token"
+    exit 2
 fi
 
 
-   help() {
-       echo "git-surf v2 - opens various things in GH"
-       echo "Flags:"
-       grep '##' "$0" | grep -v grep | sed 's/) ##/ - /'g
-       exit 0
-   }
+help() {
+    echo "git-surf v2 - opens various things in GH"
+    echo "Flags:"
+    grep '##' "$0" | grep -v grep | sed 's/) ##/ - /'g
+    exit 0
+}
 
 
 mode=
+noop=
 # flag vars
 commit=
 range=
@@ -25,7 +33,7 @@ file=
 pr=
 
 
-while getopts "hpf:r:c:" OPTIONS; do
+while getopts "hpf:r:c:n" OPTIONS; do
     case "$OPTIONS" in
         h) ## help!
             help
@@ -48,6 +56,9 @@ while getopts "hpf:r:c:" OPTIONS; do
             mode=commit
             commit="$OPTARG"
             ;;
+        n) ## no-op mode aka just print the url
+            noop="yes"
+            ;;
         *)
             help
             ;;
@@ -68,25 +79,37 @@ currentBranch() {
     git rev-parse --abbrev-ref HEAD 2>/dev/null
 }
 
+openOrPrint() {
+    local url="$1"
+    if [[ "$noop" == "" ]] ; then
+        open "$url"
+    else
+        echo "$url"
+    fi
+}
+
 # https://github.com/<ORG>/<REPO>/commit/c75ec6816c9d276046b4b28bf21df6c9eba8ab08
-openCommit() {
+commitURL() {
     local commit=$1
     if [[ "$commit" == "last" ]] ; then
         commit=$(git log -n 1  --format="%H")
     fi
     url=$(getRepoURL)
-    branch=$(currentBranch)
 
-    commitUrl=$(echo $url | sed "s/tree.$branch/commit\/$commit/g")
+
+    if [[ $url =~ "/tree/" ]] ; then
+       url="$(echo $url | sed 's/tree.*//g')"
+    fi
+    commitUrl="$url/commit/$commit"
     echo $commitUrl
 }
 
-openPR() {
-    hub pr show
+PRURL() {
+    hub pr show -u
 }
 
 # https://github.com/<ORG>/<REPO>/blob/<BRANCH>/<PATH>
-openFile() {
+fileURL() {
     local file="$1"
     local range="$2"
     url=$(getRepoURL)
@@ -98,7 +121,13 @@ openFile() {
 
     fullPath=$(git ls-tree "$branch" --full-name "$file" | awk '{ print $4 }')
 
+    # we're missing tree/<branch> in the url for some reason
+    if [[ ! "$url" =~ "/tree/" ]] ; then
+        url="$url/tree/$branch"
+    fi
+
     fileUrl="${url/tree/blob}/$fullPath"
+
     if [[ "$range" == "" ]] ; then
         echo $fileUrl
     else
@@ -109,13 +138,13 @@ openFile() {
 
 case "$mode" in
     file)
-        open $(openFile "$file" "$range")
+        openOrPrint $(fileURL "$file" "$range")
         ;;
     commit)
-        open $(openCommit "$commit")
+        openOrPrint $(commitURL "$commit")
          ;;
     pr)
-        openPR
+        openOrPrint $(PRURL)
         ;;
     *)
         echo "unknown mode!"
