@@ -5,7 +5,7 @@
         "revision": "9fffe077f1a5a722ed5bd26a87ed622e8cb64e0c"
       },
       "homebrew/core": {
-        "revision": "c2b4af59aa66e09e1034378cc6471f53e00f4e96"
+        "revision": "924804ffe228c48b5ca77738a7450a56fcecc9af"
       },
       "borkdude/brew": {
         "revision": "b9b0f77585fe7c7ee3d531196b3534838a4ebe9a"
@@ -464,9 +464,9 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.5.10",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "c2b4af59aa66e09e1034378cc6471f53e00f4e96",
-        "CLT": "13.0.0.0.1.1627064638",
-        "Xcode": "13.2.1",
+        "Homebrew/homebrew-core": "924804ffe228c48b5ca77738a7450a56fcecc9af",
+        "CLT": "13.4.0.0.1.1651278267",
+        "Xcode": "13.4",
         "macOS": "12.4"
       },
       "big_sur": {
