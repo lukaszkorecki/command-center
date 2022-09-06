@@ -105,7 +105,13 @@ commitURL() {
 }
 
 PRURL() {
-    hub pr show -u
+    url=$(hub pr show -u)
+    # above will be empty, if current branch doesn't have a PR yet
+    # it's ok, we can navigate to compare page and create one from there
+    if [[ "$url" == "" ]] ; then
+        url=$(hub compare -u)
+    fi
+    echo "$url"
 }
 
 # https://github.com/<ORG>/<REPO>/blob/<BRANCH>/<PATH>
