@@ -24,7 +24,7 @@ help() {
 }
 
 
-mode=
+mode=browse
 noop=
 # flag vars
 commit=
@@ -143,6 +143,9 @@ fileURL() {
 }
 
 case "$mode" in
+    browse)
+        hub browse
+        ;;
     file)
         openOrPrint $(fileURL "$file" "$range")
         ;;
