@@ -42,7 +42,7 @@ fi
 
 # Emacs stuff
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs -nw -Q"
 
 # integration with Vterm:
 if [[ "$INSIDE_EMACS" = 'vterm' ]] \

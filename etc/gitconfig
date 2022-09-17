@@ -14,9 +14,11 @@
 [color]
   ui = true
   diff = true
+
 [core]
   pager = less -F -X
   excludesfile = ~/.gitignore_global
+  editor = /Applications/Emacs.app/Contents/MacOS/Emacs -Q
 [grep]
   linenumber = true
   extendedRegexp = true
