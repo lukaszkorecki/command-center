@@ -40,18 +40,6 @@ if [[ "$brewPrefix" != "" ]] ; then
     fi
 fi
 
-# Emacs stuff
-alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs -nw -Q"
-
-# integration with Vterm:
-if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-    && [[ -n ${EMACS_VTERM_PATH} ]] \
-    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
-fi
-
-
 ## aliases
 # go to git repo root
 alias gcd='cd $(git root)'
@@ -123,4 +111,15 @@ fi
 
 if [[ -e $brewPrefix/bin/brew ]] ; then
     eval "$($brewPrefix/bin/brew shellenv)"
+fi
+
+# Emacs stuff
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+
+# integration with Vterm:
+if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+    && [[ -n ${EMACS_VTERM_PATH} ]] \
+    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
 fi
