@@ -86,7 +86,6 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
   (insert-char "\n" 1))
 
 (use-package visual-regexp
-
   :init (global-set-key (kbd "C-x R") 'vr/replace)
   :bind (( "C-x R" . vr/replace)))
 
@@ -97,6 +96,9 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 ;; no lockfiles
 (setq create-lockfiles nil)
 
+
+(use-package string-inflection
+  :init (global-set-key (kbd "C-x c l") 'string-inflection-all-cycle))
 
 (provide 'lk/editing)
 ;;; editing.el ends here
