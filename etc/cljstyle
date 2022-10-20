@@ -10,7 +10,8 @@
     GET [[:inner 0]],
     count-on-exception [[:inner 0]],
     with-transaction [[:inner 0]],
-    with-timing [[:inner 0]],
+    with-timing [[:inner 0]]
+    with-context [[:inner 0]],
     defprotocol [[:inner 1]],
     defrecord [[:inner 1]]}},
   :vars {:enabled? false},
