@@ -16,7 +16,8 @@
      (use-package)
      (use-package)))
  '(warning-suppress-types
-   '((auto-save)
+   '((lsp-mode)
+     (auto-save)
      (auto-save)
      (comp)
      (use-package)

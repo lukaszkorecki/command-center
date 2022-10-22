@@ -1,6 +1,9 @@
 # -*- mode: sh -*-
 
 ## custom paths
+export LC_ALL=en_US.UTF-8
+export LANG=$LC_ALL
+
 export PATH=$HOME/.emacs.d/etc/bin:$PATH
 
 export PATH=$HOME/bin:$PATH
