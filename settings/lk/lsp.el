@@ -44,6 +44,8 @@
   (eglot-connect-timeout 300)
   :config
   (setq eglot-autoshutdown t)
+  (setq eglot-confirm-server-initiated-edits nil)
+  (setq eglot-autoreconnect t)
   :hook ((clojure-mode . eglot-ensure)
          (typescript-mode . eglot-ensure))
   :bind (("C-c l r r" . eglot-rename)
@@ -51,7 +53,9 @@
         ("C-c l a" . eglot-code-actions )))
 
 (use-package flymake
-  :bind (( "C-c n e" . flymake-goto-next-error )))
+  :bind (( "C-c e n" . flymake-goto-next-error )
+         ( "C-c e p" . flymake-goto-prev-error )
+         ( "C-c e l" . flymake-show-buffer-diagnostics )))
 
 (provide 'lk/lsp)
 ;;; lsp.el ends here
