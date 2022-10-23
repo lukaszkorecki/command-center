@@ -23,7 +23,7 @@
 
 (defun lk/clojure-format-current-buffer ()
   (interactive)
-  (lk/invoke-compile-tool-in-project "cljstyle fix %s"))
+  (lk/invoke-compile-tool-in-project "clojure-lsp format --filenames %s"))
 
 (defun lk/clojure-check-project ()
   (interactive)
