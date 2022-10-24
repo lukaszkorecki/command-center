@@ -12,7 +12,7 @@ setup: brew-bundle zsh-completion
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
 	@ln -fvs ~/.emacs.d/etc/gitignore_global ~/.gitignore_global
 	@ln -fvs ~/.emacs.d/init.el ~/.emacs
-  @mkdir -p ~/.config/clojure-lsp
+	@mkdir -p ~/.config/clojure-lsp
 	@ln -fvs ~/.emacs.d/etc/clojure-lsp-config.edn ~/.config/clojure-lsp/config.edn
 
 brew-bundle:

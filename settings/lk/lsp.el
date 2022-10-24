@@ -50,7 +50,9 @@
          (typescript-mode . eglot-ensure))
   :bind (("C-c l r r" . eglot-rename)
         ("C-c l f" . eglot-find-declaration)
-        ("C-c l a" . eglot-code-actions )))
+        ("C-c l a" . eglot-code-actions )
+        ("C-c l g" . xref-find-definitions)
+        ))
 
 (use-package flymake
   :bind (( "C-c e n" . flymake-goto-next-error )

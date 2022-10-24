@@ -1,4 +1,5 @@
-{ :auto-add-ns-to-new-files? false
+{:auto-add-ns-to-new-files? false
+  :log-path "/tmp/clojure-lsp.out"
  :cljfmt { :vars {:enabled? false},
           :functions {:enabled? false},
           :types {:enabled? false}
