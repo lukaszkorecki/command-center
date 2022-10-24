@@ -9,14 +9,14 @@
   :diminish ivy-mode
   :config (setq ivy-height 25)
   (ivy-mode 1)
-  :bind ("C-c s" . swiper)
-  ("C-c C-r" . ivy-resume))
+  :bind (("C-c s" . swiper)
+         ("C-c C-r" . ivy-resume)))
 
 (use-package counsel
-  :bind ("M-x" . counsel-M-x)
-  ("C-c n i" . counsel-imenu)
-  ("C-c n b" . counsel-ibuffer)
-  ("C-c n y" . counsel-yank-pop))
+  :bind (("M-x" . counsel-M-x)
+         ("C-c n i" . counsel-imenu)
+         ("C-c n b" . counsel-ibuffer)
+         ("C-c n y" . counsel-yank-pop)))
 
 (use-package projectile
   :bind (:map projectile-mode-map
@@ -52,6 +52,12 @@
 
 (use-package transpose-frame
   :bind (( "C-c t" . transpose-frame)))
+
+
+(use-package avy
+  :bind (("C-c v c" . avy-goto-char-2)
+         ("C-c v l" . avy-goto-line)
+         ("C-c v w" . avy-goto-word-1)))
 
 
 (use-package emamux)
