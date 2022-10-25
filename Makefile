@@ -5,7 +5,10 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-setup: brew-bundle zsh-completion
+setup: brew-bundle zsh-completion configs
+
+
+configs:
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
 	@ln -fvs ~/.emacs.d/etc/bashrc ~/.profile
@@ -14,6 +17,7 @@ setup: brew-bundle zsh-completion
 	@ln -fvs ~/.emacs.d/init.el ~/.emacs
 	@mkdir -p ~/.config/clojure-lsp
 	@ln -fvs ~/.emacs.d/etc/clojure-lsp-config.edn ~/.config/clojure-lsp/config.edn
+
 
 brew-bundle:
 	HOMEBREW_AUTO_UPDATE_SECS=9600 brew bundle

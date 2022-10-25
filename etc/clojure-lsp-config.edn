@@ -4,8 +4,10 @@
           :functions {:enabled? false},
           :types {:enabled? false}
           :remove-multiple-non-indenting-spaces? true
-          :indents    {defroutes [[:inner 0]],
+          :indents    {ns [[:inner 2]]
+                       defroutes [[:inner 0]],
                        require [[:inner 2]]
+                       import [[:inner 2]]
                        defroute [[:inner 0]],
                        PUT [[:inner 0]],
                        POST [[:inner 0]],

@@ -80,6 +80,7 @@
 
 ;; add compojure support
 (define-clojure-indent
+  (ns 1)
   (defroutes 'defun)
   (GET 2)
   (POST 2)
