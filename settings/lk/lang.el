@@ -93,7 +93,7 @@
    (lambda (kw)
      (require 'sqlup-mode)
      (add-to-list 'sqlup-blacklist kw))
-   '("name" "key" "value" "id"  "source" "type" "to" "user" "at" )))
+   '("name" "key" "value" "id"  "source" "type" "to" "user" "at" "role" "current_role" )))
 
 
 (defun lk/swiper-hugsql-names ()
