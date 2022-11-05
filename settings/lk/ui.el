@@ -82,5 +82,12 @@
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
 
+
+(use-package nano-theme
+  :straight '(nano-theme :type git
+                         :host github
+                         :repo "rougier/nano-theme")
+  :init (load-theme 'nano t))
+
 (provide 'lk/ui)
 ;;; ui.el ends here
