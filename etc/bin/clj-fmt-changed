@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+base_branch=${1:-origin/master}
+
+files=$(git diff --name-status $base_branch  | awk '/.(edn|clj)$/ { print $2 }' | tr '\n' ',')
+
+clojure-lsp format --filenames $files
