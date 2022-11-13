@@ -7,7 +7,7 @@
 (defun lk/prettier-format-current-buffer ()
   "."
   (interactive)
-  (lk/invoke-compile-tool-in-project "node ./node_modules/.bin/prettier --write %s"))
+  (lk/invoke-compile-tool-in-project "FORCE_COLOR=0 node ./node_modules/.bin/prettier --write %s"))
 
 (defun lk/eslint-check-current-buffer ()
   "."

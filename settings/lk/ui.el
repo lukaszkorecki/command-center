@@ -6,8 +6,8 @@
 
 ;; set font size
 
-(setq-default show-trailing-whitespace t)
-(setq-default indicate-empty-lines t)
+(setq-default show-trailing-whitespace nil)
+(setq-default indicate-empty-lines nil)
 (setq-default indicate-buffer-boundaries 'left)
 
 (defun on-after-init ()
