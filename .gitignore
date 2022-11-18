@@ -45,3 +45,4 @@ clojure-tools/
 /.dap-breakpoints
 workspace
 straight/
+.cpcache

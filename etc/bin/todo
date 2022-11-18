@@ -1,0 +1,61 @@
+#!/usr/bin/env bb
+(require '[clojure.string :as str])
+(import (java.net URLEncoder))
+
+;; -*- mode: clojure -*-
+;; Things url scheme is documented here:
+;; https://culturedcode.com/things/support/articles/2803573/
+;; all we're doing here is a script tha parses known markup
+;; and encodes it into quick add URL
+;; example:
+;; things:///add?title=this%20is%20the%20task%20title&when=today&deadline=tomorrow&show-quick-entry=true
+;; where:
+;; - title - the todo
+;; - when - ... when :-) accepts dates and time expressions (tomorrow etc)
+;; - deadline - similar to when, in terms of format and sets when someting is actually due
+;; - show-quick-entry - rather than add the todo, just shows input
+
+;; input format is 'farily' simple:
+;; your taks @tomorrow - 'your task' for tomorrow
+;; your task @!tomorrow - 'your taks', tomorrow with deadline set to tomorrow
+;; your task @tomorrow @!wednesday - 'your task' from tomorrow, needs to be done by wednesday
+
+(defn urlencode [s]
+  (-> s
+      (URLEncoder/encode "UTF-8")
+      (str/replace "+" "%20")))
+
+(defn parse [input]
+  (let [whens (mapv (fn [w]
+                      {:original w
+                       :when (str/replace w "@" "")})
+                    (distinct (re-find #"(?isuU)(@[\w\-]+)" input)))
+        deadlines (mapv (fn [d]
+                          {:original d :deadline (str/replace d #"@!" "")})
+                        (distinct (re-find #"(?isuU)(@![\w\-]+)" input)))
+
+        to-remove (concat (map :original whens)
+                          (map :original deadlines))
+        todo (reduce (fn [i t]
+                       (str/replace i t ""))
+                     input
+                     to-remove)]
+
+    {:todo (str/trim todo)
+     :when (first (map :when whens))
+     :deadline (first (map :deadline deadlines))}))
+
+(let [input (first *command-line-args*)
+      {:keys [todo deadline] :as parsed} (parse input)
+
+      _ (when (str/blank? todo)
+          (throw (ex-info "need a todo!" {:input input})))
+      bits
+      (cond-> [(format "title=%s" (urlencode todo))]
+        (:when parsed) (conj (format "when=%s" (urlencode (:when parsed))))
+        deadline (conj (format "deadline=%s" (urlencode deadline)))
+        ;; if only deadline, add when to today
+        (and deadline
+             (not (:when parsed))) (conj "when=today"))]
+
+  (println (format "things:///add?show-quick-entry=true&%s" (str/join  "&" bits))))

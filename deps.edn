@@ -1,0 +1,2 @@
+;; fake, stops Eglot from freaking out
+{}
