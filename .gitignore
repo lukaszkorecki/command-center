@@ -46,3 +46,5 @@ clojure-tools/
 workspace
 straight/
 .cpcache
+/etc/todo/.clj-kondo/
+/etc/todo/.lsp/
