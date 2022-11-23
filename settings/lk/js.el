@@ -39,7 +39,6 @@
   (lk/invoke-compile-tool-in-project "tslint -p ./tsconfig.json %s"))
 
 (use-package typescript-mode
-
   :init (setq typescript-indent-level 2)
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
@@ -47,6 +46,28 @@
               (( "C-x c v" . lk/eslint-check-current-buffer)
                ( "C-x c f" . lk/prettier-format-current-buffer ))))
 
+
+(define-derived-mode typescript-tsx-mode typescript-mode "tsx")
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+
+ (use-package tree-sitter
+  :straight (:type git :host github
+                   :repo "emacs-tree-sitter/elisp-tree-sitter"
+                   :branch "release")
+  :defer t
+  :after tree-sitter-langs
+  :hook
+  (eglot--managed-mode . (lambda ()
+                 (tree-sitter-mode)
+                 (tree-sitter-hl-mode))))
+
+(use-package tree-sitter-langs
+  :straight (:type git :host github
+                   :repo "emacs-tree-sitter/tree-sitter-langs"
+                   :branch "release")
+  :config
+  (tree-sitter-require 'tsx)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
 (provide 'lk/js)
 ;;; js.el ends here
