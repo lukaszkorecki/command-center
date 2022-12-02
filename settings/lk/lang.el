@@ -7,6 +7,19 @@
 
 ;; Utils
 
+
+(use-package tree-sitter
+  :straight (:type git :host github
+                   :repo "emacs-tree-sitter/elisp-tree-sitter"
+                   :branch "release")
+  :defer t
+  :after tree-sitter-langs
+  :hook
+  (eglot--managed-mode . (lambda ()
+                           (tree-sitter-mode)
+                           (tree-sitter-hl-mode))))
+
+
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (projectile-acquire-root))
          (default-directory pj-dir))

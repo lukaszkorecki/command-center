@@ -50,19 +50,9 @@
 (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
 
- (use-package tree-sitter
-  :straight (:type git :host github
-                   :repo "emacs-tree-sitter/elisp-tree-sitter"
-                   :branch "release")
-  :defer t
-  :after tree-sitter-langs
-  :hook
-  (eglot--managed-mode . (lambda ()
-                 (tree-sitter-mode)
-                 (tree-sitter-hl-mode))))
-
 (use-package tree-sitter-langs
-  :straight (:type git :host github
+  :straight (:type git
+                   :host github
                    :repo "emacs-tree-sitter/tree-sitter-langs"
                    :branch "release")
   :config
