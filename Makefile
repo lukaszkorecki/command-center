@@ -33,11 +33,11 @@ zsh-completion:
 
 start-comms:
 	open -g -a Slack
-	open -g -a Fantastical
+	open -g -a Calendar
 	open -g -a MailMate
 
 stop-comms:
-	pkill -f "(Slack|Fantastical|MailMate)"
+	pkill -f "(Slack|Calendar|MailMate)"
 
 
 start-dev:
