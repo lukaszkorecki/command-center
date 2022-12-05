@@ -50,14 +50,6 @@
 (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
 
-(use-package tree-sitter-langs
-  :straight (:type git
-                   :host github
-                   :repo "emacs-tree-sitter/tree-sitter-langs"
-                   :branch "release")
-  :config
-  (tree-sitter-require 'tsx)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
 (provide 'lk/js)
 ;;; js.el ends here
