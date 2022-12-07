@@ -47,3 +47,21 @@ start-dev:
 
 stop-dev:
 	pkill -f "(Emacs|Docker)"
+
+
+fix-macos:
+# show path bar in finder
+	defaults write com.apple.finder ShowPathbar -bool true
+# disable .DS_Store files
+	defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+	defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# Thu 18 Aug 23:46:18
+# System Preferences > Date & Time > Display time with seconds - Checked [:ss]
+# System Preferences > Date & Time > Use a 24-hour clock - Checked [HH:mm]
+# System Preferences > Date & Time > Show AM/PM - Unchecked
+# System Preferences > Date & Time > Show the day of the week - Checked [EEE]
+# System Preferences > Date & Time > Show date - Checked [d MMM]
+	sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
+# apply ^^^^
+	sudo killall SystemUIServer
