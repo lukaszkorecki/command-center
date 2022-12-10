@@ -3,7 +3,7 @@
 ;; inf-clojure/monroe based clj-scratch buffer
 ;; Adopted from cider's scratch
 ;;; Code:
-(defconst lk/clj-scratch-name "*monroe-clj-scratch*")
+(defconst lk/clj-scratch-name "*clj-scratch*")
 
 (defun lk/init-clojure-scratch ()
   (interactive)
