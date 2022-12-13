@@ -90,7 +90,6 @@
 
 ;; web-mode stuff
 (use-package web-mode
-
   :init (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
@@ -140,6 +139,13 @@
 (require 'lk/ruby)
 (require 'lk/js)
 (require 'lk/clojure)
+
+
+(use-package origami
+  :init
+  (global-origami-mode)
+  :bind
+ (("C-c o f" . origami-toggle-node )))
 
 (provide 'lk/lang)
 ;;; lang.el ends here
