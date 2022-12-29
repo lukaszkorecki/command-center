@@ -14,7 +14,7 @@ if [[ "$depsEdnLocation" != "nil" ]] ; then
         ./script/repl
     else
         echo "using 'raw' clj"
-        TERM=xterm clj -M:dev:nrepl nrepl.cmdline
+        TERM=xterm clojure -M:dev:nrepl nrepl.cmdline
     fi
 fi
 
