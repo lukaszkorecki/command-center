@@ -41,9 +41,25 @@ Because I always forget the syntax:
 
 ```sql
 
-with
-  some_stuff as (select id from accounts where created_at < now() - interval '7 days'),
-  more_stuff as (select id from users where account_id in (select * from some_stuff))
+WITH
+  some_stuff AS (SELECT id FROM accounts WHERE created_at < now() - INTERVAL '7 days'),
+  more_stuff AS (SELECT id FROM users WHERE account_id IN (SELECT * FROM some_stuff))
 
-select teams where account_id in (select * from some_stuff) and user_id in (select * from more_stuff)
+SELECT teams WHERE account_id IN (SELECT * FROM some_stuff) AND user_id IN (SELECT * FROM more_stuff)
 ```
+
+
+# `FILTER`
+
+
+```sql
+SELECT
+  COUNT(*) as "All Users",
+  COUNT (*) FILTER (WHERE u. verified) AS "Verified Users",
+  COUNT(*) FILTER (WHERE NOT u. verified) AS "Unverified Users"
+
+FROM users AS u;
+```
+
+
+From here: https://twitter.com/PJUllrich/status/1595069913336803329
