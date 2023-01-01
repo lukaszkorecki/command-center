@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: map destructure
+# key: map-destr
+# --
+{:keys [$0]}
