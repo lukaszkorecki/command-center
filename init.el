@@ -88,3 +88,15 @@
   (define-coding-system-alias 'UTF-8 'utf-8))
 
 (lk/fix-utf)
+
+;; other things
+
+(setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
+(blink-cursor-mode -1) ;; move to UI
+
+(setq default-frame-alist '((fullscreen . maximized)
+                            (vertical-scroll-bars . nil)
+                            (horizontal-scroll-bars . nil)
+                            (ns-appearance . dark)
+                            (ns-transparent-titlebar . t)
+                            (alpha-background . 50)))

@@ -66,9 +66,11 @@
   :init (require 'bufler)
   :bind (("C-x C-b" . bufler-list)))
 
-
 (use-package undo-tree
   :init (global-undo-tree-mode nil)
+  :config
+  (setq undo-tree-visualizer-timestamps 't)
+  (setq undo-tree-auto-save-history nil)
   :bind (("C-c u" . undo-tree-visualize)))
 
 (use-package treemacs
@@ -88,6 +90,8 @@
                          :host github
                          :repo "rougier/nano-theme")
   :init (load-theme 'nano t))
+
+
 
 (provide 'lk/ui)
 ;;; ui.el ends here
