@@ -42,7 +42,7 @@
                       lk/project-files)))))
     (message (format "Found root %s for path %s" root path))
 
-    (when (string-equal (expand-file-name root (getenv "HOME")))
+    (when (string-equal (expand-file-name root) (getenv "HOME"))
       (message "Root folder is equal to HOME!")
       (throw 'lk/invalid-project-root t))
 
