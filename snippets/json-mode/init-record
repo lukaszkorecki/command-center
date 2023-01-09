@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: record
+# key: record
+# --
+{
+  "type" : "record",
+  "name" : "`(file-name-nondirectory (buffer-file-name (window-buffer (minibuffer-selected-window))))`",
+  "fields" : [
+  ]
+}

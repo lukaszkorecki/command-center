@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: record-field
+# key: record
+# --
+{"name" : "$0", "type" : "$1" },
