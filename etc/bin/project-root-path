@@ -4,7 +4,7 @@ emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
 
 findDominatingFile() {
     local file=$1
-    $emacs -batch --eval="(print (locate-dominating-file default-directory \"$file\"))" 2>/dev/null| tail -1 | xargs echo
+    $emacs -batch --eval="(print (locate-dominating-file default-directory \"$file\"))" 2>/dev/null| tail -1 | xargs echo | sed 's/\s.*//g'
 }
 
 depsEdn=$(findDominatingFile "deps.edn")
@@ -14,8 +14,18 @@ gemfile=$(findDominatingFile "Gemfile")
 maintf=$(findDominatingFile "main.tf")
 dockerfile=$(findDominatingFile "Dockerfile")
 
+if [[ "$DEBUG" = "1" ]] ; then
+    echo "    depsEdn=$depsEdn"
+    echo "    projectClj=$projectClj"
+    echo "    packageJson=$packageJson"
+    echo "    gemfile=$gemfile"
+    echo "    maintf=$maintf"
+    echo "    dockerfile=$dockerfile"
+
+fi
+
+
 
 found=$(echo -en "$depsEdn\n$projectClj\n$packageJson\n$gemfile\n$maintf" | grep -v nil)
-
 final="${found/#\~/$HOME}"
 echo $final
