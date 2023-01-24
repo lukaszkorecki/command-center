@@ -85,11 +85,14 @@
 (setq confirm-kill-processes nil)
 
 
-(use-package nano-theme
-  :straight '(nano-theme :type git
-                         :host github
-                         :repo "rougier/nano-theme")
-  :init (load-theme 'nano t))
+;; (use-package nano-theme
+;;   :straight '(nano-theme :type git
+;;                          :host github
+;;                          :repo "rougier/nano-theme")
+;;   :init (load-theme 'nano t))
+
+(use-package twilight-bright-theme
+  :init (load-theme 'twilight-bright t))
 
 
 
