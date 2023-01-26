@@ -19,7 +19,6 @@ brew 'borkdude/brew/jet'
 brew 'gh'
 brew 'hub'
 
-brew './formulas/envkey-source.rb'
 brew 'dopplerhq/doppler/doppler'
 
 # language specific tooling
@@ -31,3 +30,4 @@ brew 'clojure-lsp/brew/clojure-lsp-native'
 # Vterm stuff, for Emacs
 brew 'libvterm'
 brew 'cmake'
+brew 'libpq' # add psql cli, BUT NOT Postgres itself

@@ -1,9 +1,16 @@
-{:auto-add-ns-to-new-files? true
+{:auto-add-ns-to-new-files? false
  :cljfmt { :vars {:enabled? false},
           :functions {:enabled? false},
           :types {:enabled? false}
           :remove-multiple-non-indenting-spaces? true
-          :indents {
+          :indents    {defroutes [[:inner 0]],
+                       require [[:inner 2]]
+                       import [[:inner 2]]
+                       defroute [[:inner 0]],
+                       PUT [[:inner 0]],
+                       POST [[:inner 0]],
+                       DELETE [[:inner 0]],
+                       GET [[:inner 0]],
                        count-on-exception [[:inner 0]],
                        with-transaction [[:inner 0]],
                        with-timing [[:inner 0]]
