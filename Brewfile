@@ -30,4 +30,4 @@ brew 'clojure-lsp/brew/clojure-lsp-native'
 # Vterm stuff, for Emacs
 brew 'libvterm'
 brew 'cmake'
-brew 'libpq' # add psql cli, BUT NOT Postgres itself
+brew 'libpq', link: true # add psql cli, BUT NOT Postgres itself
