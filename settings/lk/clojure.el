@@ -10,10 +10,7 @@
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (clojure-mode)
     (message (pwd))
-    (if (string-match ".+ssh:.+" (pwd))
-        ;; assume TRAMP and load the repl file from a remote host
-        (monroe-load-file "/home/ubuntu/.emacs.d/etc/repl.clj")
-      (monroe-load-file "~/.emacs.d/etc/repl.clj"))
+    (insert-file-contents "~/.emacs.d/etc/repl.clj")
     (current-buffer)))
 
 (defun lk/clojure-scratch ()
