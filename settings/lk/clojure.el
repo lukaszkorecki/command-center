@@ -55,7 +55,7 @@
  (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
 
   :bind (:map clojure-mode-map
-              (("C-x c f" .  lk/clojure-format-current-buffer)
+              (("C-x c f" .  eglot-format)
                ("C-x c v" . lk/clojure-check-current-buffer)
                ("C-x c p" . lk/clojure-check-project)
                ("C-x c s" . lk/clojure-scratch)
