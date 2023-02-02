@@ -30,6 +30,9 @@
 ;; turn off the bell
 (setq ring-bell-function 'ignore)
 
+;; eldoc just needs MAX one line
+(setq eldoc-echo-area-use-multiline-p nil)
+
 ;; show buffer file name in title bar
 (setq frame-title-format
       '((:eval
