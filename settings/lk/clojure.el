@@ -36,8 +36,9 @@
 (use-package clojure-mode-extra-font-locking)
 
 (use-package monroe
+  :straight (:host github :repo "sanel/monroe" :branch "master")
+  :map monroe-mode-map
   :bind (("C-x c m" . monroe)
-         :map monroe-mode-map
          (("C-x c l" . lk/init-clojure-scratch))))
 
 (defun lk/monroe-kill-all ()
@@ -49,22 +50,19 @@
   (require 'monroe)
   (rainbow-delimiters-mode t)
   (clojure-enable-monroe)
- (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
+  (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
 
   :bind (:map clojure-mode-map
-              (("C-x c f" .  eglot-format)
+              (("C-x c f" . eglot-format)
                ("C-x c v" . lk/clojure-check-current-buffer)
                ("C-x c p" . lk/clojure-check-project)
                ("C-x c s" . lk/clojure-scratch)
+               ("C-x c i" . lk/init-clojure-scratch)
                ("C-x c j" . monroe-nrepl-server-start)
                ("C-x c m" . monroe)
                ("C-c C-z" . monroe-switch-to-repl)
                ("C-c C-l" . monroe-load-file)
-               ("C-c m l " . lsp-clojure-move-to-let)
-               ("C-x c s" . lk/clojure-scratch)
-               ("C-x c c v" . clojure-convert-collection-to-vector)
-               ("C-x c c s" . clojure-convert-collection-to-set)
-               ("C-x c i" . lk/init-clojure-scratch))))
+               ("C-x c s" . lk/clojure-scratch))))
 
 
 

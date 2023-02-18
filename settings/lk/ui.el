@@ -12,7 +12,7 @@
 
 (defun on-after-init ()
   (when (display-graphic-p)
-    (set-face-attribute 'default nil :family "JetBrains Mono" :height 125))
+    (set-face-attribute 'default nil :family "JetBrains Mono" :height 120))
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
