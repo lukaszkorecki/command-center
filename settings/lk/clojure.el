@@ -36,34 +36,21 @@
 (use-package clojure-mode-extra-font-locking)
 
 (use-package monroe
-  :straight (:host github :repo "sanel/monroe" :branch "master")
-  :map monroe-mode-map
-  :bind (("C-x c m" . monroe)
-         (("C-x c l" . lk/init-clojure-scratch))))
+  :after (clojure-mode)
+  :init (require 'monroe)
+  :config (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
+  :bind (:map clojure-mode-map
+              ("C-x c j" . monroe-nrepl-server-start)
+              ("C-x c m" . monroe)
+              ("C-c C-z" . monroe-switch-to-repl)
+              ("C-c C-l" . monroe-load-file)
+              (("C-x c m" . monroe)
+               (("C-x c l" . lk/init-clojure-scratch)))))
+
 
 (defun lk/monroe-kill-all ()
   (interactive)
   (kill-matching-buffers ".*monroe.*" 't 't))
-
-(use-package clojure-mode
-  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-  (require 'monroe)
-  (rainbow-delimiters-mode t)
-  (clojure-enable-monroe)
-  (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
-
-  :bind (:map clojure-mode-map
-              (("C-x c f" . eglot-format)
-               ("C-x c v" . lk/clojure-check-current-buffer)
-               ("C-x c p" . lk/clojure-check-project)
-               ("C-x c s" . lk/clojure-scratch)
-               ("C-x c i" . lk/init-clojure-scratch)
-               ("C-x c j" . monroe-nrepl-server-start)
-               ("C-x c m" . monroe)
-               ("C-c C-z" . monroe-switch-to-repl)
-               ("C-c C-l" . monroe-load-file)
-               ("C-x c s" . lk/clojure-scratch))))
-
 
 
 (defun lk/clj-mode-hook ()
@@ -71,7 +58,19 @@
   (require 'monroe)
   (clojure-enable-monroe))
 
-(add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
+(use-package clojure-mode
+  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
+  :bind (:map clojure-mode-map
+              (("C-x c f" . eglot-format)
+               ("C-x c v" . lk/clojure-check-current-buffer)
+               ("C-x c p" . lk/clojure-check-project)
+               ("C-x c s" . lk/clojure-scratch)
+               ("C-x c i" . lk/init-clojure-scratch)
+               ("C-x c s" . lk/clojure-scratch))))
+
+
+
 
 ;; add compojure support
 (define-clojure-indent
