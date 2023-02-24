@@ -4,7 +4,7 @@ emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
 
 findDominatingFile() {
     local file=$1
-    $emacs -batch --eval="(print (locate-dominating-file default-directory \"$file\"))" 2>/dev/null| tail -1 | xargs echo | sed 's/\s.*//g'
+    $emacs -batch --eval="(print (locate-dominating-file default-directory \"$file\"))" 2>/dev/null| tail -1 | xargs echo | sed 's/\\s.*//g'
 }
 
 depsEdn=$(findDominatingFile "deps.edn")
