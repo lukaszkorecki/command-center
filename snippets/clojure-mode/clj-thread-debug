@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Debug threaded expr
+# key: threading-debug
+# --
+
+(#(do
+ (r/pp %)
+ %))
