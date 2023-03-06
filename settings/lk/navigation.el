@@ -3,8 +3,6 @@
 
 ;;; Code:
 
-
-
 (use-package ivy
   :diminish ivy-mode
   :config (setq ivy-height 25)
@@ -19,23 +17,23 @@
          ("C-c n y" . counsel-yank-pop)))
 
 (use-package projectile
-  :bind (:map projectile-mode-map
-              ("H-p" . projectile-command-map)
-              ("C-c p" . projectile-command-map))
-  :init (projectile-mode +1)
-  :bind (("C-c C-g" . 'projectile-grep))
-  :config (setq projectile-completion-system 'ivy)
+  :init
+  (projectile-mode +1)
+  :bind
+  (:map projectile-mode-map
+        ("C-c p" . projectile-command-map)
+        (("C-c C-g" . 'projectile-grep)))
+  :config
+  (setq projectile-completion-system 'ivy)
   (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
   (add-to-list 'projectile-globally-ignored-directories "vendor")
   (add-to-list 'projectile-globally-ignored-directories "node_modules")
   (add-to-list 'projectile-globally-ignored-directories "target")
   (setq projectile-project-root-functions
-        '(
-          projectile-root-local
+        '(projectile-root-local
           projectile-root-top-down
           projectile-root-bottom-up
-          projectile-root-top-down-recurring
-          )))
+          projectile-root-top-down-recurring)))
 
 
 (use-package ace-window
@@ -50,8 +48,7 @@
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
-(use-package transpose-frame
-  :bind (( "C-c t" . transpose-frame)))
+(use-package transpose-frame :bind (( "C-c t" . transpose-frame)))
 
 
 (use-package avy

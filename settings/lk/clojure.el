@@ -36,9 +36,10 @@
 (use-package clojure-mode-extra-font-locking)
 
 (use-package monroe
-  :after (clojure-mode)
-  :init (require 'monroe)
-  :config (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
+  :init
+  (require 'monroe)
+  :config
+  (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
   :bind (:map clojure-mode-map
               ("C-x c j" . monroe-nrepl-server-start)
               ("C-x c m" . monroe)
@@ -68,22 +69,6 @@
                ("C-x c s" . lk/clojure-scratch)
                ("C-x c i" . lk/init-clojure-scratch)
                ("C-x c s" . lk/clojure-scratch))))
-
-
-
-
-;; add compojure support
-(define-clojure-indent
-  (ns 1)
-  (defroutes 'defun)
-  (GET 2)
-  (POST 2)
-  (PUT 2)
-  (DELETE 2)
-  (HEAD 2)
-  (ANY 2)
-  (context 2))
-
 
 (provide 'lk/clojure)
 ;;; clojure.el ends here
