@@ -1,4 +1,4 @@
-{:repl {:dependencies [[org.clojars.lukaszkorecki/rumble "0.1.0-SNAPSHOT-5"]
+{:repl {:dependencies [[org.clojars.lukaszkorecki/rumble "0.1.0-SNAPSHOT-6"]
                        ^:displace [nrepl "0.9.0"]]
         :repl-options {:color false}}
  :user {:dependencies [^:displace [org.clojure/clojure "1.11.1"]
