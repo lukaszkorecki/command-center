@@ -22,11 +22,11 @@
  mode-line-format
  (list
   '(:eval (vc-status-mode-line))
+
   ;; buffername, line, column
   "| %b | L:%l C:%c | "
   ;; major mode
-  '(:eval (propertize "%m " 'face 'font-lock-constant-face))
-
+  '(:eval (propertize "%m " 'face 'font-lock-constant-face)
   ;; modified * / RO % / no changes -
   '(:eval (propertize " %*" 'face 'font-lock-warning-face))
 

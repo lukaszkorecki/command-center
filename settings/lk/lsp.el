@@ -30,7 +30,7 @@
 (setq lk/project-files
       '("project.clj" "deps.edn"  "Gemfile"  "package.json" "Makefile" "main.tf" ".git"))
 
-(defun project-find-root (path)
+(defun lk/project-find-root (path)
   "Search up the PATH for known project file markers. Throws an error if found path is
   equal to users home directory"
   (when-let ((root (first
@@ -41,15 +41,13 @@
                         (locate-dominating-file default-directory f))
                       lk/project-files)))))
     (message (format "Found root %s for path %s" root path))
-
     (when (string-equal (expand-file-name root) (getenv "HOME"))
       (message "Root folder is equal to HOME!")
       (throw 'lk/invalid-project-root t))
-
     (cons 'transient (expand-file-name root))))
 
 
-(add-to-list 'project-find-functions #'project-find-root)
+(add-to-list 'project-find-functions #'lk/project-find-root)
 
 (provide 'lk/lsp)
 ;;; lsp.el ends here

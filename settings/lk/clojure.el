@@ -8,10 +8,11 @@
 (defun lk/init-clojure-scratch ()
   (interactive)
   (with-current-buffer (get-buffer-create lk/clj-scratch-name)
-    (clojure-mode)
-    (message (pwd))
-    (insert-file-contents "~/.emacs.d/etc/repl.clj")
-    (current-buffer)))
+    (let* ((root (lk/project-find-root (or default-directory "."))))
+      (clojure-mode)
+      (insert-file-contents
+       (file-relative-name "scratch.clj" project-project-root))
+      (current-buffer))))
 
 (defun lk/clojure-scratch ()
   (interactive)
@@ -36,10 +37,8 @@
 (use-package clojure-mode-extra-font-locking)
 
 (use-package monroe
-  :init
-  (require 'monroe)
-  :config
-  (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
+  :init (require 'monroe)
+  :config (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
   :bind (:map clojure-mode-map
               ("C-x c j" . monroe-nrepl-server-start)
               ("C-x c m" . monroe)

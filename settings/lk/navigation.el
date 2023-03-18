@@ -39,6 +39,9 @@
 (use-package ace-window
   :init (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-ignore-current t)
+  (setq aw-dispatch-always t)
+  (setq aw-minibuffer-flag t)
+  (set-face-foreground 'aw-background-face "gray70")
   (add-hook 'term-mode-hook
             (lambda ()
               (define-key term-raw-map (kbd "M-o") 'ace-window)))
