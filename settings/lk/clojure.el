@@ -11,7 +11,7 @@
     (let* ((root (lk/project-find-root (or default-directory "."))))
       (clojure-mode)
       (insert-file-contents
-       (file-relative-name "scratch.clj" project-project-root))
+       (file-relative-name "scratch.clj" projectile-project-root))
       (current-buffer))))
 
 (defun lk/clojure-scratch ()
@@ -36,16 +36,24 @@
 
 (use-package clojure-mode-extra-font-locking)
 
+(defun lk/failed-tests-in-monroe-repl ()
+  (interactive)
+  (swiper "FAIL in "))
+
 (use-package monroe
   :init (require 'monroe)
   :config (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
   :bind (:map clojure-mode-map
-              ("C-x c j" . monroe-nrepl-server-start)
-              ("C-x c m" . monroe)
-              ("C-c C-z" . monroe-switch-to-repl)
-              ("C-c C-l" . monroe-load-file)
-              (("C-x c m" . monroe)
-               (("C-x c l" . lk/init-clojure-scratch)))))
+              (("C-x c j" . monroe-nrepl-server-start)
+               ("C-x c m" . monroe)
+               ("C-c C-z" . monroe-switch-to-repl)
+               ("C-c C-l" . monroe-load-file)
+               ("C-x c m" . monroe)
+               ("C-x c l" . lk/init-clojure-scratch)))
+
+  (:map monroe-mode-map
+        (("C-c n i " . lk/failed-tests-in-monroe-repl)
+         ("C-x c s " . lk/clojure-scratch ))))
 
 
 (defun lk/monroe-kill-all ()
