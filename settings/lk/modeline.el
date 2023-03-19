@@ -26,11 +26,12 @@
   ;; buffername, line, column
   "| %b | L:%l C:%c | "
   ;; major mode
-  '(:eval (propertize "%m " 'face 'font-lock-constant-face)
-  ;; modified * / RO % / no changes -
-  '(:eval (propertize " %*" 'face 'font-lock-warning-face))
+  '(:eval
+    (propertize "%m " 'face 'font-lock-constant-face)
+    ;; modified * / RO % / no changes -
+    '(:eval (propertize " %*" 'face 'font-lock-warning-face))
 
-  '(global-mode-string global-mode-string)))
+    '(global-mode-string global-mode-string))))
 
 
 (provide 'lk/modeline)
