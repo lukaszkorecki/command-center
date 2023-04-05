@@ -3,16 +3,12 @@
 ;; inf-clojure/monroe based clj-scratch buffer
 ;; Adopted from cider's scratch
 ;;; Code:
-(defconst lk/clj-scratch-name "*clj-scratch*")
+(defconst lk/clj-scratch-name "scratch.clj")
 
 (defun lk/init-clojure-scratch ()
   (interactive)
-  (with-current-buffer (get-buffer-create lk/clj-scratch-name)
     (let* ((root (lk/project-find-root (or default-directory "."))))
-      (clojure-mode)
-      (insert-file-contents
-       (file-relative-name "scratch.clj" projectile-project-root))
-      (current-buffer))))
+      (find-file (format "%s/%s" root lk/clj-scratch-name))))
 
 (defun lk/clojure-scratch ()
   (interactive)
