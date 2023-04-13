@@ -7,8 +7,14 @@
 
 (defun lk/init-clojure-scratch ()
   (interactive)
-    (let* ((root (lk/project-find-root (or default-directory "."))))
-      (find-file (format "%s/%s" root lk/clj-scratch-name))))
+  (let* ((project-root (projectile-project-root))
+         (scratch-file (concat project-root "scratch.clj")))
+    (if (file-exists-p scratch-file)
+        (find-file scratch-file)
+      (progn
+        (find-file scratch-file)))
+    (clojure-mode)))
+
 
 (defun lk/clojure-scratch ()
   (interactive)
