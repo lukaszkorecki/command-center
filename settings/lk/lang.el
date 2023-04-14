@@ -118,10 +118,21 @@
 
 
 (use-package origami
+  :init (global-origami-mode)
+  :bind (("C-c o f" . origami-toggle-node )))
+
+(use-package dash-at-point
+  :ensure t
   :init
-  (global-origami-mode)
+  (add-hook 'clojure-mode
+            (lambda () (setq dash-at-point-docset "clojure")))
+
+  (add-hook 'terraform-mode
+            (lambda () (setq dash-at-point-docset "terraform")))
+
   :bind
- (("C-c o f" . origami-toggle-node )))
+  ("C-c d" . dash-at-point)
+  ("C-c D" . dash-at-point-with-docset))
 
 (provide 'lk/lang)
 ;;; lang.el ends here
