@@ -35,9 +35,10 @@ start-comms:
 	open -g -a Slack
 	open -g -a Calendar
 	open -g -a MailMate
+	open -g -a Linear
 
 stop-comms:
-	pkill -f "(Slack|Calendar|MailMate)"
+	pkill -f "(Slack|Calendar|MailMate|Linear|Dash)"
 
 
 start-dev:

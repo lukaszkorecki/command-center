@@ -6,7 +6,8 @@
 
 
 (use-package company
-  :config (setq company-idle-delay 0.5)
+  :config
+  (setq company-idle-delay 0.5)
   (setq company-show-numbers t)
   (setq company-tooltip-limit 10)
   (setq company-minimum-prefix-length 2)
@@ -20,6 +21,10 @@
 (use-package yasnippet
   :init (yas-global-mode t)
   :bind (("C-c i" . yas-insert-snippet)))
+
+(use-package company-tabnine
+  :ensure t
+  :init (add-to-list 'company-backends #'company-tabnine))
 
 (provide 'lk/autocomplete)
 
