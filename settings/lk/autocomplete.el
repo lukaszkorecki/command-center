@@ -22,9 +22,18 @@
   :init (yas-global-mode t)
   :bind (("C-c i" . yas-insert-snippet)))
 
-(use-package company-tabnine
+(use-package copilot
+  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
-  :init (add-to-list 'company-backends #'company-tabnine))
+  :init
+   (add-hook 'clojure-mode-hook 'copilot-mode)
+   (add-hook 'typescript-mode-hook 'copilot-mode)
+   (add-hook 'shell-mode-hook 'copilot-mode)
+   (add-hook 'terraform-mode-hook 'copilot-mode)
+   (add-hook 'ruby-mode-hook 'copilot-mode)
+
+   :bind
+   (("C-c C-t" . copilot-accept-completion)))
 
 (provide 'lk/autocomplete)
 
