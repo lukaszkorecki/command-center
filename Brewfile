@@ -2,6 +2,7 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
 tap 'borkdude/brew'
+tap 'd12frosted/emacs-plus'
 
 # core language packages
 
@@ -27,7 +28,10 @@ brew 'borkdude/brew/clj-kondo'
 brew 'leiningen'
 brew 'clojure-lsp/brew/clojure-lsp-native'
 
-# Vterm stuff, for Emacs
+# Emacs
 brew 'libvterm'
 brew 'cmake'
-brew 'libpq', link: true # add psql cli, BUT NOT Postgres itself
+brew 'emacs-plus@29', %w(--with-poll --with-xwidgets --with-savchenkovaleriy-big-sur-icon)
+
+# psql cli, but without PG itself
+brew 'libpq', link: true
