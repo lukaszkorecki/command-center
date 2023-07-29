@@ -40,7 +40,7 @@
 
 (defun lk/failed-tests-in-monroe-repl ()
   (interactive)
-  (swiper "FAIL in "))
+  (swiper " \\(FAIL\\|ERROR\\) in "))
 
 (use-package monroe
   :init (require 'monroe)
