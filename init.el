@@ -16,6 +16,9 @@
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
 (add-to-list 'exec-path "/opt/homebrew/bin")
 
+;; saner regex
+(require 're-builder)
+(setq reb-re-syntax 'string)
 
 ;; Ensure we can run remote binaries over ssh
 (require 'tramp)
