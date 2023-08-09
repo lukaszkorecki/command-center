@@ -21,8 +21,8 @@
 (setq-default
  mode-line-format
  (list
+  '(:eval (ace-window-display-mode))
   '(:eval (vc-status-mode-line))
-
   ;; buffername, line, column
   "| %b | L:%l C:%c | "
   ;; major mode
@@ -30,7 +30,6 @@
     (propertize "%m " 'face 'font-lock-constant-face)
     ;; modified * / RO % / no changes -
     '(:eval (propertize " %*" 'face 'font-lock-warning-face))
-
     '(global-mode-string global-mode-string))))
 
 

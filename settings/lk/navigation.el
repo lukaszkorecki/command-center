@@ -37,7 +37,7 @@
 
 
 (use-package ace-window
-  :init (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :init (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
   (setq aw-ignore-current t)
   (setq aw-dispatch-always nil)
   (setq aw-minibuffer-flag t)
