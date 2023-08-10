@@ -119,20 +119,17 @@
 (require 'lk/clojure)
 
 
-(use-package origami
-  :init (global-origami-mode)
-  :bind (("C-c o f" . origami-toggle-node )))
+(use-package hl-todo
+  :diminish hl-todo
+  :config (setq hl-todo-highlight-punctuation ":"
+                hl-todo-keyword-faces
+                `(("TODO"       warning bold)
+                  ("FIXME"      error bold)
+                  ("HACK"       font-lock-constant-face bold)
+                  ("XXX"     font-lock-keyword-face bold)
+                  ("NOTE"       success bold)))
+  (add-hook 'prog-mode-hook #'hl-todo-mode))
 
-(use-package dash-at-point
-  :ensure t
-  :init (add-hook 'clojure-mode
-                  (lambda () (setq dash-at-point-docset "clojure")))
-
-  (add-hook 'terraform-mode
-            (lambda () (setq dash-at-point-docset "terraform")))
-
-  :bind ("C-c d" . dash-at-point)
-  ("C-c D" . dash-at-point-with-docset))
 
 (provide 'lk/lang)
 ;;; lang.el ends here

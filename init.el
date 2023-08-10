@@ -37,6 +37,7 @@
 
 
 ;; reduce GC thrash
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 (setq gc-cons-threshold 20000000
       read-process-output-max
       (* 1024 1024))
