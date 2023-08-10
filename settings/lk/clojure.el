@@ -41,7 +41,7 @@
 
 (defun lk/failed-tests-in-monroe-repl ()
   (interactive)
-  (swiper "\\(FAIL\\|ERROR\\) in .*\\(clj\\|java\\)"))
+  (swiper "\\(FAIL\\|ERROR\\) in .*\\\\.\\(clj\\|java\\)"))
 
 (use-package monroe
   :init (require 'monroe)

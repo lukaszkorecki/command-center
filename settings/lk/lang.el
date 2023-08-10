@@ -109,7 +109,9 @@
 
 (use-package elfmt
   :straight (:host github :repo "riscy/elfmt" :branch "master")
-  :bind (:map emacs-lisp-mode-map (("C-x c f" . elfmt))))
+  :bind (:map emacs-lisp-mode-map
+              (("C-x c f" . elfmt)
+               ("C-x c e" . eval-region))))
 
 
 (require 'lk/ruby)
@@ -123,15 +125,13 @@
 
 (use-package dash-at-point
   :ensure t
-  :init
-  (add-hook 'clojure-mode
-            (lambda () (setq dash-at-point-docset "clojure")))
+  :init (add-hook 'clojure-mode
+                  (lambda () (setq dash-at-point-docset "clojure")))
 
   (add-hook 'terraform-mode
             (lambda () (setq dash-at-point-docset "terraform")))
 
-  :bind
-  ("C-c d" . dash-at-point)
+  :bind ("C-c d" . dash-at-point)
   ("C-c D" . dash-at-point-with-docset))
 
 (provide 'lk/lang)
