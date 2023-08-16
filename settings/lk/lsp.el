@@ -3,20 +3,24 @@
 ;;; Only Clojure is fully supported, other languages might be added
 
 (use-package eglot
-  :custom
-  (eglot-confirm-server-initiated-edits nil)
+  :custom (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
-  :config
-  (setq eglot-autoshutdown t)
+  :hook ((clojure-mode . eglot-ensure)
+         (typescript-ts-mode . eglot-ensure)
+         (tsx-ts-mode . eglot-ensure)
+         (ruby-ts-mode . eglot-ensure))
+  :config (setq eglot-autoshutdown t)
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-autoreconnect t)
-  :hook ((clojure-mode . eglot-ensure)
-         (typescript-mode . eglot-ensure)
-         (ruby-mode . eglot-ensure))
+  (cl-pushnew
+   '((tsx-ts-mode) . ("typescript-language-server" "--stdio"))
+   eglot-server-programs
+   :test #'equal)
+
   :bind (("C-c l r r" . eglot-rename)
-        ("C-c l f" . eglot-find-declaration)
-        ("C-c l a" . eglot-code-actions )
-        ("C-c l g" . xref-find-definitions)))
+         ("C-c l f" . eglot-find-declaration)
+         ("C-c l a" . eglot-code-actions )
+         ("C-c l g" . xref-find-definitions)))
 
 (use-package flymake
   :bind (( "C-c e n" . flymake-goto-next-error )
@@ -33,13 +37,13 @@
 (defun lk/project-find-root (path)
   "Search up the PATH for known project file markers. Throws an error if found path is
   equal to users home directory"
-  (when-let ((root (first
-                    (seq-filter
-                     (lambda (s) s)
-                     (mapcar
-                      (lambda (f)
-                        (locate-dominating-file default-directory f))
-                      lk/project-files)))))
+  (when-let ((root
+              (first
+               (seq-filter
+                (lambda (s) s)
+                (mapcar
+                 (lambda (f) (locate-dominating-file default-directory f))
+                 lk/project-files)))))
     (message (format "Found root %s for path %s" root path))
     (when (string-equal (expand-file-name root) (getenv "HOME"))
       (message "Root folder is equal to HOME!")
