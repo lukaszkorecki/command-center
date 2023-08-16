@@ -82,7 +82,7 @@
                               :host github
                               :repo "clojure-emacs/clojure-ts-mode")
 
-  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-ts-mode))
   (add-hook 'clojure-ts-mode-hook #'lk/clj-mode-hook)
   (:map clojure-ts-mode-map
         (("C-x c f" . eglot-format)
