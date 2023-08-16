@@ -26,14 +26,18 @@
 (mapc #'treesit-install-language-grammar
       (mapcar #'car treesit-language-source-alist))
 
+
 (setq major-mode-remap-alist
       '((yaml-mode . yaml-ts-mode)
         (bash-mode . bash-ts-mode)
         (js2-mode . js-ts-mode)
+        (makefile-mode . cmake-ts-mode)
+        (elisp-mode . elisp-ts-mode)
         (typescript-mode . typescript-ts-mode)
         (json-mode . json-ts-mode)
         (css-mode . css-ts-mode)
-        (python-mode . python-ts-mode)))
+        (python-mode . python-ts-mode)
+        (clojure-mode . clojure-ts-mode)))
 
 
 ;; Utils

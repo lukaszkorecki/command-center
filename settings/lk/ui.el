@@ -51,9 +51,7 @@
 (use-package rainbow-delimiters)
 
 
-(setq echo-keystrokes 0.1
-      use-dialog-box nil
-      visible-bell nil)
+(setq echo-keystrokes 0.1 use-dialog-box nil visible-bell nil)
 
 ;; Fix ansi-term rendering
 (add-hook 'term-mode-hook 'my-term-mode-hook)
@@ -78,8 +76,7 @@
 
 (use-package undo-tree
   :init (global-undo-tree-mode nil)
-  :config
-  (setq undo-tree-visualizer-timestamps 't)
+  :config (setq undo-tree-visualizer-timestamps 't)
   (setq undo-tree-auto-save-history nil)
   :bind (("C-c u" . undo-tree-visualize)))
 
@@ -88,18 +85,10 @@
 
 (use-package treemacs-projectile)
 
-(use-package unicode-fonts
-  :config (unicode-fonts-setup))
+(use-package unicode-fonts :config (unicode-fonts-setup))
 
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
-
-
-;; (use-package nano-theme
-;;   :straight '(nano-theme :type git
-;;                          :host github
-;;                          :repo "rougier/nano-theme")
-;;   :init (load-theme 'nano t))
 
 (use-package twilight-bright-theme
   :init (load-theme 'twilight-bright t))
