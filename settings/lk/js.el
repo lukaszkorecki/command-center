@@ -47,7 +47,11 @@
   (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-mode))
   :bind (:map typescript-mode-map
               (( "C-x c v" . lk/eslint-check-current-buffer)
-               ( "C-x c f" . eglot-format ))))
+               ( "C-x c f" . eglot-format )))
+
+  (:map tsx-ts-mode-map
+        (( "C-x c v" . lk/eslint-check-current-buffer)
+         ( "C-x c f" . eglot-format ))))
 
 
 ;; (define-derived-mode typescript-tsx-mode typescript-mode "tsx")

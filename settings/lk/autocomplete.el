@@ -28,6 +28,7 @@
   :init
    (add-hook 'clojure-mode-hook 'copilot-mode)
    (add-hook 'typescript-ts-mode-hook 'copilot-mode)
+   (add-hook 'tsx-ts-mode-hook 'copilot-mode)
    (add-hook 'terraform-mode-hook 'copilot-mode)
    (add-hook 'python-ts-mode-hook 'copilot-mode)
    (add-hook 'go-ts-mode-hook 'copilot-mode)
