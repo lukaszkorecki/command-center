@@ -48,3 +48,4 @@ straight/
 .cpcache
 /etc/todo/.clj-kondo/
 /etc/todo/.lsp/
+/tree-sitter/
