@@ -81,7 +81,8 @@
   :bind (("C-c u" . undo-tree-visualize)))
 
 (use-package treemacs
-  :init (setq treemacs-space-between-root-nodes nil))
+  :init (setq treemacs-space-between-root-nodes nil)
+  (treemacs-project-follow-mode t))
 
 (use-package treemacs-projectile)
 
