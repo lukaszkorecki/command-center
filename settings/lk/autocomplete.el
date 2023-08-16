@@ -27,11 +27,11 @@
   :ensure t
   :init
    (add-hook 'clojure-mode-hook 'copilot-mode)
-   (add-hook 'typescript-mode-hook 'copilot-mode)
+   (add-hook 'typescript-ts-mode-hook 'copilot-mode)
    (add-hook 'terraform-mode-hook 'copilot-mode)
-   (add-hook 'python-mode-hook 'copilot-mode)
-   (add-hook 'go-mode-hook 'copilot-mode)
-   (add-hook 'ruby-mode-hook 'copilot-mode)
+   (add-hook 'python-ts-mode-hook 'copilot-mode)
+   (add-hook 'go-ts-mode-hook 'copilot-mode)
+   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
 
    :bind
    (("C-c C-t" . copilot-accept-completion)))
