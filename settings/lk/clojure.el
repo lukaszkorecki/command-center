@@ -11,7 +11,8 @@
          (scratch-file (concat project-root "scratch.clj")))
     (if (file-exists-p scratch-file)
         (find-file scratch-file)
-      (progn (find-file scratch-file)))
+      (progn
+        (find-file scratch-file)))
     (clojure-mode)))
 
 
@@ -69,6 +70,8 @@
   (clojure-enable-monroe))
 
 (use-package clojure-mode
+  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
   :bind (:map clojure-mode-map
               (("C-x c f" . eglot-format)
                ("C-x c v" . lk/clojure-check-current-buffer)
@@ -76,22 +79,6 @@
                ("C-x c s" . lk/clojure-scratch)
                ("C-x c i" . lk/init-clojure-scratch)
                ("C-x c s" . lk/clojure-scratch))))
-
-(use-package clojure-ts-mode
-  :straight '(clojure-ts-mode :type git
-                              :host github
-                              :repo "clojure-emacs/clojure-ts-mode")
-
-  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-ts-mode))
-  (add-hook 'clojure-ts-mode-hook #'lk/clj-mode-hook)
-  (:map clojure-ts-mode-map
-        (("C-x c f" . eglot-format)
-         ("C-x c v" . lk/clojure-check-current-buffer)
-         ("C-x c p" . lk/clojure-check-project)
-         ("C-x c s" . lk/clojure-scratch)
-         ("C-x c i" . lk/init-clojure-scratch)
-         ("C-x c s" . lk/clojure-scratch)))
-  :ensure t)
 
 (provide 'lk/clojure)
 ;;; clojure.el ends here

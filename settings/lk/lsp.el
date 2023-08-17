@@ -3,20 +3,26 @@
 ;;; Only Clojure is fully supported, other languages might be added
 
 (use-package eglot
-  :custom
-  (eglot-confirm-server-initiated-edits nil)
+  :custom (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
 
-  :hook ((clojure-ts-mode . eglot-ensure)
+  :hook ((clojure-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
-         (tsx-ts-mode . eglot-ensure)
-         (ruby-ts-mode . eglot-ensure))
+         (tsx-ts-mode . eglot-ensure))
   :config (setq eglot-autoshutdown t)
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-autoreconnect t)
-  (cl-pushnew '((tsx-ts-mode) . ("typescript-language-server" "--stdio")) eglot-server-programs :test #'equal)
-  (cl-pushnew '((typescript-ts-mode) . ("typescript-language-server" "--stdio")) eglot-server-programs :test #'equal)
-  (cl-pushnew '((clojure-ts-mode) . ("clojure-lsp")) eglot-server-programs :test #'equal)
+  (cl-pushnew
+   '((tsx-ts-mode)
+     .
+     ("typescript-language-server" "--stdio"))
+   eglot-server-programs :test #'equal)
+  (cl-pushnew
+   '((typescript-ts-mode)
+     .
+     ("typescript-language-server" "--stdio"))
+   eglot-server-programs :test #'equal)
+
 
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l f" . eglot-find-declaration)

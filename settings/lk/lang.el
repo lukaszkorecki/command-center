@@ -5,39 +5,16 @@
 
 ;;; Code:
 
-;; Treesitter
-
-(setq treesit-language-source-alist
-      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-        (cmake "https://github.com/uyha/tree-sitter-cmake")
-        (css "https://github.com/tree-sitter/tree-sitter-css")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (html "https://github.com/tree-sitter/tree-sitter-html")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-        (json "https://github.com/tree-sitter/tree-sitter-json")
-        (make "https://github.com/alemuller/tree-sitter-make")
-        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-        (python "https://github.com/tree-sitter/tree-sitter-python")
-        (toml "https://github.com/tree-sitter/tree-sitter-toml")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-        (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-
-(mapc #'treesit-install-language-grammar
-      (mapcar #'car treesit-language-source-alist))
+;; (use-package bash-ts-mode
+;;   :straight  (:host github :repo "tree-sitter/tree-sitter-bash")
+;;   :ensure t
+;;   :init (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode)))
 
 
-(setq major-mode-remap-alist
-      '((yaml-mode . yaml-ts-mode)
-        (bash-mode . bash-ts-mode)
-        (js2-mode . js-ts-mode)
-        (makefile-mode . cmake-ts-mode)
-        (elisp-mode . elisp-ts-mode)
-        (typescript-mode . typescript-ts-mode)
-        (json-mode . json-ts-mode)
-        (css-mode . css-ts-mode)
-        (python-mode . python-ts-mode)
-        (clojure-mode . clojure-ts-mode)))
+(use-package elisp-ts-mode
+  :straight  (:host github :repo "Wilfred/tree-sitter-elisp")
+  :ensure t
+  :init (add-to-list 'major-mode-remap-alist '(eslisp-mode . elisp-ts-mode)))
 
 
 ;; Utils
@@ -55,11 +32,18 @@
 (use-package python-mode
   :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
+
+(use-package markdown-ts-mode
+  :straight (:host github :repo "ikatyang/tree-sitter-markdown")
+  :ensure t
+  :init
+  (add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode)))
+
 (use-package poly-markdown
   :init :mode
   (("README\\.md\\'" . gfm-mode)
-   ("\\.md$" . markdown-mode)
-   ("\\.markdown$" . markdown-mode)))
+   ("\\.md$" . markdown-ts-mode)
+   ("\\.markdown$" . markdown-ts-mode)))
 
 (use-package edit-indirect)
 
@@ -67,7 +51,6 @@
   :init (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
 
 (use-package dockerfile-mode
-
   :init (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
 
 (use-package restclient)
@@ -76,32 +59,27 @@
   :bind (:map terraform-mode-map (("C-x c f" . terraform-format-buffer))))
 
 
-(use-package scss-mode
-  :init (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
-  (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
-  :config (setq css-indent-offset 2))
-
-
-(use-package rainbow-mode
-  :init (add-to-list 'auto-mode-alist '("\\.scss$" . rainbow-mode))
-  (add-to-list 'auto-mode-alist '("\\.css$" . rainbow-mode))
-  (rainbow-mode))
-
 (use-package nginx-mode :init (setq nginx-indent-offset 2))
 
-(use-package yaml-mode
-  :init (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
+(use-package yaml-ts-mode
+  :straight (:host github :repo "ikatyang/tree-sitter-yaml")
+  :ensure t
+  :init
+  (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
 
-(use-package json-mode
-
-  :init (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
+(use-package json-ts-mode
+  :init
+  (add-to-list 'major-mode-remap-alist '(json-mode . json-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
 ;; web-mode stuff
 (use-package web-mode
-  :init (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))

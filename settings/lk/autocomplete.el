@@ -6,8 +6,7 @@
 
 
 (use-package company
-  :config
-  (setq company-idle-delay 0.5)
+  :config (setq company-idle-delay 0.5)
   (setq company-show-numbers t)
   (setq company-tooltip-limit 10)
   (setq company-minimum-prefix-length 2)
@@ -25,17 +24,16 @@
 (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
-  :init
-   (add-hook 'clojure-ts-mode-hook 'copilot-mode)
-   (add-hook 'typescript-ts-mode-hook 'copilot-mode)
-   (add-hook 'tsx-ts-mode-hook 'copilot-mode)
-   (add-hook 'terraform-mode-hook 'copilot-mode)
-   (add-hook 'python-ts-mode-hook 'copilot-mode)
-   (add-hook 'go-ts-mode-hook 'copilot-mode)
-   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
+  :init (add-hook 'elisp-mode-hook 'copilot-mode)
+  (add-hook 'clojure-mode-hook 'copilot-mode)
+  (add-hook 'typescript-ts-mode-hook 'copilot-mode)
+  (add-hook 'tsx-ts-mode-hook 'copilot-mode)
+  (add-hook 'terraform-mode-hook 'copilot-mode)
+  (add-hook 'python-ts-mode-hook 'copilot-mode)
+  (add-hook 'go-ts-mode-hook 'copilot-mode)
+  (add-hook 'ruby-ts-mode-hook 'copilot-mode)
 
-   :bind
-   (("C-c C-t" . copilot-accept-completion)))
+  :bind (("C-c C-t" . copilot-accept-completion)))
 
 (provide 'lk/autocomplete)
 
