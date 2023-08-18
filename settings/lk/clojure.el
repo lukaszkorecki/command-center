@@ -11,8 +11,7 @@
          (scratch-file (concat project-root "scratch.clj")))
     (if (file-exists-p scratch-file)
         (find-file scratch-file)
-      (progn
-        (find-file scratch-file)))
+      (progn (find-file scratch-file)))
     (clojure-mode)))
 
 
@@ -69,6 +68,26 @@
   (require 'monroe)
   (clojure-enable-monroe))
 
+(defun clear-comint-buffer-by-match (buffer-regexp)
+  (let* ((repl-buffers
+          (cl-remove-if-not
+           (lambda (buffer)
+             (string-match-p buffer-regexp (buffer-name buffer)))
+           (buffer-list))))
+    (dolist (repl-buffer repl-buffers)
+      (with-current-buffer repl-buffer (comint-clear-buffer)))))
+
+(defun lk/clear-monroe-repl-from-anywhere ()
+  "Clear the NREPL server buffer."
+  (interactive)
+  (clear-comint-buffer-by-match  "\\*monroe: localhost:.*\\*"))
+
+
+(defun lk/clear-monroe-server-buffer-from-anywhere ()
+  "Clear the Clojure REPL buffer."
+  (interactive)
+  (clear-comint-buffer-by-match  ".*monroe nrepl server.*"))
+
 (use-package clojure-mode
   :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
@@ -78,7 +97,9 @@
                ("C-x c p" . lk/clojure-check-project)
                ("C-x c s" . lk/clojure-scratch)
                ("C-x c i" . lk/init-clojure-scratch)
-               ("C-x c s" . lk/clojure-scratch))))
+               ("C-x c s" . lk/clojure-scratch)
+               ("C-x c c" . lk/clear-monroe-repl-from-anywhere)
+               ("C-x c C" . lk/clear-monroe-server-buffer-from-anywhere))))
 
 (provide 'lk/clojure)
 ;;; clojure.el ends here
