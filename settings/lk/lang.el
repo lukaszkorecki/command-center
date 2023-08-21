@@ -12,9 +12,10 @@
 
 
 (use-package elisp-ts-mode
-  :straight  (:host github :repo "Wilfred/tree-sitter-elisp")
+  :straight (:host github :repo "Wilfred/tree-sitter-elisp")
   :ensure t
-  :init (add-to-list 'major-mode-remap-alist '(eslisp-mode . elisp-ts-mode)))
+  :init (add-to-list 'major-mode-remap-alist
+                     '(eslisp-mode . elisp-ts-mode)))
 
 
 ;; Utils
@@ -36,8 +37,8 @@
 (use-package markdown-ts-mode
   :straight (:host github :repo "ikatyang/tree-sitter-markdown")
   :ensure t
-  :init
-  (add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode)))
+  :init (add-to-list 'major-mode-remap-alist
+                     '(markdown-mode . markdown-ts-mode)))
 
 (use-package poly-markdown
   :init :mode
@@ -64,22 +65,20 @@
 (use-package yaml-ts-mode
   :straight (:host github :repo "ikatyang/tree-sitter-yaml")
   :ensure t
-  :init
-  (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
+  :init (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
 
 (use-package json-ts-mode
-  :init
-  (add-to-list 'major-mode-remap-alist '(json-mode . json-ts-mode))
+  :init (add-to-list 'major-mode-remap-alist '(json-mode . json-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
-  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
+  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+  :bind (:map json-ts-mode-map (("C-x c f" . json-pretty-print-buffer ))))
 
 ;; web-mode stuff
 (use-package web-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
