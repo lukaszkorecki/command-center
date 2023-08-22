@@ -16,14 +16,14 @@
                    :path "tsx/src")
   :ensure t
   :init (add-to-list 'auto-mode-alist '("\\.tsx$" . tsx-ts-mode))
-  :bind (:map tsx-ts-mode-map (( "C-x c f" . eglot-format ))))
+  :bind (:map tsx-ts-mode-map (( "C-x c f" . eglot-format-buffer ))))
 
 (use-package typescript-ts-mode
   :init (setq typescript-indent-level 2)
   (add-to-list 'majo-mode-remap-alist
                '(typescript-mode . typescript-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
-  :bind (:map typescript-ts-mode-map (( "C-x c f" . eglot-format ))))
+  :bind (:map typescript-ts-mode-map (( "C-x c f" . eglot-format-buffer ))))
 
 
 
