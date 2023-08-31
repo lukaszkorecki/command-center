@@ -72,8 +72,8 @@
 
 (use-package json-ts-mode
   :init (add-to-list 'major-mode-remap-alist '(json-mode . json-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
-  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+  (add-to-list 'auto-mode-alist '("\\.avsc$" . json-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.json$" . json-ts-mode))
   :bind (:map json-ts-mode-map (("C-x c f" . json-pretty-print-buffer ))))
 
 ;; web-mode stuff
