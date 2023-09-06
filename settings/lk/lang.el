@@ -93,6 +93,12 @@
   (lk/invoke-compile-tool-in-project "docker run --rm -v $PWD:/mnt koalaman/shellcheck:stable %s"))
 
 
+(add-hook 'sh-mode-hook
+          (lambda ()
+            (progn
+              (copilot-mode 't)
+              (keymap-local-unset "C-c C-t"))))
+
 
 (use-package go-mode
   :init (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
