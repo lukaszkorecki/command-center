@@ -38,9 +38,9 @@
 (use-package clojure-mode-extra-font-locking)
 
 
-(defun lk/failed-tests-in-monroe-repl ()
+1(defun lk/failed-tests-in-monroe-repl ()
   (interactive)
-  (swiper "\\(FAIL\\|ERROR\\) in .*\\\\.\\(clj\\|java\\)"))
+  (swiper "\\(FAIL\\|ERROR\\) in .*"))
 
 (use-package monroe
   :init (require 'monroe)

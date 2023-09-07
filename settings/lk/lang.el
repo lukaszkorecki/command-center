@@ -37,8 +37,10 @@
 (use-package markdown-ts-mode
   :straight (:host github :repo "ikatyang/tree-sitter-markdown")
   :ensure t
-  :init (add-to-list 'major-mode-remap-alist
-                     '(markdown-mode . markdown-ts-mode)))
+  :init
+  (add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode))
+  (add-to-list 'markdown-mode-alist '("\\.md$" . markdown-mode))
+  (keymap-local-unset "C-c C-t"))
 
 (use-package poly-markdown
   :init :mode
