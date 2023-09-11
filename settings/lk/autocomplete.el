@@ -24,13 +24,15 @@
 (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
-  :init (add-hook 'elisp-mode-hook 'copilot-mode)
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
   (add-hook 'clojure-mode-hook 'copilot-mode)
   (add-hook 'typescript-ts-mode-hook 'copilot-mode)
   (add-hook 'tsx-ts-mode-hook 'copilot-mode)
   (add-hook 'terraform-mode-hook 'copilot-mode)
   (add-hook 'python-ts-mode-hook 'copilot-mode)
   (add-hook 'go-ts-mode-hook 'copilot-mode)
+  (add-hook 'json-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
 
   :bind (("C-c C-t" . copilot-accept-completion)))

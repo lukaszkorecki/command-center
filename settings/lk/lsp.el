@@ -23,11 +23,17 @@
      ("typescript-language-server" "--stdio"))
    eglot-server-programs :test #'equal)
 
+  (cl-pushnew
+   '((terraform-mode)
+     .
+     ("terraform-ls" "serve"))
+   eglot-server-programs :test #'equal)
 
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l f" . eglot-find-declaration)
          ("C-c l a" . eglot-code-actions )
-         ("C-c l g" . xref-find-definitions)))
+         ("C-c l g" . xref-find-definitions)
+         ("C-c f f" . eglot-format-buffer )))
 
 (use-package flymake
   :bind (( "C-c e n" . flymake-goto-next-error )

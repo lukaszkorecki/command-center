@@ -4,6 +4,7 @@ tap "homebrew/core"
 tap 'borkdude/brew'
 tap 'd12frosted/emacs-plus'
 
+
 # core language packages
 
 brew "node"
@@ -20,7 +21,10 @@ brew 'borkdude/brew/jet'
 brew 'gh'
 brew 'hub'
 
+# infra
+
 brew 'dopplerhq/doppler/doppler'
+brew "hashicorp/tap/terraform-ls"
 
 # language specific tooling
 
