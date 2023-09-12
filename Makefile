@@ -10,8 +10,7 @@ setup: brew-bundle zsh-completion configs
 
 configs:
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
-	@ln -fvs ~/.emacs.d/etc/bashrc ~/.bashrc
-	@ln -fvs ~/.emacs.d/etc/bashrc ~/.profile
+	@ln -fvs ~/.emacs.d/etc/zshrc ~/.profile
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
 	@ln -fvs ~/.emacs.d/etc/gitignore_global ~/.gitignore_global
 	@ln -fvs ~/.emacs.d/init.el ~/.emacs

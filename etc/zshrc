@@ -94,20 +94,7 @@ setopt incappendhistory
 
 # Load 1password CLI stuff
 if [[ -e $(which op) ]] ; then
-    # get previous session from the environment
-    sessToken=$(security find-generic-password -s cli -a 1pcli -w || true)
-    # if not found, get a new one
-    if [[ "$sessToken" = "" ]] ; then
-        sessToken=$(op signin -f --raw)
-    fi
-
-    # and now re-auth
-    eval $(op signin -f --session "$sessToken")
-
-    # store token, keychain doesn't suport updates so we delete
-    # and store again
-    security delete-generic-password -s cli -a 1pcli 2>&1 || true
-    security add-generic-password -s cli -a 1pcli -w "$sessToken"
+#     op signin
 else
     echo "1password-cli not installed"
 fi
