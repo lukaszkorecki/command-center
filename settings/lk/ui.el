@@ -95,6 +95,12 @@
   :init (load-theme 'twilight-bright t))
 
 
+(defun lk/clean-up-buffers ()
+  (interactive)
+  (kill-matching-buffers ".*magit.*" 't 't)
+  (kill-matching-buffers ".*grep.*" 't 't)
+  (kill-matching-buffers ".*flymake.*" 't 't))
+
 
 (provide 'lk/ui)
 ;;; ui.el ends here
