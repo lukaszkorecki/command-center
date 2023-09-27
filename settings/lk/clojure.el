@@ -8,7 +8,7 @@
 (defun lk/init-clojure-scratch ()
   (interactive)
   (let* ((project-root (projectile-project-root))
-         (scratch-file (concat project-root "scratch.clj")))
+         (scratch-file (concat project-root lk/clj-scratch-name)))
     (if (file-exists-p scratch-file)
         (find-file scratch-file)
       (progn (find-file scratch-file)))
@@ -19,21 +19,6 @@
   (interactive)
   (pop-to-buffer
    (or (get-buffer lk/clj-scratch-name) (lk/init-clojure-scratch))))
-
-(defun lk/clojure-format-current-buffer ()
-  (interactive)
-  (lk/invoke-compile-tool-in-project "clojure-lsp format --filenames %s"))
-
-(defun lk/clojure-check-project ()
-  (interactive)
-  (let* ((dir (projectile-acquire-root))
-         (cmd-string (format "clj-kondo --parallel --lint %s" dir)))
-    (lk/invoke-compile-tool-in-project cmd-string)))
-
-(defun lk/clojure-check-current-buffer ()
-  (interactive)
-  (lk/invoke-compile-tool-in-project  "clj-kondo --lint %s 2>&1"))
-
 
 (use-package clojure-mode-extra-font-locking)
 
@@ -88,16 +73,38 @@
   (interactive)
   (clear-comint-buffer-by-match  ".*monroe nrepl server.*"))
 
+
+(defun lk/eval-test ()
+  (interactive)
+  (message "ret %s"
+           (monroe-input-sender
+            (get-buffer-process (monroe-repl-buffer))
+            "(+ 1 2)")))
+
+(defun lk/monroe-portal ()
+  (interactive)
+  ;; initiate portal session
+  (let* ((project-root (monroe-get-directory))
+         (default-directory project-root)
+         (portal-url-file (format "%s.portal-url" project-root)))
+    (monroe-input-sender
+     (get-buffer-process (monroe-repl-buffer))
+     (format "(require 'portal.api) (spit \"%s\" (portal.api/url (portal.api/open {:launcher false})))"
+             portal-url-file))
+    (sleep-for 1) ;; uh... this is a hack
+    (let ((url (with-temp-buffer
+                 (insert-file-contents portal-url-file)
+                 (buffer-string))))
+      (xwidget-webkit-browse-url url))))
+
 (use-package clojure-mode
   :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
   :bind (:map clojure-mode-map
               (("C-x c f" . eglot-format)
-               ("C-x c v" . lk/clojure-check-current-buffer)
-               ("C-x c p" . lk/clojure-check-project)
+               ("C-x c p" . lk/monroe-portal)
                ("C-x c s" . lk/clojure-scratch)
                ("C-x c i" . lk/init-clojure-scratch)
-               ("C-x c s" . lk/clojure-scratch)
                ("C-x c c" . lk/clear-monroe-repl-from-anywhere)
                ("C-x c C" . lk/clear-monroe-server-buffer-from-anywhere))))
 
