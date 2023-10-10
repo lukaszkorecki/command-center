@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-/opt/homebrew/bin/bb -cp ~/.emacs.d/etc/todo ~/.emacs.d/etc/todo/todo.clj "$*"

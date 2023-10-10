@@ -1,5 +1,5 @@
 #!/usr/bin/env bb
-
+;; -*- mode: clojure -*-
 (require '[babashka.fs :as fs]
          '[clojure.string :as str]
          '[clojure.pprint :refer [pprint]]
@@ -9,14 +9,11 @@
 (def data-url
   "https://raw.githubusercontent.com/muan/unicode-emoji-json/main/data-by-emoji.json")
 
-
 (def cache-dir
   (fs/expand-home "~/.config/emoji/"))
 
-
 (def cache-location
   (str cache-dir "data-by-emoji.json"))
-
 
 (defn match-emoji [emoji-data search]
   (let [searchable (->> emoji-data
@@ -24,27 +21,23 @@
                                (assoc data :emoji (name em)))))]
     (if (string? search)
       (filter #(re-find (re-pattern search) (:slug %)) searchable)
-      (take 10 searchable))
-  ))
-
+      (take 10 searchable))))
 
 (defn as-alfred [matches]
   (json/generate-string
    {:items (mapv #(hash-map
-                  :title (:emoji %)
-                  :autocomplete (:emoji %)
-                  :arg [(:emoji %) (format ":%s:" (:slug %))]
-                  :match (:slug %)
-                  :variables {:emoji (:emoji %)}
-                  )
-                matches)}))
+                   :title (:emoji %)
+                   :autocomplete (:emoji %)
+                   :arg [(:emoji %) (format ":%s:" (:slug %))]
+                   :match (:slug %)
+                   :variables {:emoji (:emoji %)})
+                 matches)}))
 
 (defn as-emoji [matches]
   (str/join "\n" (mapv #(:emoji %) matches)))
 
 (defn as-slug [matches]
-  (str/join "\n" (mapv #(format ":%s:" (:slug %))  matches)))
-
+  (str/join "\n" (mapv #(format ":%s:" (:slug %)) matches)))
 
 (defn main [args]
   (let [{:keys [options errors summary]} (parse-opts args
@@ -88,8 +81,6 @@
                               (pprint matched)))]
 
       (println formatted))))
-
-
 
 ;; entrypoint
 (main *command-line-args*)

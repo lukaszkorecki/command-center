@@ -1,0 +1,5 @@
+{:aliases {:nrepl {:main-opts ["-m" "nrepl.cmdline"]
+                   :extra-deps {r/r {:local/root "/Users/lukasz/.emacs.d/etc/rumble"}}}
+
+           :repl {:main-opts ["-m" "clojure.main"]
+                  :extra-deps {r/r {:local/root "/Users/lukasz/.emacs.d/etc/rumble"}}}}}

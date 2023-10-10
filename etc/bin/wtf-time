@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-date
-sudo chronyd -q 'server pool.ntp.org iburst'
-date
