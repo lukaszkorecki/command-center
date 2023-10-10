@@ -23,7 +23,7 @@
 (use-package clojure-mode-extra-font-locking)
 
 
-1(defun lk/failed-tests-in-monroe-repl ()
+(defun lk/failed-tests-in-monroe-repl ()
   (interactive)
   (swiper "\\(FAIL\\|ERROR\\) in .*"))
 
@@ -73,13 +73,32 @@
   (interactive)
   (clear-comint-buffer-by-match  ".*monroe nrepl server.*"))
 
+(defun lk/monroe-eval-code-and-callback-with-value (code-str on-value)
+  (message ">>EV %s" (type-of on-value))
+  (monroe-send-eval-string
+   code-str
+   (lambda (response)
+     (monroe-dbind-response response
+                            (id info value status)
+                            (when (member "done" status)
+                              (remhash id monroe-requests))
+                            (when value
+                              (message ">>EV %s -> %s -> %s"
+                                       value
+                                       (type-of on-value)
+                                       (type-of value))
+                              (funcall #'on-value value))))))
 
-(defun lk/eval-test ()
+(defun lk/monroe-portal-2 ()
   (interactive)
-  (message "ret %s"
-           (monroe-input-sender
-            (get-buffer-process (monroe-repl-buffer))
-            "(+ 1 2)")))
+  (lk/monroe-eval-code-and-callback-with-value
+   "(do (require 'portal.api)
+           (portal.api/url
+           (portal.api/open {:window-title \"monroe portal\" :launcher false})))"
+   #'(lambda (url) (xwidget-webkit-browse-url url))))
+
+
+
 
 (defun lk/monroe-portal ()
   (interactive)
@@ -89,12 +108,38 @@
          (portal-url-file (format "%s.portal-url" project-root)))
     (monroe-input-sender
      (get-buffer-process (monroe-repl-buffer))
-     (format "(require 'portal.api) (spit \"%s\" (portal.api/url (portal.api/open {:launcher false})))"
-             portal-url-file))
+     (format
+      "(require 'portal.api)
+         (spit \"%s\"
+           (portal.api/url
+               (portal.api/open {:window-title \"monroe portal\" :launcher false})))"
+      portal-url-file))
     (sleep-for 1) ;; uh... this is a hack
-    (let ((url (with-temp-buffer
-                 (insert-file-contents portal-url-file)
-                 (buffer-string))))
+    (let ((url
+           (with-temp-buffer
+             (insert-file-contents portal-url-file)
+             (buffer-string))))
+      (xwidget-webkit-browse-url url))))
+
+(defun lk/open-portal ()
+  (interactive)
+  ;; initiate portal session
+  (let* ((project-root (locate-dominating-file default-directory "deps.edn"))
+         (default-directory project-root)
+         (portal-url-file  (format ".portal-url" project-root)))
+    ;; (monroe-input-sender
+    ;;  (get-buffer-process (monroe-repl-buffer))
+    ;;  (format
+    ;;   "(require 'portal.api)
+    ;;      (spit \"%s\"
+    ;;        (portal.api/url
+    ;;            (portal.api/open {:window-title \"monroe portal\" :launcher false})))"
+    ;;   portal-url-file))
+    ;; (sleep-for 1) ;; uh... this is a hack
+    (let ((url
+           (with-temp-buffer
+             (insert-file-contents portal-url-file)
+             (buffer-string))))
       (xwidget-webkit-browse-url url))))
 
 (use-package clojure-mode
@@ -102,7 +147,7 @@
   (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
   :bind (:map clojure-mode-map
               (("C-x c f" . eglot-format)
-               ("C-x c p" . lk/monroe-portal)
+               ("C-x c p" . lk/open-portal)
                ("C-x c s" . lk/clojure-scratch)
                ("C-x c i" . lk/init-clojure-scratch)
                ("C-x c c" . lk/clear-monroe-repl-from-anywhere)

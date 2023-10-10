@@ -28,3 +28,4 @@ deps.txt
 /backend/.cpcache/
 *.env
 **/*~undo-tree~
+/backend/.portal-url
