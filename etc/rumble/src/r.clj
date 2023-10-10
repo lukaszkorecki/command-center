@@ -226,14 +226,15 @@
 
 (defn portal-start! []
   (spit ".portal-url" (portal.api/url (portal.api/open {:window-title "monroe portal"
+                                                        :theme :portal.colors/nord-light
                                                         :launcher false})))
-  (swap! portal-tap (add-tap #'portal.api/submit)))
+  (reset! portal-tap (add-tap #'portal.api/submit)))
 
 (defn portal-clear! []
   (portal.api/clear))
 
 (defn portal-stop! []
-  (remove-tap @portal-tap)
+  (swap! portal-tap remove-tap)
   (portal.api/close))
 
 ;;
