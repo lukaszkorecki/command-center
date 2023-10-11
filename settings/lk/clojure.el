@@ -45,7 +45,8 @@
 
 (defun lk/monroe-kill-all ()
   (interactive)
-  (kill-matching-buffers ".*monroe.*" 't 't))
+  (kill-matching-buffers ".*monroe.*" t t)
+  (kill-matching-buffers "webkit.*monroe" t t))
 
 
 (defun lk/clj-mode-hook ()

@@ -1,6 +1,5 @@
 {:aliases {:nrepl {:main-opts ["-m" "nrepl.cmdline"
-                               "--middleware"
-                               "[portal.nrepl/wrap-portal]"]
+                               #_#_ "--middleware" "[portal.nrepl/wrap-portal]"]
                    :extra-deps {r/r {:local/root "/Users/lukasz/.emacs.d/etc/rumble"}}}
 
            :repl {:main-opts ["-m" "clojure.main"]
