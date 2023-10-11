@@ -27,11 +27,17 @@
   (add-to-list 'majo-mode-remap-alist
                '(typescript-mode . typescript-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
-  :bind (:map typescript-ts-mode-map (( "C-x c f" . eglot-format-buffer )))
-  (:map tsx-ts-mode-map (( "C-x c f" . eglot-format-buffer)))
-  (:map typescript-mode-map (( "C-x c f" . eglot-format-buffer))))
+  ;; :bind
+  ;; (:map typescript-ts-mode-map (( "C-x c f" . eglot-format-buffer )))
+  ;; (:map tsx-ts-mode-map (( "C-x c f" . eglot-format-buffer)))
+  ;; (:map typescript-mode-map (( "C-x c f" . eglot-format-buffer)))
+  )
 
 
+(use-package prettier
+  :ensure t
+  :init
+  (global-prettier-mode t))
 
 (provide 'lk/js)
 ;;; js.el ends here
