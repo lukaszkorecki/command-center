@@ -67,24 +67,13 @@
   :init (require 'bufler)
   :bind (("C-x C-b" . bufler-list)))
 
-(use-package marginalia
-  :bind (("M-A" . marginalia-cycle)
-         :map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
-
-  :init (marginalia-mode))
-
 (use-package undo-tree
+  :ensure t
   :init (global-undo-tree-mode nil)
-  :config (setq undo-tree-visualizer-timestamps 't)
+  :config
+  (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-auto-save-history nil)
   :bind (("C-c u" . undo-tree-visualize)))
-
-(use-package treemacs
-  :init (setq treemacs-space-between-root-nodes nil)
-  (treemacs-project-follow-mode t))
-
-(use-package treemacs-projectile)
 
 (use-package unicode-fonts :config (unicode-fonts-setup))
 
