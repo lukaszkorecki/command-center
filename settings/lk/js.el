@@ -16,7 +16,10 @@
                    :path "tsx/src")
   :ensure t
   :init (add-to-list 'auto-mode-alist '("\\.tsx$" . tsx-ts-mode))
-  :bind (:map tsx-ts-mode-map (( "C-x c f" . eglot-format-buffer ))))
+  :bind (:map tsx-ts-mode-map
+              (( "C-x c f" . lk/prettier-format-current-buffer )))
+  (:map typescript-mode-map
+        (( "C-x c f" . lk/prettier-format-current-buffer ))))
 
 (use-package typescript-ts-mode
   :after (tsx-ts-mode)
