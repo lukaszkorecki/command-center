@@ -2,9 +2,6 @@
 ;;; Commentary:
 
 ;;; Code:
-
-
-
 (use-package s)
 
 (use-package window-number)
@@ -21,7 +18,6 @@
 (setq-default
  mode-line-format
  (list
-  '(:eval (ace-window-display-mode))
   '(:eval (vc-status-mode-line))
   ;; buffername, line, column
   "| %b | L:%l C:%c | "
