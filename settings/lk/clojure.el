@@ -74,31 +74,31 @@
   (interactive)
   (clear-comint-buffer-by-match  ".*monroe nrepl server.*"))
 
+(defun lk/open-url (url)
+  (message "opening portal %s" url)
+  (xwidget-webkit-browse-url url))
+
 (defun lk/monroe-eval-code-and-callback-with-value (code-str on-value)
-  (message ">>EV %s" (type-of on-value))
   (monroe-send-eval-string
    code-str
    (lambda (response)
-     (monroe-dbind-response response
-                            (id info value status)
-                            (when (member "done" status)
-                              (remhash id monroe-requests))
-                            (when value
-                              (message ">>EV %s -> %s -> %s"
-                                       value
-                                       (type-of on-value)
-                                       (type-of value))
-                              (funcall #'on-value value))))))
+     (condition-case err
+         (monroe-dbind-response response
+                                (id info value status)
+                                (when (member "done" status)
+                                  (remhash id monroe-requests))
+                                (when value
+                                  (message "value %s" value)
+                                  (lk/open-url value)))
+       (error (message "error %s" err))))))
+
+(defun lk/monroe-eval-code-and-callback-with-value-2 (code-str on-value)
+  (funcall on-value code-str))
 
 (defun lk/monroe-portal-2 ()
   (interactive)
-  (lk/monroe-eval-code-and-callback-with-value
-   "(do (require 'portal.api)
-           (portal.api/url
-           (portal.api/open {:window-title \"monroe portal\" :launcher false})))"
-   #'(lambda (url) (xwidget-webkit-browse-url url))))
-
-
+  (lk/monroe-eval-code-and-callback-with-value-2
+   "(r/portal-start!)" 'lk/open-url))
 
 
 (defun lk/monroe-portal ()
@@ -125,9 +125,10 @@
 (defun lk/open-portal ()
   (interactive)
   ;; initiate portal session
-  (let* ((project-root (locate-dominating-file default-directory "deps.edn"))
+  (let* ((project-root
+          (locate-dominating-file default-directory "deps.edn"))
          (default-directory project-root)
-         (portal-url-file  (format ".portal-url" project-root)))
+         (portal-url-file (format ".portal-url" project-root)))
     ;; (monroe-input-sender
     ;;  (get-buffer-process (monroe-repl-buffer))
     ;;  (format

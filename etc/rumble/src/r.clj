@@ -1,13 +1,16 @@
 (ns ^{:clojure.tools.namespace.repl/load false} r
   (:refer-clojure :exclude [find-ns])
   (:require
-   [portal.api]
+   [clojure.java.browse]
+   [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.repl]
    [clojure.string :as str]
    [clojure.tools.namespace.find :as ns.find]
    [clojure.tools.namespace.repl :as ns.repl]
-   [kaocha.repl])
+   [kaocha.repl]
+   [portal.api]
+   [portal.colors])
   (:import
    (java.io
     File)))
@@ -225,16 +228,31 @@
 (def portal-tap (atom nil))
 
 (defn portal-start! []
-  (spit ".portal-url" (portal.api/url (portal.api/open {:window-title "monroe portal"
-                                                        :theme :portal.colors/nord-light
-                                                        :launcher false})))
-  (reset! portal-tap (add-tap #'portal.api/submit)))
+  (let [url (if (.exists (io/file ".portal-url"))
+              (do
+                (println "Found .portal-url, using that")
+                (slurp ".portal-url"))
+              (do
+                (println "No .portal-url found, starting portal")
+              ;; Tweak Portal fonts because they're too big
+                (let [tweaked-themes (assoc portal.colors/themes
+                                            :portal.colors/nord-light-tweaked
+                                            (merge (:portal.colors/nord-light portal.colors/themes)
+                                                   {:font-size 8}))]
+                  (with-redefs [portal.colors/themes tweaked-themes]
+                    (portal.api/url (portal.api/open {:window-title "monroe portal"
+                                                      :theme :portal.colors/nord-light-tweaked
+                                                      :launcher false}))))))]
+    (spit ".portal-url" url)
+    (reset! portal-tap (add-tap #'portal.api/submit))
+    (clojure.java.browse/browse-url url)))
 
 (defn portal-clear! []
   (portal.api/clear))
 
 (defn portal-stop! []
   (swap! portal-tap remove-tap)
+  (io/delete-file ".portal-url")
   (portal.api/close))
 
 ;;
