@@ -202,6 +202,13 @@
 (def ^:private tap-log (atom []))
 (def ^:private tap-ref (atom nil))
 
+(defn t>
+  "Like tap> but returns input"
+  [input]
+  (tap> input)
+  input)
+
+
 (defn tap-log-init!
   "Initialize a tap> listener and store the ref to it"
   []
