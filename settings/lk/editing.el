@@ -32,8 +32,9 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
       (switch-to-buffer copy-buf)
       (funcall 'fundamental-mode)
       (setq buffer-offer-save t)
+      (insert ">>>> Copy history:\n\n")
       (dolist (x kill-ring)
-        (insert x "\n\n>>>>---------------------------------\n\n"))
+        (insert x "\n\n>>>> ---------------------------------\n\n"))
       (goto-char (point-min)))))
 
 (defun lk/select-line ()
@@ -70,8 +71,6 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 
 
 ;; Editing and general syntax highlighting
-(use-package move-text)
-
 
 ;; bind awkard M-[ & M-] to something better
 (global-set-key (kbd "M-n") 'forward-paragraph)
@@ -95,10 +94,23 @@ Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
 (setq-default make-backup-files nil)
 ;; no lockfiles
 (setq create-lockfiles nil)
+;; autosaves
+(make-directory "~/.emacs_autosave/" t)
+(setq auto-save-file-name-transforms
+      '((".*" "~/.emacs_autosave/" t)))
 
 
 (use-package string-inflection
   :init (global-set-key (kbd "C-x c l") 'string-inflection-all-cycle))
+
+
+(use-package undo-tree
+  :ensure t
+  :init (global-undo-tree-mode nil)
+  :config (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-auto-save-history nil)
+  :bind (("C-c u" . undo-tree-visualize)))
+
 
 (provide 'lk/editing)
 ;;; editing.el ends here

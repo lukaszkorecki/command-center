@@ -4,8 +4,9 @@
 ;;; Code:
 
 
-;; set font size
 
+(setq frame-inhibit-implied-resize t)
+(setq pixel-scroll-precision-mode t)
 (setq-default show-trailing-whitespace nil)
 (setq-default indicate-empty-lines nil)
 (setq-default indicate-buffer-boundaries 'left)
@@ -66,14 +67,6 @@
 (use-package bufler
   :init (require 'bufler)
   :bind (("C-x C-b" . bufler-list)))
-
-(use-package undo-tree
-  :ensure t
-  :init (global-undo-tree-mode nil)
-  :config
-  (setq undo-tree-visualizer-timestamps t)
-  (setq undo-tree-auto-save-history nil)
-  :bind (("C-c u" . undo-tree-visualize)))
 
 (use-package unicode-fonts :config (unicode-fonts-setup))
 
