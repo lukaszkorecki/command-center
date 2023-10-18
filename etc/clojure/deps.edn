@@ -1,3 +1,3 @@
-{:aliases {:dev {:extra-deps {io.github.lukaszkorecki/rumble {:git/sha "9ee9506ec8d96104a0d24baac41753383a89acaa"}}}
+{:aliases {:dev {:extra-deps {io.github.lukaszkorecki/rumble {:git/sha "b948b1a63ff0b96cb7d84eb044f302a8ede44ec7"}}}
            :check-deps {:deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
                         :main-opts ["-m" "antq.core"]}}}
