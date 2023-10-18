@@ -34,10 +34,13 @@
   :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 
+(use-package markdown-mode
+  :ensure t)
+
 (use-package markdown-ts-mode
   :straight (:host github :repo "ikatyang/tree-sitter-markdown")
   :ensure t
-  :init
+  :config
   (add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode))
   (add-to-list 'markdown-mode-alist '("\\.md$" . markdown-mode))
   (keymap-local-unset "C-c C-t"))
