@@ -17,7 +17,7 @@ configs:
 	@mkdir -p ~/.config/clojure-lsp
 	@ln -fvs ~/.emacs.d/etc/clojure-lsp-config.edn ~/.config/clojure-lsp/config.edn
 	@mkdir -p ~/.clojure/
-	@ln -fvs ~/.emacs.d/etc/clojure-deps.edn ~/.clojure/deps.edn
+	@ln -fvs ~/.emacs.d/etc/clojure ~/.clojure
 
 
 brew-bundle:

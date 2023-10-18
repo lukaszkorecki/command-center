@@ -1,4 +1,0 @@
-{:paths ["src"]
- :deps {org.clojure/tools.namespace {:mvn/version "1.4.4"}
-        lambdaisland/kaocha {:mvn/version "1.87.1366"}
-        djblue/portal {:mvn/version "0.48.0"}}}

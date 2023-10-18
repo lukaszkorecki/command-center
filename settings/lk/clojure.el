@@ -129,15 +129,10 @@
           (locate-dominating-file default-directory "deps.edn"))
          (default-directory project-root)
          (portal-url-file (format ".portal-url" project-root)))
-    ;; (monroe-input-sender
-    ;;  (get-buffer-process (monroe-repl-buffer))
-    ;;  (format
-    ;;   "(require 'portal.api)
-    ;;      (spit \"%s\"
-    ;;        (portal.api/url
-    ;;            (portal.api/open {:window-title \"monroe portal\" :launcher false})))"
-    ;;   portal-url-file))
-    ;; (sleep-for 1) ;; uh... this is a hack
+    (monroe-input-sender
+     (get-buffer-process (monroe-repl-buffer))
+     "(r/portal-start!)")
+    (sleep-for 1) ;; uh... this is a hack
     (let ((url
            (with-temp-buffer
              (insert-file-contents portal-url-file)
