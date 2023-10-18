@@ -53,7 +53,7 @@
 (use-package ace-window
   :config
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
-  (setq aw-ignore-current t)
+  (setq aw-ignore-current nil)
   (setq aw-dispatch-always t)
   (setq aw-minibuffer-flag t)
   (set-face-foreground 'aw-background-face "gray70")
