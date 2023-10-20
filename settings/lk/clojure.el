@@ -1,3 +1,4 @@
+; -*- lexical-binding: t; -*-
 ;;; clojure.el --- clojure setup
 ;;; Commentary:
 ;; inf-clojure/monroe based clj-scratch buffer
@@ -25,7 +26,7 @@
 
 (defun lk/failed-tests-in-monroe-repl ()
   (interactive)
-  (swiper "\\(FAIL\\|ERROR\\) in .*"))
+  (swiper "\\(FAIL\\|ERROR\\) in[ ]\\(.*\\)"))
 
 (use-package monroe
   :init (require 'monroe)
@@ -74,77 +75,38 @@
   (interactive)
   (clear-comint-buffer-by-match  ".*monroe nrepl server.*"))
 
-(defun lk/open-url (url)
-  (message "opening portal %s" url)
-  (xwidget-webkit-browse-url url))
-
 (defun lk/monroe-eval-code-and-callback-with-value (code-str on-value)
   (monroe-send-eval-string
    code-str
    (lambda (response)
      (condition-case err
          (monroe-dbind-response response
-                                (id info value status)
+                                (value status id)
+                                (when value (funcall on-value value))
                                 (when (member "done" status)
-                                  (remhash id monroe-requests))
-                                (when value
-                                  (message "value %s" value)
-                                  (lk/open-url value)))
-       (error (message "error %s" err))))))
+                                  (remhash id monroe-requests)))
+       (error (message "Eval error %s" err))))))
 
-(defun lk/monroe-eval-code-and-callback-with-value-2 (code-str on-value)
-  (funcall on-value code-str))
 
-(defun lk/monroe-portal-2 ()
+(defun lk/monroe-portal-start! ()
   (interactive)
-  (lk/monroe-eval-code-and-callback-with-value-2
-   "(r/portal-start!)" 'lk/open-url))
+  (lk/monroe-eval-code-and-callback-with-value
+   "(r/portal-start! {:force? true :browse? false})"
+   (lambda (value)
+     ;; value is a raw string, so we need to remove " from it
+     (let ((url (string-replace "\"" "" value)))
+       (message "Opening portal %s" url)
+       (condition-case err2
+           (xwidget-webkit-browse-url url)
+         (error (message "Browse error %s" err2)))))))
 
-
-(defun lk/monroe-portal ()
-  (interactive)
-  ;; initiate portal session
-  (let* ((project-root (monroe-get-directory))
-         (default-directory project-root)
-         (portal-url-file (format "%s.portal-url" project-root)))
-    (monroe-input-sender
-     (get-buffer-process (monroe-repl-buffer))
-     (format
-      "(require 'portal.api)
-         (spit \"%s\"
-           (portal.api/url
-               (portal.api/open {:window-title \"monroe portal\" :launcher false})))"
-      portal-url-file))
-    (sleep-for 1) ;; uh... this is a hack
-    (let ((url
-           (with-temp-buffer
-             (insert-file-contents portal-url-file)
-             (buffer-string))))
-      (xwidget-webkit-browse-url url))))
-
-(defun lk/open-portal ()
-  (interactive)
-  ;; initiate portal session
-  (let* ((project-root
-          (locate-dominating-file default-directory "deps.edn"))
-         (default-directory project-root)
-         (portal-url-file (format ".portal-url" project-root)))
-    (monroe-input-sender
-     (get-buffer-process (monroe-repl-buffer))
-     "(r/portal-start!)")
-    (sleep-for 1) ;; uh... this is a hack
-    (let ((url
-           (with-temp-buffer
-             (insert-file-contents portal-url-file)
-             (buffer-string))))
-      (xwidget-webkit-browse-url url))))
 
 (use-package clojure-mode
   :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
   :bind (:map clojure-mode-map
               (("C-x c f" . eglot-format)
-               ("C-x c p" . lk/open-portal)
+               ("C-x c p" . lk/monroe-portal-start!)
                ("C-x c s" . lk/clojure-scratch)
                ("C-x c i" . lk/init-clojure-scratch)
                ("C-x c c" . lk/clear-monroe-repl-from-anywhere)
