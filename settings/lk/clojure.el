@@ -100,16 +100,24 @@
            (xwidget-webkit-browse-url url)
          (error (message "Browse error %s" err2)))))))
 
+(defun lk/portal-clear! ()
+  (interactive)
+  (lk/eval-code-and-callback-with-value
+   "(r/portal-clear!)"
+   (lambda (value)
+     (message "Portal cleared"))))
 
 (use-package clojure-mode
   :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
   :bind (:map clojure-mode-map
               (("C-x c f" . eglot-format)
-               ("C-x c p" . lk/monroe-portal-start!)
+               ("C-x c p c" . lk/portal-clear!)
                ("C-x c s" . lk/clojure-scratch)
                ("C-x c i" . lk/init-clojure-scratch)
-               ("C-x c c" . lk/clear-monroe-repl-from-anywhere)
+               ("C-x c c" . (lambda ()
+                              (lk/clear-monroe-repl-from-anywhere)
+                              (lk/portal-clear!)))
                ("C-x c C" . lk/clear-monroe-server-buffer-from-anywhere))))
 
 (provide 'lk/clojure)
