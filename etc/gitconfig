@@ -1,15 +1,6 @@
-# vi: ft=gitconfig
 [user]
   email = lukasz@korecki.me
   name = Łukasz Korecki
-[include]
-  path = ~/.private/gitconfig.include
-
-[includeIf "gitdir:~/pj/insights/"]
-  path = ~/.private/gitconfig.uz
-[includeIf "gitdir:~/pj/uz/"]
-  path = ~/.private/gitconfig.uz
-
 
 [color]
   ui = true
@@ -18,7 +9,9 @@
 [core]
   pager = less -F -X
   excludesfile = ~/.gitignore_global
-  editor = /Applications/Emacs.app/Contents/MacOS/Emacs -Q
+  editor = emacs
+
+
 [grep]
   linenumber = true
   extendedRegexp = true
@@ -31,8 +24,6 @@
   c = commit
   cm = commit -m
   ca = commit --amend
-
-
   cleanup-branches = !git fetch -a -p && git branch --merged master | grep -v 'master$' | xargs git branch -d || true
   recent="!f(){ git branch --sort=-committerdate | head -n ${1:-5}; };f"
   co = checkout
@@ -62,16 +53,17 @@
   serve = daemon --reuseaddr --verbose  --port=4000 --base-path=. --export-all ./.git
 
   cb = !git rev-parse --abbrev-ref HEAD 2>/dev/null
-  push-and-track= !git push -u origin $(git cb)
-  pull-and-track = !git pull -r origin $(git cb)
+  track-upstream = !git branch --set-upstream-to=origin/$(git cb) $(git cb)
+  push-and-track= !git track-upstream && git push
+  pull-and-track = !git track-upstream && git pull -r
   safe-pull = !git stash && git pull -r origin $(git cb) && git stash pop
 
   llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
   changelog = log --pretty=format:'%Cgreen%d %Creset%s' --date=iso
-  cl =!git clone git@github.com:$1.git
+  cl = !git clone git@github.com:$1.git
 
 [branch]
-  autosetupmerge = true
+	autoSetupMerge = true
 
 [github]
 	user = lukaszkorecki
