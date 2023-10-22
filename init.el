@@ -94,13 +94,7 @@
 (lk/fix-utf)
 
 ;; other things
-
-(setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
-(blink-cursor-mode -1) ;; move to UI
-
-(setq default-frame-alist '((fullscreen . maximized)
-                            (vertical-scroll-bars . nil)
-                            (horizontal-scroll-bars . nil)
-                            (ns-appearance . dark)
-                            (ns-transparent-titlebar . t)
-                            (alpha-background . 50)))
+;; Always start server, useful for things
+(load "server")
+(unless (server-running-p)
+  (server-start))
