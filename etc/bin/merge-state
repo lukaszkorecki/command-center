@@ -1,0 +1,59 @@
+#!/usr/bin/env bb
+
+(require '[babashka.process :as proc]
+         '[clojure.string :as str])
+
+(defn run [cmd]
+  (let [{:keys [out exit err] :as res} (proc/shell {:out :string :err :string} cmd)]
+    (when (> exit 0)
+      (println (select-keys res [:exit :out :err])))
+    out))
+
+;; ensure master is up to date
+
+(when true ;; FIXME
+
+  (for [c ["git checkout master"
+           "git pull -r origin master"
+           "git fetch --all --prune"]]
+    (run c))
+
+;; get list of remote branches
+
+  (let [branches (->> (run "git branch -r")
+                      str/split-lines
+                      (remove #(re-find #"(HEAD|master)" %))
+                      (map #(str/replace % "origin/" "")))]
+
+    (doseq [branch branches]
+
+      (run (str "git checkout -B " branch))
+      (run "hub sync")
+      (print "."))
+
+    (printf "\nSynced %d branches\n" (count branches))))
+
+(defn not-merged [base-branch pull-requests]
+
+  (printf "Branches not merged into %s\n" base-branch)
+
+  (let [branches (->> (run (format "git branch -r --no-merged %s" base-branch))
+                      str/split-lines
+                      (remove #(re-find #"(HEAD|master|staging)" %))
+                      (map #(str/trim (str/replace % "origin/" "")))
+                      (map (fn [branch]
+                             (let [branch-pattern (re-pattern (str branch "$"))
+                                   pr (first (filter #(re-find branch-pattern %) pull-requests))]
+                               (if pr
+                                 (str branch " PR:" (str/replace pr branch-pattern ""))
+                                 (str branch " (NO PR)"))))))]
+
+    (doseq [branch branches]
+      (println "  " branch))))
+
+(println "Fetching PR")
+(let [pull-requests (->> (run "hub pr list -s open -f '%pS %i %t %H%n'")
+                         str/split-lines)]
+  (printf "Found %d\n" (count pull-requests))
+  (not-merged "master" pull-requests)
+  (not-merged "staging" pull-requests))

@@ -113,3 +113,14 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]] \
     && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
 	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
 fi
+
+
+# Load autocomplete for other tools not supported by zsh directly
+if [[ "$(which op)" != "" ]] ; then
+    eval "$(op completion zsh)";
+    compdef _op op
+fi
+
+if [[ "$(which doctl)" != "" ]] ; then
+    eval "$(doctl completion zsh)"
+fi

@@ -4,6 +4,25 @@
 ;; inf-clojure/monroe based clj-scratch buffer
 ;; Adopted from cider's scratch
 ;;; Code:
+
+
+(use-package clojure-mode
+  :straight (:host github :repo "clojure-emacs/clojure-mode")
+  :init
+  (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
+  :bind (:map clojure-mode-map
+              (("C-x c f" . eglot-format)
+               ("C-x c p c" . lk/portal-clear!)
+               ("C-x c s" . lk/clojure-scratch)
+               ("C-x c i" . lk/init-clojure-scratch)
+               ("C-x c c" .
+                (lambda ()
+                  (lk/clear-monroe-repl-from-anywhere)
+                  (lk/portal-clear!)))
+               ("C-x c C" . lk/clear-monroe-server-buffer-from-anywhere))))
+
+
 (defconst lk/clj-scratch-name "scratch.clj")
 
 (defun lk/init-clojure-scratch ()
@@ -18,8 +37,9 @@
 
 (defun lk/clojure-scratch ()
   (interactive)
-  (pop-to-buffer
+  (switch-to-buffer
    (or (get-buffer lk/clj-scratch-name) (lk/init-clojure-scratch))))
+
 
 (use-package clojure-mode-extra-font-locking)
 
@@ -104,21 +124,7 @@
   (interactive)
   (lk/eval-code-and-callback-with-value
    "(r/portal-clear!)"
-   (lambda (value)
-     (message "Portal cleared"))))
-
-(use-package clojure-mode
-  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-  (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
-  :bind (:map clojure-mode-map
-              (("C-x c f" . eglot-format)
-               ("C-x c p c" . lk/portal-clear!)
-               ("C-x c s" . lk/clojure-scratch)
-               ("C-x c i" . lk/init-clojure-scratch)
-               ("C-x c c" . (lambda ()
-                              (lk/clear-monroe-repl-from-anywhere)
-                              (lk/portal-clear!)))
-               ("C-x c C" . lk/clear-monroe-server-buffer-from-anywhere))))
+   (lambda (value) (message "Portal cleared"))))
 
 (provide 'lk/clojure)
 ;;; clojure.el ends here
