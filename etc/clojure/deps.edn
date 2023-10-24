@@ -1,4 +1,2 @@
-
-{:deps {
-        io.github.lukaszkorecki/rumble {:git/sha "45eac130737b8049821c45859d374c1db1d82471"}}
-}
+{:aliases {:rumble
+           {:extra-deps {io.github.lukaszkorecki/rumble {:git/sha "45eac130737b8049821c45859d374c1db1d82471"}}}}}
