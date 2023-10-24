@@ -34,14 +34,13 @@
   :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 
-(use-package markdown-mode
-  :ensure t)
+(use-package markdown-mode :ensure t)
 
 (use-package markdown-ts-mode
   :straight (:host github :repo "ikatyang/tree-sitter-markdown")
   :ensure t
-  :config
-  (add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode))
+  :config (add-to-list 'major-mode-remap-alist
+                       '(markdown-mode . markdown-ts-mode))
   (add-to-list 'markdown-mode-alist '("\\.md$" . markdown-mode))
   (keymap-local-unset "C-c C-t"))
 
@@ -100,9 +99,7 @@
 
 (add-hook 'sh-mode-hook
           (lambda ()
-            (progn
-              (copilot-mode 't)
-              (keymap-local-unset "C-c C-t"))))
+            (progn (copilot-mode 't) (keymap-local-unset "C-c C-t"))))
 
 
 (use-package go-mode
@@ -117,15 +114,6 @@
      (add-to-list 'sqlup-blacklist kw))
    '("name" "key" "value" "id"  "source" "type" "to" "user" "at" "role" "current_role" )))
 
-
-(defun lk/swiper-hugsql-names ()
-  "List db function names via swiper when working with HugSQL files."
-  (interactive)
-  (swiper ":name "))
-
-(add-hook
- 'sql-mode-hook
- (lambda () (local-set-key (kbd "C-c n i") 'lk/swiper-hugsql-names)))
 
 
 ;; formatter for elisp
