@@ -26,6 +26,8 @@
 (add-to-list 'tramp-remote-path "/home/ubuntu/.emacs.d/etc/bin")
 
 (use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-copy-env "GITHUB_TOKEN")
   :init (exec-path-from-shell-initialize))
 
 ;; Replicate PATHs from ~/.bashrc, although might not be necessary
