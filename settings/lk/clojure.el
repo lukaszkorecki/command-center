@@ -8,8 +8,7 @@
 
 (use-package clojure-mode
   :straight (:host github :repo "clojure-emacs/clojure-mode")
-  :init
-  (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
   :bind (:map clojure-mode-map
               (("C-x c f" . eglot-format)
@@ -58,11 +57,11 @@
               ("C-c C-z" . monroe-switch-to-repl)
               ("C-c C-l" . monroe-load-file)
               ("C-x c m" . monroe)
-              ("C-x c l" . lk/init-clojure-scratch)))
-
-(:map monroe-mode-map
-      (("C-c n i " . lk/failed-tests-in-monroe-repl)
-       ("C-x c s " . lk/clojure-scratch ))))
+              ("C-x c l" . lk/init-clojure-scratch)
+              ("C-x c s " . lk/clojure-scratch ))
+  (:map monroe-mode-map
+        (("C-c n i " . lk/failed-tests-in-monroe-repl)
+         ("C-x c s " . lk/clojure-scratch ))))
 
 
 (defun lk/monroe-kill-all ()

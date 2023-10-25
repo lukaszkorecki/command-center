@@ -32,7 +32,7 @@
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l a" . eglot-code-actions )
          ("C-c l g" . xref-find-definitions)
-         ("C-c l f" . eglot-format-buffer )))
+         ("C-x c f" . eglot-format-buffer )))
 
 (use-package flymake
   :bind (( "C-c e n" . flymake-goto-next-error )
