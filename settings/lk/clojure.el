@@ -36,7 +36,7 @@
 
 (defun lk/clojure-scratch ()
   (interactive)
-  (switch-to-buffer
+  (pop-to-buffer
    (or (get-buffer lk/clj-scratch-name) (lk/init-clojure-scratch))))
 
 
