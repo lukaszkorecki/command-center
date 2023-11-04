@@ -11,10 +11,11 @@ if [[ "$depsEdnLocation" != "nil" ]] ; then
     cd $path
     if [[ -e ./script/repl ]] ; then
         echo "using script/repl"
-        ./script/repl
+        exec ./script/repl
     else
-        echo "using 'raw' clj"
-        TERM=xterm clojure -M:dev:nrepl nrepl.cmdline
+        echo "using clj + own luncher args -M:dev/rumble:dev:test:dev/nrepl"
+        # assume that there's a dev & test alias in deps.edn
+        TERM=xterm exec clojure -M:dev/rumble:dev:test:dev/nrepl
     fi
 fi
 
@@ -24,11 +25,12 @@ if [[ "$projectCljLocation" != "nil" ]] ; then
     cd $path
     if [[ -e ./script/lein ]] ; then
         echo "Using script/lein"
-        ./script/lein $@
+        exec ./script/lein $@
     else
         echo "Using global lein"
-        lein $@
+        exec lein $@
     fi
 fi
 
 echo "deps.edn or project.clj not found!"
+exit 1

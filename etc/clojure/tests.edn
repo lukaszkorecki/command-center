@@ -1,7 +1,6 @@
 #kaocha/v1
  {:plugins [:kaocha.plugin/print-invocations
             :kaocha.plugin/capture-output]
-  :fail-fast? true
+  :fail-fast? false
   :kaocha.plugin.capture-output/capture-output? true
-  :reporter [kaocha.report/dots
-             r.kaocha-hooks/reporter]}
+  :reporter [kaocha.report/documentation]}

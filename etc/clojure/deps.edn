@@ -1,6 +1,15 @@
-{:aliases {:dev/rumble
-           {:extra-deps {#_#_io.github.lukaszkorecki/rumble {:git/sha "45eac130737b8049821c45859d374c1db1d82471"}
-                         r/r {:local/root "/Users/lukasz/pj/lukaszkorecki/rumble"}}}
+{:aliases {:dev/rumble {:extra-deps {#_#_io.github.lukaszkorecki/rumble {:git/sha "45eac130737b8049821c45859d374c1db1d82471"}
+                                     r/r {:local/root "/Users/lukasz/pj/lukaszkorecki/rumble"}
+                                     cheshire/cheshire {:mvn/version "5.12.0"}
+                                     hato/hato {:mvn/version "0.9.1-SNAPSHOT"}
+                                     babashka/fs {:mvn/version "0.4.19"}}
+                        :extra-paths ["dev-resources" "test"]
+                        :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
+                                   "-Duser.timezone=UTC"
+                                   "-Dfile.encoding=UTF-8"]}
+
+           :dev/nrepl {:main-opts ["-m" "nrepl.cmdline"]
+                       :extra-deps {nrepl/nrepl {:mvn/version "1.0.0"}}}
 
            :dev/outdated {:deps {com.github.liquidz/antq {:mvn/version "2.7.1133"}
                                  org.slf4j/slf4j-nop {:mvn/version "2.0.9"}}
