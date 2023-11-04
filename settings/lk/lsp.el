@@ -1,6 +1,4 @@
 ;;; lsp.el -- LSP configuration + supporting packages
-;;; Commentary:
-;;; Only Clojure is fully supported, other languages might be added
 
 (use-package eglot
   :custom (eglot-confirm-server-initiated-edits nil)
@@ -12,6 +10,7 @@
   :config (setq eglot-autoshutdown t)
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-autoreconnect t)
+  (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode t)))
   (cl-pushnew
    '((tsx-ts-mode)
      .
