@@ -22,7 +22,7 @@
 
 (defun on-after-init ()
   (when (display-graphic-p)
-    (set-face-attribute 'default nil :family "JetBrains Mono" :height 120))
+    (set-face-attribute 'default nil :family "JetBrains Mono" :height 130))
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
@@ -68,23 +68,18 @@
 (defun my-term-mode-hook ()
   (setq bidi-paragraph-direction 'left-to-right))
 
-
-(when (not (string-equal system-type "darwin"))
-  (use-package color-theme-approximate
-    :config (color-theme-approximate-on)))
-
 (use-package bufler
   :init (require 'bufler)
-  :bind (("C-x C-b" . bufler-list)))
+  :bind (("C-x b" . bufler-switch-buffer)
+         ("C-x C-b" . bufler-list)))
 
 (use-package unicode-fonts :config (unicode-fonts-setup))
 
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
 
-(use-package twilight-bright-theme
-  :init (load-theme 'twilight-bright t))
-
+(use-package auto-dark
+  :config (auto-dark-mode t))
 
 (defun lk/clean-up-buffers ()
   (interactive)
