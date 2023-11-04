@@ -53,7 +53,7 @@
   serve = daemon --reuseaddr --verbose  --port=4000 --base-path=. --export-all ./.git
 
   cb = !git rev-parse --abbrev-ref HEAD 2>/dev/null
-  track-upstream = !git branch --set-upstream-to=origin/$(git cb) $(git cb)
+  track-upstream = !git fetch -a && git branch --set-upstream-to=origin/$(git cb) $(git cb)
   push-and-track= !git track-upstream && git push
   pull-and-track = !git track-upstream && git pull -r
   safe-pull = !git stash && git pull -r origin $(git cb) && git stash pop

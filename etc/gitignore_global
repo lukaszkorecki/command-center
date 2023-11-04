@@ -25,7 +25,8 @@ form-init*
 /.clj-kondo/
 deps.txt
 **/.projectile
-/backend/.cpcache/
+**/.cpcache/
 *.env
 **/*~undo-tree~
 /backend/.portal-url
+/.nrepl-port
