@@ -3,7 +3,7 @@
 
 ;;; Code:
 (setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
-(blink-cursor-mode -1) ;; move to UI
+(blink-cursor-mode t) ;; move to UI
 
 (setq default-frame-alist '((fullscreen . maximized)
                             (vertical-scroll-bars . nil)
@@ -22,7 +22,7 @@
 
 (defun on-after-init ()
   (when (display-graphic-p)
-    (set-face-attribute 'default nil :family "JetBrains Mono" :height 130))
+    (set-face-attribute 'default nil :family "JetBrains Mono" :height 120))
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
