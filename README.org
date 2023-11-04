@@ -8,15 +8,11 @@ Everything ships as part of ~.emacs.d~ directory because it's 🆗
 
    My emacs and $HOME setup. Focused on:
 
-- Clojure (read below)
+- Clojure
 - Shell scripting in Bash
-- Ops stuff (Ansible, Terraform etc)
-- Occasionally;
-  - Ruby
-  - Javascript/Typescript/React
-  - Scheme
-  - Common Lisp
-  - Python
+- Ops (Terraform, mostly)
+- Javascript/Typescript/React
+
 
 ** Setup
 
@@ -29,51 +25,18 @@ If you want to use these yourself - probably a bad idea, given that I built all 
 
 *** Other tools and packages
 
-None, I work in a Linux VM
+There's a `Brewfile` provided, run `brew bundle`
 
 
 ** Details
 
-- I use ~bash~, I tried ~zsh~ in the past and it was not worth the effort
-- you can see my old .files here: https://github.com/lukaszkorecki/DotFiles
-- Emacs config is pretty light-weight, essential packages are:
-  - ivy, company
-  - projectile
-  - monroe and clojure-mode
+Most, if not all languages I work with are setup to use Eglot for LSP and Treesitter for syntax highlighting.
 
-*** Conventions
+My Clojure workflow leans heavily on `clojure-mode` + [[https://github.com/sanel/monroe][Monroe]] + my own REPL helpers library, [[https://github.com/lukaszkorecki/rumble][Rumble]] - it includes helpers for running tests, interacting with [[https://github.com/djblue/portal][Portal]]
 
-Most *navigation* shortcuts start with ~C-c n ...~
+For navigation and autocomplete, I use Ivy + whatever else it needs (Swiper, Company) etc.
+In rare cases I need to do something in the terminal, vterm has my back.
 
-Most *execution* shorcuts start with ~C-x ...~
+** Other
 
-*** Clojure
-
-I've built couple of convenient things around [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]] and
- [[https://github.com/sanel/monroe][Monroe]], an nREPL client.
-
-All functions are in [[settings/lk/clojure.el][settings/lk/clojure.el]] and repl.clj
-
-*** ~lk/clojure-scratch~
-
-Creates a scratch buffer and loads handy functions into the REPL process.
-Tests can be run via ~(R/t)~ function, which also accepts
-a regex ~(R/t! ".*component.pg-test")~
-
-The code which defines the ~R~ (R for REPL) namespace depends on couple of things:
-
-1. Leiningen profile which loads ~tools.namespace~, [[kaocha][https://github.com/lambdaisland/kaocha]] etc
-2. Simple namespace definition, found in [[etc/scratch.clj][etc/repl.clj]]
-
-*** ~lk/clojure-format-current-buffer~
-
-Delegates to [[https://github.com/weavejester/cljfmt][cljfmt]] to format current buffer via *compilation-mode*
-
-*** ~lk/clojure/check-current-buffer~
-
-    Delegates to [[https://github.com/borkdude/clj-kondo][clj-kondo]] to check current buffer via *compilation-mode*
-
-* Virtual Machine
-
-Is powered by [[https://Multipass.run][https://multipass.run]]
-See https://github.com/lukaszkorecki/drifter as my light weight Vagrant replacement.
+I would be surprised if this config works for anybody else :-)
