@@ -113,12 +113,14 @@
   (lk/monroe-eval-code-and-callback-with-value
    "(r/portal-start! {:force? true :browse? false})"
    (lambda (value)
-     ;; value is a raw string, so we need to remove " from it
-     (let ((url (string-replace "\"" "" value)))
-       (message "Opening portal %s" url)
-       (condition-case err2
-           (xwidget-webkit-browse-url url)
-         (error (message "Browse error %s" err2)))))))
+     (condition-case err
+         ;; value is a raw string, so we need to remove " from it
+         (let ((url (string-replace "\"" "" value)))
+           (message "Opening portal %s" url)
+           (condition-case err2
+               (xwidget-webkit-browse-url url)
+             (error (message "Browse error %s" err2))))
+       (error (message "Portal start error %s" err))))))
 
 (defun lk/portal-clear! ()
   (interactive)
