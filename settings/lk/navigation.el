@@ -12,6 +12,13 @@
   :bind (("C-c s" . swiper)
          ("C-c C-r" . ivy-resume)))
 
+(use-package ivy-xref
+  :ensure t
+  :init
+  (when (>= emacs-major-version 27)
+    (setq xref-show-definitions-function #'ivy-xref-show-defs))
+  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
          ("C-c n i" . counsel-imenu)

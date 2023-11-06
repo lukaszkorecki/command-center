@@ -57,6 +57,7 @@
 (require 'lk/git)
 (require 'lk/ui)
 (require 'lk/lsp)
+(require 'lk/tools)
 
 ;; Editing
 (require 'lk/editing)
