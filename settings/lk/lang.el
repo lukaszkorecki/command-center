@@ -41,14 +41,14 @@
   :ensure t
   :config (add-to-list 'major-mode-remap-alist
                        '(markdown-mode . markdown-ts-mode))
-  (add-to-list 'markdown-mode-alist '("\\.md$" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
   (keymap-local-unset "C-c C-t"))
 
 (use-package poly-markdown
   :init :mode
   (("README\\.md\\'" . gfm-mode)
-   ("\\.md$" . markdown-ts-mode)
-   ("\\.markdown$" . markdown-ts-mode)))
+   ("\\.md$" . markdown-mode)
+   ("\\.markdown$" . markdown-mode)))
 
 (use-package edit-indirect)
 
