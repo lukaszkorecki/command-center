@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+help() {
+    echo "Wrapper for PSQL CLI, with some extra sauce"
+    grep '##' "$0" | grep -v grep | sed 's/) ##/ - /g'
+    exit 0
+}
+
+# all my dev dbs just use this, it's fine
+pg_user=
+pg_password=password
+pg_db=
+pg_host=0.0.0.0
+pg_port=5432
+pg_image_version=15.1
+
+
+while getopts "hu:p:d:H:P:i:" OPTIONS; do
+    case "$OPTIONS" in
+        h) ## help!
+            help
+            ;;
+        u) ## PG user
+            pg_user="${OPTARG}"
+            ;;
+        p) ## PG password
+            pg_password="${OPTARG}"
+            ;;
+        d) ## PG database
+            pg_db="${OPTARG}"
+            ;;
+        H) ## PG host
+            pg_host="${OPTARG}"
+            ;;
+        P) ## PG port
+            pg_port="${OPTARG}"
+            ;;
+        i) ## Postgres image version
+            pg_image_version="${OPTARG}"
+            ;;
+        *)
+            help
+            ;;
+    esac
+done
+
+PGPASSWORD=${pg_password} psql -h ${pg_host} -p ${pg_port} -U ${pg_user} -d ${pg_db}
