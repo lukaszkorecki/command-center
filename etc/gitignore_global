@@ -30,3 +30,4 @@ deps.txt
 **/*~undo-tree~
 /backend/.portal-url
 /.nrepl-port
+**/scratch.clj
