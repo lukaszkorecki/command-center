@@ -1,3 +1,3 @@
 \set list_clients 'select pid as process_id, usename as username, datname as database_name, client_addr as client_address, application_name, backend_start, state, state_change from pg_stat_activity where pid <> pg_backend_pid();'
 \set count_clients 'select usename, count(usename) as count from pg_stat_activity where pid <> pg_backend_pid() group by usename;'
-\set terminate_db_clients 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pid <> pg_backend_pid() AND pg_stat_activity.datname like '
+\set terminate_db_clients 'SELECT count(pg_terminate_backend(pg_stat_activity.pid)) FROM pg_stat_activity WHERE pid <> pg_backend_pid() AND pg_stat_activity.datname like '
