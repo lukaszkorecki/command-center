@@ -3,4 +3,4 @@
             :kaocha.plugin/capture-output]
   :fail-fast? false
   :kaocha.plugin.capture-output/capture-output? true
-  :reporter [kaocha.report/documentation]}
+  :reporter [kaocha.report/dots]}
