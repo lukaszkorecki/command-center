@@ -27,7 +27,7 @@
                   line-no line-no
                   (file-name-nondirectory (buffer-file-name)))))
     (message (format "CMD: %s" command))
-    (shell-command command)))
+    (async-shell-command command)))
 
 (global-set-key (kbd "C-c g f") 'lk/open-current-file-in-gh)
 

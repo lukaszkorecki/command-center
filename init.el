@@ -10,25 +10,33 @@
 ;;; Code:
 (load-file "~/.emacs.d/deps.el")
 
-
 ;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
 (add-to-list 'exec-path "/opt/homebrew/bin")
 
+(setq ring-bell-function 'ignore)
+
 ;; saner regex
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-;; Ensure we can run remote binaries over ssh
-(require 'tramp)
-(add-to-list 'tramp-remote-path "~/.emacs.d/etc/bin")
-(add-to-list 'tramp-remote-path "/home/ubuntu/.emacs.d/etc/bin")
+(defun lk/load-secrets-from-1p ()
+  (condition-case err
+      (let ((secrets
+             (shell-command-to-string "op inject -i ~/.private/secrets.el")))
+        (with-temp-buffer
+          (message secrets)
+          (insert (format "%s" secrets))
+          (eval-buffer)))
+    (error (message "Error loading secrets: %s" err))))
+
+(lk/load-secrets-from-1p)
 
 (use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-copy-env "GITHUB_TOKEN")
-  :init (exec-path-from-shell-initialize))
+  :init (exec-path-from-shell-initialize)
+  ;; see above :config (exec-path-from-shell-copy-envs "GITHUB_TOKEN" "OPENAI_API_KEY")
+  )
 
 ;; Replicate PATHs from ~/.bashrc, although might not be necessary
 ;; because of the above
@@ -99,5 +107,4 @@
 ;; other things
 ;; Always start server, useful for things
 (load "server")
-(unless (server-running-p)
-  (server-start))
+(unless (server-running-p) (server-start))
