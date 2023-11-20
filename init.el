@@ -17,19 +17,21 @@
 
 (setq ring-bell-function 'ignore)
 
+(setenv "INSIDE_EMACS" "TRUE")
 ;; saner regex
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
 (defun lk/load-secrets-from-1p ()
-  (condition-case err
-      (let ((secrets
-             (shell-command-to-string "op inject -i ~/.private/secrets.el")))
-        (with-temp-buffer
-          (message secrets)
-          (insert (format "%s" secrets))
-          (eval-buffer)))
-    (error (message "Error loading secrets: %s" err))))
+  (when (string-blank-p (getenv "SECRETS_LOADED"))
+    (condition-case err
+        (let ((secrets
+               (shell-command-to-string "op inject -i ~/.private/secrets.el")))
+          (with-temp-buffer
+            (message secrets)
+            (insert (format "%s" secrets))
+            (eval-buffer)))
+      (error (message "Error loading secrets: %s" err)))))
 
 (lk/load-secrets-from-1p)
 
