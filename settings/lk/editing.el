@@ -21,22 +21,6 @@
 
 (define-key global-map (kbd "C-c R") 'revert-buffer)
 
-(defun lk/show-kill-ring ()
-  "Insert all `kill-ring' content in a new buffer named *copy history*.
-Based on  `http://ergoemacs.org/emacs/emacs_show_kill_ring.html'"
-  (interactive)
-  (let* ((buf-name "*copy history*")
-         (_ignore (kill-buffer (get-buffer buf-name)))
-         (copy-buf (generate-new-buffer buf-name)))
-    (progn
-      (switch-to-buffer copy-buf)
-      (funcall 'fundamental-mode)
-      (setq buffer-offer-save t)
-      (insert ">>>> Copy history:\n\n")
-      (dolist (x kill-ring)
-        (insert x "\n\n>>>> ---------------------------------\n\n"))
-      (goto-char (point-min)))))
-
 (defun lk/select-line ()
   "Select current line"
   (interactive)

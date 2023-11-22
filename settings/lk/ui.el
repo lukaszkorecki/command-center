@@ -1,3 +1,4 @@
+; -*- lexical-binding: t; -*-
 ;;; ui.el --- ...
 ;;; Commentary:
 
@@ -5,15 +6,14 @@
 (setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
 (blink-cursor-mode t) ;; move to UI
 
-(setq default-frame-alist '((fullscreen . maximized)
-                            (vertical-scroll-bars . nil)
-                            (horizontal-scroll-bars . nil)
-                            (ns-appearance . dark)
-                            (ns-transparent-titlebar . t)
-                            (alpha-background . 50)))
-
-
-
+(setq default-frame-alist
+      '((fullscreen . maximized)
+        (vertical-scroll-bars . nil)
+        (horizontal-scroll-bars . nil)
+        (ns-appearance . dark)
+        (ns-transparent-titlebar . t)
+        (alpha-background . 50)))
+(setq echo-keystrokes 0.1 use-dialog-box nil visible-bell nil)
 (setq frame-inhibit-implied-resize t)
 (setq pixel-scroll-precision-mode t)
 (setq-default show-trailing-whitespace nil)
@@ -58,10 +58,35 @@
 (setq show-paren-delay 0)
 (global-set-key (kbd "C-c f") 'toggle-frame-maximized)
 
-(use-package rainbow-delimiters)
+
+(defun lk/absolute-resize-window (width)
+  "Set the window's size to 80 (or prefix arg WIDTH) columns wide."
+  (interactive "P")
+  (enlarge-window (- (or width 80) (window-width)) 'horizontal))
+
+(defun lk/proportionally-resize-window (percentage)
+  "Set the window's size to percentage of the frame's width."
+  (interactive "P")
+  (let* ((frame-width (frame-width))
+         (current-window-width (window-width))
+         (desired-window-width (round (* frame-width percentage)))
+         (resize-amount (- desired-window-width current-window-width)))
+    (window-resize nil resize-amount t)))
+
+(defun lk/resize-window ()
+  (interactive)
+  (ivy-read "Resize window to: "
+            '(("33%" . (lambda () (lk/proportionally-resize-window 0.33)))
+              ("50%" . (lambda () (lk/proportionally-resize-window 0.50)))
+              ("75%" . (lambda () (lk/proportionally-resize-window 0.75)))
+              ("81 chars" . (lambda () (lk/absolute-resize-window 81)))
+              ("121 chars" . (lambda () (lk/absolute-resize-window 121))))
+            :action #'(lambda (x) (funcall (cdr x)))))
 
 
-(setq echo-keystrokes 0.1 use-dialog-box nil visible-bell nil)
+(global-set-key (kbd "C-c r") 'lk/resize-window)
+
+
 
 ;; Fix ansi-term rendering
 (add-hook 'term-mode-hook 'my-term-mode-hook)
@@ -78,8 +103,7 @@
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
 
-(use-package auto-dark
-  :config (auto-dark-mode t))
+(use-package auto-dark :config (auto-dark-mode t))
 
 (defun lk/clean-up-buffers ()
   (interactive)
