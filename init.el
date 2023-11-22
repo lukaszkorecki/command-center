@@ -23,12 +23,11 @@
 (setq reb-re-syntax 'string)
 
 (defun lk/load-secrets-from-1p ()
-  (when (string-blank-p (getenv "SECRETS_LOADED"))
+  (when (not (getenv "SECRETS_LOADED"))
     (condition-case err
         (let ((secrets
                (shell-command-to-string "op inject -i ~/.private/secrets.el")))
           (with-temp-buffer
-            (message secrets)
             (insert (format "%s" secrets))
             (eval-buffer)))
       (error (message "Error loading secrets: %s" err)))))
@@ -36,9 +35,7 @@
 (lk/load-secrets-from-1p)
 
 (use-package exec-path-from-shell
-  :init (exec-path-from-shell-initialize)
-  ;; see above :config (exec-path-from-shell-copy-envs "GITHUB_TOKEN" "OPENAI_API_KEY")
-  )
+  :init (exec-path-from-shell-initialize))
 
 ;; Replicate PATHs from ~/.bashrc, although might not be necessary
 ;; because of the above
