@@ -5,7 +5,7 @@
   :init
   ;; defaults
   (setq gptel-api-key (getenv "OPENAI_API_KEY"))
-  (setq gptel-mode "gpt4"))
+  (setq gptel-model "gpt4"))
 
 
 (provide 'lk/tools)
