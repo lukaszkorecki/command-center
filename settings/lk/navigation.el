@@ -57,7 +57,7 @@
   (setq aw-dispatch-always t)
   (setq aw-minibuffer-flag t)
   (set-face-foreground 'aw-background-face "gray70")
-  (ace-window-display-mode)
+  (ace-window-display-mode t)
   :init (add-hook 'term-mode-hook
                   (lambda ()
                     (define-key term-raw-map (kbd "M-o") 'ace-window)))
