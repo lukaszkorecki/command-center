@@ -23,6 +23,7 @@
   :after (prettier tsx-ts-mode)
   :init (setq typescript-indent-level 2)
   (add-hook 'typescript-mode-hook 'prettier-mode)
+  (add-hook 'typescript-ts-mode-hook 'prettier-mode)
   (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
   (add-to-list 'majo-mode-remap-alist
                '(typescript-mode . typescript-ts-mode))
