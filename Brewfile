@@ -19,7 +19,7 @@ brew "ripgrep"
 brew 'jq'
 brew 'borkdude/brew/jet'
 brew 'gh'
-brew 'hub'
+brew 'tmux'
 
 # infra
 
