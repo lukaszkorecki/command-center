@@ -11,6 +11,9 @@
            :dev/nrepl {:main-opts ["-m" "nrepl.cmdline"]
                        :extra-deps {nrepl/nrepl {:mvn/version "1.0.0"}}}
 
+           :dev/cloverage {:main-opts ["-m" "cloverage.coverage" "-p" "src" "-s" "test"]
+                           :extra-deps {cloverage/cloverage {:mvn/version "1.2.4"}}}
+
            :dev/outdated {:deps {com.github.liquidz/antq {:mvn/version "2.7.1133"}
                                  org.slf4j/slf4j-nop {:mvn/version "2.0.9"}}
                           :main-opts ["-m" "antq.core"
