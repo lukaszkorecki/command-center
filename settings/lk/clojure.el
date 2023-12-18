@@ -50,6 +50,10 @@
 (use-package monroe
   :init (require 'monroe)
   :config (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
+  ;; optimize memory usage for the REPL buffer, we don't really need undo here
+  (add-hook 'monroe-mode-hook (lambda
+                                ()
+                                (setq-local undo-outer-limit 10000)))
   :bind (:map clojure-mode-map
               ("C-c C-c" . monroe-eval-expression-at-point)
               ("C-x c j" . monroe-nrepl-server-start)

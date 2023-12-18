@@ -31,6 +31,7 @@
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l a" . eglot-code-actions )
          ("C-c l g" . xref-find-definitions)
+         ("C-c l u" . xref-find-references)
          ("C-x c f" . eglot-format-buffer )))
 
 (use-package flymake

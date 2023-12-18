@@ -25,6 +25,7 @@
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
   :init
+  (setq copilot-indent-warning-suppress t)
   (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
   (add-hook 'clojure-mode-hook 'copilot-mode)
   (add-hook 'typescript-ts-mode-hook 'copilot-mode)
