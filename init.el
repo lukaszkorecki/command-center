@@ -15,6 +15,7 @@
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
 (add-to-list 'exec-path "/opt/homebrew/bin")
 
+(setq warning-minimum-level :error)
 (setq ring-bell-function 'ignore)
 
 (setenv "INSIDE_EMACS" "TRUE")

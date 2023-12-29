@@ -10,16 +10,18 @@
   :straight (:host github :repo "clojure-emacs/clojure-mode")
   :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
   (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
-  :bind (:map clojure-mode-map
-              (("C-x c f" . eglot-format)
-               ("C-x c p c" . lk/portal-clear!)
-               ("C-x c s" . lk/clojure-scratch)
-               ("C-x c i" . lk/init-clojure-scratch)
-               ("C-x c c" .
-                (lambda ()
-                  (lk/clear-monroe-repl-from-anywhere)
-                  (lk/portal-clear!)))
-               ("C-x c C" . lk/clear-monroe-server-buffer-from-anywhere))))
+  ;; :bind (:map clojure-mode-map
+  ;;             (("C-x c f" . eglot-format)
+  ;;              ("C-x c p c" . lk/portal-clear!)
+  ;;              ("C-x c s" . lk/clojure-scratch)
+  ;;              ("C-x c i" . lk/init-clojure-scratch)
+  ;;              ("C-x c c" .
+  ;;               (lambda ()
+  ;;                 (lk/clear-monroe-repl-from-anywhere)
+  ;;                 (lk/portal-clear!)))
+  ;;              ("C-x c C" . lk/clear-monroe-server-buffer-from-anywhere)))
+
+  )
 
 
 (defconst lk/clj-scratch-name "scratch.clj")
@@ -75,7 +77,6 @@
 
 
 (defun lk/clj-mode-hook ()
-  (rainbow-delimiters-mode t)
   (require 'monroe)
   (clojure-enable-monroe))
 

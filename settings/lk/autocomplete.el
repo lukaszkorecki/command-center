@@ -27,9 +27,9 @@
   :config (setq copilot-max-char 1000000)
 
   (add-to-list 'warning-suppress-types
-               '(copilot copilot-exceeds-max-char))
+               '((copilot copilot-exceeds-max-char)))
   (add-to-list 'warning-suppress-types
-               '(copilot copilot-no-mode-indent))
+               '((copilot copilot-no-mode-indent)))
 
   (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
   (add-hook 'clojure-mode-hook 'copilot-mode)
