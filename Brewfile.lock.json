@@ -629,7 +629,8 @@
         "options": {
           "with-poll": true,
           "with-xwidgets": true,
-          "with-savchenkovaleriy-big-sur-icon": true
+          "with-savchenkovaleriy-big-sur-icon": true,
+          "link": true
         }
       },
       "hashicorp/tap/terraform-ls": {

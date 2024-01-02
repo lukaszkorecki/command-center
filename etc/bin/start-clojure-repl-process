@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
-emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+emacs='/opt/homebrew/bin/emacs'
 depsEdnLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "deps.edn"))' | tail -1 | xargs echo)
 projectCljLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "project.clj"))' | tail -1 | xargs echo)
 

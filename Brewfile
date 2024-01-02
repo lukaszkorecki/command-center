@@ -36,7 +36,7 @@ brew 'clojure-lsp/brew/clojure-lsp-native'
 # Emacs
 brew 'libvterm'
 brew 'cmake'
-brew 'emacs-plus@29', 'with-poll': true, 'with-xwidgets': true, 'with-savchenkovaleriy-big-sur-icon': true
+brew 'emacs-plus@29', 'with-poll': true, 'with-xwidgets': true, 'with-savchenkovaleriy-big-sur-icon': true, link: true
 
 # psql cli, but without PG itself
 brew 'libpq', link: true
