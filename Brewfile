@@ -21,8 +21,9 @@ brew 'jq'
 brew 'borkdude/brew/jet'
 brew 'gh'
 brew 'tmux'
+cask 'todoist'
 
-# infra
+# infra & secrets
 
 brew 'dopplerhq/doppler/doppler'
 brew "hashicorp/tap/terraform-ls"

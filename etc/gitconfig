@@ -69,3 +69,6 @@
 	user = lukaszkorecki
 [pull]
 	ff = only
+
+[includeIf "gitdir:~/work/"]
+  path = "~/.private/gitconfig"

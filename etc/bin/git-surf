@@ -3,14 +3,14 @@
 set -euo pipefail
 
 
-if [[ "$(which hub)" == "" ]] ; then
-    echo "missing hub binary!"
+if [[ "$(which gh)" == "" ]] ; then
+    echo "missing gh binary!"
     exit 1
 fi
 
 [[ -e ~/.private/env.sh ]]  && source ~/.private/env.sh
 
-if [[ "$GITHUB_TOKEN" == "" ]] ; then
+if [[ "$GITGH_TOKEN" == "" ]] ; then
     echo "missingh GH token"
     exit 2
 fi
@@ -65,9 +65,9 @@ while getopts "hpf:r:c:n" OPTIONS; do
     esac
 done
 
-# returns https://github/<ORG>/<REPO>/tree/<BRANCH>
+# returns https://gitgh/<ORG>/<REPO>/tree/<BRANCH>
 getRepoURL() {
-    hub browse -u
+    gh browse -u
 }
 
 
@@ -88,7 +88,7 @@ openOrPrint() {
     fi
 }
 
-# https://github.com/<ORG>/<REPO>/commit/c75ec6816c9d276046b4b28bf21df6c9eba8ab08
+# https://gitgh.com/<ORG>/<REPO>/commit/c75ec6816c9d276046b4b28bf21df6c9eba8ab08
 commitURL() {
     local commit=$1
     if [[ "$commit" == "last" ]] ; then
@@ -105,16 +105,16 @@ commitURL() {
 }
 
 PRURL() {
-    url=$(hub pr show -u)
+    url=$(gh pr show -u)
     # above will be empty, if current branch doesn't have a PR yet
     # it's ok, we can navigate to compare page and create one from there
     if [[ "$url" == "" ]] ; then
-        url=$(hub compare -u)
+        url=$(gh compare -u)
     fi
     echo "$url"
 }
 
-# https://github.com/<ORG>/<REPO>/blob/<BRANCH>/<PATH>
+# https://gitgh.com/<ORG>/<REPO>/blob/<BRANCH>/<PATH>
 fileURL() {
     local file="$1"
     local range="$2"
@@ -144,7 +144,7 @@ fileURL() {
 
 case "$mode" in
     browse)
-        hub browse
+        gh browse
         ;;
     file)
         openOrPrint $(fileURL "$file" "$range")
