@@ -90,22 +90,13 @@ setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
 
-[[ $(ssh-add -l | grep -v agent) == "" ]] && ssh-add -A
-
-# Load 1password CLI stuff
-if [[ -e $(which op) ]] ; then
-#     op signin
-else
-    echo "1password-cli not installed"
-fi
-
 if [[ -e $brewPrefix/bin/brew ]] ; then
     eval "$($brewPrefix/bin/brew shellenv)"
 fi
 
 # Emacs stuff
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+export EDITOR="emacsclient"
 
 # integration with Vterm:
 if [[ "$INSIDE_EMACS" = 'vterm' ]] \
