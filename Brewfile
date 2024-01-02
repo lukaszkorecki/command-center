@@ -1,9 +1,10 @@
 # -*- mode: ruby -*-
 tap "homebrew/bundle"
-tap "homebrew/core"
 tap 'borkdude/brew'
 tap 'd12frosted/emacs-plus'
-
+tap 'hashicorp/tap'
+tap 'dopplerhq/doppler'
+tap 'clojure-lsp/brew'
 
 # core language packages
 
