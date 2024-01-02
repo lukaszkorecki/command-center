@@ -680,11 +680,13 @@
             }
           }
         }
+      },
+      "1password-cli": {
       }
     },
     "cask": {
       "1password-cli": {
-        "version": "2.4.1",
+        "version": "2.24.0",
         "options": {
           "full_name": "1password-cli"
         }

@@ -26,6 +26,7 @@ brew 'tmux'
 
 brew 'dopplerhq/doppler/doppler'
 brew "hashicorp/tap/terraform-ls"
+cask '1password-cli'
 
 # language specific tooling
 
