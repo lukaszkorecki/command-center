@@ -21,8 +21,10 @@
   :init (yas-global-mode t)
   :bind (("C-c i" . yas-insert-snippet)))
 
+(use-package editorconfig)
+
 (use-package copilot
-  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
   :ensure t
   :config (setq copilot-max-char 1000000)
 

@@ -14,6 +14,10 @@
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
 (add-to-list 'exec-path "/opt/homebrew/bin")
+(setenv "PATH"
+        (concat
+         (getenv "PATH")
+         ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/bin"))
 
 (setq warning-minimum-level :error)
 (setq ring-bell-function 'ignore)
@@ -23,27 +27,13 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-(defun lk/load-secrets-from-1p ()
-  (when (not (getenv "SECRETS_LOADED"))
-    (condition-case err
-        (let ((secrets
-               (shell-command-to-string "op inject -i ~/.private/secrets.el")))
-          (with-temp-buffer
-            (insert (format "%s" secrets))
-            (eval-buffer)))
-      (error (message "Error loading secrets: %s" err)))))
 
+(require 'lk/secrets)
 (lk/load-secrets-from-1p)
 
 (use-package exec-path-from-shell
+  :ensure t
   :init (exec-path-from-shell-initialize))
-
-;; Replicate PATHs from ~/.bashrc, although might not be necessary
-;; because of the above
-(setenv "PATH"
-        (concat
-         (getenv "PATH")
-         ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/bin"))
 
 
 ;; reduce GC thrash
