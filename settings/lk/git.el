@@ -7,8 +7,7 @@
 
 ;; Git and git-surf helpers
 
-(defun lk/git-grep+
-    (regex)
+(defun lk/git-grep+ (regex)
   "Like vc-git-grep but project current directory and any extension, Pass REGEX.."
   (interactive "sRegex to search for: ")
   (vc-git-grep regex "*" (projectile-acquire-root)))
@@ -17,30 +16,24 @@
   :bind (( "C-c g g" . lk/git-grep+)
          ( "C-c g s" . vc-git-grep)))
 
-(defun lk/open-current-file-in-gh
-    ()
+(defun lk/open-current-file-in-gh ()
   ":nodoc:"
   (interactive)
-  (let* ((line-no (line-number-at-pos))
-         (command
-          (format "~/.emacs.d/etc/bin/git-surf -r%s,%s -f %s"
-                  line-no line-no
-                  (file-name-nondirectory (buffer-file-name)))))
-    (message (format "CMD: %s" command))
-    (async-shell-command command)))
+  (shell-command
+   (format "gh browse %s"
+           (file-name-nondirectory (buffer-file-name)))))
 
 (global-set-key (kbd "C-c g f") 'lk/open-current-file-in-gh)
 
 
 (defun lk/open-current-pr-in-gh ()
   (interactive)
-  (shell-command "~/.emacs.d/etc/bin/git-surf -p"))
+  (shell-command "gh pr browse"))
 
 (global-set-key (kbd "C-c g h") 'lk/open-current-pr-in-gh)
 
 (use-package magit
-  :config
-  (setq magit-git-executable "/usr/bin/git")
+  :config (setq magit-git-executable "/usr/bin/git")
   (setq magit-completing-read-function 'ivy-completing-read)
 	:bind (( "C-c m s" . magit-status)))
 

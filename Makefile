@@ -20,6 +20,8 @@ configs:
 	@ln -fvs ~/.emacs.d/etc/clojure ~/.clojure
 	@ln -fvs ~/.emacs.d/etc/psqlrc ~/.psqlrc
 	@ln -fvs ~/.emacs.d/etc/tmux.conf ~/.tmux.conf
+	@mkdir -p ~/.lein
+	@ln -fvs ~/.emacs.d/etc/lein/profiles.clj ~/.lein/profiles.clj
 
 
 brew-bundle:

@@ -8,9 +8,7 @@ if [[ "$(which gh)" == "" ]] ; then
     exit 1
 fi
 
-[[ -e ~/.private/env.sh ]]  && source ~/.private/env.sh
-
-if [[ "$GITGH_TOKEN" == "" ]] ; then
+if [[ "${GITHUB_TOKEN}" == "" ]] ; then
     echo "missingh GH token"
     exit 2
 fi
@@ -145,9 +143,9 @@ fileURL() {
 case "$mode" in
     browse)
         gh browse
-        ;;
+        ;;\
     file)
-        openOrPrint $(fileURL "$file" "$range")
+        gh browse "$file" "$range"
         ;;
     commit)
         openOrPrint $(commitURL "$commit")
