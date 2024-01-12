@@ -25,7 +25,10 @@
   (mac-switch-meta))
 
 (use-package vterm
-    :ensure t)
+  :ensure t
+  :init
+  (setq vterm-shell "/bin/zsh")
+  (setq vterm-kill-buffer-on-exit t))
 
 (use-package multi-vterm
   :ensure t
