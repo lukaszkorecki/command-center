@@ -56,10 +56,9 @@
 
 (use-package nginx-mode :init (setq nginx-indent-offset 2))
 
-(use-package yaml-ts-mode
-  :straight (:host github :repo "ikatyang/tree-sitter-yaml")
+(use-package yaml-mode
   :ensure t
-  :init (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
+  :init
   (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
