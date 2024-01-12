@@ -17,6 +17,7 @@ configs:
 	@mkdir -p ~/.config/clojure-lsp
 	@ln -fvs ~/.emacs.d/etc/clojure-lsp-config.edn ~/.config/clojure-lsp/config.edn
 	@mkdir -p ~/.clojure/
+	@rm -rf ~/.clojure
 	@ln -fvs ~/.emacs.d/etc/clojure ~/.clojure
 	@ln -fvs ~/.emacs.d/etc/psqlrc ~/.psqlrc
 	@ln -fvs ~/.emacs.d/etc/tmux.conf ~/.tmux.conf
