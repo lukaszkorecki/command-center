@@ -31,3 +31,4 @@ deps.txt
 /backend/.portal-url
 /.nrepl-port
 **/scratch.clj
+/tests.edn
