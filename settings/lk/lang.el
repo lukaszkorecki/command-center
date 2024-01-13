@@ -26,12 +26,36 @@
   :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 
+;; helpers for markdown and writing in general
+(defun lk/insert-current-date ()
+  "Insert current date at point."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d")))
+
+(defun lk/insert-current-date-time ()
+  "Insert current date at point."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d %H:%M")))
+
+(defun lk/insert-random-uuid ()
+  "Insert a random UUID at point."
+  (interactive)
+  (insert (uuid-string)))
+
+
+(defun lk/insert-md-callout (callout-type)
+  "Insert a markdown callout of type CALLOUT-TYPE at point."
+  (interactive "sCallout type: ")
+  (insert (format "> [!%s]\n" callout-type)))
+
 (use-package markdown-mode
   :ensure t
-  :config (add-to-list 'major-mode-remap-alist
-                       '(markdown-mode . markdown-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-  (keymap-local-unset "C-c C-t"))
+  :config (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+  (keymap-local-unset "C-c C-t")
+  :bind (:map markdown-mode-map
+              (("C-c m c" . lk/insert-md-callout)
+               ("C-c m d" . lk/insert-current-date)
+               ("C-c m t" . lk/insert-current-date-time))))
 
 (use-package poly-markdown
   :after (markdown-mode)
@@ -58,8 +82,7 @@
 
 (use-package yaml-mode
   :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
 
