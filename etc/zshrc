@@ -17,6 +17,9 @@ else
     brewPrefix=""
 fi
 
+if [[ -e $brewPrefix/bin/brew ]] ; then
+    eval "$($brewPrefix/bin/brew shellenv)"
+fi
 
 if [[ "$brewPrefix" != "" ]] ; then
     export PATH=$brewPrefix/bin:$PATH
@@ -26,18 +29,17 @@ if [[ "$brewPrefix" != "" ]] ; then
         export PATH="$pythonPath:$PATH"
     fi
 
-    export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
     if [[ -e $brewPrefix/opt/openjdk ]] ; then
+        export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
         export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
         export JAVAHOME=$brewPrefix/opt/openjdk/
         export JAVA_HOME=$JAVAHOME
-
     fi
 
-    export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
-    if [[ -e $brewPrefix/opt/openjdk ]] ; then
-        export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
-        export JAVAHOME=$brewPrefix/opt/openjdk/
+    if [[ -e $brewPrefix/opt/openjdk@11 ]] ; then
+        export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
+        export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
+        export JAVAHOME=$brewPrefix/opt/openjdk@11/
         export JAVA_HOME=$JAVAHOME
 
     fi
@@ -69,10 +71,6 @@ select-word-style bash
 # auto-cd
 setopt AUTO_CD
 
-## secrets and stuff
-if [[ -e ~/.private/env.sh  ]] ; then
-    source ~/.private/env.sh
-fi
 
 ## load completions
 
@@ -80,6 +78,8 @@ autoload -Uz compinit && compinit
 autoload _git
 autoload _docker
 autoload _docker-compose
+ # disable docker cli hints
+export DOCKER_CLI_HINTS=false
 
 # History Configuration
 HISTSIZE=5000
@@ -90,9 +90,6 @@ setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
 
-if [[ -e $brewPrefix/bin/brew ]] ; then
-    eval "$($brewPrefix/bin/brew shellenv)"
-fi
 
 # Emacs stuff
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
@@ -113,4 +110,9 @@ fi
 
 if [[ "$(which doctl 2>&1)" == /* ]] ; then
     eval "$(doctl completion zsh)"
+fi
+
+## secrets and work stuff
+if [[ -e ~/.private/env.sh  ]] ; then
+    source ~/.private/env.sh
 fi
