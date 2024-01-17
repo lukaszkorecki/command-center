@@ -22,39 +22,40 @@ help() {
 }
 
 
-mode=browse
+currentBranch="$(git rev-parse --abbrev-ref HEAD)"
+surftTo=browse
 noop=
 # flag vars
 commit=
-range=
+line=
 file=
 pr=
 
 
-while getopts "hpf:r:c:n" OPTIONS; do
+while getopts "hpf:l:c:n" OPTIONS; do
     case "$OPTIONS" in
         h) ## help!
             help
             ;;
         f) ## file to browse
-            mode=file
+            surftTo=file
             file="$OPTARG"
             ;;
-        r) ## line range in file to browse, needs a file!
-            mode=file
-            range="$OPTARG"
+        l) ## line in file to browse, needs a file!
+            surftTo=file
+            line="$OPTARG"
             ;;
 
         p) ## are we opening a pr?
-            mode=pr
+            surftTo=pr
             pr=1
             ;;
 
         c) ## commit to browse
-            mode=commit
+            surftTo=commit
             commit="$OPTARG"
             ;;
-        n) ## no-op mode aka just print the url
+        n) ## no-op surftTo aka just print the url
             noop="yes"
             ;;
         *)
@@ -63,98 +64,24 @@ while getopts "hpf:r:c:n" OPTIONS; do
     esac
 done
 
-# returns https://gitgh/<ORG>/<REPO>/tree/<BRANCH>
-getRepoURL() {
-    gh browse -u
-}
-
-
-gitRoot() {
-    git rev-parse --show-toplevel
-}
-
-currentBranch() {
-    git rev-parse --abbrev-ref HEAD 2>/dev/null
-}
-
-openOrPrint() {
-    local url="$1"
-    if [[ "$noop" == "" ]] ; then
-        open "$url"
-    else
-        echo "$url"
-    fi
-}
-
-# https://gitgh.com/<ORG>/<REPO>/commit/c75ec6816c9d276046b4b28bf21df6c9eba8ab08
-commitURL() {
-    local commit=$1
-    if [[ "$commit" == "last" ]] ; then
-        commit=$(git log -n 1  --format="%H")
-    fi
-    url=$(getRepoURL)
-
-
-    if [[ $url =~ "/tree/" ]] ; then
-       url="$(echo $url | sed 's/tree.*//g')"
-    fi
-    commitUrl="$url/commit/$commit"
-    echo $commitUrl
-}
-
-PRURL() {
-    url=$(gh pr show -u)
-    # above will be empty, if current branch doesn't have a PR yet
-    # it's ok, we can navigate to compare page and create one from there
-    if [[ "$url" == "" ]] ; then
-        url=$(gh compare -u)
-    fi
-    echo "$url"
-}
-
-# https://gitgh.com/<ORG>/<REPO>/blob/<BRANCH>/<PATH>
-fileURL() {
-    local file="$1"
-    local range="$2"
-    url=$(getRepoURL)
-    branch=$(currentBranch)
-
-    if [[ -z "$1" || "$1" == "." ]] ; then
-        echo ""
-    fi
-
-    fullPath=$(git ls-tree "$branch" --full-name "$file" | awk '{ print $4 }')
-
-    # we're missing tree/<branch> in the url for some reason
-    if [[ ! "$url" =~ "/tree/" ]] ; then
-        url="$url/tree/$branch"
-    fi
-
-    fileUrl="${url/tree/blob}/$fullPath"
-
-    if [[ "$range" == "" ]] ; then
-        echo $fileUrl
-    else
-        rangeMarker="#L${range/,/-L}"
-        echo "${fileUrl}${rangeMarker}"
-    fi
-}
-
-case "$mode" in
+case "$surftTo" in
     browse)
-        gh browse
+        gh browse -b "$currentBranch"
         ;;\
     file)
-        gh browse "$file" "$range"
+        if [[ "$line" != "" ]] ; then
+            file="$file:$line"
+        fi
+        gh browse  -b "$currentBranch" "$file"
         ;;
     commit)
-        openOrPrint $(commitURL "$commit")
+        gh browse -b "$currentBranch" "$commit"
          ;;
     pr)
-        openOrPrint $(PRURL)
+        gh pr view -w
         ;;
     *)
-        echo "unknown mode!"
+        echo "unknown destination '$surftTo'"
         exit 1
         ;;
 esac
