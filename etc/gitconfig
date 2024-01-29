@@ -24,7 +24,8 @@
   c = commit
   cm = commit -m
   ca = commit --amend
-  cleanup-branches = !git fetch -a -p && git branch --merged master | grep -v 'master$' | xargs git branch -d || true
+  default-remote-branch = ! git remote show origin | grep HEAD | cut -d: -f2 | tr -d ' '
+  cleanup-branches = !git fetch -a -p && git branch --merged $(git default-remote-branch) | grep -v "$(git default-remote-branch)$" | xargs git branch -d || true
   recent="!f(){ git branch --sort=-committerdate | head -n ${1:-5}; };f"
   co = checkout
   g = !git --no-pager grep --color -n
