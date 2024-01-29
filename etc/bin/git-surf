@@ -78,7 +78,7 @@ case "$surftTo" in
         gh browse -b "$currentBranch" "$commit"
          ;;
     pr)
-        gh pr view -w
+        gh pr view -w | gh pr create -w
         ;;
     *)
         echo "unknown destination '$surftTo'"
