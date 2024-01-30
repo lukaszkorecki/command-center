@@ -36,9 +36,11 @@
 (use-package js-ts-mode
   :ensure t
   :straight js2-mode
-  :init (add-hook 'js-ts-mode-hook
+  :init
+  (add-hook 'js-ts-mode-hook
                   (lambda ()
                     (treesit-font-lock-recompute-features '(property))))
+  (add-hook 'js-ts-mode-hook 'eglot-ensure)
   :mode ("\\.js$" . js-ts-mode))
 
 (use-package js2-mode
