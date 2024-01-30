@@ -33,9 +33,17 @@
         (( "C-x c f" . lk/prettier-format-current-buffer ))))
 
 
+(use-package js-ts-mode
+  :ensure t
+  :straight js2-mode
+  :init (add-hook 'js-ts-mode-hook
+                  (lambda ()
+                    (treesit-font-lock-recompute-features '(property))))
+  :mode ("\\.js$" . js-ts-mode))
 
-
-
+(use-package js2-mode
+  :after (js-ts-mode)
+  :init (add-to-list 'major-mode-remap-alist '(js2-mode . js-ts-mode)))
 
 (provide 'lk/js)
 ;;; js.el ends here
