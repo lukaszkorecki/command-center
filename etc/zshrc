@@ -51,18 +51,6 @@ alias gcd='cd $(git root)'
 # go to project root, might be repo root but not necessarily
 alias pcd='cd $(project-root-path)'
 
-## prompt
-# git config
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-zstyle ':vcs_info:git:*' formats '%F{240}(%b)'
-zstyle ':vcs_info:*' enable git
-
-BR=$'\n'
-export PROMPT="# %1~ \$vcs_info_msg_0_ ${BR}# "
-
 ## navigation
 # make path operations work like bash (e.g. M-backspace deletes path fragments)
 autoload -U select-word-style
@@ -75,9 +63,13 @@ setopt AUTO_CD
 ## load completions
 
 autoload -Uz compinit && compinit
+# git info in prompt and such
 autoload _git
+autoload -Uz vcs_info
+
 autoload _docker
 autoload _docker-compose
+
  # disable docker cli hints
 export DOCKER_CLI_HINTS=false
 
@@ -116,3 +108,23 @@ fi
 if [[ -e ~/.private/env.sh  ]] ; then
     source ~/.private/env.sh
 fi
+
+
+## prompt
+
+precmd_vcs_info() { vcs_info }
+precmd_sec_info() {
+    if [[ "$OP_SECRETS_LOADED" == "" ]] ; then
+        export _SEC_FLAG="🔐"
+    else
+        export _SEC_FLAG="🔓"
+    fi
+}
+precmd_functions+=( precmd_vcs_info )
+precmd_functions+=( precmd_sec_info )
+setopt PROMPT_SUBST
+zstyle ':vcs_info:git:*' formats '%F{240}(%b)'
+zstyle ':vcs_info:*' enable git
+
+BR=$'\n'
+export PROMPT='# ${_SEC_FLAG} %1~ ${vcs_info_msg_0_} ${BR}# '
