@@ -4,5 +4,6 @@
                        [org.clojars.lukaszkorecki/rumble "1.0.0.24"]]
         :aliases {"kaocha" ["run" "-m" "kaocha.runner"]
                   "outdated" ["with-profile" "antq" "run" "-m" "antq.core"]}}
- :antq {:dependencies [[com.github.liquidz/antq "2.8.1173"]
+ :antq {:dependencies [[com.github.liquidz/antq "RELEASE"]
+                       [org.yaml/snakeyaml "2.2"]
                        [org.slf4j/slf4j-nop "RELEASE"]]}}
