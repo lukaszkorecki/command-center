@@ -4,8 +4,6 @@
 ;;; Code:
 
 ;; Javascripts, Typescripts and all that crap
-(use-package prettier :ensure t)
-
 (use-package typescript-ts-mode
   :straight (:host github
                    :repo "tree-sitter/tree-sitter-typescript"
