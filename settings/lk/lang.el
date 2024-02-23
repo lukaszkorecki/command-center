@@ -52,6 +52,8 @@
   :ensure t
   :config (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
   (keymap-local-unset "C-c C-t")
+  (setq markdown-command "~/.emacs.d/etc/bin/markdown")
+  (setq markdown-command-needs-filename t)
   :bind (:map markdown-mode-map
               (("C-c m c" . lk/insert-md-callout)
                ("C-c m d" . lk/insert-current-date)

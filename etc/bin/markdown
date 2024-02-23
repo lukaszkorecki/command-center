@@ -1,0 +1,10 @@
+#!/usr/bin/env bb
+
+(require '[babashka.deps :as deps])
+(deps/add-deps '{:deps {markdown-clj/markdown-clj {:mvn/version "1.11.8"}}})
+
+(require '[markdown.core :as md])
+(let [file-name (first *command-line-args*)
+      file-contents (slurp file-name)
+      md-contents (md/md-to-html-string file-contents)]
+  (println md-contents))
