@@ -61,14 +61,28 @@ setopt AUTO_CD
 
 
 ## load completions
+fpath+=(~/.emacs.d/etc/zsh/)
 
 autoload -Uz compinit && compinit
-# git info in prompt and such
-autoload _git
-autoload -Uz vcs_info
-
 autoload _docker
 autoload _docker-compose
+autoload _rg
+autoload _git
+
+# Load autocomplete for other tools not supported by zsh directly
+if [[ "$(which op 2>&1)" == /* ]] ; then
+    eval "$(op completion zsh)";
+    compdef _op op
+fi
+
+if [[ "$(which doctl 2>&1)" == /* ]] ; then
+    eval "$(doctl completion zsh)"
+fi
+
+
+# git info in prompt and such
+autoload -Uz vcs_info
+
 
  # disable docker cli hints
 export DOCKER_CLI_HINTS=false
@@ -83,35 +97,30 @@ setopt sharehistory
 setopt incappendhistory
 
 
-# Emacs stuff
-alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-export EDITOR="emacsclient"
+# Make Emacs the default editor, and use emacsclient to open files
+alias emacs='emacsclient -nw'
+export EDITOR="emacs"
 
-# integration with Vterm:
-if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-    && [[ -n ${EMACS_VTERM_PATH} ]] \
-    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
-fi
-
-# Load autocomplete for other tools not supported by zsh directly
-if [[ "$(which op 2>&1)" == /* ]] ; then
-    eval "$(op completion zsh)";
-    compdef _op op
-fi
-
-if [[ "$(which doctl 2>&1)" == /* ]] ; then
-    eval "$(doctl completion zsh)"
-fi
-
-## secrets and work stuff
+# secrets and work stuff
 if [[ -e ~/.private/env.sh  ]] ; then
     source ~/.private/env.sh
 fi
 
 
-## prompt
+# integration with Vterm:
+if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+       && [[ -n ${EMACS_VTERM_PATH} ]] \
+       && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+	  source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
 
+    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+
+    autoload -U add-zsh-hook
+    add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
+fi
+
+
+# prompt
 precmd_vcs_info() { vcs_info }
 precmd_sec_info() {
     if [[ "$OP_SECRETS_LOADED" == "" ]] ; then
@@ -128,3 +137,10 @@ zstyle ':vcs_info:*' enable git
 
 BR=$'\n'
 export PROMPT='# ${_SEC_FLAG} %1~ ${vcs_info_msg_0_} ${BR}# '
+
+if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
+    vterm_prompt_end() {
+        vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+    }
+    PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+fi

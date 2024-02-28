@@ -28,22 +28,21 @@
   :ensure t
   :init
   (setq vterm-shell "/bin/zsh")
-  (setq vterm-kill-buffer-on-exit t))
+  (setq vterm-kill-buffer-on-exit t)
+  :bind (("C-c M-o" . vterm-clear-scrollback)
+         ("C-c ESC o" . vterm-clear-scrollback)))
 
 (use-package multi-vterm
   :ensure t
   :bind (( "C-x t n" . multi-vterm )
-         ( "C-x n t" . multi-vterm)
          ( "C-x t p" . multi-vterm-project )))
 
-
-(global-set-key (kbd "C-x n e") 'eshell)
 
 (use-package which-key
   :init (setq which-key-show-early-on-C-h t)
   ;; make sure which-key doesn't show normally but refreshes quickly after it is
   ;; triggered.
-  (setq which-key-idle-delay 10000)
+  (setq which-key-idle-delay 1000)
   (setq which-key-idle-secondary-delay 0.05)
   (which-key-mode))
 
