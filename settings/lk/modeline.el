@@ -9,11 +9,7 @@
 
 (defun vc-status-mode-line ()
   "Builds a source control string or nil."
-  (when vc-mode
-    `(,(s-trim (substring-no-properties vc-mode)))))
-
-(use-package nyan-mode :ensure t)
-
+  (when vc-mode `(,(s-trim (substring-no-properties vc-mode)))))
 
 ;; track the selected window and use that control what the mode-line shows
 ;; stolen from https://emacs.stackexchange.com/a/26345/13060
@@ -37,21 +33,11 @@
                  (window-parameter
                   (selected-window)
                   'ace-window-path))
-               ;; " / "
-               ;; '(:eval (vc-status-mode-line))
-               ;; buffername, line, column
-               " / %b / L:%l C:%c / "
-               ;; major-mode--suspendedr mode
-               '(:eval
-                 (propertize "%m " 'face 'font-lock-constant-face)
-                 ;; modified * / RO % / no changes -
-                 '(:eval
-                   (propertize " %*" 'face 'font-lock-constant-face))
-                 '(global-mode-string global-mode-string))
-               " / "
+               ;; buffername, line, column, mode
+               " / %b / L:%l C:%c / %m / "
                '(:eval
                  (when (eq lk/selected-window (selected-window))
-                   (list (nyan-create))))))
+                   '(:eval (vc-status-mode-line))))))
 
 
 (provide 'lk/modeline)
