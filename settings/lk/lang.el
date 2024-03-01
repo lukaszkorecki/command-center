@@ -109,10 +109,11 @@
   (interactive)
   (lk/invoke-compile-tool-in-project "docker run --rm -v $PWD:/mnt koalaman/shellcheck:stable %s"))
 
-
 (add-hook 'sh-mode-hook
           (lambda ()
-            (progn (copilot-mode 't) (keymap-local-unset "C-c C-t"))))
+            (progn (copilot-mode 't)
+                   (setq sh-basic-offset 2)
+                   (keymap-local-unset "C-c C-t"))))
 
 
 (use-package go-mode
@@ -142,7 +143,6 @@
 (require 'lk/js)
 (require 'lk/clojure)
 
-
 (use-package hl-todo
   :diminish hl-todo
   :config (setq hl-todo-highlight-punctuation ":"
@@ -151,6 +151,7 @@
                   ("FIXME"      error bold)
                   ("HACK"       font-lock-constant-face bold)
                   ("XXX"     font-lock-keyword-face bold)
+                  ("INFO"       success bold)
                   ("NOTE"       success bold)))
   (add-hook 'prog-mode-hook #'hl-todo-mode))
 
