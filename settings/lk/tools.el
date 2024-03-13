@@ -14,4 +14,18 @@
   (setq mermaid-flags "run -u 1000 -v /tmp:/tmp ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:9.1.6"))
 
 
+
+(use-package vterm
+  :ensure t
+  :init
+  (setq vterm-shell "/bin/zsh")
+  (setq vterm-kill-buffer-on-exit t)
+  :bind (("C-c M-o" . vterm-clear-scrollback)
+         ("C-c ESC o" . vterm-clear-scrollback)))
+
+(use-package multi-vterm
+  :ensure t
+  :bind (( "C-x t n" . multi-vterm )
+         ( "C-x t p" . multi-vterm-project )))
+
 (provide 'lk/tools)

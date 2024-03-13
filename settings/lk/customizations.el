@@ -24,19 +24,6 @@
   (mac-switch-meta)
   (mac-switch-meta))
 
-(use-package vterm
-  :ensure t
-  :init
-  (setq vterm-shell "/bin/zsh")
-  (setq vterm-kill-buffer-on-exit t)
-  :bind (("C-c M-o" . vterm-clear-scrollback)
-         ("C-c ESC o" . vterm-clear-scrollback)))
-
-(use-package multi-vterm
-  :ensure t
-  :bind (( "C-x t n" . multi-vterm )
-         ( "C-x t p" . multi-vterm-project )))
-
 
 (use-package which-key
   :init (setq which-key-show-early-on-C-h t)
