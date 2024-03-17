@@ -42,3 +42,4 @@ brew 'emacs-plus@29', 'with-poll': true, 'with-xwidgets': true, 'with-savchenkov
 
 # psql cli, but without PG itself
 brew 'libpq', link: true
+brew 'shfmt'

@@ -104,16 +104,20 @@
 
 ;; sh mode
 
-(defun lk/bash-check-current-buffer ()
+(defun lk/format-current-buffer ()
   "Run shellcheck on current file"
   (interactive)
-  (lk/invoke-compile-tool-in-project "docker run --rm -v $PWD:/mnt koalaman/shellcheck:stable %s"))
+  (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci --filename %s"))
 
 (add-hook 'sh-mode-hook
           (lambda ()
-            (progn (copilot-mode 't)
-                   (setq sh-basic-offset 2)
-                   (keymap-local-unset "C-c C-t"))))
+            (progn
+              (copilot-mode 't)
+              (setq sh-basic-offset 2)
+              (keymap-local-unset "C-c C-t")
+              (define-key sh-mode-map
+                          (kbd "C-x c f")
+                          'lk/format-current-buffer))))
 
 
 (use-package go-mode
