@@ -5,11 +5,11 @@ mkdir -p .m2
 LEIN_PORT=${LEIN_PORT:-9292}
 
 docker run --rm -it \
-       -v $(pwd):/tmp \
-       -v $(pwd)/.m2:/root/.m2 \
-       -v $HOME/.emacs.d/etc/repl.clj:/Users/lukasz/.emacs.d/etc/repl.clj \
-       -v $HOME/.lein:/root/.lein \
-       -p $LEIN_PORT:$LEIN_PORT \
-       -e LEIN_REPL_PORT=$LEIN_PORT \
-       -e LEIN_REPL_HOST=0.0.0.0 \
-       clojure lein $*
+  -v $(pwd):/tmp \
+  -v $(pwd)/.m2:/root/.m2 \
+  -v $HOME/.emacs.d/etc/repl.clj:/Users/lukasz/.emacs.d/etc/repl.clj \
+  -v $HOME/.lein:/root/.lein \
+  -p $LEIN_PORT:$LEIN_PORT \
+  -e LEIN_REPL_PORT=$LEIN_PORT \
+  -e LEIN_REPL_HOST=0.0.0.0 \
+  clojure lein $*

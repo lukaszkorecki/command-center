@@ -16,7 +16,7 @@ while getopts "s:e:" OPTIONS; do
   esac
 done
 
-if [[ "$search$sedExpression" = '' ]] ; then
+if [[ "$search$sedExpression" == '' ]]; then
   echo "Search and replace in git project
 
 Usage:
@@ -26,6 +26,5 @@ Usage:
 "
   exit 1
 fi
-
 
 git grep "$search" | cut -d: -f1 | uniq | xargs sed -i "" -e "$sedExpression"

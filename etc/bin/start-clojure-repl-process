@@ -5,31 +5,31 @@ emacs='/opt/homebrew/bin/emacs'
 depsEdnLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "deps.edn"))' | tail -1 | xargs echo)
 projectCljLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "project.clj"))' | tail -1 | xargs echo)
 
-if [[ "$depsEdnLocation" != "nil" ]] ; then
-    echo "Found deps.edn in $depsEdnLocation"
-    path=${depsEdnLocation/#\~/$HOME}
-    cd $path
-    if [[ -e ./script/repl ]] ; then
-        echo "using script/repl"
-        exec ./script/repl
-    else
-        echo "using clj + own luncher args -M:dev/rumble:dev:test:dev/nrepl"
-        # assume that there's a dev & test alias in deps.edn
-        TERM=xterm exec clojure -M:dev/rumble:dev:test:dev/nrepl
-    fi
+if [[ $depsEdnLocation != "nil" ]]; then
+  echo "Found deps.edn in $depsEdnLocation"
+  path=${depsEdnLocation/#\~/$HOME}
+  cd $path
+  if [[ -e ./script/repl ]]; then
+    echo "using script/repl"
+    exec ./script/repl
+  else
+    echo "using clj + own luncher args -M:dev/rumble:dev:test:dev/nrepl"
+    # assume that there's a dev & test alias in deps.edn
+    TERM=xterm exec clojure -M:dev/rumble:dev:test:dev/nrepl
+  fi
 fi
 
-if [[ "$projectCljLocation" != "nil" ]] ; then
-    echo "Found project.clj in $projectCljLocation"
-    path=${projectCljLocation/#\~/$HOME}
-    cd $path
-    if [[ -e ./script/lein ]] ; then
-        echo "Using script/lein"
-        exec ./script/lein $@
-    else
-        echo "Using global lein"
-        exec lein $@
-    fi
+if [[ $projectCljLocation != "nil" ]]; then
+  echo "Found project.clj in $projectCljLocation"
+  path=${projectCljLocation/#\~/$HOME}
+  cd $path
+  if [[ -e ./script/lein ]]; then
+    echo "Using script/lein"
+    exec ./script/lein $@
+  else
+    echo "Using global lein"
+    exec lein $@
+  fi
 fi
 
 echo "deps.edn or project.clj not found!"

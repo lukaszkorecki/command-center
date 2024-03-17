@@ -1,45 +1,42 @@
 #!/usr/bin/env bash
 help() {
-    echo "Some useful help"
-    grep '##' "$0" | grep -v grep
-    exit 0
+  echo "Some useful help"
+  grep '##' "$0" | grep -v grep
+  exit 0
 }
-
 
 mode=repo
 
 while getopts "hgr" OPTIONS; do
-    case "$OPTIONS" in
-        h) ## help!
-            help
-            ;;
-        g) ## set ignore mode to global
-            mode=global
-            ;;
-        r) ## set ignore mode to repo (default)
-            mode=repo
-            ;;
-        *)
-            help
-            ;;
-    esac
+  case "$OPTIONS" in
+    h) ## help!
+      help
+      ;;
+    g) ## set ignore mode to global
+      mode=global
+      ;;
+    r) ## set ignore mode to repo (default)
+      mode=repo
+      ;;
+    *)
+      help
+      ;;
+  esac
 done
 
-shift $((OPTIND-1))
+shift $((OPTIND - 1))
 OTHERARGS=$@
 
-
-
-if [[ "$mode" == "repo" ]] ; then
-    target="$(git root)/.gitignore"
-elif [[ "$mode" == "global" ]] ; then
-    target="~/.gitignore_global "
+if [[ $mode == "repo" ]]; then
+  target="$(git root)/.gitignore"
+elif [[ $mode == "global" ]]; then
+  target="~/.gitignore_global "
 else
-    echo "unknown mode!"
-    help
-    exit 1
+  echo "unknown mode!"
+  help
+  exit 1
 fi
 
-echo "Updating $mode ignore file: $target" > /dev/stderr
+echo "Updating $mode ignore file: $target" >/dev/stderr
 
-echo "$OTHERARGS" >> "$target"
+echo "$OTHERARGS" >>"$target"

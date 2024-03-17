@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-GSC="ssh -o \"IdentitiesOnly=yes\" "
+GSC='ssh -o "IdentitiesOnly=yes" '
 GSC="$GSC -o \"IdentityFile=$HOME/.ssh/personal.pub\" "
 GSC="$GSC -o \"IdentityAgent=$HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock\" "
 export GIT_SSH_COMMAND="${GSC}"

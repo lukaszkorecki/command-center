@@ -2,25 +2,22 @@
 
 set -euo pipefail
 
-
-if [[ "$(which gh)" == "" ]] ; then
-    echo "missing gh binary!"
-    exit 1
+if [[ "$(which gh)" == "" ]]; then
+  echo "missing gh binary!"
+  exit 1
 fi
 
-if [[ "${GITHUB_TOKEN}" == "" ]] ; then
-    echo "missingh GH token"
-    exit 2
+if [[ ${GITHUB_TOKEN} == "" ]]; then
+  echo "missingh GH token"
+  exit 2
 fi
-
 
 help() {
-    echo "git-surf v2 - opens various things in GH"
-    echo "Flags:"
-    grep '##' "$0" | grep -v grep | sed 's/) ##/ - /'g
-    exit 0
+  echo "git-surf v2 - opens various things in GH"
+  echo "Flags:"
+  grep '##' "$0" | grep -v grep | sed 's/) ##/ - /'g
+  exit 0
 }
-
 
 currentBranch="$(git rev-parse --abbrev-ref HEAD)"
 surftTo=browse
@@ -31,57 +28,56 @@ line=
 file=
 pr=
 
-
 while getopts "hpf:l:c:n" OPTIONS; do
-    case "$OPTIONS" in
-        h) ## help!
-            help
-            ;;
-        f) ## file to browse
-            surftTo=file
-            file="$OPTARG"
-            ;;
-        l) ## line in file to browse, needs a file!
-            surftTo=file
-            line="$OPTARG"
-            ;;
+  case "$OPTIONS" in
+    h) ## help!
+      help
+      ;;
+    f) ## file to browse
+      surftTo=file
+      file="$OPTARG"
+      ;;
+    l) ## line in file to browse, needs a file!
+      surftTo=file
+      line="$OPTARG"
+      ;;
 
-        p) ## are we opening a pr?
-            surftTo=pr
-            pr=1
-            ;;
+    p) ## are we opening a pr?
+      surftTo=pr
+      pr=1
+      ;;
 
-        c) ## commit to browse
-            surftTo=commit
-            commit="$OPTARG"
-            ;;
-        n) ## no-op surftTo aka just print the url
-            noop="yes"
-            ;;
-        *)
-            help
-            ;;
-    esac
+    c) ## commit to browse
+      surftTo=commit
+      commit="$OPTARG"
+      ;;
+    n) ## no-op surftTo aka just print the url
+      noop="yes"
+      ;;
+    *)
+      help
+      ;;
+  esac
 done
 
 case "$surftTo" in
-    browse)
-        gh browse -b "$currentBranch"
-        ;;\
-    file)
-        if [[ "$line" != "" ]] ; then
-            file="$file:$line"
-        fi
-        gh browse  -b "$currentBranch" "$file"
-        ;;
-    commit)
-        gh browse -b "$currentBranch" "$commit"
-         ;;
-    pr)
-        gh pr view -w | gh pr create -w
-        ;;
-    *)
-        echo "unknown destination '$surftTo'"
-        exit 1
-        ;;
+  browse)
+    gh browse -b "$currentBranch"
+    ;;
+  file)
+    if [[ $line != "" ]]; then
+      file="$file:$line"
+    fi
+    gh browse -b "$currentBranch" "$file"
+    ;;
+  commit)
+    gh browse -b "$currentBranch" "$commit"
+    ;;
+  pr)
+    gh pr view -w | gh pr create -w
+    ;;
+  *)
+    echo "unknown destination '$surftTo'"
+    exit 1
+    ;;
 esac
