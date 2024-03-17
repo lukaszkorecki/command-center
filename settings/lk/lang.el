@@ -107,7 +107,7 @@
 (defun lk/format-current-buffer ()
   "Run shellcheck on current file"
   (interactive)
-  (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci --filename %s"))
+  (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci %s"))
 
 (add-hook 'sh-mode-hook
           (lambda ()
