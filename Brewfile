@@ -22,6 +22,7 @@ brew 'borkdude/brew/jet'
 brew 'gh'
 brew 'tmux'
 cask 'todoist'
+brew "difftastic"
 
 # infra & secrets
 

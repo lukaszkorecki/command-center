@@ -28,4 +28,10 @@
   :bind (( "C-x t n" . multi-vterm )
          ( "C-x t p" . multi-vterm-project )))
 
+
+
+(use-package keychain-environment
+  :init (keychain-refresh-environment))
+
+
 (provide 'lk/tools)

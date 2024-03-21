@@ -6,6 +6,9 @@
   ui = true
   diff = true
 
+[diff]
+  external = difft
+
 [core]
   pager = less -F -X
   excludesfile = ~/.gitignore_global

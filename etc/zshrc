@@ -99,7 +99,7 @@ setopt incappendhistory
 
 # Make Emacs the default editor, and use emacsclient to open files
 alias emacs='emacsclient -nw'
-export EDITOR="emacs"
+export EDITOR="emacsclient -nw"
 
 # secrets and work stuff
 if [[ -e ~/.private/env.sh  ]] ; then
