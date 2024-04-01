@@ -11,39 +11,45 @@ export PATH=./node_modules/.bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
-brewPrefix=""
 if [[ -e $(which brew) ]]; then
-  brewPrefix=$(brew --prefix)
+    brewPrefix=$(brew --prefix)
+else
+    brewPrefix=""
 fi
 
-if [[ -e "${brewPrefix}/bin/brew" ]] ; then
-  eval "$($brewPrefix/bin/brew shellenv)"
+if [[ -e $brewPrefix/bin/brew ]] ; then
+    eval "$($brewPrefix/bin/brew shellenv)"
 fi
 
 if [[ "$brewPrefix" != "" ]] ; then
-  export HOMEBREW_NO_AUTO_UPDATE=2
-  export PATH=$brewPrefix/bin:$PATH
+    export PATH=$brewPrefix/bin:$PATH
 
-  pythonPath=$brewPrefix/opt/python/libexec/bin
-  if [[ -e $pythonPath ]] ; then
-    export PATH="$pythonPath:$PATH"
-  fi
+    pythonPath=$brewPrefix/opt/python/libexec/bin
+    if [[ -e $pythonPath ]] ; then
+        export PATH="$pythonPath:$PATH"
+    fi
 
-  if [[ -e $brewPrefix/opt/openjdk ]] ; then
-    export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
-    export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
-    export JAVAHOME=$brewPrefix/opt/openjdk/
-    export JAVA_HOME=$JAVAHOME
-  fi
+    if [[ -e $brewPrefix/opt/openjdk ]] ; then
+        export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
+        export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
+        export JAVAHOME=$brewPrefix/opt/openjdk/
+        export JAVA_HOME=$JAVAHOME
+    fi
 
-  if [[ -e $brewPrefix/opt/openjdk@11 ]] ; then
-    export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
-    export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
-    export JAVAHOME=$brewPrefix/opt/openjdk@11/
-    export JAVA_HOME=$JAVAHOME
+    if [[ -e $brewPrefix/opt/openjdk@11 ]] ; then
+        export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
+        export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
+        export JAVAHOME=$brewPrefix/opt/openjdk@11/
+        export JAVA_HOME=$JAVAHOME
 
-  fi
+    fi
 fi
+
+# secrets and work stuff
+if [[ -e ~/.private/env.sh  ]] ; then
+    source ~/.private/env.sh
+fi
+
 
 ## aliases
 # go to git repo root
@@ -71,12 +77,12 @@ autoload _git
 
 # Load autocomplete for other tools not supported by zsh directly
 if [[ "$(which op 2>&1)" == /* ]] ; then
-  eval "$(op completion zsh)";
-  compdef _op op
+    eval "$(op completion zsh)";
+    compdef _op op
 fi
 
 if [[ "$(which doctl 2>&1)" == /* ]] ; then
-  eval "$(doctl completion zsh)"
+    eval "$(doctl completion zsh)"
 fi
 
 
@@ -84,7 +90,7 @@ fi
 autoload -Uz vcs_info
 
 
-# disable docker cli hints
+ # disable docker cli hints
 export DOCKER_CLI_HINTS=false
 
 # History Configuration
@@ -98,41 +104,38 @@ setopt incappendhistory
 
 
 # Make Emacs the default editor, and use emacsclient to open files
-alias emacs='emacsclient -nw'
-export EDITOR="emacsclient -nw"
-
-# secrets and work stuff
-if [[ -e ~/.private/env.sh  ]] ; then
-  source ~/.private/env.sh
+# but only if we're not inside emacs already
+if [[ -z "$ISNIDE_EMACS" ]] ; then
+  alias emacs='emacsclient -nw'
+  export EDITOR="emacsclient -nw"
+else
+  export EDITOR="emacsclient"
 fi
-
 
 # integration with Vterm:
 if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-     && [[ -n ${EMACS_VTERM_PATH} ]] \
-     && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+       && [[ -n ${EMACS_VTERM_PATH} ]] \
+       && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+	  source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
 
-  alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 
-  autoload -U add-zsh-hook
-  add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
+    autoload -U add-zsh-hook
+    add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
 fi
 
 
 # prompt
 precmd_vcs_info() { vcs_info }
 precmd_sec_info() {
-  if [[ "$OP_SECRETS_LOADED" == "" ]] ; then
-    export _SEC_FLAG="🔐"
-  else
-    export _SEC_FLAG="🔓"
-  fi
+    if [[ "$OP_SECRETS_LOADED" == "" ]] ; then
+        export _SEC_FLAG="🔐"
+    else
+        export _SEC_FLAG="🔓"
+    fi
 }
-
 precmd_functions+=( precmd_vcs_info )
 precmd_functions+=( precmd_sec_info )
-
 setopt PROMPT_SUBST
 zstyle ':vcs_info:git:*' formats '%F{240}(%b)'
 zstyle ':vcs_info:*' enable git
@@ -141,8 +144,8 @@ BR=$'\n'
 export PROMPT='# ${_SEC_FLAG} %1~ ${vcs_info_msg_0_} ${BR}# '
 
 if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
-  vterm_prompt_end() {
-    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
-  }
-  PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+    vterm_prompt_end() {
+        vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+    }
+    PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 fi
