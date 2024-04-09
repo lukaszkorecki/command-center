@@ -89,6 +89,9 @@ fi
 # git info in prompt and such
 autoload -Uz vcs_info
 
+# enable ZSH hooks
+autoload -U add-zsh-hook
+
 
  # disable docker cli hints
 export DOCKER_CLI_HINTS=false
@@ -113,17 +116,6 @@ else
 fi
 
 # integration with Vterm:
-if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-       && [[ -n ${EMACS_VTERM_PATH} ]] \
-       && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	  source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
-
-    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
-
-    autoload -U add-zsh-hook
-    add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
-fi
-
 
 # prompt
 precmd_vcs_info() { vcs_info }
@@ -144,8 +136,29 @@ BR=$'\n'
 export PROMPT='# ${_SEC_FLAG} %1~ ${vcs_info_msg_0_} ${BR}# '
 
 if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
-    vterm_prompt_end() {
-        vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
-    }
-    PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+
+  if [[ -n ${EMACS_VTERM_PATH} ]] \
+       && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+	  source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+  fi
+
+  alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+
+  add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%~\a" }
+
+  vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+      vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+      shift
+    done
+    vterm_printf "51;E$vterm_elisp"
+  }
+
+  vterm_prompt_end() {
+    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+  }
+
+  PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 fi

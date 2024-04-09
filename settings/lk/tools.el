@@ -20,6 +20,7 @@
   :init
   (setq vterm-shell "/bin/zsh")
   (setq vterm-kill-buffer-on-exit t)
+  (setq vterm-buffer-name-string "*term* %s")
   :bind (("C-c M-o" . vterm-clear-scrollback)
          ("C-c ESC o" . vterm-clear-scrollback)))
 
