@@ -76,11 +76,15 @@
 (defun lk/resize-window ()
   (interactive)
   (ivy-read "Resize window to: "
-            '(("33%" . (lambda () (lk/proportionally-resize-window 0.33)))
-              ("50%" . (lambda () (lk/proportionally-resize-window 0.50)))
-              ("75%" . (lambda () (lk/proportionally-resize-window 0.75)))
+            '(("33%" .
+               (lambda () (lk/proportionally-resize-window 0.33)))
+              ("50%" .
+               (lambda () (lk/proportionally-resize-window 0.50)))
+              ("75%" .
+               (lambda () (lk/proportionally-resize-window 0.75)))
               ("81 chars" . (lambda () (lk/absolute-resize-window 81)))
-              ("121 chars" . (lambda () (lk/absolute-resize-window 121))))
+              ("121 chars" .
+               (lambda () (lk/absolute-resize-window 121))))
             :action #'(lambda (x) (funcall (cdr x)))))
 
 
@@ -107,10 +111,12 @@
 
 (defun lk/clean-up-buffers ()
   (interactive)
+  ;; I could write a mapc or whatever, but I'm lazy
   (kill-matching-buffers ".*magit.*" 't 't)
   (kill-matching-buffers ".*grep.*" 't 't)
-  (kill-matching-buffers ".*flymake.*" 't 't))
-
+  (kill-matching-buffers ".*dired.*" 't 't)
+  (kill-matching-buffers ".*ivy-occur.*" 't 't)
+  (kill-matching-buffers ".*Flymake.*" 't 't))
 
 (provide 'lk/ui)
 ;;; ui.el ends here
