@@ -6,8 +6,8 @@
   ui = true
   diff = true
 
-[diff]
-  external = difft
+# [diff]
+#   external = difft
 
 [core]
   pager = less -F -X
