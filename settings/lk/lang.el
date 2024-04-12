@@ -157,7 +157,8 @@
                   ("XXX"     font-lock-keyword-face bold)
                   ("INFO"       success bold)
                   ("NOTE"       success bold)))
-  (add-hook 'prog-mode-hook #'hl-todo-mode))
+  (add-hook 'prog-mode-hook #'hl-todo-mode)
+  (add-hook 'yaml-mode-hook #'hl-todo-mode))
 
 
 (provide 'lk/lang)
