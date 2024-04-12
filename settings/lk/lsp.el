@@ -33,7 +33,7 @@
          ("C-c l g" . xref-find-definitions)
          ("C-c l d" . xref-find-definitions-other-window)
          ("C-c l u" . xref-find-references)
-         ("C-x c f" . eglot-format-buffer )))
+         ("C-x c f" . eglot-format )))
 
 (use-package flymake
   :bind (( "C-c e n" . flymake-goto-next-error )
