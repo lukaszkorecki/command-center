@@ -31,19 +31,19 @@
         (( "C-x c f" . lk/prettier-format-current-buffer ))))
 
 
-(use-package js-ts-mode
-  :ensure t
-  :straight js2-mode
-  :init
-  (add-hook 'js-ts-mode-hook
-                  (lambda ()
-                    (treesit-font-lock-recompute-features '(property))))
-  (add-hook 'js-ts-mode-hook 'eglot-ensure)
-  :mode ("\\.js$" . js-ts-mode))
-
 (use-package js2-mode
-  :after (js-ts-mode)
-  :init (add-to-list 'major-mode-remap-alist '(js2-mode . js-ts-mode)))
+  :ensure t
+  :init
+  (setq js-basic-indent 2)
+  (setq-default js2-basic-indent 2
+                js2-basic-offset 2
+                js2-auto-indent-p t
+                js2-cleanup-whitespace t
+                js2-enter-indents-newline t
+                js2-indent-on-enter-key t
+                js2-global-externs (list "window" "module" "require" "sinon"  "setTimeout" "clearTimeout" "setInterval" "clearInterval"  "console" "JSON"))
+
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
 
 (provide 'lk/js)
 ;;; js.el ends here
