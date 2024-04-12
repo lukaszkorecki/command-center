@@ -108,11 +108,12 @@ setopt incappendhistory
 
 # Make Emacs the default editor, and use emacsclient to open files
 # but only if we're not inside emacs already
-if [[ -z "$ISNIDE_EMACS" ]] ; then
+if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
+
+  export EDITOR="emacsclient"
+else
   alias emacs='emacsclient -nw'
   export EDITOR="emacsclient -nw"
-else
-  export EDITOR="emacsclient"
 fi
 
 # integration with Vterm:
