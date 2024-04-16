@@ -90,8 +90,6 @@
 
 (global-set-key (kbd "C-c r") 'lk/resize-window)
 
-
-
 ;; Fix ansi-term rendering
 (add-hook 'term-mode-hook 'my-term-mode-hook)
 (defun my-term-mode-hook ()
@@ -109,13 +107,22 @@
 
 (use-package auto-dark :config (auto-dark-mode t))
 
+(defun lk/kill-buffers-by-major-mode (mode)
+  (interactive "sMajor mode: ")
+  "Kill all buffers in the supplied list."
+  (mapcar 'kill-buffer
+          (seq-filter
+           (lambda (buffer)
+             (eq (buffer-local-value 'major-mode buffer) mode))
+           (buffer-list))))
+
 (defun lk/clean-up-buffers ()
   (interactive)
-  ;; I could write a mapc or whatever, but I'm lazy
   (kill-matching-buffers ".*magit.*" 't 't)
   (kill-matching-buffers ".*grep.*" 't 't)
-  (kill-matching-buffers ".*dired.*" 't 't)
-  (kill-matching-buffers ".*ivy-occur.*" 't 't)
+  (kill-matching-buffers ".*XREF.*" 't 't)
+  (lk/kill-buffers-by-major-mode 'dired-mode)
+  (kill-matching-buffers ".*occur.*" 't 't)
   (kill-matching-buffers ".*Flymake.*" 't 't))
 
 (provide 'lk/ui)

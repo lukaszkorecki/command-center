@@ -17,8 +17,7 @@
 
 (use-package vterm
   :ensure t
-  :init
-  (setq vterm-shell "/bin/zsh")
+  :init (setq vterm-shell "/bin/zsh")
   (setq vterm-kill-buffer-on-exit t)
   (setq vterm-buffer-name-string "*term* %s")
   :bind (("C-c M-o" . vterm-clear-scrollback)
@@ -29,6 +28,9 @@
   :bind (( "C-x t n" . multi-vterm )
          ( "C-x t p" . multi-vterm-project )))
 
+(defun lk/kill-all-vterms ()
+  (interactive)
+  (lk/kill-buffers-by-major-mode 'vterm-mode))
 
 
 (use-package keychain-environment

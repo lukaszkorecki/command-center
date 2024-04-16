@@ -27,6 +27,7 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
+(require 'lk/ui)
 
 (require 'lk/secrets)
 (lk/load-secrets-from-1p)
@@ -53,7 +54,7 @@
 
 (require 'lk/autocomplete)
 (require 'lk/git)
-(require 'lk/ui)
+
 (require 'lk/lsp)
 (require 'lk/tools)
 
