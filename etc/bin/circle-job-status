@@ -21,14 +21,19 @@ set -euo pipefail
 # Command line flags
 rootDir=
 currentBranch=
+openInBrowser=
 
-while getopts "hb:r:" opt; do
+while getopts "ohb:r:" opt; do
   case ${opt} in
     b ) ## branch, default current
       currentBranch=$OPTARG
       ;;
     r ) ## root dir, default current
       rootDir=$OPTARG
+      ;;
+    o ) ## open in browser, requires circleci CLI to be installed
+      openInBrowser=true
+      [[ -z "$(which circleci)" ]] && echo "circleci CLI is not installed" && exit 1
       ;;
     h )
       echo "Usage: $(dirname $0)"
@@ -158,3 +163,7 @@ getStatusOfLastWorkflowForBranch() {
 }
 
 getStatusOfLastWorkflowForBranch "${currentBranch}"
+
+if [[ ! -z "$openInBrowser" ]] ; then
+  circleci open
+fi
