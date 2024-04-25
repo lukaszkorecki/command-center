@@ -49,12 +49,17 @@ if [[  ! -z "$rootDir" ]] ; then
   cd $rootDir
 fi
 
+# extract <repo> from git@github.com:<org>/<repo>.git
 mostLikelyProjectName=$(basename -s .git  $(git remote get-url origin))
+
+# extract <org> from git@github.com:<org>/<repo>.git
+mostlikelyOrg=$(basename $(dirname $(git remote get-url origin)) | cut -d: -f2)
+
 if [[ -z "${currentBranch}" ]] ; then
   currentBranch=$(git rev-parse --abbrev-ref HEAD)
 fi
 
-slug="gh/peerspace/${mostLikelyProjectName}"
+slug="gh/${mostlikelyOrg}/${mostLikelyProjectName}"
 
 
 red() {
