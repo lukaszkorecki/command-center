@@ -43,8 +43,6 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x z"))
 (global-unset-key (kbd "C-x C-z"))
-;; set in projectile later, originally used in dired/tramp
-(global-unset-key (kbd "C-c n p"))
 
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
 

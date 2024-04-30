@@ -13,7 +13,7 @@
 ;; Utils
 
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
-  (let* ((pj-dir (projectile-acquire-root))
+  (let* ((pj-dir (lk/project-find-root nil))
          (default-directory pj-dir))
     (compilation-start
      (format command-string-with-format

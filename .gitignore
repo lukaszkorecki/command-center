@@ -2,7 +2,6 @@
 */.#*
 *~
 .#*
-./projectile-bookmarks.eld
 .cask
 .cpcache
 /.cache/
@@ -41,7 +40,6 @@ eshell
 etc/lein/self-installs/*.jar
 ido.last
 places
-projectile*
 recentf
 straight/
 tags
