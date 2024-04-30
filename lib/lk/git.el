@@ -44,18 +44,6 @@
   (interactive)
   (kill-matching-buffers ".*magit.*" 't 't))
 
-(use-package difftastic
-  :demand t
-  :after (magit)
-  :bind (:map magit-blame-read-only-mode-map
-         ("D" . difftastic-magit-show)
-         ("S" . difftastic-magit-show))
-  :config
-  (eval-after-load 'magit-diff
-    '(transient-append-suffix 'magit-diff '(-1 -1)
-       [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
-        ("S" "Difftastic show" difftastic-magit-show)])))
-
 (use-package ibuffer-vc)
 
 (use-package ibuffer-git

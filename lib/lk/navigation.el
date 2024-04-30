@@ -56,6 +56,7 @@
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
+         ("C-c p g" . counsel-git-grep)
          ("C-c n i" . counsel-imenu)
          ("C-c n b" . counsel-ibuffer)
          ("C-c n y" . counsel-yank-pop)

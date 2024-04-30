@@ -19,7 +19,7 @@
 
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
-(add-to-list 'load-path "~/.emacs.d/settings")
+(add-to-list 'load-path "~/.emacs.d/lib")
 
 
 (provide 'deps)
