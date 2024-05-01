@@ -30,6 +30,7 @@
 (use-package project
   :ensure t
   :after (project-rootfile)
+  :bind-keymap ("C-c p" . project-prefix-map)
   :config (add-to-list 'project-switch-commands
                        '(magit-project-status "Magit" ?m))
   (add-to-list 'project-find-functions #'project-rootfile-try-detect t))
