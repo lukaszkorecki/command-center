@@ -30,20 +30,24 @@
 (use-package project
   :ensure t
   :after (project-rootfile)
+  :init ;
+  (advice-add #'project-find-regexp :override #'counsel-git-grep)
+  (advice-add #'project-shell :override #'multi-vterm)
   :bind-keymap ("C-c p" . project-prefix-map)
-  :config (add-to-list 'project-switch-commands
-                       '(magit-project-status "Magit" ?m))
-  (add-to-list 'project-find-functions #'project-rootfile-try-detect t))
 
-  ;; toggle subtree visibility with 'TAB'
-  ;; makes dired a much more pleasant file manager
-(use-package dired-subtree :demand t)
+  :config ;
+  (add-to-list 'project-switch-commands
+               '(magit-project-status "Magit" ?m)
+               '(counsel-git-grep "Git grep" ?g))
+  (add-to-list 'project-find-functions #'project-rootfile-try-detect t))
 
 (use-package ivy
   :diminish ivy-mode
-  :config (setq ivy-height 25)
+  :config ;
+  (setq ivy-height 25)
   (ivy-mode 1)
-  :custom (ivy-use-virtual-buffers t)
+  :custom ;
+  (ivy-use-virtual-buffers t)
   (counsel-switch-buffer-preview-virtual-buffers nil)
   :bind (("C-c s" . swiper)
          ("C-c C-r" . ivy-resume)))
@@ -57,18 +61,11 @@
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-         ("C-c p g" . counsel-git-grep)
          ("C-c n i" . counsel-imenu)
          ("C-c n b" . counsel-ibuffer)
          ("C-c n y" . counsel-yank-pop)
          ("C-c e i" .  counsel-unicode-char)))
 
-
-(use-package all-the-icons-ivy-rich
-  :ensure t
-  :init (all-the-icons-ivy-rich-mode 1))
-
-(use-package ivy-rich :ensure t :init (ivy-rich-mode 1))
 
 (use-package ace-window
   :config (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
