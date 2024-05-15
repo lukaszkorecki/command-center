@@ -50,8 +50,9 @@
 
 (use-package markdown-mode
   :ensure t
-  :config (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-  (keymap-local-unset "C-c C-t")
+  :config ;;
+  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+  (define-key markdown-mode-map (kbd "C-c C-t") nil) ; Unbind the problematic key here
   (setq markdown-command "~/.emacs.d/etc/bin/markdown")
   (setq markdown-command-needs-filename t)
   :bind (:map markdown-mode-map
