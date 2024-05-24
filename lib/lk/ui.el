@@ -95,6 +95,7 @@
 (defun my-term-mode-hook ()
   (setq bidi-paragraph-direction 'left-to-right))
 
+(global-unset-key (kbd "C-x b"))
 (use-package bufler
   :init (require 'bufler)
   (global-unset-key (kbd "C-x b"))
