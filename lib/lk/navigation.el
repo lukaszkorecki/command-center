@@ -2,12 +2,52 @@
 ;;; Commentary:
 
 ;;; Code:
+(use-package project-rootfile :ensure t)
+
+(defvar lk/home-full-path (getenv "HOME"))
+
+(defun lk/project-find-root (path)
+  "Search up the PATH for known project file markers. Throws an error if found path is
+  equal to users home directory"
+  (when-let ((root
+              (if-let ((vc-root (project-try-vc default-directory)))
+                  ;; get dir from (vc Git "dir")
+                  (car (last vc-root))
+                ;; this returns #s(project-rootfile-plain "~/tmp/foobar/") struct,
+                ;; we need the :root part
+                (project-rootfile-plain--root
+                 (project-rootfile-try-detect default-directory)))))
+    (let* ((root-exp (expand-file-name root)))
+      ;; bail if detected dir is equal to home (can happen!)
+      (when (string-equal lk/home-full-path root-exp)
+        (message "Root folder is equal to HOME!")
+        (throw 'lk/invalid-project-root t))
+
+      ;; otherwise we're good
+      root-exp)))
+
+
+(use-package project
+  :ensure t
+  :after (project-rootfile)
+  :init ;
+  (advice-add #'project-find-regexp :override #'counsel-git-grep)
+  (advice-add #'project-shell :override #'multi-vterm)
+  :bind-keymap ("C-c p" . project-prefix-map)
+
+  :config ;
+  (add-to-list 'project-switch-commands
+               '(magit-project-status "Magit" ?m)
+               '(counsel-git-grep "Git grep" ?g))
+  (add-to-list 'project-find-functions #'project-rootfile-try-detect t))
 
 (use-package ivy
   :diminish ivy-mode
-  :config (setq ivy-height 25)
+  :config ;
+  (setq ivy-height 25)
   (ivy-mode 1)
-  :custom (ivy-use-virtual-buffers t)
+  :custom ;
+  (ivy-use-virtual-buffers t)
   (counsel-switch-buffer-preview-virtual-buffers nil)
   :bind (("C-c s" . swiper)
          ("C-c C-r" . ivy-resume)))
@@ -26,30 +66,6 @@
          ("C-c n y" . counsel-yank-pop)
          ("C-c e i" .  counsel-unicode-char)))
 
-(use-package projectile
-  :init (projectile-mode +1)
-  :bind (:map projectile-mode-map
-              ("C-c p" . projectile-command-map)
-              (("C-c C-g" . 'projectile-grep)))
-  :config (setq projectile-completion-system 'ivy)
-  (setq projectile-git-command "git ls-files -z -c --recurse-submodules")
-  (add-to-list 'projectile-globally-ignored-directories "vendor")
-  (add-to-list 'projectile-globally-ignored-directories ".git")
-  (add-to-list 'projectile-globally-ignored-directories "node_modules")
-  (add-to-list 'projectile-globally-ignored-directories "target")
-  (setq projectile-project-root-functions
-        '(projectile-root-local
-          projectile-root-top-down
-          projectile-root-bottom-up
-          projectile-root-top-down-recurring)))
-
-(use-package counsel-projectile :init (counsel-projectile-mode))
-
-(use-package all-the-icons-ivy-rich
-  :ensure t
-  :init (all-the-icons-ivy-rich-mode 1))
-
-(use-package ivy-rich :ensure t :init (ivy-rich-mode 1))
 
 (use-package ace-window
   :config (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))

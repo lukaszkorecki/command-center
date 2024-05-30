@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
 
-if [[ -z "$CIRCLECI_CLI_TOKEN" ]] ; then
+if [[ -z "$CIRCLECI_CLI_TOKEN" ]]; then
   echo "CIRCLECI_CLI_TOKEN is not set"
   exit 1
 fi
 
-if [[ -z $(which jq) ]] ; then
+if [[ -z $(which jq) ]]; then
   echo "jq is not installed"
   exit 1
 fi
 
-if [[ -z $(which curl) ]] ; then
+if [[ -z $(which curl) ]]; then
   echo "curl is not installed"
   exit 1
 fi
 
 set -euo pipefail
-
 
 # Command line flags
 rootDir=
@@ -25,17 +24,17 @@ openInBrowser=
 
 while getopts "ohb:r:" opt; do
   case ${opt} in
-    b ) ## branch, default current
+    b) ## branch, default current
       currentBranch=$OPTARG
       ;;
-    r ) ## root dir, default current
+    r) ## root dir, default current
       rootDir=$OPTARG
       ;;
-    o ) ## open in browser, requires circleci CLI to be installed
+    o) ## open in browser, requires circleci CLI to be installed
       openInBrowser=true
       [[ -z "$(which circleci)" ]] && echo "circleci CLI is not installed" && exit 1
       ;;
-    h )
+    h)
       echo "Usage: $(dirname $0)"
       echo "! Must run in a project root !"
       echo "optional flags:"
@@ -45,22 +44,21 @@ while getopts "ohb:r:" opt; do
   esac
 done
 
-if [[  ! -z "$rootDir" ]] ; then
+if [[ ! -z "$rootDir" ]]; then
   cd $rootDir
 fi
 
 # extract <repo> from git@github.com:<org>/<repo>.git
-mostLikelyProjectName=$(basename -s .git  $(git remote get-url origin))
+mostLikelyProjectName=$(basename -s .git $(git remote get-url origin))
 
 # extract <org> from git@github.com:<org>/<repo>.git
 mostlikelyOrg=$(basename $(dirname $(git remote get-url origin)) | cut -d: -f2)
 
-if [[ -z "${currentBranch}" ]] ; then
+if [[ -z "${currentBranch}" ]]; then
   currentBranch=$(git rev-parse --abbrev-ref HEAD)
 fi
 
 slug="gh/${mostlikelyOrg}/${mostLikelyProjectName}"
-
 
 red() {
   echo -e "\033[0;31m$1\033[0m"
@@ -84,16 +82,15 @@ apiRequest() {
   url=$1
   shift
   curl -q --silent \
-     -H "Circle-Token: $CIRCLECI_CLI_TOKEN" \
-      -X ${method} \
-     --json ''\
-     --url "${url}"
+    -H "Circle-Token: $CIRCLECI_CLI_TOKEN" \
+    -X ${method} \
+    --json '' \
+    --url "${url}"
 }
 
 verifyToken() {
   apiRequest "GET" 'https://circleci.com/api/v2/me' | jq -r .login
 }
-
 
 getSecondsFromTS() {
   ts="${1}"
@@ -102,8 +99,17 @@ getSecondsFromTS() {
 
 secondsToHumanReadable() {
   seconds=$1
-  # print days, hrs, minutes
-  printf "%02dd %02dh %02dm\n" $(($seconds/86400)) $(($seconds%86400/3600)) $(($seconds%3600/60))
+  days=$(($seconds/86400))
+  hours=$(($seconds%86400/3600))
+  minutes=$(($seconds%3600/60))
+
+  if [[ ${days} -gt 0 ]]; then
+    printf "%02dd %02dh %02dm" ${days} ${hours} ${minutes}
+  elif [[ $hours -gt 0 ]]; then
+    printf "%02dh %02dm" ${hours} ${minutes}
+  else
+    printf "%02dm" ${minutes}
+  fi
 
 }
 
@@ -119,12 +125,11 @@ getStatusOfLastWorkflowForBranch() {
   lastWorkflowDuration=$(echo "${workflowRuns}" | jq -r '.items[0].duration')
   lastWorkflowDate=$(echo "${workflowRuns}" | jq -r '.items[0].stopped_at')
 
-
   diffSeconds=$(secondsToHumanReadable $(($(TZ=UTC date +%s) - $(TZ=UTC getSecondsFromTS "${lastWorkflowDate}"))))
-  jobs=$(apiRequest GET "https://circleci.com/api/v2/workflow/${lastWorkflowId}/job")
+  echo "$(bold ${workflowName}), took ${lastWorkflowDuration}s, run ${diffSeconds} ago"
 
-  echo "$(bold ${workflowName})"
-  echo "${diffSeconds} ago, took ${lastWorkflowDuration}s"
+
+  jobs=$(apiRequest GET "https://circleci.com/api/v2/workflow/${lastWorkflowId}/job")
   names=$(echo "${jobs}" | jq -r '.items|map(.name+"\n")|.[]')
   statuses=$(echo "${jobs}" | jq -r '.items|map(.status+"\n")|.[]')
 
@@ -161,7 +166,7 @@ getStatusOfLastWorkflowForBranch() {
     esac
 
     # with nice padding
-    printf "%-40s %s\n" "$name" "$statusString"
+    printf "%-40s %s\n" "$(bold $name)" "$statusString"
 
   done
 
@@ -169,6 +174,6 @@ getStatusOfLastWorkflowForBranch() {
 
 getStatusOfLastWorkflowForBranch "${currentBranch}"
 
-if [[ ! -z "$openInBrowser" ]] ; then
+if [[ ! -z "$openInBrowser" ]]; then
   circleci open
 fi

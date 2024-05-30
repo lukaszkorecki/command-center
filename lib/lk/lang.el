@@ -13,7 +13,7 @@
 ;; Utils
 
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
-  (let* ((pj-dir (projectile-acquire-root))
+  (let* ((pj-dir (lk/project-find-root nil))
          (default-directory pj-dir))
     (compilation-start
      (format command-string-with-format
@@ -50,8 +50,9 @@
 
 (use-package markdown-mode
   :ensure t
-  :config (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-  (keymap-local-unset "C-c C-t")
+  :config ;;
+  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+  (define-key markdown-mode-map (kbd "C-c C-t") nil) ; Unbind the problematic key here
   (setq markdown-command "~/.emacs.d/etc/bin/markdown")
   (setq markdown-command-needs-filename t)
   :bind (:map markdown-mode-map

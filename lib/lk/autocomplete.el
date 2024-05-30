@@ -14,8 +14,11 @@
   ;; invert the navigation direction if the the completion popup-isearch-match
   ;; is displayed on top (happens near the bottom of windows)
   (setq company-tooltip-flip-when-above t)
-  (global-company-mode))
+  (global-company-mode)
+  (global-set-key (kbd "<tab>") #'company-indent-or-complete-common))
 
+
+(use-package company-box :hook (company-mode . company-box-mode))
 
 (use-package yasnippet
   :init (yas-global-mode t)
@@ -24,7 +27,8 @@
 (use-package editorconfig)
 
 (use-package copilot
-  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files
+                   ("dist" "*.el"))
   :ensure t
   :config (setq copilot-max-char 1000000)
 
@@ -42,8 +46,9 @@
   (add-hook 'go-ts-mode-hook 'copilot-mode)
   (add-hook 'json-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
-
+  (add-hook 'markdown-mode-hook 'copilot-mode)
   :bind (("C-c C-t" . copilot-accept-completion)))
+
 
 (provide 'lk/autocomplete)
 
