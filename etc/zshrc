@@ -12,43 +12,45 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
 if [[ -e $(which brew) ]]; then
-    brewPrefix=$(brew --prefix)
+  brewPrefix=$(brew --prefix)
 else
-    brewPrefix=""
+  brewPrefix=""
 fi
 
 if [[ -e $brewPrefix/bin/brew ]] ; then
-    eval "$($brewPrefix/bin/brew shellenv)"
+  eval "$($brewPrefix/bin/brew shellenv)"
 fi
 
 if [[ "$brewPrefix" != "" ]] ; then
-    export PATH=$brewPrefix/bin:$PATH
+  export PATH=$brewPrefix/bin:$PATH
 
-    pythonPath=$brewPrefix/opt/python/libexec/bin
-    if [[ -e $pythonPath ]] ; then
-        export PATH="$pythonPath:$PATH"
-    fi
+  pythonPath=$brewPrefix/opt/python/libexec/bin
+  if [[ -e $pythonPath ]] ; then
+    export PATH="$pythonPath:$PATH"
+  fi
 
-    if [[ -e $brewPrefix/opt/openjdk ]] ; then
-        export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
-        export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
-        export JAVAHOME=$brewPrefix/opt/openjdk/
-        export JAVA_HOME=$JAVAHOME
-    fi
+  if [[ -e $brewPrefix/opt/openjdk ]] ; then
+    export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
+    export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
+    export JAVAHOME=$brewPrefix/opt/openjdk/
+    export JAVA_HOME=$JAVAHOME
+  fi
 
-    if [[ -e $brewPrefix/opt/openjdk@11 ]] ; then
-        export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
-        export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
-        export JAVAHOME=$brewPrefix/opt/openjdk@11/
-        export JAVA_HOME=$JAVAHOME
+  if [[ -e $brewPrefix/opt/openjdk@11 ]] ; then
+    export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
+    export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
+    export JAVAHOME=$brewPrefix/opt/openjdk@11/
+    export JAVA_HOME=$JAVAHOME
 
-    fi
+  fi
 fi
 
 # secrets and work stuff
 if [[ -e ~/.private/env.sh  ]] ; then
-    source ~/.private/env.sh
+  source ~/.private/env.sh
+  PATH="$PATH:$HOME/.private/bin"
 fi
+
 
 
 ## aliases
@@ -77,12 +79,12 @@ autoload _git
 
 # Load autocomplete for other tools not supported by zsh directly
 if [[ "$(which op 2>&1)" == /* ]] ; then
-    eval "$(op completion zsh)";
-    compdef _op op
+  eval "$(op completion zsh)";
+  compdef _op op
 fi
 
 if [[ "$(which doctl 2>&1)" == /* ]] ; then
-    eval "$(doctl completion zsh)"
+  eval "$(doctl completion zsh)"
 fi
 
 
@@ -93,7 +95,7 @@ autoload -Uz vcs_info
 autoload -U add-zsh-hook
 
 
- # disable docker cli hints
+# disable docker cli hints
 export DOCKER_CLI_HINTS=false
 
 # History Configuration
@@ -121,11 +123,11 @@ fi
 # prompt
 precmd_vcs_info() { vcs_info }
 precmd_sec_info() {
-    if [[ "$OP_SECRETS_LOADED" == "" ]] ; then
-        export _SEC_FLAG="🔐"
-    else
-        export _SEC_FLAG="🔓"
-    fi
+  if [[ "$OP_SECRETS_LOADED" == "" ]] ; then
+    export _SEC_FLAG="🔐"
+  else
+    export _SEC_FLAG="🔓"
+  fi
 }
 precmd_functions+=( precmd_vcs_info )
 precmd_functions+=( precmd_sec_info )
