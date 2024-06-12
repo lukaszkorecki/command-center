@@ -4,7 +4,6 @@
 ;;; Code:
 
 
-
 (use-package company
   :config (setq company-idle-delay 0.5)
   (setq company-show-numbers t)
@@ -15,10 +14,23 @@
   ;; is displayed on top (happens near the bottom of windows)
   (setq company-tooltip-flip-when-above t)
   (global-company-mode)
-  (global-set-key (kbd "<tab>") #'company-indent-or-complete-common))
+  :bind (( "C-c M-c" . company-complete)
+         :map company-active-map
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous)
+         ("C-d" . company-show-doc-buffer)
+         ("<tab>" . company-complete-selection)
+         :map company-search-map
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous)))
 
 
-(use-package company-box :hook (company-mode . company-box-mode))
+(use-package company-box
+  :ensure t
+  :after company
+  :hook (company-mode . company-box-mode))
+
+
 
 (use-package yasnippet
   :init (yas-global-mode t)

@@ -10,6 +10,18 @@
 ;;; Code:
 (load-file "~/.emacs.d/deps.el")
 
+
+;; reduce GC thrash
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq gc-cons-threshold 20000000
+      read-process-output-max
+      (* 1024 1024))
+
+(when (>= emacs-major-version 25)
+  (eval-after-load 'bytecomp
+    (lambda ()
+      (add-to-list 'byte-compile-not-obsolete-funcs 'preceding-sexp))))
+
 ;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
@@ -27,6 +39,11 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
+;; remove some keybindings, they're redefined later
+
+;; no ibuffer by default, bufler takes over in lk/ui
+(global-unset-key (kbd "C-x b"))
+
 (require 'lk/ui)
 
 (require 'lk/secrets)
@@ -36,17 +53,6 @@
   :ensure t
   :init (exec-path-from-shell-initialize))
 
-
-;; reduce GC thrash
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-(setq gc-cons-threshold 20000000
-      read-process-output-max
-      (* 1024 1024))
-
-(when (>= emacs-major-version 25)
-  (eval-after-load 'bytecomp
-    (lambda ()
-      (add-to-list 'byte-compile-not-obsolete-funcs 'preceding-sexp))))
 
 (use-package better-defaults)
 
@@ -98,4 +104,5 @@
 ;; other things
 ;; Always start server, useful for things
 (load "server")
-(unless (server-running-p) (server-start))
+(unless (server-running-p)
+  (server-start))
