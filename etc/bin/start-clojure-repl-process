@@ -28,6 +28,7 @@ if [[ $projectCljLocation != "nil" ]]; then
     exec ./script/lein $@
   else
     echo "Using global lein"
+    lein clean
     exec lein $@
   fi
 fi
