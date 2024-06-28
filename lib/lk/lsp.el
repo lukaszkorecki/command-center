@@ -28,6 +28,12 @@
      ("terraform-ls" "serve"))
    eglot-server-programs :test #'equal)
 
+  (cl-pushnew
+   '((sh-mode)
+     .
+     ("bash-language-server" "start"))
+   eglot-server-programs :test #'equal)
+
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l a" . eglot-code-actions )
          ("C-c l g" . xref-find-definitions)
@@ -43,4 +49,3 @@
 
 (provide 'lk/lsp)
 ;;; lsp.el ends here
-
