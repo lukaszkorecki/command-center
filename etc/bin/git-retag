@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+
+newTag="${1}"
+
+if [[ "${newTag}" == "" ]]; then
+  echo "Usage: $0 <tag>"
+  exit 1
+fi
+
+git fetch origin -atp
+
+# if the tag is locally available, delete it
+if [[ "$(git tag | grep "${newTag}")" != "" ]]; then
+  if [[ "${newTag}" == "latest" ]]; then
+    git tag -d "${newTag}"
+  else
+    echo "Cannot overwrite tag '${newTag}'"
+    exit 1
+  fi
+fi
+
+# if the tag is remotely available, delete it
+if [[ "$(git ls-remote --tags 2>/dev/null | grep "${newTag}")" != "" ]]; then
+  if [[ "${newTag}" == "latest" ]]; then
+    git push origin ":refs/tags/${newTag}"
+  else
+    echo "Cannot overwrite tag '${newTag}'"
+    exit 1
+  fi
+fi
+
+git tag "${newTag}" HEAD
+git push origin --tags

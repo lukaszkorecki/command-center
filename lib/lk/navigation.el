@@ -35,7 +35,7 @@
   (advice-add #'project-shell :override #'multi-vterm)
   :bind-keymap ("C-c p" . project-prefix-map)
 
-  :config ;
+  :config ; add custom actions when using select-project
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" ?m)
                '(counsel-git-grep "Git grep" ?g))

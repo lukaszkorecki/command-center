@@ -138,8 +138,15 @@ zstyle ':vcs_info:*' enable git
 BR=$'\n'
 export PROMPT='# ${_SEC_FLAG} %1~ ${vcs_info_msg_0_} ${BR}# '
 
-if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
+if [[ "$LC_TERMINAL" == "iTerm2" ]] ; then
+  if [[ -e ~/.emacs.d/vendor/iterm2_shell_integration.zsh ]] ; then
+    export ITERM2_SQUELCH_MARK=1
+    source ~/.emacs.d/vendor/iterm2_shell_integration.zsh
+    export PROMPT="$(precmd_sec_info; echo ${_SEC_FLAG}) ${vcs_info_msg_0_} ${BR} %{$(iterm2_prompt_mark)%} "
+  fi
+fi
 
+if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
   if [[ -n ${EMACS_VTERM_PATH} ]] \
        && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
 	  source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
