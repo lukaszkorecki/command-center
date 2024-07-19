@@ -142,7 +142,6 @@ if [[ "$LC_TERMINAL" == "iTerm2" ]] ; then
   if [[ -e ~/.emacs.d/vendor/iterm2_shell_integration.zsh ]] ; then
     export ITERM2_SQUELCH_MARK=1
     source ~/.emacs.d/vendor/iterm2_shell_integration.zsh
-    export PROMPT="$(precmd_sec_info; echo ${_SEC_FLAG}) ${vcs_info_msg_0_} ${BR} %{$(iterm2_prompt_mark)%} "
   fi
 fi
 
