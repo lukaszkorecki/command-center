@@ -1,1 +1,2 @@
-docker ps --format '{{.Image}}, {{ .Names}}'  | sort
+#!/usr/bin/env bash
+docker ps --format 'table {{.ID }}\t{{.Names}}\t{{ .RunningFor }}\t{{ .Status }}\t{{.State}}\t{{.Image }}'
