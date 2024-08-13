@@ -12,7 +12,7 @@
 [core]
   pager = less -F -X
   excludesfile = ~/.gitignore_global
-  editor = emacs
+  editor = zile
 
 
 [grep]
@@ -29,13 +29,13 @@
   ca = commit --amend
   default-remote-branch = ! git remote show origin | grep HEAD | cut -d: -f2 | tr -d ' '
   cleanup-branches = !git fetch -a -p && git branch --merged $(git default-remote-branch) | grep -v "$(git default-remote-branch)$" | xargs git branch -d || true
-  recent="!f(){ git branch --sort=-committerdate | head -n ${1:-5}; };f"
+  recent-branches=!git branch -r --sort=-committerdate
   co = checkout
   g = !git --no-pager grep --color -n
   l = log
   lo = log --graph --oneline --abbrev-commit
   ll = log --graph --pretty='format:%h | %an | %s'
-  pr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; } ; f"
+  fetch-pr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; } ; f"
   pl = !git pull -r -u origin $(git cb)
 
   pfff = !git push --force origin $(git cb)

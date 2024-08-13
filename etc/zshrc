@@ -107,19 +107,10 @@ setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
 
-
-# Make Emacs the default editor, and use emacsclient to open files
-# but only if we're not inside emacs already
-if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
-
-  export EDITOR="emacsclient"
-else
-  alias emacs='emacsclient -nw'
-  export EDITOR="emacsclient -nw"
-fi
+# FIXME: figure out why emacsclient is not working and crashes things
+export EDITOR=zile
 
 # integration with Vterm:
-
 # prompt
 precmd_vcs_info() { vcs_info }
 precmd_sec_info() {
