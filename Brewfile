@@ -23,6 +23,7 @@ brew 'gh'
 brew 'tmux'
 cask 'todoist'
 brew "difftastic"
+brew 'bat'
 
 # infra & secrets
 

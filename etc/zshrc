@@ -110,6 +110,9 @@ setopt incappendhistory
 # FIXME: figure out why emacsclient is not working and crashes things
 export EDITOR=zile
 
+# use bat as man-page viewer
+export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
+
 # integration with Vterm:
 # prompt
 precmd_vcs_info() { vcs_info }
