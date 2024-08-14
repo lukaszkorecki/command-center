@@ -23,13 +23,13 @@
   default = current
 
 [alias]
-  update = !git fetch -a -p && git pull -r && git cleanup-branches
+  update = !git fetch -atp && git pull -r && git cleanup-branches
   c = commit
   cm = commit -m
   ca = commit --amend
   default-remote-branch = ! git remote show origin | grep HEAD | cut -d: -f2 | tr -d ' '
   cleanup-branches = !git fetch -a -p && git branch --merged $(git default-remote-branch) | grep -v "$(git default-remote-branch)$" | xargs git branch -d || true
-  recent-branches=!git branch -r --sort=-committerdate
+  recent-branches=!git branch -r --sort=-committerdate | head -n10
   co = checkout
   g = !git --no-pager grep --color -n
   l = log
