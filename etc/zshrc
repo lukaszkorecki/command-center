@@ -113,7 +113,6 @@ export EDITOR=zile
 # use bat as man-page viewer
 export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
 
-# integration with Vterm:
 # prompt
 precmd_vcs_info() { vcs_info }
 precmd_sec_info() {
@@ -132,6 +131,7 @@ zstyle ':vcs_info:*' enable git
 BR=$'\n'
 export PROMPT='# ${_SEC_FLAG} %1~ ${vcs_info_msg_0_} ${BR}# '
 
+# integration with iterm:
 if [[ "$LC_TERMINAL" == "iTerm2" ]] ; then
   if [[ -e ~/.emacs.d/vendor/iterm2_shell_integration.zsh ]] ; then
     export ITERM2_SQUELCH_MARK=1
@@ -139,6 +139,7 @@ if [[ "$LC_TERMINAL" == "iTerm2" ]] ; then
   fi
 fi
 
+# integration with Vterm:
 if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
   if [[ -n ${EMACS_VTERM_PATH} ]] \
        && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
