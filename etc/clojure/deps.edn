@@ -1,4 +1,4 @@
-{:aliases {:dev/rumble {:extra-deps {org.clojars.lukaszkorecki/rumble {:mvn/version "1.0.0.31"}
+{:aliases {:dev/rumble {:extra-deps {org.clojars.lukaszkorecki/rumbleg {:mvn/version "1.0.0.31"}
                                      cheshire/cheshire {:mvn/version "5.12.0"}
                                      hato/hato {:mvn/version "0.9.1-SNAPSHOT"}
                                      babashka/fs {:mvn/version "0.4.19"}}
@@ -21,9 +21,14 @@
                                       "--force"]}
 
            :dev/check-outdated {:deps {com.github.liquidz/antq {:mvn/version "2.7.1133"}
-                                 org.slf4j/slf4j-nop {:mvn/version "2.0.9"}}
-                          :main-opts ["-m" "antq.core"]}
+                                       org.slf4j/slf4j-nop {:mvn/version "2.0.9"}}
+                                :main-opts ["-m" "antq.core"]}
 
            :dev/check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
                                                      :git/sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
-                       :main-opts ["-m" "clj-check.check" "src" "test"]}}}
+                       :main-opts ["-m" "clj-check.check" "src" "test"]}
+
+           :dev/clj-watson {:replace-deps
+                            {io.github.clj-holmes/clj-watson
+                             {:git/tag "v6.0.0" :git/sha "cb02879"}}
+                            :main-opts ["-m" "clj-watson.cli"]}}}
