@@ -15,11 +15,20 @@
 
 
 
+(defun lk/vterm-project-association ()
+  "Associate VTerm buffer with the current project."
+  (let ((project (project-current)))
+    (when project
+      (setq-local project-current project))))
+
+
 (use-package vterm
   :ensure t
   :init (setq vterm-shell "/bin/zsh")
   (setq vterm-kill-buffer-on-exit t)
   (setq vterm-buffer-name-string "*term* %s")
+  (add-hook 'vterm-mode-hook 'lk/vterm-project-association)
+
   :bind (("C-c M-o" . vterm-clear-scrollback)
          ("C-c ESC o" . vterm-clear-scrollback)))
 

@@ -130,16 +130,16 @@ cl_reset() {
 
 # ░▒▓██   prompt  █▓▒░
 
-PROMPT_BASE="" # "█▓▒░"
+PROMPT_BASE="█▓▒░"
 precmd_vcs_info() {
   vcs_info
 }
 export _SEC_FLAG="░"
 precmd_sec_info() {
   if [[ "$OP_SECRETS_LOADED" == "" ]]; then
-    export _SEC_FLAG="█"
+    export _SEC_FLAG=" "
   else
-    export _SEC_FLAG="$(cl_yellow)█$(cl_reset)"
+    export _SEC_FLAG="S"
   fi
 }
 
@@ -147,9 +147,9 @@ export _EXIT_CODE_FLAG="░"
 precmd_last_cmd_exit_code_info() {
   local exit_code=$?
   if [[ $exit_code -ne 0 ]]; then
-    export _EXIT_CODE_FLAG="$(cl_red)█$(cl_reset)"
+    export _EXIT_CODE_FLAG="!"
   else
-    export _EXIT_CODE_FLAG="$(cl_green)█$(cl_reset)"
+    export _EXIT_CODE_FLAG=" "
   fi
 }
 
@@ -158,11 +158,11 @@ precmd_functions+=(precmd_sec_info)
 precmd_functions+=(precmd_last_cmd_exit_code_info)
 
 setopt PROMPT_SUBST
-zstyle ':vcs_info:git:*' formats '%F{240}[%b%F{100}]'
+zstyle ':vcs_info:git:*' formats '[%b]'
 zstyle ':vcs_info:*' enable git
 
 BR=$'\n'
-export PROMPT='${_EXIT_CODE_FLAG}${_SEC_FLAG}${PROMPT_BASE} %3~ ${vcs_info_msg_0_} ${BR}# '
+export PROMPT='${PROMPT_BASE} ${_EXIT_CODE_FLAG}${_SEC_FLAG} %3~ ${vcs_info_msg_0_} ${BR}# '
 
 # integration with iterm:
 if [[ "$LC_TERMINAL" == "iTerm2" ]]; then
