@@ -17,26 +17,26 @@ else
   brewPrefix=""
 fi
 
-if [[ -e $brewPrefix/bin/brew ]] ; then
+if [[ -e $brewPrefix/bin/brew ]]; then
   eval "$($brewPrefix/bin/brew shellenv)"
 fi
 
-if [[ "$brewPrefix" != "" ]] ; then
+if [[ "$brewPrefix" != "" ]]; then
   export PATH=$brewPrefix/bin:$PATH
 
   pythonPath=$brewPrefix/opt/python/libexec/bin
-  if [[ -e $pythonPath ]] ; then
+  if [[ -e $pythonPath ]]; then
     export PATH="$pythonPath:$PATH"
   fi
 
-  if [[ -e $brewPrefix/opt/openjdk ]] ; then
+  if [[ -e $brewPrefix/opt/openjdk ]]; then
     export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
     export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
     export JAVAHOME=$brewPrefix/opt/openjdk/
     export JAVA_HOME=$JAVAHOME
   fi
 
-  if [[ -e $brewPrefix/opt/openjdk@11 ]] ; then
+  if [[ -e $brewPrefix/opt/openjdk@11 ]]; then
     export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
     export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
     export JAVAHOME=$brewPrefix/opt/openjdk@11/
@@ -46,12 +46,10 @@ if [[ "$brewPrefix" != "" ]] ; then
 fi
 
 # secrets and work stuff
-if [[ -e ~/.private/env.sh  ]] ; then
+if [[ -e ~/.private/env.sh ]]; then
   source ~/.private/env.sh
   PATH="$PATH:$HOME/.private/bin"
 fi
-
-
 
 ## aliases
 # go to git repo root
@@ -67,7 +65,6 @@ select-word-style bash
 # auto-cd
 setopt AUTO_CD
 
-
 ## load completions
 fpath+=(~/.emacs.d/etc/zsh/)
 
@@ -78,22 +75,20 @@ autoload _rg
 autoload _git
 
 # Load autocomplete for other tools not supported by zsh directly
-if [[ "$(which op 2>&1)" == /* ]] ; then
-  eval "$(op completion zsh)";
+if [[ "$(which op 2>&1)" == /* ]]; then
+  eval "$(op completion zsh)"
   compdef _op op
 fi
 
-if [[ "$(which doctl 2>&1)" == /* ]] ; then
+if [[ "$(which doctl 2>&1)" == /* ]]; then
   eval "$(doctl completion zsh)"
 fi
-
 
 # git info in prompt and such
 autoload -Uz vcs_info
 
 # enable ZSH hooks
 autoload -U add-zsh-hook
-
 
 # disable docker cli hints
 export DOCKER_CLI_HINTS=false
@@ -113,37 +108,75 @@ export EDITOR=zile
 # use bat as man-page viewer
 export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
 
-# prompt
-precmd_vcs_info() { vcs_info }
+cl_green() {
+  echo -e "\033[0;32m"
+}
+
+cl_red() {
+  echo -e "\033[0;31m"
+}
+
+cl_blue() {
+  echo -e "\033[0;34m"
+}
+
+cl_yellow() {
+  echo -e "\033[0;33m"
+}
+
+cl_reset() {
+  echo -e "\033[0m"
+}
+
+# ░▒▓██   prompt  █▓▒░
+
+PROMPT_BASE="" # "█▓▒░"
+precmd_vcs_info() {
+  vcs_info
+}
+export _SEC_FLAG="░"
 precmd_sec_info() {
-  if [[ "$OP_SECRETS_LOADED" == "" ]] ; then
-    export _SEC_FLAG="🔐"
+  if [[ "$OP_SECRETS_LOADED" == "" ]]; then
+    export _SEC_FLAG="█"
   else
-    export _SEC_FLAG="🔓"
+    export _SEC_FLAG="$(cl_yellow)█$(cl_reset)"
   fi
 }
-precmd_functions+=( precmd_vcs_info )
-precmd_functions+=( precmd_sec_info )
+
+export _EXIT_CODE_FLAG="░"
+precmd_last_cmd_exit_code_info() {
+  local exit_code=$?
+  if [[ $exit_code -ne 0 ]]; then
+    export _EXIT_CODE_FLAG="$(cl_red)█$(cl_reset)"
+  else
+    export _EXIT_CODE_FLAG="$(cl_green)█$(cl_reset)"
+  fi
+}
+
+precmd_functions+=(precmd_vcs_info)
+precmd_functions+=(precmd_sec_info)
+precmd_functions+=(precmd_last_cmd_exit_code_info)
+
 setopt PROMPT_SUBST
-zstyle ':vcs_info:git:*' formats '%F{240}(%b)'
+zstyle ':vcs_info:git:*' formats '%F{240}[%b%F{100}]'
 zstyle ':vcs_info:*' enable git
 
 BR=$'\n'
-export PROMPT='# ${_SEC_FLAG} %1~ ${vcs_info_msg_0_} ${BR}# '
+export PROMPT='${_EXIT_CODE_FLAG}${_SEC_FLAG}${PROMPT_BASE} %3~ ${vcs_info_msg_0_} ${BR}# '
 
 # integration with iterm:
-if [[ "$LC_TERMINAL" == "iTerm2" ]] ; then
-  if [[ -e ~/.emacs.d/vendor/iterm2_shell_integration.zsh ]] ; then
+if [[ "$LC_TERMINAL" == "iTerm2" ]]; then
+  if [[ -e ~/.emacs.d/vendor/iterm2_shell_integration.zsh ]]; then
     export ITERM2_SQUELCH_MARK=1
     source ~/.emacs.d/vendor/iterm2_shell_integration.zsh
   fi
 fi
 
 # integration with Vterm:
-if [[ "$INSIDE_EMACS" = 'vterm' ]] ; then
-  if [[ -n ${EMACS_VTERM_PATH} ]] \
-       && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	  source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
+  if [[ -n ${EMACS_VTERM_PATH} ]] &&
+    [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+    source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
   fi
 
   alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
