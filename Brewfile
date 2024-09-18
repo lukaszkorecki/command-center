@@ -41,10 +41,10 @@ brew 'clojure-lsp/brew/clojure-lsp-native'
 # Emacs
 brew 'libvterm'
 brew 'cmake'
-brew 'emacs-plus@29',
+brew 'emacs-plus@30',
      'with-poll': true,
      'with-xwidgets': true,
-     'with-savchenkovaleriy-big-sur-icon': true,
+     'with-modern-icon': true,
      link: true
 
 # psql cli, but without PG itself
