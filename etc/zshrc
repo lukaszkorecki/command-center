@@ -57,6 +57,10 @@ alias gcd='cd $(git root)'
 # go to project root, might be repo root but not necessarily
 alias pcd='cd $(project-root-path)'
 
+if [[ "$(which bat)" == /* ]]; then
+  alias less='bat -p'
+fi
+
 ## navigation
 # make path operations work like bash (e.g. M-backspace deletes path fragments)
 autoload -U select-word-style
@@ -130,7 +134,7 @@ cl_reset() {
 
 # ░▒▓██   prompt  █▓▒░
 
-PROMPT_BASE="█▓▒░"
+PROMPT_BASE="▒░"
 precmd_vcs_info() {
   vcs_info
 }
