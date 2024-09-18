@@ -22,7 +22,6 @@
       (when (string-equal lk/home-full-path root-exp)
         (message "Root folder is equal to HOME!")
         (throw 'lk/invalid-project-root t))
-π
       ;; otherwise we're good
       root-exp)))
 
