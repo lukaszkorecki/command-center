@@ -40,6 +40,7 @@
 
   pfff = !git push --force origin $(git cb)
 
+  sync = !git co ${1} && git fetch -atp && git pull -r && git co - && git merge -m "Sync ${1}"
   re-continue = rebase --continue
   re-skip = rebase --skip
   pull-all = pull --recurse-submodules -r
@@ -48,6 +49,7 @@
   m = merge --no-ff
   zip-current-branch = !git archive --format zip --output ./$(basename $(pwd)).zip $(git cb)
   last = rev-parse HEAD
+  last-tag = !git for-each-ref --sort=creatordate --format '%(refname)' refs/tags  | tail -1 | xargs basename
   root = rev-parse --show-toplevel
   d = diff
   dc = diff --cached
@@ -57,6 +59,8 @@
   serve = daemon --reuseaddr --verbose  --port=4000 --base-path=. --export-all ./.git
 
   cb = !git rev-parse --abbrev-ref HEAD 2>/dev/null
+  current-branch = !git cb
+
   track-upstream = !git fetch -a && git branch --set-upstream-to=origin/$(git cb) $(git cb)
   push-and-track= !git track-upstream && git push
   pull-and-track = !git track-upstream && git pull -r
