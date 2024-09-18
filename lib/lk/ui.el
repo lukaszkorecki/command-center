@@ -20,6 +20,20 @@
 (setq-default indicate-empty-lines nil)
 (setq-default indicate-buffer-boundaries 'left)
 
+(defun lk/set-frame-font (height)
+  (interactive "nFont size: ")
+  (let* ((frame (selected-frame)))
+    (set-face-attribute 'default nil :height height)
+    (set-frame-font (font-spec :height height) t `(,frame))))
+
+(defun lk/stanard-font ()
+  (interactive)
+  (lk/set-frame-font 120))
+
+(defun lk/screen-sharing-font ()
+  (interactive)
+  (lk/set-frame-font 200))
+
 (defun on-after-init ()
   (when (display-graphic-p)
     (set-face-attribute 'default nil :family "JetBrains Mono" :height 120))
@@ -98,8 +112,7 @@
 
 (use-package bufler
   :ensure t
-  :init
-  (require 'bufler)
+  :init (require 'bufler)
   (global-unset-key (kbd "C-x b"))
   :bind (("C-x b" . bufler-switch-buffer)
          ("C-x C-b" . bufler-list)))

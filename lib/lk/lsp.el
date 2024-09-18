@@ -1,6 +1,7 @@
 ;;; lsp.el -- LSP configuration + supporting packages
 
 (use-package eglot
+  :after (project)
   :custom (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
 

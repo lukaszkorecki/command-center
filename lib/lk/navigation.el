@@ -22,15 +22,17 @@
       (when (string-equal lk/home-full-path root-exp)
         (message "Root folder is equal to HOME!")
         (throw 'lk/invalid-project-root t))
-
+π
       ;; otherwise we're good
       root-exp)))
 
 
 (use-package project
+  :straight t
   :ensure t
   :after (project-rootfile)
   :init ;
+
   (advice-add #'project-find-regexp :override #'counsel-git-grep)
   (advice-add #'project-shell :override #'multi-vterm)
   :bind-keymap ("C-c p" . project-prefix-map)

@@ -30,7 +30,7 @@
    (or (get-buffer lk/clj-scratch-name) (lk/init-clojure-scratch))))
 
 
-(use-package clojure-mode-extra-font-locking)
+;; (use-package clojure-mode-extra-font-locking)
 
 
 (defun lk/failed-tests-in-monroe-repl ()
