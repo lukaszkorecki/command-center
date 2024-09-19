@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+help() {
+  echo "Renders Markdown as HTML using GH's Markdown API"
+  echo "Requires GH CLI to be installed and authenticated or GITHUB_TOKEN to be set"
+  grep '##' "$0" | grep -v grep | sed 's/) ##/ - /'g
+}
+
+filePath=
+preview=
+outputFilePath=
+useRepoContext=
+
+while getopts "hf:o:pc" OPTIONS; do
+  case "$OPTIONS" in
+    h) ## help!
+      help
+      exit 0
+      ;;
+    f) ## file to render
+      filePath="$OPTARG"
+      ;;
+    o) ## output file, default is <original file>.html as sibling of the original file
+      outputFilePath="$OPTARG"
+      ;;
+    p) ## preview rendered file in your system browser? default is false - will just print the file path
+      preview=true
+      ;;
+    c) ## use repo context to render anchros and references
+      useRepoContext=true
+      ;;
+    *)
+      help
+      exit 0
+      ;;
+  esac
+done
+
+
+if [[ -z "${filePath}" ]] ; then
+  help
+  exit 1
+fi
+
+
+# get absolute path
+absFilePath=$(realpath "${filePath}")
+# get file name
+fileName=$(basename "${absFilePath}")
+
+# tmpPath for stitching output
+tmpOutputPath="$(mktemp -d)/preview.html"
+
+if [[ -z "${outputFilePath}" ]] ; then
+  outputFilePath=$(dirname "${absFilePath}")"/"${fileName}".html"
+fi
+
+# check if /tmp/gh-asset-links.html exists and delete it if it's more than 1d old
+if [[ -e /tmp/gh-asset-links.html ]] ; then
+  if [[ $(find /tmp/gh-asset-links.html -mtime +1) ]] ; then
+    rm /tmp/gh-asset-links.html
+  fi
+fi
+
+# fetch the asset links from a well-known gist
+if [[ ! -e /tmp/gh-asset-links.html ]] ; then
+ curl -q --silent 'https://gist.github.com/lukaszkorecki-ps/7fddf35bba18542089bf367cda00add2' | grep '<link' > /tmp/gh-asset-links.html
+fi
+
+echo "<!DOCTYPE html>" > "${tmpOutputPath}}"
+echo '<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark_dimmed" data-a11y-animated-images="system" data-a11y-link-underlines="true" data-turbo-loaded="">' >> "${tmpOutputPath}"
+echo "<head><title>${fileName}</title>" >> "${tmpOutputPath}"
+
+cat /tmp/gh-asset-links.html >> "${tmpOutputPath}"
+
+echo '</head><body style="width: 60%;margin: 0 auto;padding: 4em">' >> "${tmpOutputPath}"
+
+
+# TODO: repo-context support -> -f 'context=owner/repo'
+gh api \
+   --method POST \
+   -H "Accept: application/vnd.github+json" \
+   -H "X-GitHub-Api-Version: 2022-11-28" \
+   /markdown \
+   -f "mode=gfm" \
+   -f "text=$(cat "${absFilePath}")" >> "${tmpOutputPath}"
+
+mv "${tmpOutputPath}" "${outputFilePath}"
+
+if [[ -n "${preview}" ]] ; then
+  open "${outputFilePath}"
+else
+  echo "${outputFilePath}"
+fi

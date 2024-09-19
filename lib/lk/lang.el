@@ -48,6 +48,19 @@
   (interactive "sCallout type: ")
   (insert (format "> [!%s]\n" callout-type)))
 
+(defun lk/gh-preview-markdown ()
+  "Preview markdown file in browser by rendeding it to html using `ghmd-preview` script
+  which returns the local file path of the rendered html."
+  (interactive)
+  (let* ((file-name (buffer-file-name))
+         (tmp-file-name
+          (format "%s.html" (make-temp-file "ghmd-preview")))
+         (html-file (shell-command-to-string
+                     (format "ghmd-preview -f %s -o %s" file-name tmp-file-name)))
+         (browseable-file-path (format "file://%s" html-file)))
+    (message "Previewing %s" browseable-file-path)
+    (xwidget-webkit-browse-url browseable-file-path)))
+
 (use-package markdown-mode
   :ensure t
   :config ;;
@@ -58,7 +71,8 @@
   :bind (:map markdown-mode-map
               (("C-c m c" . lk/insert-md-callout)
                ("C-c m d" . lk/insert-current-date)
-               ("C-c m t" . lk/insert-current-date-time))))
+               ("C-c m t" . lk/insert-current-date-time)
+               ("C-c m p" .  lk/gh-preview-markdown))))
 
 (use-package poly-markdown
   :after (markdown-mode)
@@ -87,8 +101,7 @@
 
   :init (add-to-list 'auto-mode-alist '("\\.pkl" . pkl-mode))
 
-  :custom
-  (pkl-enable-copilot t))
+  :custom (pkl-enable-copilot t))
 
 (use-package nginx-mode :init (setq nginx-indent-offset 2))
 
@@ -103,8 +116,9 @@
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
   (setq js-indent-level 2)
   (keymap-local-unset "C-c C-t")
-  :bind (:map json-mode-map (("C-x c f" . json-pretty-print-buffer )
-                             ("C-c C-t" . copilot-complete-at-point))))
+  :bind (:map json-mode-map
+              (("C-x c f" . json-pretty-print-buffer )
+               ("C-c C-t" . copilot-complete-at-point))))
 
 ;; web-mode stuff
 (use-package web-mode
