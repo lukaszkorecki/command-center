@@ -62,8 +62,8 @@
   current-branch = !git cb
 
   track-upstream = !git fetch -a && git branch --set-upstream-to=origin/$(git cb) $(git cb)
-  push-and-track= !git track-upstream && git push
-  pull-and-track = !git track-upstream && git pull -r
+  push-and-track= !git push origin $(git cb) && git track-upstream
+  pull-and-track = !git fetch -atp && git track-upstream && git pull -r
   safe-pull = !git stash && git pull -r origin $(git cb) && git stash pop
 
   llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
