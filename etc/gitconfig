@@ -40,7 +40,6 @@
 
   pfff = !git push --force origin $(git cb)
 
-  sync = !git co ${1} && git fetch -atp && git pull -r && git co - && git merge -m "Sync ${1}"
   re-continue = rebase --continue
   re-skip = rebase --skip
   pull-all = pull --recurse-submodules -r

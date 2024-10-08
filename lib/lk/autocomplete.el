@@ -39,8 +39,9 @@
 (use-package editorconfig)
 
 (use-package copilot
-  :straight (:host github :repo "copilot-emacs/copilot.el" :files
-                   ("dist" "*.el"))
+  :straight (:host github
+                   :repo "copilot-emacs/copilot.el"
+                   :files ("dist" "*.el"))
   :ensure t
   :config (setq copilot-max-char 1000000)
 
@@ -59,7 +60,8 @@
   (add-hook 'json-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
   (add-hook 'markdown-mode-hook 'copilot-mode)
-  :bind (("C-c C-t" . copilot-accept-completion)))
+  :bind (("C-c C-t" . copilot-accept-completion)
+         ("C-c C-a" . copilot-accept-completion)))
 
 
 (provide 'lk/autocomplete)

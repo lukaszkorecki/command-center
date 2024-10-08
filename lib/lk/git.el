@@ -5,7 +5,7 @@
 
 
 
-;; Git and git-surf helpers
+;; Git and git nav helpers
 
 (defun lk/git-grep+ (regex)
   "Like vc-git-grep but project current directory and any extension, Pass REGEX.."
@@ -16,26 +16,38 @@
   :bind (( "C-c g g" . lk/git-grep+)
          ( "C-c g s" . vc-git-grep)))
 
+(use-package git-link :ensure t)
+
 (defun lk/open-current-file-in-gh ()
   (interactive)
-  (let* ((line-no (line-number-at-pos))
-         (command
-          (format "~/.emacs.d/etc/bin/git-surf -l%s -f %s"
-                  line-no
-                  (file-name-nondirectory (buffer-file-name)))))
-    (message (format "CMD: %s" command))
-    (shell-command command)))
+  (browse-url (call-interactively #'git-link)))
 
 (global-set-key (kbd "C-c g f") 'lk/open-current-file-in-gh)
 
 
 (defun lk/open-current-pr-in-gh ()
   (interactive)
-  (shell-command "git surf -p"))
+  (shell-command "gh pr view --web"))
 
 (global-set-key (kbd "C-c g h") 'lk/open-current-pr-in-gh)
 
+
+(defun lk/git-repo-home ()
+  (interactive)
+  (let ((default-directory (project-root (project-current t))))
+    (browse-url (call-interactively #'git-link-homepage))))
+
 (use-package magit
+  :ensure t
+  :after project
+  :init (add-to-list 'project-switch-commands
+                     '(lk/git-repo-home "Homepage" "b"))
+  (add-to-list 'project-switch-commands
+               '(magit-project-status "Magit" "m"))
+  (setq magit-clone-set-remote.pushDefault t)
+  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1)
+  (setq magit-bury-buffer-function 'magit-restore-window-configuration)
+
   :config (setq magit-git-executable "/usr/bin/git")
   (setq magit-completing-read-function 'ivy-completing-read)
 	:bind (( "C-c m s" . magit-status)))
