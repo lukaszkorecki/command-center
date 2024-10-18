@@ -59,6 +59,12 @@ alias pcd='cd $(project-root-path)'
 
 if [[ "$(which bat)" == /* ]]; then
   alias less='bat -p'
+  # use bat as man-page viewer
+  export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
+
+  help() {
+    ${*} | bat -l=help -p
+  }
 fi
 
 ## navigation
@@ -107,10 +113,7 @@ setopt sharehistory
 setopt incappendhistory
 
 # FIXME: figure out why emacsclient is not working and crashes things
-export EDITOR=zile
-
-# use bat as man-page viewer
-export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
+# export EDITOR=zile
 
 cl_green() {
   echo -e "\033[0;32m"
