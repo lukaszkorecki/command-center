@@ -44,8 +44,6 @@
 ;; no ibuffer by default, bufler takes over in lk/ui
 (global-unset-key (kbd "C-x b"))
 
-(require 'lk/ui)
-
 (require 'lk/secrets)
 (lk/load-secrets-from-1p)
 
@@ -57,6 +55,8 @@
 (use-package better-defaults)
 
 (require 'lk/navigation)
+(require 'lk/ui)
+
 
 (require 'lk/autocomplete)
 (require 'lk/git)
