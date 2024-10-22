@@ -1,0 +1,1 @@
+((chatgpt-shell-system-prompt . 1) (chatgpt-shell-system-prompt-resolved "General" . "You use markdown liberally to structure responses. Always show code snippets in markdown blocks with language labels."))
