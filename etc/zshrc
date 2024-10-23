@@ -179,7 +179,7 @@ if [[ "$LC_TERMINAL" == "iTerm2" ]]; then
   fi
 fi
 
-# integration with Vterm:
+# integration with Vterm & wezterm:
 if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
   if [[ -n ${EMACS_VTERM_PATH} ]] &&
     [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
@@ -205,4 +205,9 @@ if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
   }
 
   PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+
+else
+  if [[ "$TERM_PROGRAM" == "WezTerm" ]] ; then
+    source /Applications/WezTerm.app/Contents/Resources/wezterm.sh
+  fi
 fi
