@@ -1,7 +1,6 @@
 {:user {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.33"]]
 
-        :repl-options {:color false
-                       :nrepl-middleware [portal.nrepl/wrap-portal]}
+        :repl-options {:color false}
 
         :aliases {;; do not override `lein test`
                   "kaocha" ["run" "-m" "kaocha.runner"]
@@ -19,8 +18,7 @@
                                "-e" ".*benchmark.*"]}}
 
  :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.33"]]
-        :repl-options {:color false
-                       :nrepl-middleware [portal.nrepl/wrap-portal]}}
+        :repl-options {:color false}}
 
  :antq {:global-vars {*warn-on-reflection* false}
         :dependencies [[com.github.liquidz/antq "RELEASE"]
