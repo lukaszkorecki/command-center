@@ -104,7 +104,7 @@
 (defun lk/monroe-portal-start! ()
   (interactive)
   (lk/monroe-eval-code-and-callback-with-value
-   "(r/portal-start! {:force? true :browse? false})"
+   "(r.portal/start! {:force? true :browse? false})"
    (lambda (value)
      (condition-case err
          ;; value is a raw string, so we need to remove " from it
@@ -118,7 +118,7 @@
 (defun lk/portal-clear! ()
   (interactive)
   (lk/eval-code-and-callback-with-value
-   "(r/portal-clear!)"
+   "(r.portal/clear!)"
    (lambda (value) (message "Portal cleared"))))
 
 (provide 'lk/clojure)
