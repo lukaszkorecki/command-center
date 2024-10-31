@@ -24,6 +24,11 @@
 
 (global-set-key (kbd "C-c g f") 'lk/open-current-file-in-gh)
 
+(defun lk/open-repo-in-gh ()
+  (interactive)
+  (browse-url (call-interactively #'git-link-homepage)))
+
+(global-set-key (kbd "C-c g p") 'lk/open-repo-in-gh)
 
 (defun lk/open-current-pr-in-gh ()
   (interactive)
