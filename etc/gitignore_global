@@ -27,3 +27,4 @@ deps.txt
 **/scratch.clj
 /tests.edn
 **/target
+/.clj-kondo/**
