@@ -3,7 +3,6 @@ tap "homebrew/bundle"
 tap 'borkdude/brew'
 tap 'd12frosted/emacs-plus'
 tap 'hashicorp/tap'
-tap 'dopplerhq/doppler'
 tap 'clojure-lsp/brew'
 
 # core language packages
@@ -20,7 +19,6 @@ brew "ripgrep"
 brew 'jq'
 brew 'borkdude/brew/jet'
 brew 'gh'
-brew 'tmux'
 cask 'todoist'
 brew 'bat'
 
