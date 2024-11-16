@@ -110,13 +110,6 @@
   (setq bidi-paragraph-direction 'left-to-right))
 
 
-(use-package bufler
-  :ensure t
-  :init (require 'bufler)
-  (global-unset-key (kbd "C-x b"))
-  :bind (("C-x b" . bufler-switch-buffer)
-         ("C-x C-b" . bufler-list)))
-
 (use-package unicode-fonts :config (unicode-fonts-setup))
 
 ;; just exit if terminated or C-x C-c is invoked

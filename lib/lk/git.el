@@ -61,21 +61,7 @@
   (interactive)
   (kill-matching-buffers ".*magit.*" 't 't))
 
-(use-package ibuffer-vc)
 
-(use-package ibuffer-git
-  :init (setq ibuffer-formats
-              '((mark modified read-only vc-status-mini " "
-                      (name 18 18 :left :elide)
-                      " "
-                      " "
-                      (mode 16 16 :left :elide)
-                      " "
-                      (git-status-mini)
-                      " "
-                      (git-status 8 8 :right)
-                      " "
-                      filename-and-process))))
 
 (provide 'lk/git)
 ;;; git.el ends here
