@@ -90,6 +90,7 @@
   :bind (("M-x" . counsel-M-x)
          ("C-c n i" . counsel-imenu)
          ("C-c n b" . counsel-ibuffer)
+         ("C-x b" . counsel-ibuffer)
          ("C-c n y" . counsel-yank-pop)
          ("C-c e i" .  counsel-unicode-char)))
 

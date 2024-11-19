@@ -49,6 +49,9 @@
                '((copilot copilot-exceeds-max-char)))
   (add-to-list 'warning-suppress-types
                '((copilot copilot-no-mode-indent)))
+  (add-to-list 'warning-suppress-types
+               '((copilot--infer-indentation-offset)))
+
 
   (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
   (add-hook 'clojure-mode-hook 'copilot-mode)
