@@ -106,7 +106,8 @@
    ["Actions" ;; dispatch generic commands
     ("t" "start vterm in project root" multi-vterm-project)
     ;; TODO: this needs to be conditional in case we're not in a git repo
-    ("s" "magit status" magit-status)]
+    ("s" "magit status" magit-status)
+    ]
    ]
 
 
@@ -115,31 +116,53 @@
   ;; use :setup-children (lambda (_) (list ....
   ;; to dynamically generate language specific commands
 
-  ;; ["Commands"
-  ;;  :setup-children (lambda
-  ;;                    (_)
-  ;;                    (let* ((pj-info (lk/get-root-file-and-project-type))
-  ;;                           (pj-clj-nrepl-running? (hget pj-info "clj-nrepl-running?")))
+  ["Commands"
+   :setup-children (lambda
+                     (_)
+                     (let* ((pj-info (lk/get-root-file-and-project-type))
+                            (pj-is-clojure? (equal 'clojure (hget pj-info "type")))
+                            (pj-clj-nrepl-running?
+                             (when pj-is-clojure? (hget pj-info "clj-nrepl-running?"))))
 
-  ;;                      (if pj-clj-nrepl-running?
-  ;;                          (list
-  ;;                           (transient-parse-suffix
-  ;;                            transient--prefix
+                       (if pj-is-clojure?
+                           (if pj-clj-nrepl-running?
+                               (list
+                                (transient-parse-suffix
+                                 transient--prefix
 
-  ;;                            '("m" :info "nREPL server already running")
-  ;;                            ;; TODO:
-  ;;                            ;; - kill monroe stuff
-  ;;                            ;; - switch to monroe REPL
-  ;;                            ;; - switch to scratch.clj
-  ;;                            ))
+                                 '("m" :info "nREPL server already running")
+                                 ;; TODO:
+                                 ;; - kill monroe stuff
+                                 ;; - switch to monroe REPL
+                                 ;; - switch to scratch.clj
+                                 )
 
-  ;;                        (list
-  ;;                         (transient-parse-suffix
-  ;;                          transient--prefix
+                                (transient-parse-suffix
+                                 transient--prefix
 
-  ;;                          '("m" "start Monroe & nREPL server"  #'monroe-nrepl-server-start))))))
-  ;;  ]
-  )
+                                 '("K"  "Kill monroe server & REPL buffer"
+
+                                   (lambda () (interactive) (lk/monroe-kill-all)))
+                                 ;; TODO:
+                                 ;; - kill monroe stuff
+                                 ;; - switch to monroe REPL
+                                 ;; - switch to scratch.clj
+                                 )
+
+                                )
+
+                             (list
+                              (transient-parse-suffix
+                               transient--prefix
+
+                               '("m" "start Monroe & nREPL server"
+                                 (lambda ()
+                                   (interactive)
+                                   (monroe-nrepl-server-start))))))
+                         ;; not a Clj project, do nothing (for now!)
+                         '())))
+   ;; end Commands here
+   ])
 
 (define-key global-map (kbd "C-c d") 'lk/proj-management)
 
