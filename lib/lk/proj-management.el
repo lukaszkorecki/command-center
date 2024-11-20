@@ -55,6 +55,7 @@
     (hput pj-info "cwd" default-directory)
     (hput pj-info "type" pj-type)
     (hput pj-info "project-file" pj-file)
+    (hput pj-info "repo" (vc-root-dir))
     (hput pj-info "clj-nrepl-running?" pj-clj-nrepl-running?)
     pj-info))
 
@@ -66,7 +67,6 @@
          (pj-type (hget pj-info "type"))
          (pj-cwd (hget pj-info "cwd"))
          (pj-root (hget pj-info "root"))
-
          (is-repo? (hget pj-info "repo")))
     (if pj-type
         (format  "%s [%s->%s]"
@@ -105,9 +105,21 @@
 
 
    ["Actions" ;; dispatch generic commands
-    ("t" "start vterm in project root" multi-vterm-project)
-    ;; TODO: this needs to be conditional in case we're not in a git repo
-    ("s" "magit status" magit-status)
+    :setup-children (lambda
+                      (_)
+                      (let* ((pj-info (lk/get-root-file-and-project-type))
+                             (is-git-repo? (hget pj-info "repo")))
+
+                        (-non-nil
+                         (list
+                          (lk/mk-sffx
+                           '("t" "start vterm in project root" multi-vterm-project))
+
+                          (when is-git-repo?
+                            (lk/mk-sffx '("s" "magit status" magit-status)))
+
+                          (when is-git-repo?
+                            (lk/mk-sffx '("g" "git grep" counsel-git-grep)))))))
     ]]
 
   ;; TODO: re-organize this to be dynamic based on the project type, Clj only for now!
