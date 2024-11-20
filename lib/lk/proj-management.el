@@ -108,10 +108,7 @@
     ("t" "start vterm in project root" multi-vterm-project)
     ;; TODO: this needs to be conditional in case we're not in a git repo
     ("s" "magit status" magit-status)
-    ]
-   ]
-
-
+    ]]
 
   ;; TODO: re-organize this to be dynamic based on the project type, Clj only for now!
   ;; use :setup-children (lambda (_) (list ....
@@ -130,7 +127,7 @@
                                (list
                                 (lk/mk-sffx
                                  '("m" :info
-                                   (format "nREPL server already running: %s"
+                                   (format "nREPL server already: %s"
                                            (monroe-locate-running-nrepl-host))))
 
                                 (lk/mk-sffx

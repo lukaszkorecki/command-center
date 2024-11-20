@@ -26,7 +26,8 @@
 (defun lk/clojure-scratch ()
   (interactive)
   (pop-to-buffer
-   (or (get-buffer lk/clj-scratch-name) (lk/init-clojure-scratch))))
+   (or (get-buffer lk/clj-scratch-name) (lk/init-clojure-scratch))
+   'display-buffer-reuse-window))
 
 
 ;; (use-package clojure-mode-extra-font-locking)
