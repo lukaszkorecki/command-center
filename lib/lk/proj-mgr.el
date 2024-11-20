@@ -98,67 +98,59 @@
          (pj-overview
           (when pj-name (pjmgr--overview-str pj-name pj-info)))
 
-         (is-git-repo? (when pj-info (hm--get pj-info "repo"))))
+         (is-git-repo? (when pj-info (hm--get pj-info "repo")))
 
-    (if pj-name
-        (mapcar #'pjmgr--mk-suffix
-                (-non-nil
-                 (list
-                  (when pj-info '(:info pj-overview))
-                  (when is-git-repo? '(:info #'pjmgr--git-info)))))
-
-      ;; else
-      (list (pjmgr--mk-suffix '(:info "<not in a project>"))))))
+         (items
+          (if pj-name
+              (list
+               (when pj-info '(:info pj-overview))
+               (when is-git-repo? '(:info #'pjmgr--git-info)))
+            ;; else
+            (list '(:info "<not in a project>")))))
+    (pjmgr--list->suffixes items)))
 
 
 (defun pjmgr--actions-group (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
          (is-git-repo? (hm--get pj-info "repo")))
-
-    (mapcar #'pjmgr--mk-suffix
-            (-non-nil
-             (list
-              '("p" "select a different project" project-switch-project)
-
-              '("t"  "start vterm"  multi-vterm-project)
-
-              (when is-git-repo? '("s" "magit status" magit-status))
-
-              (when is-git-repo? '("g" "git grep" counsel-git-grep)))))))
+    (pjmgr--list->suffixes
+     (list
+      '("p" "select a different project" project-switch-project)
+      '("t"  "start vterm"  multi-vterm-project)
+      (when is-git-repo? '("s" "magit status" magit-status))
+      (when is-git-repo? '("g" "git grep" counsel-git-grep))))))
 
 
 (defun pjmgr--clojure-cmds-group (pj-info)
   (let* ((pj-clj-nrepl-running?
-          (when pj-is-clojure? (hm--get pj-info "clj-nrepl-running?"))))
-
-    (if pj-clj-nrepl-running?
-        (mapcar #'pjmgr--mk-suffix
-                (list
-
-                 '("m" :info
-                   (format "nREPL server is running: %s"
-                           (monroe-locate-running-nrepl-host)))
-
-                 '("r" "Switch to the REPL buffer" lk/switch-to-monroe-repl-or-connect-or-start)
-
-                 '("s" "Jump to scratch file" lk/clojure-scratch)
-
-                 '("K"  "Kill monroe server & REPL buffer" lk/monroe-kill-all)))
-
-      ;; we can only start
-      (mapcar #'pjmgr--mk-suffix
+          (when pj-is-clojure? (hm--get pj-info "clj-nrepl-running?")))
+         (items
+          (if pj-clj-nrepl-running?
               (list
-               '(:info "nREPL server not running")
-               '("m" "start Monroe & nREPL server" lk/switch-to-monroe-repl-or-connect-or-start))))))
+               '("m" :info
+                 (format "nREPL server is running: %s"
+                         (monroe-locate-running-nrepl-host)))
+
+               '("r" "Switch to the REPL buffer" lk/switch-to-monroe-repl-or-connect-or-start)
+               '("s" "Jump to scratch file" lk/clojure-scratch)
+               '("K"  "Kill monroe server & REPL buffer" lk/monroe-kill-all)
+               ;; TODO: add portal
+               )
+            ;; we can only start
+            (list
+             '(:info "nREPL server not running")
+             '("m" "start Monroe & nREPL server" lk/switch-to-monroe-repl-or-connect-or-start)))))
+
+    (pjmgr--list->suffixes items)))
 
 
 (defun pjmgr--cmds-group (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
-         ;; TODO: this eventually will be a cond-powered dispatch
          (pj-is-clojure?
           (and pj-info (equal 'clojure (hm--get pj-info "type")))))
-    (if pj-is-clojure? (pjmgr--clojure-cmds-group pj-info)
-
+    (if pj-is-clojure?
+        ;; TODO: this eventually will be a cond-powered dispatch and cond
+        (pjmgr--clojure-cmds-group pj-info)
       '())))
 
 ;; main transient config
