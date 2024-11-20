@@ -17,11 +17,10 @@
 (defun lk/init-clojure-scratch ()
   (interactive)
   (let* ((project-root (lk/project-find-root nil))
-         (scratch-file (concat project-root lk/clj-scratch-name)))
-    (if (file-exists-p scratch-file)
-        (find-file scratch-file)
-      (progn (find-file scratch-file)))
-    (clojure-mode)))
+         (scratch-file
+          (format "%s%s" project-root lk/clj-scratch-name)))
+    (find-file scratch-file)
+    (get-buffer lk/clj-scratch-name)))
 
 
 (defun lk/clojure-scratch ()
@@ -37,13 +36,10 @@
   (interactive)
   (swiper "\\(FAIL\\|ERROR\\) in[ ]\\(.*\\)"))
 
-
-
 (defun lk/switch-to-monroe-repl-or-connect-or-start ()
   (interactive)
-  (if (get-buffer "*monroe nrepl server*")
-      (let* ((nrepl-addr (monroe-locate-running-nrepl-host))
-             (monroe-repl-buf-name (format "*monroe: %s*" nrepl-addr )))
+  (if (get-buffer (format "*%s*" monroe-nrepl-server-buffer-name ))
+      (let* ((nrepl-addr (monroe-locate-running-nrepl-host)))
         (if nrepl-addr
             (if-let (b (monroe-repl-buffer))
                 ;; switch to repl
@@ -124,7 +120,7 @@
   (interactive)
   (lk/monroe-eval-code-and-callback-with-value
    "(do
-      (require 'r.portal)
+      (require 'r 'r.portal)
       (r.portal/start! {:force? true :browse? false}))"
    (lambda (value)
      (condition-case err
