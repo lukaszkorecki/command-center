@@ -54,6 +54,8 @@
 
 (use-package better-defaults)
 
+
+;; load all of the custom stuff
 (require 'lk/navigation)
 (require 'lk/ui)
 
@@ -106,3 +108,8 @@
 (load "server")
 (unless (server-running-p)
   (server-start))
+
+;; Finally load extensions based on Transient
+;; as these basically depend on everything else
+
+(require 'lk/proj-mgr)

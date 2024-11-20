@@ -1,4 +1,4 @@
-;;; proj-management.el --- ...
+;;; proj-mgr.el --- ...
 ;;; Commentary:
 ;; Transient powered coding project management dashboard. Currently supports:
 ;; - Clojure
@@ -9,6 +9,9 @@
 
 
 ;;; Code:
+
+(require 'transient)
+(require 'dash)
 
 (defun hput (h k v) (puthash k v h))
 
@@ -162,5 +165,4 @@
 
 (define-key global-map (kbd "C-c d") 'lk/proj-management)
 
-(provide 'proj-management)
-;;; proj-management.el ends here
+(provide 'lk/proj-mgr)
