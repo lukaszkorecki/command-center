@@ -16,12 +16,12 @@
 
 
 (defvar lk/project-file-associations
-  (let ((table (make-hash-table :test 'equal)))
-    (puthash "deps.edn" 'clojure table)
-    (puthash "project.clj" 'clojure table)
+  (let ((pj-file->type (make-hash-table :test 'equal)))
+    (hput pj-file->type "deps.edn" 'clojure)
+    (hput pj-file->type "project.clj" 'clojure)
     ;; TODO: bb.edn, main.tf, package.json, Gemfile, possibly more?
     ;; Add more associations as needed
-    table))
+    pj-file->type))
 
 (defun lk/loc-dom-file->name (dir name)
   (when (locate-dominating-file dir name) name))
@@ -75,23 +75,24 @@
                  (hget pj-info "project-file"))
       (format "in %s" (hget pj-info "root")))))
 
+
+;; XXX: I wonder if I can plug in magit's own suffixes/groups here?
 (defun lk/print-project-git-branch ()
   (if-let ((branch (vc-status-mode-line)))
       (format "Branch: %s" (s-replace "Git-" "" (first branch)))
     "Not a git repo"))
 
+
+(defun lk/mk-sffx (a-list)
+  "Util for creating suffixes for Transient"
+  (transient-parse-suffix transient--prefix a-list))
+
 ;; main transient config
-
-(defun lk/tmp-ct ()
-  (interactive)
-  (format "Wave at %s" (current-time-string)))
-
 (transient-define-prefix lk/proj-management
   ()
 
   "Manages current project, and shows its info"
   [[:description
-
     (lambda ()
       (if-let ((name (hget (lk/get-root-file-and-project-type) "name")))
           (format "Project: %s" name)
@@ -127,38 +128,24 @@
                        (if pj-is-clojure?
                            (if pj-clj-nrepl-running?
                                (list
-                                (transient-parse-suffix
-                                 transient--prefix
+                                (lk/mk-sffx
+                                 '("m" :info
+                                   (format "nREPL server already running: %s"
+                                           (monroe-locate-running-nrepl-host))))
 
-                                 '("m" :info "nREPL server already running")
-                                 ;; TODO:
-                                 ;; - kill monroe stuff
-                                 ;; - switch to monroe REPL
-                                 ;; - switch to scratch.clj
-                                 )
+                                (lk/mk-sffx
+                                 '("r" "Switch to the REPL buffer" lk/switch-to-monroe-repl-or-connect-or-start))
 
-                                (transient-parse-suffix
-                                 transient--prefix
+                                (lk/mk-sffx
+                                 '("s" "Jump to scratch file" lk/clojure-scratch))
 
-                                 '("K"  "Kill monroe server & REPL buffer"
+                                (lk/mk-sffx
+                                 '("K"  "Kill monroe server & REPL buffer" lk/monroe-kill-all)))
 
-                                   (lambda () (interactive) (lk/monroe-kill-all)))
-                                 ;; TODO:
-                                 ;; - kill monroe stuff
-                                 ;; - switch to monroe REPL
-                                 ;; - switch to scratch.clj
-                                 )
-
-                                )
-
+                             ;; we can only start
                              (list
-                              (transient-parse-suffix
-                               transient--prefix
-
-                               '("m" "start Monroe & nREPL server"
-                                 (lambda ()
-                                   (interactive)
-                                   (monroe-nrepl-server-start))))))
+                              (lk/mk-sffx
+                               '("m" "start Monroe & nREPL server" lk/switch-to-monroe-repl-or-connect-or-start))))
                          ;; not a Clj project, do nothing (for now!)
                          '())))
    ;; end Commands here
