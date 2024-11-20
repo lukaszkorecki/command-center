@@ -37,20 +37,39 @@
   (interactive)
   (swiper "\\(FAIL\\|ERROR\\) in[ ]\\(.*\\)"))
 
+
+
+(defun lk/switch-to-monroe-repl-or-connect-or-start ()
+  (interactive)
+  (if (get-buffer "*monroe nrepl server*")
+      (let* ((nrepl-addr (monroe-locate-running-nrepl-host))
+             (monroe-repl-buf-name (format "*monroe: %s*" nrepl-addr )))
+        (if nrepl-addr
+            (if-let (b (monroe-repl-buffer))
+                ;; switch to repl
+                (pop-to-buffer b)
+              ;; we need to connect - server is possibly running
+              (monroe nrepl-addr))
+          ;; else
+          (error
+           (format ".nrepl-port file not found in %s" default-directory))))
+    ;; else
+    (and
+     (message "Monroe server buffer not found, gonna start it and you need to try again")
+     (monroe-nrepl-server-start))))
+
 (use-package monroe
   :init (require 'monroe)
   :config (setq monroe-nrepl-server-cmd "start-clojure-repl-process")
   ;; optimize memory usage for the REPL buffer, we don't really need undo here
-  (add-hook 'monroe-mode-hook (lambda
-                                ()
-                                (setq-local undo-outer-limit 10000)))
+  (add-hook 'monroe-mode-hook
+            (lambda () (setq-local undo-outer-limit 10000)))
   :bind (:map clojure-mode-map
               ("C-c C-c" . monroe-eval-expression-at-point)
-              ("C-x c j" . monroe-nrepl-server-start)
-              ("C-x c m" . monroe)
-              ("C-c C-z" . monroe-switch-to-repl)
+              ("C-x c j" . lk/switch-to-monroe-repl-or-connect-or-start)
+              ("C-x c m" . lk/switch-to-monroe-repl-or-connect-or-start)
+              ("C-c C-z" . lk/switch-to-monroe-repl-or-connect-or-start)
               ("C-c C-l" . monroe-load-file)
-              ("C-x c m" . monroe)
               ("C-x c l" . lk/init-clojure-scratch)
               ("C-x c s " . lk/clojure-scratch ))
   (:map monroe-mode-map
