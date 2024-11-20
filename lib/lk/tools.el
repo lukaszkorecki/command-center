@@ -22,20 +22,17 @@
   (setq mermaid-mmdc-location "docker")
   (setq mermaid-flags "run -u 1000 -v /tmp:/tmp ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:9.1.6"))
 
-
-
 (defun lk/vterm-project-association ()
   "Associate VTerm buffer with the current project."
-  (let ((project (project-current)))
-    (when project
-      (setq-local project-current project))))
+  (when-let ((project (project-current)))
+    (setq-local project-current project)))
 
 
 (use-package vterm
   :ensure t
-  :init (setq vterm-shell "/bin/zsh")
+  :init ;
+  (setq vterm-shell "/bin/zsh")
   (setq vterm-kill-buffer-on-exit t)
-  (setq vterm-buffer-name-string "*term* %s")
   (add-hook 'vterm-mode-hook 'lk/vterm-project-association)
 
   :bind (("C-c M-o" . vterm-clear-scrollback)
