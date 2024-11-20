@@ -69,8 +69,7 @@
 
          (is-repo? (hget pj-info "repo")))
     (if pj-type
-        (format  "%s (%s) [%s->%s]"
-                 (hget pj-info "name")
+        (format  "%s [%s->%s]"
                  pj-cwd
                  (hget pj-info "type")
                  (hget pj-info "project-file"))
@@ -78,36 +77,39 @@
 
 (defun lk/print-project-git-branch ()
   (if-let ((branch (vc-status-mode-line)))
-      (s-replace "Git-" "" (first branch))
+      (format "Branch: %s" (s-replace "Git-" "" (first branch)))
     "Not a git repo"))
 
 ;; main transient config
+
+(defun lk/tmp-ct ()
+  (interactive)
+  (format "Wave at %s" (current-time-string)))
 
 (transient-define-prefix lk/proj-management
   ()
 
   "Manages current project, and shows its info"
-  ["Project" ;; current project info, if any
+  [[:description
 
-   (:info #'lk/print-project-info)
-   (:info #'lk/print-project-git-branch)
-   ""
+    (lambda ()
+      (if-let ((name (hget (lk/get-root-file-and-project-type) "name")))
+          (format "Project: %s" name)
+        "<not in a project>"))
+
+    (:info #'lk/print-project-info)
+    (:info #'lk/print-project-git-branch)
+    ""
+    ]
+
+
+   ["Actions" ;; dispatch generic commands
+    ("t" "start vterm in project root" multi-vterm-project)
+    ;; TODO: this needs to be conditional in case we're not in a git repo
+    ("s" "magit status" magit-status)]
    ]
 
-  ;; [:description current-time-string
-  ;;               ("-s" "--switch" "switch=") ; switch just to cause updates
-  ;;               ;; single suffix with dynamic description
-  ;;               ("wa" tsc-suffix-wave
-  ;;                :description (lambda
-  ;;                               ()
-  ;;                               (format "Wave at %s" (current-time-string))))
-  ;;               ]
-  ;; ""
 
-  ["Actions" ;; dispatch generic commands
-   ("t" "start vterm in project root" multi-vterm-project)
-   ("s" "magit status" magit-status) ;; TODO: this needs to be conditional in case we're not in a git repo
-   ]
 
   ;; TODO: re-organize this to be dynamic based on the project type, Clj only for now!
   ;; use :setup-children (lambda (_) (list ....
