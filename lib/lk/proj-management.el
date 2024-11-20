@@ -23,20 +23,22 @@
     ;; Add more associations as needed
     table))
 
+(defun lk/loc-dom-file->name (dir name)
+  (when (locate-dominating-file dir name) name))
+
+
 (defun lk/get-root-file-and-project-type ()
   (let* ((pj-info (make-hash-table :test 'equal))
          (pj-root
           (condition-case root-file-err
               (lk/project-find-root nil)
             (error
-             (message "Couldnt find project root")
+             (message "Couldn't find project root in %s" default-directory)
              default-directory)))
          (pj-file
           (or
-           (when (locate-dominating-file pj-root "deps.edn")
-             "deps.edn")
-           (when (locate-dominating-file pj-root "project.clj")
-             "project.clj")))
+           (lk/loc-dom-file->name default-directory "deps.edn")
+           (lk/loc-dom-file->name default-directory "project.clj")))
 
          (pj-type
           (when pj-file
@@ -45,9 +47,12 @@
          (pj-clj-nrepl-running?
           (and
            (equal 'clojure pj-type)
-           (locate-dominating-file pj-root ".nrepl-port"))))
+           (locate-dominating-file default-directory ".nrepl-port"))))
 
+    (hput pj-info "name"
+          (when pj-file (project-name (project-current))))
     (hput pj-info "root" pj-root)
+    (hput pj-info "cwd" default-directory)
     (hput pj-info "type" pj-type)
     (hput pj-info "project-file" pj-file)
     (hput pj-info "clj-nrepl-running?" pj-clj-nrepl-running?)
@@ -59,17 +64,21 @@
 (defun lk/print-project-info ()
   (let* ((pj-info (lk/get-root-file-and-project-type))
          (pj-type (hget pj-info "type"))
+         (pj-cwd (hget pj-info "cwd"))
+         (pj-root (hget pj-info "root"))
+
          (is-repo? (hget pj-info "repo")))
     (if pj-type
-        (format  "Root: %s [%s->%s]"
-                 (hget pj-info "root")
+        (format  "%s (%s) [%s->%s]"
+                 (hget pj-info "name")
+                 pj-cwd
                  (hget pj-info "type")
                  (hget pj-info "project-file"))
       (format "in %s" (hget pj-info "root")))))
 
 (defun lk/print-project-git-branch ()
   (if-let ((branch (vc-status-mode-line)))
-      (format "Branch: %s" (s-replace "Git-" "" (first branch)))
+      (s-replace "Git-" "" (first branch))
     "Not a git repo"))
 
 ;; main transient config
