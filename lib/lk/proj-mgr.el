@@ -19,22 +19,36 @@
 
 
 (defvar pjmgr--project-file-associations
-  (let ((pj-file->type (make-hash-table :test 'equal)))
-    (hm--put pj-file->type "deps.edn" 'clojure)
-    (hm--put pj-file->type "project.clj" 'clojure)
-    ;; TODO: bb.edn, main.tf, package.json, Gemfile, possibly more?
-    ;; Add more associations as needed
-    pj-file->type))
+  (let ((m (make-hash-table :test 'equal)))
+    (hm--put m "deps.edn" 'clojure)
+    (hm--put m "project.clj" 'clojure)
+    (hm--put m "init.el" 'elisp)
+    (hm--put m "main.tf" 'terraform)
+    (hm--put m "bb.edn" 'bb)
+    (hm--put m "package.json" 'node)
+    m))
 
 (defun pjmgr--loc-dom-file->name (dir name)
+  "Finds `name` in given `dir`, if found: returns it otherwise nil"
   (when (locate-dominating-file dir name) name))
 
+(defun pjmgr--find-first-pj-file (dir)
+  "Gets first match for dominating project file. The order happens to prioritze Clojure :-)"
+  (->>
+   (hash-table-keys pjmgr--project-file-associations)
+   reverse ;; somehow this puts clojure projects first
+   (mapcar (lambda (fname) (pjmgr--loc-dom-file->name dir fname)))
+   (-non-nil)
+   (first)))
+
+
 (defun pjmgr--project-name-or-nil ()
+  "Get current project's name or nil"
   (when-let ((pj (project-current)))
     (project-name pj)))
 
-
 (defun pjmgr--get-project-info-maybe ()
+  "Create a hash map of {name root cw type project-file repo clj-nrepl-running?}"
   (let* ((pj-info (make-hash-table :test 'equal))
          (pj-root
           (condition-case root-file-err
@@ -42,10 +56,7 @@
             (error
              (message "Couldn't find project root in %s" default-directory)
              default-directory)))
-         (pj-file
-          (or
-           (pjmgr--loc-dom-file->name default-directory "deps.edn")
-           (pjmgr--loc-dom-file->name default-directory "project.clj")))
+         (pj-file (pjmgr--find-first-pj-file default-directory))
 
          (pj-type
           (when pj-file
@@ -61,7 +72,7 @@
     (hm--put pj-info "cwd" default-directory)
     (hm--put pj-info "type" pj-type)
     (hm--put pj-info "project-file" pj-file)
-    (hm--put pj-info "repo" (vc-root-dir))
+    (hm--put pj-info "repo" (pjmgr--loc-dom-file->name default-directory ".git"))
     (hm--put pj-info "clj-nrepl-running?" pj-clj-nrepl-running?)
     pj-info))
 
@@ -104,7 +115,7 @@
           (if pj-name
               (list
                (when pj-info '(:info pj-overview))
-               (when is-git-repo? '(:info #'pjmgr--git-info)))
+               '(:info #'pjmgr--git-info))
             ;; else
             (list '(:info "<not in a project>")))))
     (pjmgr--list->suffixes items)))
