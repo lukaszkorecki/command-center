@@ -13,20 +13,24 @@
 (require 'transient)
 (require 'dash)
 
-(defun hm--put (h k v) (puthash k v h))
 
-(defun hm--get (h k) (gethash k h))
+(defun hget (alist k)
+  "Get element from a hash table but in a sane way"
+  (gethash k alist))
+
+(defun hput (hm k v)
+  "Modifies hast table in place, but also returns it so its easier to thread"
+  (puthash  k v hm) hm)
 
 
-(defvar pjmgr--project-file-associations
-  (let ((m (make-hash-table :test 'equal)))
-    (hm--put m "deps.edn" 'clojure)
-    (hm--put m "project.clj" 'clojure)
-    (hm--put m "init.el" 'elisp)
-    (hm--put m "main.tf" 'terraform)
-    (hm--put m "bb.edn" 'bb)
-    (hm--put m "package.json" 'node)
-    m))
+;; these are in order
+(setq pjmgr--pj-file->type
+      '(( "deps.edn".  "clojure")
+        ( "project.clj" . "clojure")
+        ( "init.el" . "elisp")
+        ( "main.tf" . "terraform")
+        ( "bb.edn" . "bb")
+        ( "package.json" . "js")))
 
 (defun pjmgr--loc-dom-file->name (dir name)
   "Finds `name` in given `dir`, if found: returns it otherwise nil"
@@ -34,12 +38,12 @@
 
 (defun pjmgr--find-first-pj-file (dir)
   "Gets first match for dominating project file. The order happens to prioritze Clojure :-)"
-  (->>
-   (hash-table-keys pjmgr--project-file-associations)
-   reverse ;; somehow this puts clojure projects first
-   (mapcar (lambda (fname) (pjmgr--loc-dom-file->name dir fname)))
-   (-non-nil)
-   (first)))
+  (->> pjmgr--pj-file->type
+       (mapcar #'first)
+       (mapcar
+        (lambda (fname) (pjmgr--loc-dom-file->name dir fname)))
+       (-non-nil)
+       (first)))
 
 
 (defun pjmgr--project-name-or-nil ()
@@ -49,8 +53,7 @@
 
 (defun pjmgr--get-project-info-maybe ()
   "Create a hash map of {name root cw type project-file repo clj-nrepl-running?}"
-  (let* ((pj-info (make-hash-table :test 'equal))
-         (pj-root
+  (let* ((pj-root
           (condition-case root-file-err
               (lk/project-find-root nil)
             (error
@@ -59,29 +62,33 @@
          (pj-file (pjmgr--find-first-pj-file default-directory))
 
          (pj-type
-          (when pj-file
-            (gethash pj-file pjmgr--project-file-associations nil)))
+          (when pj-file (alist-get pj-file pjmgr--pj-file->type)))
 
          (pj-clj-nrepl-running?
           (and
-           (equal 'clojure pj-type)
-           (locate-dominating-file default-directory ".nrepl-port"))))
+           (equal "clojure" pj-type)
+           (locate-dominating-file default-directory ".nrepl-port")))
 
-    (hm--put pj-info "name" (pjmgr--project-name-or-nil))
-    (hm--put pj-info "root" pj-root)
-    (hm--put pj-info "cwd" default-directory)
-    (hm--put pj-info "type" pj-type)
-    (hm--put pj-info "project-file" pj-file)
-    (hm--put pj-info "repo" (pjmgr--loc-dom-file->name default-directory ".git"))
-    (hm--put pj-info "clj-nrepl-running?" pj-clj-nrepl-running?)
-    pj-info))
+         )
+
+    (->
+     (make-hash-table)
+     (hput :name (pjmgr--project-name-or-nil))
+     (hput :root  pj-root)
+     (hput :cwd  default-directory)
+     (hput :type  pj-type)
+     (hput :project-file  pj-file)
+     (hput :repo
+           (pjmgr--loc-dom-file->name default-directory ".git"))
+     (hput  :clj-nrepl-running?  pj-clj-nrepl-running?))))
+
 
 
 ;; -----
 
 (defun pjmgr--overview-str (pj-name pj-info)
-  (let* ((pj-type (hm--get pj-info "type"))
-         (pj-root (hm--get pj-info "root")))
+  (let* ((pj-type (hget pj-info :type))
+         (pj-root (hget pj-info :root)))
     (if pj-type
         (format  "Project: %s [%s] (%s)" pj-name pj-type pj-root)
       (format "In %s" pj-root))))
@@ -109,7 +116,7 @@
          (pj-overview
           (when pj-name (pjmgr--overview-str pj-name pj-info)))
 
-         (is-git-repo? (when pj-info (hm--get pj-info "repo")))
+         (is-git-repo? (when pj-info (hget pj-info :repo)))
 
          (items
           (if pj-name
@@ -123,7 +130,7 @@
 
 (defun pjmgr--actions-group (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
-         (is-git-repo? (hm--get pj-info "repo")))
+         (is-git-repo? (hget pj-info :repo)))
     (pjmgr--list->suffixes
      (list
       '("p" "select a different project" project-switch-project)
@@ -134,7 +141,7 @@
 
 (defun pjmgr--clojure-cmds-group (pj-info)
   (let* ((pj-clj-nrepl-running?
-          (when pj-is-clojure? (hm--get pj-info "clj-nrepl-running?")))
+          (when pj-is-clojure? (hget pj-info "clj-nrepl-running?")))
          (items
           (if pj-clj-nrepl-running?
               (list
@@ -158,7 +165,7 @@
 (defun pjmgr--cmds-group (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
          (pj-is-clojure?
-          (and pj-info (equal 'clojure (hm--get pj-info "type")))))
+          (and pj-info (equal "clojure" (hget pj-info :type)))))
     (if pj-is-clojure?
         ;; TODO: this eventually will be a cond-powered dispatch and cond
         (pjmgr--clojure-cmds-group pj-info)
