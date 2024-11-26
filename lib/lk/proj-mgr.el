@@ -10,7 +10,8 @@
 
 ;;; Code:
 
-(require 'transient)
+(use-package transient :ensure t)
+
 (require 'dash)
 
 
@@ -20,7 +21,8 @@
 
 (defun hput (hm k v)
   "Modifies hast table in place, but also returns it so its easier to thread"
-  (puthash  k v hm) hm)
+  (puthash  k v hm)
+  hm)
 
 
 ;; these are in order
@@ -103,7 +105,7 @@
 
 (defun pjmgr--mk-suffix (a-list)
   "Util for creating suffixes for Transient"
-  (transient-parse-suffix transient--prefix a-list))
+  (transient-parse-suffix 'transient--prefix a-list))
 
 (defun pjmgr--list->suffixes (a-list)
   (->> a-list -non-nil (mapcar #'pjmgr--mk-suffix)))
@@ -136,7 +138,10 @@
       '("p" "select a different project" project-switch-project)
       '("t"  "start vterm"  multi-vterm-project)
       (when is-git-repo? '("s" "magit status" magit-status))
-      (when is-git-repo? '("g" "git grep" counsel-git-grep))))))
+      (when is-git-repo? '("g" "git grep" counsel-git-grep))
+
+      ;; TODO add GH actions based on `gh` CLI
+      ))))
 
 
 (defun pjmgr--clojure-cmds-group (pj-info)
@@ -174,7 +179,6 @@
 ;; main transient config
 (transient-define-prefix lk/proj-mgr
   ()
-
   "Manages current project, and shows its info"
   [["🌊 Start"
     :setup-children pjmgr--start-group]
@@ -182,7 +186,8 @@
    ["Actions" ;; dispatch generic commands
     :setup-children pjmgr--actions-group]]
 
-  ["Commands" :setup-children pjmgr--cmds-group])
+  ["Commands"
+   :setup-children pjmgr--cmds-group])
 
 (define-key global-map (kbd "C-c d") 'lk/proj-mgr)
 
