@@ -13,19 +13,19 @@
 (use-package transient :ensure t)
 
 (require 'dash)
+(require 'lk/utils)
 
 
-(defun hget (alist k)
-  "Get element from a hash table but in a sane way"
-  (gethash k alist))
+;; Utils to make creating suffixes easier
+(defun pjmgr--mk-suffix (a-list)
+  "Util for creating suffixes for Transient"
+  (transient-parse-suffix 'transient--prefix a-list))
 
-(defun hput (hm k v)
-  "Modifies hast table in place, but also returns it so its easier to thread"
-  (puthash  k v hm)
-  hm)
+(defun pjmgr--list->suffixes (a-list)
+  (->> a-list -non-nil (mapcar #'pjmgr--mk-suffix)))
 
 
-;; these are in order
+;; these are in order!
 (setq pjmgr--pj-file->type
       '(( "deps.edn".  "clojure")
         ( "project.clj" . "clojure")
@@ -46,7 +46,6 @@
         (lambda (fname) (pjmgr--loc-dom-file->name dir fname)))
        (-non-nil)
        (first)))
-
 
 (defun pjmgr--project-name-or-nil ()
   "Get current project's name or nil"
@@ -69,9 +68,7 @@
          (pj-clj-nrepl-running?
           (and
            (equal "clojure" pj-type)
-           (locate-dominating-file default-directory ".nrepl-port")))
-
-         )
+           (locate-dominating-file default-directory ".nrepl-port"))))
 
     (->
      (make-hash-table)
@@ -84,110 +81,119 @@
            (pjmgr--loc-dom-file->name default-directory ".git"))
      (hput  :clj-nrepl-running?  pj-clj-nrepl-running?))))
 
-
-
 ;; -----
 
-(defun pjmgr--overview-str (pj-name pj-info)
-  (let* ((pj-type (hget pj-info :type))
-         (pj-root (hget pj-info :root)))
-    (if pj-type
-        (format  "Project: %s [%s] (%s)" pj-name pj-type pj-root)
-      (format "In %s" pj-root))))
-
-
-;; XXX: I wonder if I can plug in magit's own suffixes/groups here?
-(defun pjmgr--git-info ()
-  (if-let ((branch (vc-status-mode-line)))
-      (format "Branch: %s" (s-replace "Git-" "" (first branch)))
-    "Not a git repo"))
-
-
-(defun pjmgr--mk-suffix (a-list)
-  "Util for creating suffixes for Transient"
-  (transient-parse-suffix 'transient--prefix a-list))
-
-(defun pjmgr--list->suffixes (a-list)
-  (->> a-list -non-nil (mapcar #'pjmgr--mk-suffix)))
-
-
-(defun pjmgr--start-group (_)
+(defun pjmgr--project-suffix (_)
   (let* ((pj-name (pjmgr--project-name-or-nil))
          (pj-info (when pj-name (pjmgr--get-project-info-maybe)))
-
-         (pj-overview
-          (when pj-name (pjmgr--overview-str pj-name pj-info)))
-
-         (is-git-repo? (when pj-info (hget pj-info :repo)))
-
          (items
-          (if pj-name
-              (list
-               (when pj-info '(:info pj-overview))
-               '(:info #'pjmgr--git-info))
-            ;; else
-            (list '(:info "<not in a project>")))))
+          (-concat
+           (if pj-name
+               (list
+                (when pj-info
+                  (list :info
+                        (format "%s [%s]" pj-name (hget pj-info :type)))))
+             ;; else
+             (list '(:info "<not in a project>")))
+           ;; always add project switcher
+           (list
+            '("p" "select a different project" project-switch-project)))))
     (pjmgr--list->suffixes items)))
 
 
-(defun pjmgr--actions-group (_)
+(defun pjmgr--actions-suffix (_)
+  (pjmgr--list->suffixes
+   (list
+    '("t"  "start vterm"  multi-vterm-project)
+    '("d" "open dired" dired-jump))))
+
+(defun pjmgr---view-pr-web ()
+  (interactive)
+  (lk/invoke-cli "*gh-pr-create*" "gh pr create --web"))
+
+(defun prmgr--create-pr-web ()
+  (interactive)
+  (lk/invoke-cli "*gh-pr-create*" "gh pr view --web"))
+
+(defun pjmgr--get-gh-pr-actions ()
+  (let* ((pr-info-maybe?
+          (lk/invoke-cli "*gh-pr-info*" "gh pr view --json 'number,url'"))
+         (pr-info
+          (when (equal 0 (hget pr-info-maybe? :status))
+            (json-parse-string (hget pr-info-maybe? :output)))))
+    (if pr-info
+        (list
+         (list :info
+               (format "PR #%s (%s)"
+                       (hget pr-info "number")
+                       (hget pr-info "url")))
+         '("v" "view PR in browser" prmgr--create-pr-web))
+      (list '("c" "create PR in web" pjmgr---view-pr-web)))))
+
+(defun pjmgr--repo-actions-suffix (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
-         (is-git-repo? (hget pj-info :repo)))
-    (pjmgr--list->suffixes
-     (list
-      '("p" "select a different project" project-switch-project)
-      '("t"  "start vterm"  multi-vterm-project)
-      (when is-git-repo? '("s" "magit status" magit-status))
-      (when is-git-repo? '("g" "git grep" counsel-git-grep))
+         (is-git-repo? (hget pj-info :repo))
 
-      ;; TODO add GH actions based on `gh` CLI
-      ))))
+         (git-branch
+          (when is-git-repo?
+            (format "Branch: %s"
+                    (->
+                     (lk/invoke-cli "*git-branch*" "git cb")
+                     (hget :output))))))
+    (if is-git-repo?
+        (pjmgr--list->suffixes
+         (-concat
+          (list (list :info git-branch))
+          (pjmgr--get-gh-pr-actions)
+          (list
+           '("s" "magit status" magit-status)
+           '("g" "git grep" counsel-git-grep))))
+      '())))
 
-
-(defun pjmgr--clojure-cmds-group (pj-info)
+(defun pjmgr--clojure-cmds (pj-info)
   (let* ((pj-clj-nrepl-running?
-          (when pj-is-clojure? (hget pj-info "clj-nrepl-running?")))
+          (when pj-is-clojure? (hget pj-info :clj-nrepl-running?)))
          (items
           (if pj-clj-nrepl-running?
               (list
-               '("m" :info
-                 (format "nREPL server is running: %s"
-                         (monroe-locate-running-nrepl-host)))
+               (list :info
+                     (format "nREPL server is running: %s"
+                             (monroe-locate-running-nrepl-host)))
 
-               '("r" "Switch to the REPL buffer" lk/switch-to-monroe-repl-or-connect-or-start)
-               '("s" "Jump to scratch file" lk/clojure-scratch)
+               '("R" "Switch to the REPL buffer" lk/switch-to-monroe-repl-or-connect-or-start)
+               '("S" "Jump to scratch file" lk/clojure-scratch)
                '("K"  "Kill monroe server & REPL buffer" lk/monroe-kill-all)
-               ;; TODO: add portal
+               '("P" "Start portal session" lk/monroe-portal-start!) ;; TODO: or switch to portal
                )
-            ;; we can only start
+            ;; we can only start the nREPL first
             (list
              '(:info "nREPL server not running")
-             '("m" "start Monroe & nREPL server" lk/switch-to-monroe-repl-or-connect-or-start)))))
-
+             '("M" "start Monroe & nREPL server" lk/switch-to-monroe-repl-or-connect-or-start)))))
     (pjmgr--list->suffixes items)))
 
 
-(defun pjmgr--cmds-group (_)
+(defun pjmgr--cmds-suffix (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
          (pj-is-clojure?
           (and pj-info (equal "clojure" (hget pj-info :type)))))
     (if pj-is-clojure?
         ;; TODO: this eventually will be a cond-powered dispatch and cond
-        (pjmgr--clojure-cmds-group pj-info)
+        (pjmgr--clojure-cmds pj-info)
       '())))
 
 ;; main transient config
 (transient-define-prefix lk/proj-mgr
   ()
   "Manages current project, and shows its info"
-  [["🌊 Start"
-    :setup-children pjmgr--start-group]
+  [["Project"
+    :setup-children pjmgr--project-suffix]
 
    ["Actions" ;; dispatch generic commands
-    :setup-children pjmgr--actions-group]]
+    :setup-children pjmgr--actions-suffix]]
 
-  ["Commands"
-   :setup-children pjmgr--cmds-group])
+  [["Repo" :setup-children pjmgr--repo-actions-suffix]
+
+   ["Commands" :setup-children pjmgr--cmds-suffix]])
 
 (define-key global-map (kbd "C-c d") 'lk/proj-mgr)
 
