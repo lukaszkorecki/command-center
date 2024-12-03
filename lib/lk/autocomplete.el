@@ -31,6 +31,8 @@
   :hook (company-mode . company-box-mode))
 
 
+(global-unset-key (kbd "C-c C-t"))
+
 
 (use-package yasnippet
   :init (yas-global-mode t)
@@ -61,10 +63,15 @@
   (add-hook 'python-ts-mode-hook 'copilot-mode)
   (add-hook 'go-ts-mode-hook 'copilot-mode)
   (add-hook 'json-mode-hook 'copilot-mode)
+  (add-hook 'javascript-ts-mode-hook 'copilot-mode)
+  (add-hook 'js2-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
   (add-hook 'markdown-mode-hook 'copilot-mode)
   :bind (("C-c C-t" . copilot-accept-completion)
          ("C-c C-a" . copilot-accept-completion)))
+
+
+(global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
 
 
 (provide 'lk/autocomplete)
