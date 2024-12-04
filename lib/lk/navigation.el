@@ -32,14 +32,14 @@
   :after (project-rootfile)
   :init ;
 
-  (advice-add #'project-find-regexp :override #'counsel-git-grep)
+  (advice-add #'project-find-regexp :override #'consult-git-grep)
   (advice-add #'project-shell :override #'multi-vterm)
   :bind-keymap ("C-c p" . project-prefix-map)
 
   :config ; add custom actions when using select-project
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" ?m)
-               '(counsel-git-grep "Git grep" ?g))
+               '(consult-git-grep "Git grep" ?g))
   (add-to-list 'project-find-functions #'project-rootfile-try-detect t))
 
 (use-package ibuffer-project :straight t :after (project))
@@ -68,32 +68,67 @@
            " "
            project-file-relative))))
 
-(use-package ivy
-  :diminish ivy-mode
-  :config ;
-  (setq ivy-height 25)
-  (ivy-mode 1)
-  :custom ;
-  (ivy-use-virtual-buffers t)
-  (counsel-switch-buffer-preview-virtual-buffers nil)
-  :bind (("C-c s" . swiper)
-         ("C-c C-r" . ivy-resume)))
-
-(use-package ivy-xref
+;; Enable Vertico
+(use-package vertico
   :ensure t
-  :init (when
-            (>= emacs-major-version 27)
-          (setq xref-show-definitions-function #'ivy-xref-show-defs))
-  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+  :init
+  (vertico-mode))
 
-(use-package counsel
-  :bind (("M-x" . counsel-M-x)
-         ("C-c n i" . counsel-imenu)
-         ("C-c n b" . counsel-ibuffer)
-         ("C-x b" . counsel-ibuffer)
-         ("C-c n y" . counsel-yank-pop)
-         ("C-c e i" .  counsel-unicode-char)))
+;; Enable richer annotations with Marginalia
+(use-package marginalia
+  :ensure t
+  :after vertico
+  :init
+  (marginalia-mode))
 
+
+(use-package emacs
+  :custom
+  ;; Support opening new minibuffers from inside existing minibuffers.
+  (enable-recursive-minibuffers t)
+  ;; Hide commands in M-x which do not work in the current mode.  Vertico
+  ;; commands are hidden in normal buffers. This setting is useful beyond
+  ;; Vertico.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
+
+
+;; Enhanced navigation and search commands with Consult
+(use-package consult
+  :ensure t
+  :after vertico
+  :bind
+  (("C-s" . consult-line)          ;; Enhanced search within buffer
+   ("C-c n i" . consult-imenu)
+   ("M-y" . consult-yank-pop)      ;; Enhanced yank-pop
+   ("C-x b" . consult-buffer)      ;; Enhanced buffer switch
+   ("M-g g" . consult-goto-line))) ;; Enhanced goto line
+
+;; Flexible completion matching with Orderless
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless)))
+
+;; Persist history over Emacs restarts
+(use-package savehist
+  :init
+  (savehist-mode))
 
 (use-package ace-window
   :config (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
@@ -114,10 +149,7 @@
 (use-package transpose-frame :bind (( "C-c t" . transpose-frame)))
 
 
-(use-package avy
-  :bind (("C-c v c" . avy-goto-char-2)
-         ("C-c v l" . avy-goto-line)
-         ("C-c v w" . avy-goto-word-1)))
+
 
 (defun lk/kill-dired-buffers ()
   (interactive)
@@ -126,8 +158,6 @@
      (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
        (kill-buffer buffer)))
    (buffer-list)))
-
-(use-package emamux)
 
 (defun lk/open-locally ()
   (interactive)

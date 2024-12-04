@@ -10,7 +10,8 @@
 
 ;;; Code:
 
-(use-package transient :ensure t)
+(use-package transient :ensure t
+  :after (counsel magit monroe))
 
 (require 'dash)
 (require 'lk/utils)
@@ -147,7 +148,7 @@
           (pjmgr--get-gh-pr-actions)
           (list
            '("s" "magit status" magit-status)
-           '("g" "git grep" counsel-git-grep))))
+           '("g" "git grep" consult-git-grep))))
       '())))
 
 (defun pjmgr--clojure-cmds (pj-info)
