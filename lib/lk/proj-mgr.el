@@ -11,7 +11,7 @@
 ;;; Code:
 
 (use-package transient :ensure t
-  :after (counsel magit monroe))
+  :after (consult magit monroe))
 
 (require 'dash)
 (require 'lk/utils)

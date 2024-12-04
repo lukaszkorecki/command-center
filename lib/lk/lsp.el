@@ -48,5 +48,12 @@
          ( "C-c e l" . flymake-show-buffer-diagnostics)))
 
 
+
+(use-package xref
+  :after (consult)
+  :config
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
+
 (provide 'lk/lsp)
 ;;; lsp.el ends here

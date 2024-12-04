@@ -46,13 +46,26 @@
 
 (use-package ibuffer
   :straight t
-  :after (project ibuffer-project )
+  :after (project ibuffer-project)
   :init (add-hook 'ibuffer-hook
                   (lambda ()
                     (setq ibuffer-filter-groups
                           (ibuffer-project-generate-filter-groups))
                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
                       (ibuffer-do-sort-by-project-file-relative))))
+
+  ;; built-in
+  (add-to-list 'ibuffer-never-show-predicates "^\\*Messages")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*Warnings")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*Help\\*")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*Apropos")
+  ;; major modes
+  (add-to-list 'ibuffer-never-show-predicates "^magit")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*copilot.events")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*EGLOT")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*straight")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*monroe nrepl server\\*")
+  (add-to-list 'ibuffer-never-show-predicates "^\\*monroe-connection")
   (setq ibuffer-formats
         '((mark
            modified
@@ -69,37 +82,32 @@
            project-file-relative))))
 
 ;; Enable Vertico
-(use-package vertico
-  :ensure t
-  :init
-  (vertico-mode))
+(use-package vertico :ensure t :init (vertico-mode))
 
 ;; Enable richer annotations with Marginalia
 (use-package marginalia
   :ensure t
   :after vertico
-  :init
-  (marginalia-mode))
+  :init (marginalia-mode))
 
 
 (use-package emacs
-  :custom
-  ;; Support opening new minibuffers from inside existing minibuffers.
+  :custom ;; Support opening new minibuffers from inside existing minibuffers.
   (enable-recursive-minibuffers t)
   ;; Hide commands in M-x which do not work in the current mode.  Vertico
   ;; commands are hidden in normal buffers. This setting is useful beyond
   ;; Vertico.
   (read-extended-command-predicate #'command-completion-default-include-p)
-  :init
-  ;; Add prompt indicator to `completing-read-multiple'.
+  :init ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
   (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
+    (cons
+     (format "[CRM%s] %s"
+             (replace-regexp-in-string
+              "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+              crm-separator)
+             (car args))
+     (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
   ;; Do not allow the cursor in the minibuffer prompt
@@ -112,23 +120,19 @@
 (use-package consult
   :ensure t
   :after vertico
-  :bind
-  (("C-s" . consult-line)          ;; Enhanced search within buffer
-   ("C-c n i" . consult-imenu)
-   ("M-y" . consult-yank-pop)      ;; Enhanced yank-pop
-   ("C-x b" . consult-buffer)      ;; Enhanced buffer switch
-   ("M-g g" . consult-goto-line))) ;; Enhanced goto line
+  :bind (("C-s" . consult-line)          ;; Enhanced search within buffer
+         ("C-c n i" . consult-imenu)
+         ("M-y" . consult-yank-pop)      ;; Enhanced yank-pop
+         ("C-x b" . consult-buffer)      ;; Enhanced buffer switch
+         ("M-g g" . consult-goto-line))) ;; Enhanced goto line
 
 ;; Flexible completion matching with Orderless
 (use-package orderless
   :ensure t
-  :init
-  (setq completion-styles '(orderless)))
+  :init (setq completion-styles '(orderless)))
 
 ;; Persist history over Emacs restarts
-(use-package savehist
-  :init
-  (savehist-mode))
+(use-package savehist :init (savehist-mode))
 
 (use-package ace-window
   :config (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
