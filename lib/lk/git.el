@@ -54,7 +54,6 @@
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
 
   :config (setq magit-git-executable "/usr/bin/git")
-  (setq magit-completing-read-function 'ivy-completing-read)
 	:bind (( "C-c m s" . magit-status)))
 
 (defun lk/magit-clear-buffers ()
