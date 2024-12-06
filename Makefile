@@ -13,7 +13,6 @@ configs:
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.profile
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
 	@ln -fvs ~/.emacs.d/etc/gitignore_global ~/.gitignore_global
-	@ln -fvs ~/.emacs.d/init.el ~/.emacs
 	@mkdir -p ~/.config/clojure-lsp
 	@ln -fvs ~/.emacs.d/etc/clojure-lsp-config.edn ~/.config/clojure-lsp/config.edn
 	@mkdir -p ~/.clojure/
@@ -62,5 +61,4 @@ fix-macos:
 	defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 	defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 	sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
-	# restart to apply
 	sudo killall SystemUIServer
