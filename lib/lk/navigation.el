@@ -47,6 +47,7 @@
 (use-package ibuffer
   :straight t
   :after (project ibuffer-project)
+  :bind (("C-x C-b" . ibuffer))
   :init (add-hook 'ibuffer-hook
                   (lambda ()
                     (setq ibuffer-filter-groups
@@ -120,7 +121,7 @@
 (use-package consult
   :ensure t
   :after vertico
-  :bind (("C-s" . consult-line)          ;; Enhanced search within buffer
+  :bind (("C-c s" . consult-line)          ;; Enhanced search within buffer
          ("C-c n i" . consult-imenu)
          ("M-y" . consult-yank-pop)      ;; Enhanced yank-pop
          ("C-x b" . consult-buffer)      ;; Enhanced buffer switch

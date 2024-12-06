@@ -44,7 +44,7 @@
 
 (use-package magit
   :ensure t
-  :after project
+  :after (project)
   :init (add-to-list 'project-switch-commands
                      '(lk/git-repo-home "Homepage" "b"))
   (add-to-list 'project-switch-commands

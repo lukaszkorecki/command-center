@@ -35,7 +35,7 @@
 
 (defun lk/failed-tests-in-monroe-repl ()
   (interactive)
-  (swiper "\\(FAIL\\|ERROR\\) in[ ]\\(.*\\)"))
+  (consult-line "\\(FAIL\\|ERROR\\) in"))
 
 (defun lk/switch-to-monroe-repl-or-connect-or-start ()
   (interactive)

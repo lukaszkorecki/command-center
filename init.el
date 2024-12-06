@@ -39,11 +39,6 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-;; remove some keybindings, they're redefined later
-
-;; no ibuffer by default, bufler takes over in lk/ui
-(global-unset-key (kbd "C-x b"))
-
 (require 'lk/secrets)
 (lk/load-secrets-from-1p)
 

@@ -148,7 +148,8 @@
           (pjmgr--get-gh-pr-actions)
           (list
            '("s" "magit status" magit-status)
-           '("g" "git grep" consult-git-grep))))
+           '("g" "git grep" consult-git-grep)
+           '("b" "view repo in browser" lk/open-repo-in-gh))))
       '())))
 
 (defun pjmgr--clojure-cmds (pj-info)
