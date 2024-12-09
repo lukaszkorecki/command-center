@@ -10,8 +10,11 @@
 
 ;;; Code:
 
-(use-package transient :ensure t
+(use-package transient
+  :ensure t
   :after (consult magit monroe))
+
+(require 'transient)
 
 (require 'dash)
 (require 'lk/utils)
