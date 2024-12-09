@@ -35,38 +35,15 @@
 (setq ring-bell-function 'ignore)
 
 (setenv "INSIDE_EMACS" "TRUE")
+(use-package better-defaults)
+
 ;; saner regex
 (require 're-builder)
 (setq reb-re-syntax 'string)
-
-(require 'lk/secrets)
-(lk/load-secrets-from-1p)
-
 (use-package exec-path-from-shell
   :ensure t
   :init (exec-path-from-shell-initialize))
 
-
-(use-package better-defaults)
-
-
-;; load all of the custom stuff
-(require 'lk/navigation)
-(require 'lk/ui)
-
-
-(require 'lk/autocomplete)
-(require 'lk/git)
-
-(require 'lk/lsp)
-(require 'lk/tools)
-
-;; Editing
-(require 'lk/editing)
-
-
-;; language customizations
-(require 'lk/lang)
 
 ;; When saving a file that starts with `#!', make it executable.
 (add-hook 'after-save-hook
@@ -78,25 +55,22 @@
 
 (setq abbrev-file-name "~/.emacs.d/abbrev.el")
 
-;; load rest of customizations and extra packages
+
+
+(require 'lk/secrets)
+(require 'lk/navigation)
+(require 'lk/ui)
+(require 'lk/autocomplete)
+(require 'lk/git)
+(require 'lk/lsp)
+(require 'lk/tools)
+(require 'lk/editing)
+(require 'lk/lang)
 (require 'lk/customizations)
-
-
-;; load modeline
 (require 'lk/modeline)
-(put 'narrow-to-region 'disabled nil)
+(require 'lk/proj-mgr)
 
-(defun lk/fix-utf ()
-  (interactive)
-  ;; unicode rules everything around me
-  (setq locale-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-  (define-coding-system-alias 'UTF-8 'utf-8))
 
-(lk/fix-utf)
 
 ;; other things
 ;; Always start server, useful for things
@@ -104,7 +78,5 @@
 (unless (server-running-p)
   (server-start))
 
-;; Finally load extensions based on Transient
-;; as these basically depend on everything else
-
-(require 'lk/proj-mgr)
+(lk/load-secrets-from-1p)
+(lk/fix-utf)

@@ -94,5 +94,7 @@
   :bind (("C-c u" . undo-tree-visualize)))
 
 
+(put 'narrow-to-region 'disabled nil)
+
 (provide 'lk/editing)
 ;;; editing.el ends here
