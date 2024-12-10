@@ -10,9 +10,7 @@
 
 ;;; Code:
 
-(use-package transient
-  :ensure t
-  :after (consult magit monroe))
+(use-package transient :ensure t :after (consult magit monroe))
 
 (require 'transient)
 
@@ -79,7 +77,7 @@
      (hput :name (pjmgr--project-name-or-nil))
      (hput :root  pj-root)
      (hput :cwd  default-directory)
-     (hput :type  pj-type)
+     (hput :type (or pj-type "unknown"))
      (hput :project-file  pj-file)
      (hput :repo
            (pjmgr--loc-dom-file->name default-directory ".git"))
@@ -104,13 +102,14 @@
             '("p" "select a different project" project-switch-project)))))
     (pjmgr--list->suffixes items)))
 
-
+;; Generic actions
 (defun pjmgr--actions-suffix (_)
   (pjmgr--list->suffixes
    (list
     '("t"  "start vterm"  multi-vterm-project)
     '("d" "open dired" dired-jump))))
 
+;; GH-CLI based actions
 (defun pjmgr---view-pr-web ()
   (interactive)
   (lk/invoke-cli "*gh-pr-create*" "gh pr create --web"))
@@ -134,6 +133,19 @@
          '("v" "view PR in browser" prmgr--create-pr-web))
       (list '("c" "create PR in web" pjmgr---view-pr-web)))))
 
+;; CI actions
+(defun pjmgr--open-circle ()
+  (interactive)
+  (lk/invoke-cli "*circle-open*" "circleci open"))
+
+(defun pjmgr--get-ci-actions (pj-info)
+  (if (file-exists-p
+       (format "%s/.circleci/config.yml" (hget pj-info :root)))
+      (list '("C" "view CI in browser" pjmgr--open-circle))
+    (list (list :info "No Circle config"))))
+
+
+;; Dispatch project actions, with conditionals
 (defun pjmgr--repo-actions-suffix (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
          (is-git-repo? (hget pj-info :repo))
@@ -152,7 +164,8 @@
           (list
            '("s" "magit status" magit-status)
            '("g" "git grep" consult-git-grep)
-           '("b" "view repo in browser" lk/open-repo-in-gh))))
+           '("b" "view repo in browser" lk/open-repo-in-gh))
+          (pjmgr--get-ci-actions pj-info)))
       '())))
 
 (defun pjmgr--clojure-cmds (pj-info)
