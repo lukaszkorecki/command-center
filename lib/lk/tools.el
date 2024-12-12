@@ -6,16 +6,6 @@
   (setq gptel-api-key (getenv "OPENAI_API_KEY"))
   (setq gptel-model "gpt-4"))
 
-
-;; (use-package shell-maker
-;;   :straight (:host github :repo "xenodium/shell-maker" :files ("shell-maker.el")))
-
-;; (use-package chatgpt-shell
-;;   :requires shell-maker
-;;   :straight (:host github :repo "xenodium/chatgpt-shell" :files ("chatgpt-shell.el"))
-;;   :init
-;;   (setq chatgpt-shell-openai-key (getenv "OPENAI_API_KEY")))
-
 (use-package mermaid-mode
   :straight t
   :init ; setup
@@ -36,7 +26,8 @@
   (add-hook 'vterm-mode-hook 'lk/vterm-project-association)
 
   :bind (("C-c M-o" . vterm-clear-scrollback)
-         ("C-c ESC o" . vterm-clear-scrollback)))
+         ("C-c ESC o" . vterm-clear-scrollback)
+         ("C-q" . vterm-send-next-key)))
 
 (use-package multi-vterm
   :ensure t
