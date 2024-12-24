@@ -30,6 +30,8 @@
   (:map typescript-mode-map
         (( "C-x c f" . lk/prettier-format-current-buffer ))))
 
+;; We need this so that restclient doesn't blow up
+(defun js-mode () )
 
 (use-package js2-mode
   :ensure t

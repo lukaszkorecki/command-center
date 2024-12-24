@@ -48,12 +48,22 @@
          ( "C-c e l" . flymake-show-buffer-diagnostics)))
 
 
+(use-package sideline
+  :init (setq sideline-backends-left-skip-current-line t   ; don't display on current line (left)
+              sideline-backends-right-skip-current-line t  ; don't display on current line (right)
+              sideline-order-left 'down                    ; or 'up
+              sideline-order-right 'up                     ; or 'down
+              sideline-format-left "%s   "                 ; format for left aligment
+              sideline-format-right "   %s"                ; format for right aligment
+              sideline-priority 100                        ; overlays' priority
+              sideline-display-backend-name t)            ; display the backend name
+  :hook (flymake-mode  . sideline-mode))
+
 
 (use-package xref
   :after (consult)
-  :config
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref))
+  :config (setq xref-show-xrefs-function #'consult-xref
+                xref-show-definitions-function #'consult-xref))
 
 (provide 'lk/lsp)
 ;;; lsp.el ends here

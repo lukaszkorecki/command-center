@@ -55,8 +55,9 @@
   (let* ((file-name (buffer-file-name))
          (tmp-file-name
           (format "%s.html" (make-temp-file "ghmd-preview")))
-         (html-file (shell-command-to-string
-                     (format "ghmd-preview -f %s -o %s" file-name tmp-file-name)))
+         (html-file
+          (shell-command-to-string
+           (format "ghmd-preview -f %s -o %s" file-name tmp-file-name)))
          (browseable-file-path (format "file://%s" html-file)))
     (message "Previewing %s" browseable-file-path)
     (xwidget-webkit-browse-url browseable-file-path)))
@@ -89,7 +90,10 @@
 (use-package dockerfile-mode
   :init (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
 
-(use-package restclient)
+(use-package restclient
+  :ensure t
+  :init (add-to-list 'auto-mode-alist
+                     '("\\.restclient\\'" . restclient-mode)))
 
 (use-package terraform-mode
   :bind (:map terraform-mode-map (("C-x c f" . terraform-format-buffer))))

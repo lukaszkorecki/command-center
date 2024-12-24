@@ -83,7 +83,10 @@
            project-file-relative))))
 
 ;; Enable Vertico
-(use-package vertico :ensure t :init (vertico-mode))
+(use-package vertico :ensure t :init
+  (vertico-mode)
+  :bind (( "M-RET" . minibuffer-force-complete-and-exit)
+         ( "M-TAB"  . minibuffer-complete)))
 
 ;; Enable richer annotations with Marginalia
 (use-package marginalia
