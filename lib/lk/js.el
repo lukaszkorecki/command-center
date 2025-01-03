@@ -33,6 +33,10 @@
 ;; We need this so that restclient doesn't blow up
 (defun js-mode () )
 
+;; WTF - why do we need this to make js2-mode work?
+(defun javascript-mode ())
+(defun js-mode ())
+
 (use-package js2-mode
   :ensure t
   :init (setq js-basic-indent 2)
@@ -49,5 +53,6 @@
 
   :bind (("C-c C-t" . copilot-accept-completion)))
 
+(provide 'js)
 (provide 'lk/js)
 ;;; js.el ends here

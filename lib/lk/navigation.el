@@ -44,10 +44,35 @@
 
 (use-package ibuffer-project :straight t :after (project))
 
+
+(defun lk/ibuffer-toggle-never-show ()
+  "Clear the list of never show predicates."
+  (interactive)
+
+  (if ibuffer-never-show-predicates
+      (setq ibuffer-never-show-predicates nil)
+    (setq ibuffer-never-show-predicates
+          '("^\\*Messages"
+            "^\\*Warnings"
+            "^\\*Help\\*"
+            "^\\*Apropos"
+            "^magit"
+            "^\\*copilot.events"
+            "^\\*EGLOT"
+            "^\\*straight"
+            "^\\*monroe nrepl server\\*"
+            "^\\*monroe-connection")))
+
+  (ibuffer-update nil t))
+
+
 (use-package ibuffer
   :straight t
   :after (project ibuffer-project)
-  :bind (("C-x C-b" . ibuffer))
+  :bind (("C-x C-b" . ibuffer)
+         :map ibuffer-mode-map
+         ("C-c C-t" . lk/ibuffer-toggle-never-show))
+  ;; bind in ibuffer mode only?
   :init (add-hook 'ibuffer-hook
                   (lambda ()
                     (setq ibuffer-filter-groups
@@ -55,18 +80,6 @@
                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
                       (ibuffer-do-sort-by-project-file-relative))))
 
-  ;; built-in
-  (add-to-list 'ibuffer-never-show-predicates "^\\*Messages")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*Warnings")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*Help\\*")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*Apropos")
-  ;; major modes
-  (add-to-list 'ibuffer-never-show-predicates "^magit")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*copilot.events")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*EGLOT")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*straight")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*monroe nrepl server\\*")
-  (add-to-list 'ibuffer-never-show-predicates "^\\*monroe-connection")
   (setq ibuffer-formats
         '((mark
            modified
