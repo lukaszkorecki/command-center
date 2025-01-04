@@ -2,6 +2,9 @@
   email = lukasz@korecki.me
   name = Łukasz Korecki
 
+[global]
+  autoSetupRemote = true
+
 [color]
   ui = true
   diff = true

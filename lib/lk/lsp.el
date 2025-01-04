@@ -1,5 +1,12 @@
 ;;; lsp.el -- LSP configuration + supporting packages
 
+(defun lk/eglot-ensure-root ()
+  "Prevent Eglot from starting if the root directory is $HOME."
+  (let ((project-root (or (project-root (project-current)) default-directory)))
+    (when (string= project-root (expand-file-name "~"))
+      (user-error "Eglot won't start in $HOME directory"))))
+
+
 (use-package eglot
   :after (project)
   :custom (eglot-confirm-server-initiated-edits nil)
@@ -12,6 +19,8 @@
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-autoreconnect t)
   (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode t)))
+  (add-hook 'eglot-managed-mode-hook #'lk/eglot-ensure-root)
+
   (cl-pushnew
    '((tsx-ts-mode)
      .
@@ -46,18 +55,6 @@
   :bind (( "C-c e n" . flymake-goto-next-error )
          ( "C-c e p" . flymake-goto-prev-error )
          ( "C-c e l" . flymake-show-buffer-diagnostics)))
-
-
-(use-package sideline
-  :init (setq sideline-backends-left-skip-current-line t   ; don't display on current line (left)
-              sideline-backends-right-skip-current-line t  ; don't display on current line (right)
-              sideline-order-left 'down                    ; or 'up
-              sideline-order-right 'up                     ; or 'down
-              sideline-format-left "%s   "                 ; format for left aligment
-              sideline-format-right "   %s"                ; format for right aligment
-              sideline-priority 100                        ; overlays' priority
-              sideline-display-backend-name t)            ; display the backend name
-  :hook (flymake-mode  . sideline-mode))
 
 
 (use-package xref
