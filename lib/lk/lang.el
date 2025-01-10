@@ -60,7 +60,8 @@
            (format "ghmd-preview -f %s -o %s" file-name tmp-file-name)))
          (browseable-file-path (format "file://%s" html-file)))
     (message "Previewing %s" browseable-file-path)
-    (xwidget-webkit-browse-url browseable-file-path)))
+    ;;    (xwidget-webkit-browse-url browseable-file-path)
+    (browse-url browseable-file-path)))
 
 (use-package markdown-mode
   :ensure t
@@ -104,8 +105,14 @@
   :ensure t
 
   :init (add-to-list 'auto-mode-alist '("\\.pkl" . pkl-mode))
-
   :custom (pkl-enable-copilot t))
+
+
+(use-package applescript-mode
+  ;; https://github.com/emacsorphanage/applescript-mode
+  :straight (applescript-mode :host github :repo "emacsorphanage/applescript-mode")
+  :init (add-to-list 'auto-mode-alist
+                     '("\\.applescript$" . applescript-mode)))
 
 (use-package nginx-mode :init (setq nginx-indent-offset 2))
 
@@ -114,6 +121,9 @@
   :init (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
 
+(use-package swift-mode
+  :ensure t
+  :init (add-to-list 'auto-mode-alist '("\\.swift$" . swift-mode)))
 
 (use-package json-mode
   :init (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))

@@ -66,7 +66,7 @@ fi
 
 # fetch the asset links from a well-known gist
 if [[ ! -e /tmp/gh-asset-links.html ]] ; then
- curl -q --silent 'https://gist.github.com/lukaszkorecki-ps/7fddf35bba18542089bf367cda00add2' | grep '<link' > /tmp/gh-asset-links.html
+ curl -q --silent 'https://gist.github.com/lukaszkorecki/1b8c0ef8f82adb0f614260d2a8fa6737' | grep '<link' > /tmp/gh-asset-links.html
 fi
 
 echo "<!DOCTYPE html>" > "${tmpOutputPath}}"
