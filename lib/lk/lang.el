@@ -23,7 +23,9 @@
 
 
 (use-package python-mode
-  :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
+  :init ;
+  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+  (keymap-unset python-mode-map "C-c C-t"))
 
 
 ;; helpers for markdown and writing in general

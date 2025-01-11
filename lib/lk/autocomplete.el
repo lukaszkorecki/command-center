@@ -31,7 +31,7 @@
   :hook (company-mode . company-box-mode))
 
 
-(global-unset-key (kbd "C-c C-t"))
+
 
 
 (use-package yasnippet
@@ -43,7 +43,7 @@
 (use-package f)
 
 (use-package copilot
- :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
   :ensure t
   :after (editorconfig jsonrpc f)
   :ensure t
@@ -58,24 +58,29 @@
   (add-to-list 'warning-suppress-types
                '((copilot--infer-indentation-offset)))
 
-
   (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
   (add-hook 'clojure-mode-hook 'copilot-mode)
   (add-hook 'typescript-ts-mode-hook 'copilot-mode)
   (add-hook 'tsx-ts-mode-hook 'copilot-mode)
   (add-hook 'terraform-mode-hook 'copilot-mode)
-  (add-hook 'python-ts-mode-hook 'copilot-mode)
+  (add-hook 'python-mode-hook 'copilot-mode)
   (add-hook 'go-ts-mode-hook 'copilot-mode)
   (add-hook 'json-mode-hook 'copilot-mode)
   (add-hook 'javascript-ts-mode-hook 'copilot-mode)
   (add-hook 'js2-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
   (add-hook 'markdown-mode-hook 'copilot-mode)
+
+  ;; XXX: this basically is here because some major modes set C-c C-t to something else
+  (global-unset-key (kbd "C-c C-t"))
+  (global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
+
   :bind (("C-c C-t" . copilot-accept-completion)
          ("C-c C-a" . copilot-accept-completion)))
 
-
-(global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
+(use-package copilot-chat
+  :straight (:host github :repo "chep/copilot-chat.el" :files ("*.el"))
+  :after (request org markdown-mode shell-maker))
 
 
 (provide 'lk/autocomplete)
