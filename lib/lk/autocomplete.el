@@ -39,14 +39,18 @@
   :bind (("C-c i" . yas-insert-snippet)))
 
 (use-package editorconfig)
+(use-package jsonrpc)
+(use-package f)
 
 (use-package copilot
-  :straight (:host github
-                   :repo "copilot-emacs/copilot.el"
-                   :files ("dist" "*.el"))
+ :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+  :ensure t
+  :after (editorconfig jsonrpc f)
   :ensure t
   :config (setq copilot-max-char 1000000)
+  (setq copilot-max-char-warning-disable t)
 
+  ;; NOTE: verify if this is necessary
   (add-to-list 'warning-suppress-types
                '((copilot copilot-exceeds-max-char)))
   (add-to-list 'warning-suppress-types

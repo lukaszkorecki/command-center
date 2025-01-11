@@ -100,20 +100,6 @@
   :bind (:map terraform-mode-map (("C-x c f" . terraform-format-buffer))))
 
 
-(use-package pkl-mode
-  :straight (pkl-mode :host github :repo "sin-ack/pkl-mode")
-  :ensure t
-
-  :init (add-to-list 'auto-mode-alist '("\\.pkl" . pkl-mode))
-  :custom (pkl-enable-copilot t))
-
-
-(use-package applescript-mode
-  ;; https://github.com/emacsorphanage/applescript-mode
-  :straight (applescript-mode :host github :repo "emacsorphanage/applescript-mode")
-  :init (add-to-list 'auto-mode-alist
-                     '("\\.applescript$" . applescript-mode)))
-
 (use-package nginx-mode :init (setq nginx-indent-offset 2))
 
 (use-package yaml-mode
