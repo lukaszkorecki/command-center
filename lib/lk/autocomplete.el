@@ -78,6 +78,9 @@
   :bind (("C-c C-t" . copilot-accept-completion)
          ("C-c C-a" . copilot-accept-completion)))
 
+(use-package shell-maker
+  :ensure t)
+
 (use-package copilot-chat
   :straight (:host github :repo "chep/copilot-chat.el" :files ("*.el"))
   :after (request org markdown-mode shell-maker))
