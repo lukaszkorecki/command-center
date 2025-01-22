@@ -19,7 +19,8 @@
       (erase-buffer)
       (let ((exit-code (call-process-shell-command cmd nil t)))
         (puthash :status exit-code return)
-        (puthash :output (buffer-string) return)))
+        (puthash :output (buffer-string) return))
+      (kill-buffer))
     return))
 
 
