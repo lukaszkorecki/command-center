@@ -11,7 +11,10 @@ export PATH=./node_modules/.bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
+# Homebrew configuration
 if [[ -e $(which brew) ]]; then
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  export HOMEBREW_NO_ENV_HINTS=1
   brewPrefix=$(brew --prefix)
 else
   brewPrefix=""
