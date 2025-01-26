@@ -1,37 +1,84 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bb
 
-set -eo pipefail
-emacs='/opt/homebrew/bin/emacs'
-depsEdnLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "deps.edn"))' | tail -1 | xargs echo)
-projectCljLocation=$($emacs -batch --eval='(print (locate-dominating-file default-directory "project.clj"))' | tail -1 | xargs echo)
 
-if [[ $depsEdnLocation != "nil" ]]; then
-  echo "Found deps.edn in $depsEdnLocation"
-  path=${depsEdnLocation/#\~/$HOME}
-  cd $path
-  if [[ -e ./script/repl ]]; then
-    echo "using script/repl"
-    exec ./script/repl
-  else
-    echo "using clj + own luncher args -M:dev/rumble:dev:test:dev/nrepl"
-    # assume that there's a dev & test alias in deps.edn
-    TERM=xterm exec clojure -M:dev/rumble:dev:test:dev/nrepl
-  fi
-fi
+(require '[babashka.fs :as fs]
+         '[babashka.process :as proc]
+         '[clojure.string :as str])
 
-if [[ $projectCljLocation != "nil" ]]; then
-  echo "Found project.clj in $projectCljLocation"
-  path=${projectCljLocation/#\~/$HOME}
-  cd $path
-  if [[ -e ./script/lein ]]; then
-    echo "Using script/lein"
-    exec ./script/lein $@
-  else
-    echo "Using global lein"
-    lein clean
-    exec lein $@
-  fi
-fi
+(defn nil-or-val [v]
+  (when-not (str/blank? v) v))
 
-echo "deps.edn or project.clj not found!"
-exit 1
+(defn make-cmd
+  ([cmd-vec]
+   (make-cmd cmd-vec []))
+  ([cmd-vec extra-args]
+   (str/join " " (concat cmd-vec extra-args))))
+
+(defn git-root []
+  (-> (proc/shell {:out :string :err :string :continue true} (make-cmd ["git" "rev-parse" "--show-toplevel"]))
+      :out
+      str/trim
+      nil-or-val))
+
+(def pj-file-map
+
+  [["/script/repl" {:type :custom}]
+   ["/script/nrepl" {:type :custom}]
+   ["/script/lein" {:type :custom}]
+   ["/deps.edn" {:type :tools.deps}]
+   ["/project.clj" {:type :lein}]
+   ["/bb.edn" {:type :bb}]])
+
+(def debug?
+  (System/getenv "DEBUG"))
+
+(defn exec-cmd [{:keys [cmd
+                        extra-args
+                        cwd
+                        env]
+                 :or {extra-args []}}]
+  (let [c (make-cmd cmd extra-args)]
+    (if debug?
+      (printf "cwd: %s exec-cmd: %s\n" cwd c)
+      (proc/exec (cond-> {:dir cwd :env (into {} (System/getenv))}
+                   env (update :env merge env))
+                 c))))
+
+(if-let [proj-root (git-root)]
+  (let [{:keys [type launch-path]} (->> pj-file-map
+                                        (map (fn [[f opts]]
+                                               (let [lookup-path (str proj-root "/" f)]
+                                                 (when (fs/exists? lookup-path)
+
+                                                   {:type (:type opts)
+                                                    :launch-path lookup-path}))))
+
+                                        (remove nil?)
+                                        first)]
+
+    (case type
+      :custom
+      (exec-cmd {:cmd [launch-path]
+                 :extra-args *command-line-args*
+                 :cwd proj-root})
+
+      :tools.deps
+      (exec-cmd {:cwd proj-root :env {"TERM" "xterm"} :cmd ["clojure" "-M:dev/rumble:dev:test:dev/nrepl"]})
+
+      :lein
+      (exec-cmd {:cwd proj-root :cmd ["lein"] :extra-args *command-line-args*})
+
+      :bb
+      (let [addr (str "localhost:" (+ 10000 (rand-int 1000)))]
+              ;; TODO: somehow handle server running already?
+        (spit (str proj-root "/.nrepl-port") addr)
+        (exec-cmd {:cwd proj-root :cmd ["bb" "nrepl-server" addr]}))
+
+      #_else
+      (do
+        (println "Couldn't find a Clojure project file")
+        (System/exit 1))))
+
+  (do
+    (println "Not in a git repo")
+    (System/exit 1)))
