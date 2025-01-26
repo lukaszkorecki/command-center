@@ -79,6 +79,10 @@
          ("C-c C-a" . copilot-accept-completion)))
 
 (use-package shell-maker
+  :straight (;
+             :host github
+             :repo "xenodium/shell-maker"
+             :files ("shell-maker.el"))
   :ensure t)
 
 (use-package copilot-chat
