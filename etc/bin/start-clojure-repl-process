@@ -69,9 +69,10 @@
       (exec-cmd {:cwd proj-root :cmd ["lein"] :extra-args *command-line-args*})
 
       :bb
-      (let [addr (str "localhost:" (+ 10000 (rand-int 1000)))]
+      (let [nrepl-port (+ 10000 (rand-int 1000))
+            addr (str "localhost:" nrepl-port)]
               ;; TODO: somehow handle server running already?
-        (spit (str proj-root "/.nrepl-port") addr)
+        (spit (str proj-root "/.nrepl-port") nrepl-port)
         (exec-cmd {:cwd proj-root :cmd ["bb" "nrepl-server" addr]}))
 
       #_else
