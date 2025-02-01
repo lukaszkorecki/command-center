@@ -33,7 +33,7 @@
         ( "project.clj" . "clojure")
         ( "init.el" . "elisp")
         ( "main.tf" . "terraform")
-        ( "bb.edn" . "bb")
+        ( "bb.edn" . "clojure")
         ( "package.json" . "js")))
 
 (defun pjmgr--loc-dom-file->name (dir name)
