@@ -26,7 +26,7 @@
     (set-face-attribute 'default nil :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
-(defun lk/stanard-font ()
+(defun lk/standard-font ()
   (interactive)
   (lk/set-frame-font 120))
 
