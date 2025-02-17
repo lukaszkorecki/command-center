@@ -44,43 +44,47 @@
                    env (update :env merge env))
                  c))))
 
-(if-let [proj-root (git-root)]
-  (let [{:keys [type launch-path]} (->> pj-file-map
-                                        (map (fn [[f opts]]
-                                               (let [lookup-path (str proj-root "/" f)]
-                                                 (when (fs/exists? lookup-path)
+(defn -main [args]
 
-                                                   {:type (:type opts)
-                                                    :launch-path lookup-path}))))
+  (if-let [proj-root (or (System/getenv "PJ_ROOT") (git-root))]
+    (let [{:keys [type launch-path]} (->> pj-file-map
+                                          (map (fn [[f opts]]
+                                                 (let [lookup-path (str proj-root "/" f)]
+                                                   (when (fs/exists? lookup-path)
 
-                                        (remove nil?)
-                                        first)]
+                                                     {:type (:type opts)
+                                                      :launch-path lookup-path}))))
 
-    (case type
-      :custom
-      (exec-cmd {:cmd [launch-path]
-                 :extra-args *command-line-args*
-                 :cwd proj-root})
+                                          (remove nil?)
+                                          first)]
 
-      :tools.deps
-      (exec-cmd {:cwd proj-root :env {"TERM" "xterm"} :cmd ["clojure" "-M:dev/rumble:dev:test:dev/nrepl"]})
+      (case type
+        :custom
+        (exec-cmd {:cmd [launch-path]
+                   :extra-args *command-line-args*
+                   :cwd proj-root})
 
-      :lein
-      (exec-cmd {:cwd proj-root :cmd ["lein"] :extra-args *command-line-args*})
+        :tools.deps
+        (exec-cmd {:cwd proj-root :env {"TERM" "xterm"} :cmd ["clojure" "-M:dev/rumble:dev:test:dev/nrepl"]})
 
-      :bb
+        :lein
+        (exec-cmd {:cwd proj-root :cmd ["lein"] :extra-args args})
+
+        :bb
       ;; TODO: rather than using /exec - this should start a child process
       ;;       and remove .nrepl-port file when closed/terminated/etc just like other repls
-      (let [nrepl-port (+ 10000 (rand-int 1000))
-            addr (str "localhost:" nrepl-port)]
-        (spit (str proj-root "/.nrepl-port") nrepl-port)
-        (exec-cmd {:cwd proj-root :cmd ["bb" "nrepl-server" addr]}))
+        (let [nrepl-port (+ 10000 (rand-int 1000))
+              addr (str "localhost:" nrepl-port)]
+          (spit (str proj-root "/.nrepl-port") nrepl-port)
+          (exec-cmd {:cwd proj-root :cmd ["bb" "nrepl-server" addr]}))
 
-      #_else
-      (do
-        (println "Couldn't find a Clojure project file")
-        (System/exit 1))))
+        #_else
+        (do
+          (println "Couldn't find a Clojure project file")
+          (System/exit 1))))
 
-  (do
-    (println "Not in a git repo")
-    (System/exit 1)))
+    (do
+      (println "Not in a git repo")
+      (System/exit 1))))
+
+(-main *command-line-args*)
