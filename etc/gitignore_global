@@ -25,6 +25,7 @@ deps.txt
 /.nrepl-port
 **/.nrepl-port
 **/scratch.clj
+**/scratch.*.clj
 /tests.edn
 **/target
 /.clj-kondo/**

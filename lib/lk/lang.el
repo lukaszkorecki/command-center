@@ -24,9 +24,7 @@
 
 (use-package python-mode
   :init ;
-  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-  (keymap-unset python-mode-map "C-c C-t"))
-
+  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 ;; helpers for markdown and writing in general
 (defun lk/insert-current-date ()
@@ -55,14 +53,15 @@
   which returns the local file path of the rendered html."
   (interactive)
   (let* ((file-name (buffer-file-name))
-         (tmp-file-name
-          (format "%s.html" (make-temp-file "ghmd-preview")))
+         ;;         (tmp-file-name (format "%s.html" (make-temp-file "ghmd-preview")))
+         ;; create preview next to the original file but with .html extension added)
+         (preview-file-name (concat file-name ".html"))
          (html-file
           (shell-command-to-string
-           (format "ghmd-preview -f %s -o %s" file-name tmp-file-name)))
+           (format "ghmd-preview -f %s -o %s" file-name preview-file-name)))
          (browseable-file-path (format "file://%s" html-file)))
     (message "Previewing %s" browseable-file-path)
-    ;;    (xwidget-webkit-browse-url browseable-file-path)
+    ;; (xwidget-webkit-browse-url browseable-file-path)
     (browse-url browseable-file-path)))
 
 (use-package markdown-mode

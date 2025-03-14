@@ -2,22 +2,27 @@
 
 (defun lk/eglot-ensure-root ()
   "Prevent Eglot from starting if the root directory is $HOME."
-  (let ((project-root (or (project-root (project-current)) default-directory)))
+  (let ((project-root
+         (or (project-root (project-current)) default-directory)))
     (when (string= project-root (expand-file-name "~"))
       (user-error "Eglot won't start in $HOME directory"))))
 
 
 (use-package eglot
   :after (project)
-  :custom (eglot-confirm-server-initiated-edits nil)
+  :custom ;
+  (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
 
   :hook ((clojure-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
-         (tsx-ts-mode . eglot-ensure))
-  :config (setq eglot-autoshutdown t)
-  (setq eglot-confirm-server-initiated-edits nil)
+         (tsx-ts-mode . eglot-ensure)
+         (python-mode . eglot-ensure))
+  :config ;
+  (setq eglot-autoshutdown t)
+  (eglot-inlay-hints-mode 1)
   (setq eglot-autoreconnect t)
+  (setq eglot-confirm-server-initiated-edits nil)
   (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode t)))
   (add-hook 'eglot-managed-mode-hook #'lk/eglot-ensure-root)
 
