@@ -14,12 +14,8 @@
 (require 'lk/ui)
 (require 'lk/setup-path)
 
-(message "f1 %s" (getenv "GITHUB_USERNAME"))
-
 (require 'lk/secrets)
 (lk/load-secrets-from-1p 't)
-
-(message "f2 %s" (getenv "GITHUB_USERNAME"))
 
 ;; saner regex
 (require 're-builder)
