@@ -12,6 +12,10 @@
 
 ;; Utils
 
+;; When saving a file that starts with `#!', make it executable.
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
          (default-directory pj-dir))

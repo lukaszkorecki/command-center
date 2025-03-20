@@ -2,16 +2,15 @@
 
 (use-package load-env-vars :ensure t)
 
-(defun lk/load-secrets-from-1p ()
+(defun lk/load-secrets-from-1p (force)
   (interactive)
-  (if (not (getenv "OP_SECRETS_LOADED"))
+  (if (or force (not (getenv "OP_SECRETS_LOADED")))
       (condition-case err
           (progn
             (shell-command-to-string "~/.emacs.d/etc/bin/op-secret-loader -c ~/.private/secrets.edn -f env > /tmp/emacs.env")
             (load-env-vars "/tmp/emacs.env")
             (delete-file "/tmp/emacs.env"))
         (error (message "Error loading secrets: %s" err)))
-
     (message "already loaded")))
 
 (defvar lk/1p-secrets '())

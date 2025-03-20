@@ -6,6 +6,9 @@
 (setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
 (blink-cursor-mode t) ;; move to UI
 
+(setq warning-minimum-level :error)
+(setq ring-bell-function 'ignore)
+
 (setq default-frame-alist
       '((fullscreen . maximized)
         (vertical-scroll-bars . nil)

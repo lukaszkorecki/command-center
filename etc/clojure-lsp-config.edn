@@ -5,6 +5,8 @@
           :types {:enabled? false}
           :remove-multiple-non-indenting-spaces? true
           :indents {defroutes [[:inner 0]],
+                    cond [[:inner 2]]
+                    cond-> [[:inner 2]]
                     require [[:inner 2]]
                     import [[:inner 2]]
                     defroute [[:inner 0]],
@@ -17,4 +19,6 @@
                     with-timing [[:inner 0]]
                     with-context [[:inner 0]],
                     defprotocol [[:inner 1]],
-                    defrecord [[:inner 1]]}}}
+                    defrecord [[:inner 1]]}}
+
+#_#_ :project-specs [{:classpath-cmd ["$HOME/.emacs.d/etc/bin/clojure-project-classpath"]}]}
