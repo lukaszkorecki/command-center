@@ -30,10 +30,6 @@
   :after company
   :hook (company-mode . company-box-mode))
 
-
-
-
-
 (use-package yasnippet
   :init (yas-global-mode t)
   :bind (("C-c i" . yas-insert-snippet)))

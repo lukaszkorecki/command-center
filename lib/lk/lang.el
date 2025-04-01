@@ -26,6 +26,7 @@
     (revert-buffer :ignore-auto :noconfirm)))
 
 
+
 (use-package python-mode
   :init ;
   (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
@@ -70,6 +71,7 @@
 
 (use-package markdown-mode
   :ensure t
+  :after (copilot)
   :config ;;
   (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
   (define-key markdown-mode-map (kbd "C-c C-t") nil) ; Unbind the problematic key here

@@ -118,7 +118,9 @@
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
 
-(use-package auto-dark :config (auto-dark-mode t))
+(when (display-graphic-p)
+  (use-package auto-dark
+    :config (auto-dark-mode t)))
 
 (defun lk/kill-buffers-by-major-mode (mode)
   (interactive "sMajor mode: ")
