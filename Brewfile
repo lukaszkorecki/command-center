@@ -19,7 +19,6 @@ brew "ripgrep"
 brew 'jq'
 brew 'borkdude/brew/jet'
 brew 'gh'
-cask 'todoist'
 brew 'bat'
 
 tap 'aviator-co/tap'

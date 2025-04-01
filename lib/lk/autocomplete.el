@@ -75,14 +75,13 @@
   (global-unset-key (kbd "C-c C-t"))
   (global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
 
-  :bind (("C-c C-t" . copilot-accept-completion)
-         ("C-c C-a" . copilot-accept-completion)))
+  :bind (("C-x c c" . copilot-accept-completion)))
 
 (use-package shell-maker
   :straight (;
              :host github
-             :repo "xenodium/shell-maker"
-             :files ("shell-maker.el"))
+                   :repo "xenodium/shell-maker"
+                   :files ("shell-maker.el"))
   :ensure t)
 
 (use-package copilot-chat
