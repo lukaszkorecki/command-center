@@ -21,11 +21,6 @@ brew 'borkdude/brew/jet'
 brew 'gh'
 brew 'bat'
 
-tap 'aviator-co/tap'
-brew 'av'
-# infra & secrets
-
-brew 'dopplerhq/doppler/doppler'
 brew "hashicorp/tap/terraform-ls"
 cask '1password-cli'
 
@@ -47,3 +42,8 @@ brew 'emacs-plus@30',
 # psql cli, but without PG itself
 brew 'libpq', link: true
 brew 'shfmt'
+
+cask 'ghostty' # for things that can't be done in vterm
+
+cask 'cyberduck'
+brew 'duck'
