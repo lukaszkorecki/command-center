@@ -36,11 +36,17 @@
                         cwd
                         env]
                  :or {extra-args []}}]
-  (let [c (make-cmd cmd extra-args)]
+  (let [mise-version-file-present? (fs/exists? (str cwd "/.java-version"))
+        cmd (if mise-version-file-present?
+              (do
+                (println "Mise version file detected, using exec!")
+                (concat ["mise" "exec" "--"] cmd))
+              cmd)
+        c (make-cmd cmd extra-args)]
     (if debug?
       (printf "cwd: %s exec-cmd: %s\n" cwd c)
       (proc/exec (cond-> {:dir cwd :env (into {} (System/getenv))}
-                   env (update :env merge env))
+                         env (update :env merge env))
                  c))))
 
 (defn -main [args]
