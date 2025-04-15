@@ -21,7 +21,6 @@
       nil-or-val))
 
 (def pj-file-map
-
   [["/script/repl" {:type :custom}]
    ["/script/nrepl" {:type :custom}]
    ["/script/lein" {:type :custom}]
@@ -45,7 +44,6 @@
                  c))))
 
 (defn -main [args]
-
   (if-let [proj-root (or (System/getenv "PJ_ROOT") (git-root))]
     (let [{:keys [type launch-path]} (->> pj-file-map
                                           (map (fn [[f opts]]

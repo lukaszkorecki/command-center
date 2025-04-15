@@ -29,9 +29,7 @@
     (set-face-attribute 'default nil :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
-(defun lk/standard-font ()
-  (interactive)
-  (lk/set-frame-font 120))
+(defun lk/standard-font () (interactive) (lk/set-frame-font 120))
 
 (defun lk/screen-sharing-font ()
   (interactive)
@@ -119,8 +117,7 @@
 (setq confirm-kill-processes nil)
 
 (when (display-graphic-p)
-  (use-package auto-dark
-    :config (auto-dark-mode t)))
+  (use-package auto-dark :config (auto-dark-mode t)))
 
 (defun lk/kill-buffers-by-major-mode (mode)
   (interactive "sMajor mode: ")
@@ -139,6 +136,28 @@
   (lk/kill-buffers-by-major-mode 'dired-mode)
   (kill-matching-buffers ".*occur.*" 't 't)
   (kill-matching-buffers ".*Flymake.*" 't 't))
+
+
+
+;; custom transient-back window management thing
+
+
+(use-package transpose-frame :ensure t)
+(use-package transient :ensure t)
+(require 'transient)
+
+
+(transient-define-prefix lk/window-mgr
+  ()
+  "Shortcuts for moving windows/frames around"
+  ["Window Management"
+   ("t" "Transpose" transpose-frame)
+   ("r" "Rotate" rotate-frame)
+   ("f" "Flip" flip-frame)
+   ("F" "Flop" flop-frame)])
+
+(define-key global-map (kbd "C-c t") 'lk/window-mgr)
+
 
 (provide 'lk/ui)
 ;;; ui.el ends here

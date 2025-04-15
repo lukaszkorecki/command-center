@@ -210,7 +210,6 @@
     :setup-children pjmgr--actions-suffix]]
 
   [["Repo" :setup-children pjmgr--repo-actions-suffix]
-
    ["Commands" :setup-children pjmgr--cmds-suffix]])
 
 (define-key global-map (kbd "C-c d") 'lk/proj-mgr)

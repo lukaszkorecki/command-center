@@ -193,10 +193,6 @@
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
-(use-package transpose-frame :bind (( "C-c t" . transpose-frame)))
-
-
-
 
 (defun lk/kill-dired-buffers ()
   (interactive)
@@ -205,10 +201,6 @@
      (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
        (kill-buffer buffer)))
    (buffer-list)))
-
-(defun lk/open-locally ()
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
 
 
 (provide 'lk/navigation)

@@ -14,4 +14,7 @@
       (add-to-list 'byte-compile-not-obsolete-funcs 'preceding-sexp))))
 
 
+(use-package mise
+  :ensure t)
+
 (provide 'lk/boot)
