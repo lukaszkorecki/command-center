@@ -26,9 +26,7 @@ fi
 
 # manage JVM via mise, if installed
 # otherwise fallback to the JVM managed by homebrew
-
 if [[ "$(which mise)" ]] ; then
-  # eval $(mise activate zsh)
   export PATH="$HOME/.local/share/mise/shims:$PATH"
 else
   if [[ "$brewPrefix" != "" ]]; then
