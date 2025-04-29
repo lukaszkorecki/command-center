@@ -7,9 +7,12 @@
 
 
 (use-package clojure-mode
-  :straight (:host github :repo "clojure-emacs/clojure-mode")
+  ;; :straight (:host github :repo "clojure-emacs/clojure-mode")
   :init (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-  (add-hook 'clojure-mode-hook #'lk/clj-mode-hook))
+  (add-hook 'clojure-mode-hook #'lk/clj-mode-hook)
+
+  ;;  (setq clojure-indent-style 'align-arguments)
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
 
 
 (defconst lk/clj-scratch-name "scratch.clj")
@@ -122,7 +125,7 @@
   (lk/monroe-eval-code-and-callback-with-value
    "(do
       (require 'r 'r.portal)
-      (r.portal/start! {:force? true :browse? false}))"
+      (r.portal/start! {:browse? true :launcher false}))"
    (lambda (value)
      (condition-case err
          ;; value is a raw string, so we need to remove " from it
@@ -135,7 +138,7 @@
 
 (defun lk/portal-clear! ()
   (interactive)
-  (lk/eval-code-and-callback-with-value
+  (lk/monroe-eval-code-and-callback-with-value
    "(r.portal/clear!)"
    (lambda (value) (message "Portal cleared"))))
 

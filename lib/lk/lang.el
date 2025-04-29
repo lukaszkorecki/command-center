@@ -16,6 +16,12 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
+(use-package aggressive-indent
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook #'aggressive-indent-mode))
+
+
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
          (default-directory pj-dir))
