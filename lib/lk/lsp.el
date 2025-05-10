@@ -67,10 +67,5 @@
   :config (setq xref-show-xrefs-function #'consult-xref
                 xref-show-definitions-function #'consult-xref))
 
-(use-package eglot-booster
-  :straight (:host github :repo "jdtsmith/eglot-booster" :files ("*.el"))
-  :after eglot
-  :config	(eglot-booster-mode))
-
 (provide 'lk/lsp)
 ;;; lsp.el ends here

@@ -12,6 +12,7 @@ brew "openjdk"
 brew "clojure"
 brew "rlwrap"
 brew "borkdude/brew/babashka"
+brew 'mise'
 
 # tools
 brew "zile"
