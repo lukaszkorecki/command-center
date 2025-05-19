@@ -36,6 +36,7 @@
                         cwd
                         env]
                  :or {extra-args []}}]
+  (printf "starting process with cmd: %s in %s\n" cmd cwd)
   (let [mise-version-file-present? (fs/exists? (str cwd "/.java-version"))
         cmd (if mise-version-file-present?
               (do
@@ -46,7 +47,7 @@
     (if debug?
       (printf "cwd: %s exec-cmd: %s\n" cwd c)
       (proc/exec (cond-> {:dir cwd :env (into {} (System/getenv))}
-                         env (update :env merge env))
+                   env (update :env merge env))
                  c))))
 
 (defn -main [args]

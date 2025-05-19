@@ -18,8 +18,8 @@
 
 (use-package aggressive-indent
   :ensure t
-  :init
-  (add-hook 'prog-mode-hook #'aggressive-indent-mode))
+  :init (add-hook 'prog-mode-hook #'aggressive-indent-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'makefile-mode))
 
 
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
