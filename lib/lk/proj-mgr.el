@@ -175,11 +175,11 @@
               (list
                (list :info
                      (format "nREPL server is running: %s"
-                             (cider-locate-running-nrepl-ports (hget pj-info :root )))
+                             (cider-locate-running-nrepl-ports (hget pj-info :root ))))
 
                '("S" "Jump to scratch file" cider-scratch)
-               '("K"  "Kill monroe server & REPL buffer" lk/cider-kill-all)
-               '("P" "Start portal session" lk/monroe-portal-start!) ;; TODO: or switch to portal
+               '("K"  "Kill CIDER server & REPL buffer" lk/cider-kill-all)
+               '("P" "Start portal session" lk/portal-open)
                )
             ;; we can only start the nREPL first
             (list

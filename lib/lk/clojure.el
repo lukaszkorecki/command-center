@@ -44,19 +44,14 @@
   :after (clojure-mode)
   :init ;
   (setq cider-enable-nrepl-jvmti-agent t)
-  :bind (("C-x s" . cider-scratch)
-         ("C-x c j" . cider-jack-in)
-         ("C-x p o" . lk/portal-open)
-         ("C-x p c" . lk/portal-clear)
-         ("C-x p q" . lk/portal-close)
-         ("C-c C-d" . cider-doc)
-         ("C-c C-e" . cider-eval-last-sexp)
-         ("C-c C-r" . cider-eval-region)
-         ("C-c C-b" . cider-eval-buffer)
-         ("C-c C-z" . cider-switch-to-repl-buffer)))
+  (unbind-key "C-x s" cider-mode-map)
+  (unbind-key "C-x s" cider-repl-mode-map)
 
-(use-package kaocha-runner
-  :after (cider-mode))
+  :bind (:map cider-repl-mode-map
+              (("C-c M-o" . cider-repl-clear-buffer))))
+
+(use-package kaocha-runner :after (cider-mode))
+
 
 (provide 'lk/clojure)
 ;;; clojure.el ends here

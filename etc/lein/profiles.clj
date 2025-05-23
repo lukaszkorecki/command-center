@@ -17,7 +17,8 @@
                                "-e" ".*repl.*"
                                "-e" ".*benchmark.*"]}}
 
- :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.37"]]
+ :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.37"]
+                       [gc/portal-kaocha "1.0.0.3"]]
         :repl-options {:color false}}
 
  :antq {:global-vars {*warn-on-reflection* false}
