@@ -43,9 +43,11 @@
   :ensure t
   :after (clojure-mode)
   :init ;
+  (setq cider-use-xref nil) ;; use clojure-lsp xref instead
   (setq cider-enable-nrepl-jvmti-agent t)
   (unbind-key "C-x s" cider-mode-map)
   (unbind-key "C-x s" cider-repl-mode-map)
+
 
   :bind (:map cider-repl-mode-map
               (("C-c M-o" . cider-repl-clear-buffer)
