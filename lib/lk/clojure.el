@@ -48,7 +48,8 @@
   (unbind-key "C-x s" cider-repl-mode-map)
 
   :bind (:map cider-repl-mode-map
-              (("C-c M-o" . cider-repl-clear-buffer))))
+              (("C-c M-o" . cider-repl-clear-buffer)
+               ("C-c n i " . lk/failed-tests-in-repl-buffer))))
 
 (use-package kaocha-runner :after (cider-mode))
 
