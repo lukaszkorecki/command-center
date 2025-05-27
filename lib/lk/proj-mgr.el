@@ -168,19 +168,18 @@
       '())))
 
 (defun pjmgr--clojure-cmds (pj-info)
-  (let* ((pj-clj-nrepl-running?
-          (when pj-is-clojure? (hget pj-info :clj-nrepl-running?)))
+  (let* ((pj-clj-nrepl-running? (cider-locate-running-nrepl-ports (hget pj-info :root )))
          (items
           (if pj-clj-nrepl-running?
               (list
                (list :info
                      (format "nREPL server is running: %s"
-                             (cider-locate-running-nrepl-ports (hget pj-info :root ))))
+                             (cider-locate-running-nrepl-ports
+                              (hget pj-info :root ))))
 
                '("S" "Jump to scratch file" cider-scratch)
                '("K"  "Kill CIDER server & REPL buffer" lk/cider-kill-all)
-               '("P" "Start portal session" lk/portal-open)
-               )
+               '("P" "Start portal session" lk/portal-open))
             ;; we can only start the nREPL first
             (list
              '(:info "nREPL server not running")
