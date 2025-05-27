@@ -1,4 +1,4 @@
-{:user {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.37"]]
+{:user {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.43"]]
 
         :repl-options {:color false}
 
@@ -17,7 +17,7 @@
                                "-e" ".*repl.*"
                                "-e" ".*benchmark.*"]}}
 
- :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.37"]
+ :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.43"]
                        [cider/cider-nrepl "0.55.7"]]
         :repl-options {:color false}}
 
