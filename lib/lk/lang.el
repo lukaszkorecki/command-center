@@ -18,11 +18,11 @@
 
 (use-package aggressive-indent
   :ensure t
-  :init
-  (add-hook 'prog-mode-hook #'aggressive-indent-mode)
-  (add-hook 'makefile-mode-hook (lambda () (aggressive-indent-mode -1))))
-
-
+  :init (add-hook 'prog-mode-hook #'aggressive-indent-mode)
+  (add-hook 'makefile-mode-hook
+            (lambda () (aggressive-indent-mode -1)))
+  (add-hook 'dockerfile-mode-hook
+            (lambda () (aggressive-indent-mode -1))))
 
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
