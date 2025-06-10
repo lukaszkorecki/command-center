@@ -32,16 +32,19 @@
 
 ;; packages
 
-(use-package clojure-mode
+(use-package clojure-ts-mode
   ;; :straight (:host github :repo "clojure-emacs/clojure-mode")
   :init ;
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+
+  :config ;
+  (setopt clojure-ts-comment-macro-font-lock-body t))
 
 
 (use-package cider
   :ensure t
-  :after (clojure-mode)
+  :after (clojure-ts-mode)
   :init ;
   (setq cider-use-xref nil) ;; use clojure-lsp xref instead
   (setq cider-enable-nrepl-jvmti-agent t)
