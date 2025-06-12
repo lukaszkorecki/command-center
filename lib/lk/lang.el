@@ -27,6 +27,10 @@
   :init (add-hook 'prog-mode-hook #'aggressive-indent-mode)
   (add-hook 'makefile-mode-hook
             (lambda () (aggressive-indent-mode -1)))
+
+  (add-hook 'clojure-mode-hook
+            (lambda () (aggressive-indent-mode -1)))
+
   (add-hook 'dockerfile-mode-hook
             (lambda () (aggressive-indent-mode -1))))
 

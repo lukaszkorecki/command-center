@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+tagName=$1
+
+if [[ -z "$tagName" ]]; then
+  echo "Usage: $0 <tag-name>"
+  exit 1
+fi
+
+git fetch -atp
+git tag -d "$tagName" || echo 'Tag not found locally, continuing...'
+
+git push origin --delete "$tagName" || echo 'Tag not found on remote, continuing...'
+
+echo "tagging"
+git tag "$tagName"
+git push --tags
+git push

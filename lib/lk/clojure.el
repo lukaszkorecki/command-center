@@ -33,13 +33,19 @@
 ;; packages
 
 (use-package clojure-ts-mode
-  ;; :straight (:host github :repo "clojure-emacs/clojure-mode")
   :init ;
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+  (add-hook 'clojure-mode-hook #'mise-mode)
 
   :config ;
-  (setopt clojure-ts-comment-macro-font-lock-body t))
+  (setopt clojure-ts-comment-macro-font-lock-body t)
+  (setopt clojure-ts-semantic-indent-rules
+          '(("defproject" . ((:block 1)))
+            ("cond" . ((:inner 2)))
+            ("cond->" . ((:inner 2)))
+            ("cond->>" . ((:inner 2)))
+            ("require" . ((:inner 2)))
+            )))
 
 
 (use-package cider
@@ -48,10 +54,9 @@
   :init ;
   (setq cider-use-xref nil) ;; use clojure-lsp xref instead
   (setq cider-enable-nrepl-jvmti-agent t)
+  (setq cider-repl-display-help-banner nil)
   (unbind-key "C-x s" cider-mode-map)
   (unbind-key "C-x s" cider-repl-mode-map)
-
-
   :bind (:map cider-repl-mode-map
               (("C-c M-o" . cider-repl-clear-buffer)
                ("C-c n i " . lk/failed-tests-in-repl-buffer))))
