@@ -7,7 +7,8 @@
                                    "-Duser.timezone=UTC"
                                    "-Dfile.encoding=UTF-8"]}
 
-           :dev/nrepl {:main-opts ["-m" "nrepl.cmdline"]
+           :dev/nrepl {:main-opts ["-m" "nrepl.cmdline"
+                                   "--middleware" "[cider.nrepl/cider-middleware]"]
                        :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
                                   "-Duser.timezone=UTC"
                                   "-Dfile.encoding=UTF-8"

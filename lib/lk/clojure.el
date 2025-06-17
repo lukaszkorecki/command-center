@@ -44,8 +44,7 @@
             ("cond" . ((:inner 2)))
             ("cond->" . ((:inner 2)))
             ("cond->>" . ((:inner 2)))
-            ("require" . ((:inner 2)))
-            )))
+            ("require" . ((:inner 2))))))
 
 
 (use-package cider
@@ -55,6 +54,7 @@
   (setq cider-use-xref nil) ;; use clojure-lsp xref instead
   (setq cider-enable-nrepl-jvmti-agent t)
   (setq cider-repl-display-help-banner nil)
+  (setq cider-clojure-cli-aliases ":dev/rumble:dev:test")
   (unbind-key "C-x s" cider-mode-map)
   (unbind-key "C-x s" cider-repl-mode-map)
   :bind (:map cider-repl-mode-map

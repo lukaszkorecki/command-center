@@ -87,7 +87,7 @@
     ;; (xwidget-webkit-browse-url browseable-file-path)
     (browse-url browseable-file-path)))
 
-(use-package markdown-mode
+(use-package markdown-ts-mode
   :ensure t
   :after (copilot)
   :config ;;
@@ -95,9 +95,6 @@
 
   (setq markdown-command "~/.emacs.d/etc/bin/markdown")
   (setq markdown-command-needs-filename t)
-
-
-  (lk/cleanup-keymap markdown-mode-map)
 
   :bind (:map markdown-mode-map
               (("C-c m c" . lk/insert-md-callout)
