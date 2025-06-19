@@ -33,7 +33,7 @@
 
 (defun lk/screen-sharing-font ()
   (interactive)
-  (lk/set-frame-font 200))
+  (lk/set-frame-font 170))
 
 (defun on-after-init ()
   (when (display-graphic-p)

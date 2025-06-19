@@ -1,4 +1,4 @@
-{:user {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.40"]]
+{:user {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.46"]]
 
         :repl-options {:color false}
 
@@ -17,7 +17,8 @@
                                "-e" ".*repl.*"
                                "-e" ".*benchmark.*"]}}
 
- :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.40"]]
+ :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.46"]
+                       [cider/cider-nrepl "0.55.7"]]
         :repl-options {:color false}}
 
  :antq {:global-vars {*warn-on-reflection* false}

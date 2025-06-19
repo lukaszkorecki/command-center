@@ -16,11 +16,23 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
+(use-package treesit-fold
+  :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+
+  :init (global-treesit-fold-mode t)
+  :bind (("C-c \\" . treesit-fold-toggle)))
+
 (use-package aggressive-indent
   :ensure t
   :init (add-hook 'prog-mode-hook #'aggressive-indent-mode)
-  (add-to-list 'aggressive-indent-excluded-modes 'makefile-mode))
+  (add-hook 'makefile-mode-hook
+            (lambda () (aggressive-indent-mode -1)))
 
+  (add-hook 'clojure-mode-hook
+            (lambda () (aggressive-indent-mode -1)))
+
+  (add-hook 'dockerfile-mode-hook
+            (lambda () (aggressive-indent-mode -1))))
 
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
@@ -75,14 +87,15 @@
     ;; (xwidget-webkit-browse-url browseable-file-path)
     (browse-url browseable-file-path)))
 
-(use-package markdown-mode
+(use-package markdown-ts-mode
   :ensure t
   :after (copilot)
   :config ;;
   (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-  (define-key markdown-mode-map (kbd "C-c C-t") nil) ; Unbind the problematic key here
+
   (setq markdown-command "~/.emacs.d/etc/bin/markdown")
   (setq markdown-command-needs-filename t)
+
   :bind (:map markdown-mode-map
               (("C-c m c" . lk/insert-md-callout)
                ("C-c m d" . lk/insert-current-date)

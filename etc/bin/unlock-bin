@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then
+  echo "usage: $0 path-to-bin"
+  exit 0
+fi
+
+xattr -d com.apple.quarantine $1

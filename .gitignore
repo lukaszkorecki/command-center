@@ -49,3 +49,4 @@ var
 workspace
 Brewfile.lock.json
 /chatgpt/
+request/**

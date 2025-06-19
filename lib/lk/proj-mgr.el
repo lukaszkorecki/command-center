@@ -10,7 +10,7 @@
 
 ;;; Code:
 
-(use-package transient :ensure t :after (consult magit monroe))
+(use-package transient :ensure t :after (consult magit cider))
 
 (require 'transient)
 
@@ -149,7 +149,6 @@
 (defun pjmgr--repo-actions-suffix (_)
   (let* ((pj-info (pjmgr--get-project-info-maybe))
          (is-git-repo? (hget pj-info :repo))
-
          (git-branch
           (when is-git-repo?
             (format "Branch: %s"
@@ -169,24 +168,22 @@
       '())))
 
 (defun pjmgr--clojure-cmds (pj-info)
-  (let* ((pj-clj-nrepl-running?
-          (when pj-is-clojure? (hget pj-info :clj-nrepl-running?)))
+  (let* ((pj-clj-nrepl-running? (cider-locate-running-nrepl-ports (hget pj-info :root )))
          (items
           (if pj-clj-nrepl-running?
               (list
                (list :info
                      (format "nREPL server is running: %s"
-                             (monroe-locate-running-nrepl-host)))
+                             (cider-locate-running-nrepl-ports
+                              (hget pj-info :root ))))
 
-               '("R" "Switch to the REPL buffer" lk/switch-to-monroe-repl-or-connect-or-start)
-               '("S" "Jump to scratch file" lk/clojure-scratch)
-               '("K"  "Kill monroe server & REPL buffer" lk/monroe-kill-all)
-               '("P" "Start portal session" lk/monroe-portal-start!) ;; TODO: or switch to portal
-               )
+               '("S" "Jump to scratch file" cider-scratch)
+               '("K"  "Kill CIDER server & REPL buffer" lk/cider-kill-all)
+               '("P" "Start portal session" lk/portal-open))
             ;; we can only start the nREPL first
             (list
              '(:info "nREPL server not running")
-             '("M" "start Monroe & nREPL server" lk/switch-to-monroe-repl-or-connect-or-start)))))
+             '("R" "start nREPL" cider-jack-in)))))
     (pjmgr--list->suffixes items)))
 
 
