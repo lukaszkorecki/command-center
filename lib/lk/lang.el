@@ -28,7 +28,7 @@
   (add-hook 'makefile-mode-hook
             (lambda () (aggressive-indent-mode -1)))
 
-  (add-hook 'clojure-mode-hook
+  (add-hook 'clojure-ts-mode-hook
             (lambda () (aggressive-indent-mode -1)))
 
   (add-hook 'dockerfile-mode-hook
@@ -91,23 +91,23 @@
   :ensure t
   :after (copilot)
   :config ;;
-  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-ts-mode))
 
   (setq markdown-command "~/.emacs.d/etc/bin/markdown")
   (setq markdown-command-needs-filename t)
 
-  :bind (:map markdown-mode-map
+  :bind (:map markdown-ts-mode-map
               (("C-c m c" . lk/insert-md-callout)
                ("C-c m d" . lk/insert-current-date)
                ("C-c m t" . lk/insert-current-date-time)
                ("C-c m p" .  lk/gh-preview-markdown))))
 
-(use-package poly-markdown
-  :after (markdown-mode)
-  :init :mode
-  (("README\\.md\\'" . gfm-mode)
-   ("\\.md$" . markdown-mode)
-   ("\\.markdown$" . markdown-mode)))
+;; (use-package poly-markdown
+;;   :after (markdown-mode)
+;;   :init :mode
+;;   (("README\\.md\\'" . gfm-mode)
+;;    ("\\.md$" . markdown-ts-mode)
+;;    ("\\.markdown$" . markdown-ts-mode)))
 
 (use-package edit-indirect)
 

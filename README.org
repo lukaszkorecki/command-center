@@ -26,17 +26,3 @@ If you want to use these yourself - probably a bad idea, given that I built all 
 *** Other tools and packages
 
 There's a `Brewfile` provided, run `brew bundle`
-
-
-** Details
-
-Most, if not all languages I work with are setup to use Eglot for LSP and Treesitter for syntax highlighting.
-
-My Clojure workflow leans heavily on `clojure-mode` + [[https://github.com/sanel/monroe][Monroe]] + my own REPL helpers library, [[https://github.com/lukaszkorecki/rumble][Rumble]] - it includes helpers for running tests, interacting with [[https://github.com/djblue/portal][Portal]]
-
-For navigation and autocomplete, I use Ivy + whatever else it needs (Swiper, Company) etc.
-In rare cases I need to do something in the terminal, vterm has my back.
-
-** Other
-
-I would be surprised if this config works for anybody else :-)

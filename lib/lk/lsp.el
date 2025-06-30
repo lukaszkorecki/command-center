@@ -14,7 +14,7 @@
   (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
 
-  :hook ((clojure-mode . eglot-ensure)
+  :hook ((clojure-ts-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
          (tsx-ts-mode . eglot-ensure)
          (python-mode . eglot-ensure))

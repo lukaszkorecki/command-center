@@ -55,7 +55,7 @@
                '((copilot--infer-indentation-offset)))
 
   (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
-  (add-hook 'clojure-mode-hook 'copilot-mode)
+  (add-hook 'clojure-ts-mode-hook 'copilot-mode)
   (add-hook 'typescript-ts-mode-hook 'copilot-mode)
   (add-hook 'tsx-ts-mode-hook 'copilot-mode)
   (add-hook 'terraform-mode-hook 'copilot-mode)
@@ -65,7 +65,7 @@
   (add-hook 'javascript-ts-mode-hook 'copilot-mode)
   (add-hook 'js2-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
-  (add-hook 'markdown-mode-hook 'copilot-mode)
+  (add-hook 'markdown-ts-mode-hook 'copilot-mode)
 
   ;; XXX: this basically is here because some major modes set C-c C-t to something else
   (global-unset-key (kbd "C-c C-t"))
@@ -74,16 +74,19 @@
   :bind (("C-x c c" . copilot-accept-completion)))
 
 (use-package shell-maker
-  :straight (;
-             :host github
-                   :repo "xenodium/shell-maker"
-                   :files ("shell-maker.el"))
+  :straight (:host github :repo "xenodium/shell-maker" :files ("shell-maker.el"))
   :ensure t)
 
 (use-package copilot-chat
   :straight (:host github :repo "chep/copilot-chat.el" :files ("*.el"))
   :after (request org markdown-mode shell-maker))
 
+
+;; (package! eca :recipe (:host github :repo "editor-code-assistant/eca-emacs" :files ("*.el")))
+
+(use-package eca
+  :straight (:host github :repo "editor-code-assistant/eca-emacs" :files ("*.el"))
+  :ensure t)
 
 (provide 'lk/autocomplete)
 
