@@ -22,7 +22,8 @@ configs:
 	@ln -fvs ~/.emacs.d/etc/tmux.conf ~/.tmux.conf
 	@mkdir -p ~/.lein
 	@ln -fvs ~/.emacs.d/etc/lein/profiles.clj ~/.lein/profiles.clj
-	@ln -fvs ~/.emacs.d/etc/wezterm.lua ~/.wezterm.lua
+	@mkdir -p ~/.config/mise
+	@ln -fvs ~/.emacs.d.etc/mise.toml ~/.config/mise/config.toml
 
 
 brew-bundle:

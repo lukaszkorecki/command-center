@@ -28,4 +28,6 @@ deps.txt
 **/scratch.*.clj
 /tests.edn
 **/target
-/.clj-kondo/**
+**/.clj-kondo/imports
+**/.clj-kondo/.cache
+**/.lsp
