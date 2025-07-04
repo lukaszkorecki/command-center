@@ -67,6 +67,7 @@ alias gcd='cd $(git root)'
 alias pcd='cd $(project-root-path)'
 
 if [[ "$(which bat)" == /* ]]; then
+  export BAT_THEME=GitHub
   alias less='bat -p'
   # use bat as man-page viewer
   export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
