@@ -196,6 +196,12 @@
                ("C-x c e" . eval-region))))
 
 
+(use-package graphql-mode
+  :ensure t
+  :init (add-to-list 'auto-mode-alist '("\\.graphql$" . graphql-mode))
+  (add-to-list 'auto-mode-alist '("\\.gql$" . graphql-mode))
+  :config (setq graphql-indent-level 2))
+
 (require 'lk/ruby)
 (require 'lk/js)
 (require 'lk/clojure)

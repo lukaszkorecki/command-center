@@ -36,7 +36,9 @@
   :init ;
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-ts-mode))
   (add-hook 'clojure-mode-hook #'mise-mode)
+  (add-hook 'clojure-mode-hook #'copilot-mode)
   (add-hook 'clojure-ts-mode-hook #'mise-mode)
+  (add-hook 'clojure-ts-mode-hook #'copilot-mode)
 
   :config ;
   (setopt clojure-ts-comment-macro-font-lock-body t)
