@@ -77,6 +77,10 @@ if [[ "$(which bat)" == /* ]]; then
   }
 fi
 
+# Gemini CLI is stupidly overengineered, and doesn't allow just specifying custom editor command
+# so we trick it by using 'zed' alias as the editor command but in fact it will run emacsclient
+alias zed='emacsclient'
+
 ## navigation
 # make path operations work like bash (e.g. M-backspace deletes path fragments)
 autoload -U select-word-style

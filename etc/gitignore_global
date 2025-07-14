@@ -31,3 +31,6 @@ deps.txt
 **/.clj-kondo/imports
 **/.clj-kondo/.cache
 **/.lsp
+.lein-failures
+.gemini
+.clojure-mcp
