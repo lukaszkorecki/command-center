@@ -34,3 +34,4 @@ deps.txt
 .lein-failures
 .gemini
 .clojure-mcp
+.lein-repl-history
