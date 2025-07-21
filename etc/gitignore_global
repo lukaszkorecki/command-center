@@ -35,3 +35,4 @@ deps.txt
 .gemini
 .clojure-mcp
 .lein-repl-history
+.ai-tool-setup.edn
