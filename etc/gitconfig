@@ -25,7 +25,7 @@
   default = current
 
 [alias]
-  update = !git fetch -atp && git pull -r && git cleanup-branches
+  update = !git fetch -ap && git pull -r && git cleanup-branches && git submodule update --init --recursive
   c = commit
   cm = commit -m
   ca = commit --amend
