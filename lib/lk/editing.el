@@ -71,7 +71,6 @@
   :bind (( "C-x R" . vr/replace)))
 
 
-
 ;; no backup files
 (setq-default make-backup-files nil)
 ;; no lockfiles
@@ -83,7 +82,23 @@
 
 
 (use-package string-inflection
-  :init (global-set-key (kbd "C-x c l") 'string-inflection-all-cycle))
+  :init ;; quick dispatch
+  ;; custom transient layer for all inflection operations
+  (transient-define-prefix lk/string-inflection
+    ()
+    "Inflect all the things"
+    [["camelCase"
+      ("l" "lowerCamelCase"  string-inflection-lower-camelcase )
+      ("u" "UpperCamelCase"  string-inflection-camelcase )
+      ]
+
+     ["snake_case/underscore"
+      ("s" "snake_case"  string-inflection-underscore )
+      ("k" "SNAKE_CASE"  string-inflection-upcase )]
+
+     ["kebab-case" ("d" "kebab-case"  string-inflection-kebab-case )]])
+
+  (global-set-key (kbd "C-x c l") 'lk/string-inflection))
 
 
 (use-package undo-tree

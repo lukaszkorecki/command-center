@@ -83,8 +83,6 @@
   :after (request org markdown-mode shell-maker))
 
 
-;; (package! eca :recipe (:host github :repo "editor-code-assistant/eca-emacs" :files ("*.el")))
-
 (use-package eca
   :straight (:host github :repo "editor-code-assistant/eca-emacs" :files ("*.el"))
   :ensure t)

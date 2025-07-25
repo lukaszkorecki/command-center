@@ -60,11 +60,28 @@
   (setq cider-clojure-cli-aliases ":dev/rumble:dev:test")
   (unbind-key "C-x s" cider-mode-map)
   (unbind-key "C-x s" cider-repl-mode-map)
+
+  (transient-define-prefix lk/cider-transient ()
+    "Cider transient commands"
+    ["Cider"
+     ("c" "Clear REPL buffer" cider-repl-clear-buffer)
+     ("i" "Failed tests in REPL buffer" lk/failed-tests-in-repl-buffer)
+     ("o" "Open portal" lk/portal-open)
+     ("O" "Close portal" lk/portal-close)
+     ("C" "Clear portal" lk/portal-clear)
+     ("k" "Kill all nrepl buffers" lk/cider-kill-all)])
+
+
   :bind (:map cider-repl-mode-map
               (("C-c M-o" . cider-repl-clear-buffer)
                ("C-c n i " . lk/failed-tests-in-repl-buffer))))
 
 (use-package kaocha-runner :after (cider-mode))
+
+
+(use-package logview
+  :after (cider)
+  :ensure t)
 
 
 (provide 'lk/clojure)
