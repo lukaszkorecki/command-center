@@ -26,30 +26,32 @@ fi
 
 # manage JVM via mise, if installed
 # otherwise fallback to the JVM managed by homebrew
-if [[ "$(which mise)" ]] ; then
-  export PATH="$HOME/.local/share/mise/shims:$PATH"
-else
-  if [[ "$brewPrefix" != "" ]]; then
-    export PATH=$brewPrefix/bin:$PATH
+if [[ ! -e ~/.private/env.sh ]] ; then
+  if [[ "$(which mise)" ]] ; then
+    export PATH="$HOME/.local/share/mise/shims:$PATH"
+  else
+    if [[ "$brewPrefix" != "" ]]; then
+      export PATH=$brewPrefix/bin:$PATH
 
-    pythonPath=$brewPrefix/opt/python/libexec/bin
-    if [[ -e $pythonPath ]]; then
-      export PATH="$pythonPath:$PATH"
-    fi
+      pythonPath=$brewPrefix/opt/python/libexec/bin
+      if [[ -e $pythonPath ]]; then
+        export PATH="$pythonPath:$PATH"
+      fi
 
-    if [[ -e $brewPrefix/opt/openjdk ]]; then
-      export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
-      export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
-      export JAVAHOME=$brewPrefix/opt/openjdk/
-      export JAVA_HOME=$JAVAHOME
-    fi
+      if [[ -e $brewPrefix/opt/openjdk ]]; then
+        export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
+        export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
+        export JAVAHOME=$brewPrefix/opt/openjdk/
+        export JAVA_HOME=$JAVAHOME
+      fi
 
-    if [[ -e $brewPrefix/opt/openjdk@11 ]]; then
-      export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
-      export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
-      export JAVAHOME=$brewPrefix/opt/openjdk@11/
-      export JAVA_HOME=$JAVAHOME
+      if [[ -e $brewPrefix/opt/openjdk@11 ]]; then
+        export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
+        export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
+        export JAVAHOME=$brewPrefix/opt/openjdk@11/
+        export JAVA_HOME=$JAVAHOME
 
+      fi
     fi
   fi
 fi
@@ -196,7 +198,7 @@ fi
 # integration with Vterm & wezterm:
 if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
   if [[ -n ${EMACS_VTERM_PATH} ]] &&
-    [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+       [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
     source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
   fi
 
