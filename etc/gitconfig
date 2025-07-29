@@ -5,12 +5,12 @@
 [global]
   autoSetupRemote = true
 
+[diff]
+    external = difft
+
 [color]
   ui = true
   diff = true
-
-# [diff]
-#   external = difft
 
 [core]
   pager = less -F -X

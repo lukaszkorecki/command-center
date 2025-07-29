@@ -48,3 +48,4 @@ cask 'ghostty' # for things that can't be done in vterm
 
 cask 'cyberduck'
 brew 'duck'
+brew 'difftastic'
