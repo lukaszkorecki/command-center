@@ -62,26 +62,14 @@
             (error
              (message "Couldn't find project root in %s" default-directory)
              default-directory)))
-         (pj-file (pjmgr--find-first-pj-file default-directory))
-
-         (pj-type
-          (when pj-file (alist-get pj-file pjmgr--pj-file->type)))
-
-         (pj-clj-nrepl-running?
-          (and
-           (equal "clojure" pj-type)
-           (locate-dominating-file default-directory ".nrepl-port"))))
-
+         (pj-file (pjmgr--find-first-pj-file default-directory)))
     (->
      (make-hash-table)
      (hput :name (pjmgr--project-name-or-nil))
      (hput :root  pj-root)
      (hput :cwd  default-directory)
-     (hput :type (or pj-type "unknown"))
-     (hput :project-file  pj-file)
      (hput :repo
-           (pjmgr--loc-dom-file->name default-directory ".git"))
-     (hput  :clj-nrepl-running?  pj-clj-nrepl-running?))))
+           (pjmgr--loc-dom-file->name default-directory ".git")))))
 
 ;; -----
 
@@ -91,10 +79,7 @@
          (items
           (-concat
            (if pj-name
-               (list
-                (when pj-info
-                  (list :info
-                        (format "%s [%s]" pj-name (hget pj-info :type)))))
+               (list (when pj-info (list :info pj-name)))
              ;; else
              (list '(:info "<not in a project>")))
            ;; always add project switcher
@@ -133,17 +118,6 @@
          '("v" "view PR in browser" prmgr--create-pr-web))
       (list '("c" "create PR in web" pjmgr---view-pr-web)))))
 
-;; CI actions
-(defun pjmgr--open-circle ()
-  (interactive)
-  (lk/invoke-cli "*circle-open*" "circleci open"))
-
-(defun pjmgr--get-ci-actions (pj-info)
-  (if (file-exists-p
-       (format "%s/.circleci/config.yml" (hget pj-info :root)))
-      (list '("C" "view CI in browser" pjmgr--open-circle))
-    (list (list :info "No Circle config"))))
-
 
 ;; Dispatch project actions, with conditionals
 (defun pjmgr--repo-actions-suffix (_)
@@ -151,6 +125,7 @@
          (is-git-repo? (hget pj-info :repo))
          (git-branch
           (when is-git-repo?
+
             (format "Branch: %s"
                     (->
                      (lk/invoke-cli "*git-branch*" "git cb")
@@ -163,38 +138,9 @@
           (list
            '("s" "magit status" magit-status)
            '("g" "git grep" consult-git-grep)
-           '("b" "view repo in browser" lk/open-repo-in-gh))
-          (pjmgr--get-ci-actions pj-info)))
+           '("b" "view repo in browser" lk/open-repo-in-gh))))
       '())))
 
-(defun pjmgr--clojure-cmds (pj-info)
-  (let* ((pj-clj-nrepl-running? (cider-locate-running-nrepl-ports (hget pj-info :root )))
-         (items
-          (if pj-clj-nrepl-running?
-              (list
-               (list :info
-                     (format "nREPL server is running: %s"
-                             (cider-locate-running-nrepl-ports
-                              (hget pj-info :root ))))
-
-               '("S" "Jump to scratch file" cider-scratch)
-               '("K"  "Kill CIDER server & REPL buffer" lk/cider-kill-all)
-               '("P" "Start portal session" lk/portal-open))
-            ;; we can only start the nREPL first
-            (list
-             '(:info "nREPL server not running")
-             '("R" "start nREPL" cider-jack-in)))))
-    (pjmgr--list->suffixes items)))
-
-
-(defun pjmgr--cmds-suffix (_)
-  (let* ((pj-info (pjmgr--get-project-info-maybe))
-         (pj-is-clojure?
-          (and pj-info (equal "clojure" (hget pj-info :type)))))
-    (if pj-is-clojure?
-        ;; TODO: this eventually will be a cond-powered dispatch and cond
-        (pjmgr--clojure-cmds pj-info)
-      '())))
 
 ;; main transient config
 (transient-define-prefix lk/proj-mgr
@@ -206,8 +152,7 @@
    ["Actions" ;; dispatch generic commands
     :setup-children pjmgr--actions-suffix]]
 
-  [["Repo" :setup-children pjmgr--repo-actions-suffix]
-   ["Commands" :setup-children pjmgr--cmds-suffix]])
+  [["Repo" :setup-children pjmgr--repo-actions-suffix]])
 
 (define-key global-map (kbd "C-c d") 'lk/proj-mgr)
 
