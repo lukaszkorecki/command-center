@@ -222,8 +222,4 @@ if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
 
   PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 
-else
-  if [[ "$TERM_PROGRAM" == "WezTerm" ]] ; then
-    source /Applications/WezTerm.app/Contents/Resources/wezterm.sh
-  fi
 fi
