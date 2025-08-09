@@ -196,6 +196,18 @@
                ("C-x c e" . eval-region))))
 
 
+(use-package web-mode
+  :ensure t
+  :init (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.liquid$" . web-mode))
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2))
+
 (use-package graphql-mode
   :ensure t
   :init (add-to-list 'auto-mode-alist '("\\.graphql$" . graphql-mode))

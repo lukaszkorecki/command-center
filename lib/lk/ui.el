@@ -1,4 +1,4 @@
-; -*- lexical-binding: t; -*-
+                                        ; -*- lexical-binding: t; -*-
 ;;; ui.el --- ...
 ;;; Commentary:
 
@@ -135,9 +135,9 @@
   (kill-matching-buffers ".*XREF.*" 't 't)
   (lk/kill-buffers-by-major-mode 'dired-mode)
   (kill-matching-buffers ".*occur.*" 't 't)
-  (kill-matching-buffers ".*Flymake.*" 't 't))
-
-
+  (kill-matching-buffers ".*Flymake.*" 't 't)
+  (kill-matching-buffers ".*<eca-chat:.*" 't 't)
+  (kill-matching-buffers ".*<eca:stderr.*" 't 't))
 
 ;; custom transient-back window management thing
 

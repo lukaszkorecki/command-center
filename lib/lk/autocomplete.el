@@ -75,7 +75,8 @@
   :bind (("C-x c c" . copilot-accept-completion)))
 
 (use-package shell-maker
-  :straight (:host github :repo "xenodium/shell-maker" :files ("shell-maker.el"))
+  :straight (:host github :repo "xenodium/shell-maker" :files
+                   ("shell-maker.el"))
   :ensure t)
 
 (use-package copilot-chat
@@ -84,8 +85,12 @@
 
 
 (use-package eca
-  :straight (:host github :repo "editor-code-assistant/eca-emacs" :files ("*.el"))
-  :ensure t)
+  :straight (:host github :repo "editor-code-assistant/eca-emacs" :files
+                   ("*.el"))
+  :ensure t
+  :init ;
+  (setq eca-chat-custom-model "gemini-2.5-pro")
+  (setq eca-extra-args '("--verbose" "--log-level" "debug")))
 
 (provide 'lk/autocomplete)
 
