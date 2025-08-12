@@ -89,8 +89,21 @@
                    ("*.el"))
   :ensure t
   :init ;
+  (transient-define-prefix lk/eca
+    ()
+    "ECA commands."
+    [["Chat"
+      ("c" "Clear" eca-chat-clear)
+      ("r" "Reset" eca-chat-reset)]
+     ["Other"
+      ("m" "MCP details" eca-mcp-details)
+      ("E" "Show stderr" eca-show-stderr)
+      ("R" "Stop" eca-restart)
+      ("S" "Stop" eca-stop)]])
   (setq eca-chat-custom-model "gemini-2.5-pro")
-  (setq eca-extra-args '("--verbose" "--log-level" "debug")))
+  (setq eca-extra-args '("--verbose" "--log-level" "debug"))
+
+  :bind (:map eca-chat-mode-map (("C-c y" . lk/eca))))
 
 (provide 'lk/autocomplete)
 
