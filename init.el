@@ -15,7 +15,10 @@
 (require 'lk/setup-path)
 
 (require 'lk/secrets)
-(lk/load-secrets-from-1p 't)
+(lk/load-secrets-from-1p nil)
+
+(when (file-exists-p "~/.private/work-secrets.el")
+  (load-file "~/.private/work-secrets.el"))
 
 ;; saner regex
 (require 're-builder)
@@ -27,8 +30,9 @@
 
 
 ;; customizations file
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(when (file-exists-p "~/.emacs.d/custom.el")
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file))
 
 (setq abbrev-file-name "~/.emacs.d/abbrev.el")
 
