@@ -2,6 +2,9 @@
   email = lukasz@korecki.me
   name = Łukasz Korecki
 
+[github]
+	user = lukaszkorecki
+
 [global]
   autoSetupRemote = true
 
@@ -16,6 +19,8 @@
   pager = less -F -X
   excludesfile = ~/.gitignore_global
 
+[branch]
+	autoSetupMerge = true
 
 [grep]
   linenumber = true
@@ -23,6 +28,10 @@
 
 [push]
   default = current
+
+[pull]
+  rebase = true
+	ff = only
 
 [alias]
   update = !git fetch -ap && git pull -r && git cleanup-branches && git submodule update --init --recursive
@@ -71,13 +80,7 @@
   changelog = log --pretty=format:'%Cgreen%d %Creset%s' --date=iso
   cl = !git clone git@github.com:$1.git
 
-[branch]
-	autoSetupMerge = true
 
-[github]
-	user = lukaszkorecki
-[pull]
-	ff = only
 
 [includeIf "gitdir:~/ps/"]
   path = "~/.private/gitconfig"
