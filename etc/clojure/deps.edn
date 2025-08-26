@@ -1,7 +1,7 @@
 {:aliases {:dev/rumble {:extra-deps {org.clojars.lukaszkorecki/rumble {:mvn/version "1.0.0.46"}
                                      cheshire/cheshire {:mvn/version "6.0.0"}
                                      hato/hato {:mvn/version "1.1.0-SNAPSHOT"}
-                                     babashka/fs {:mvn/version "0.5.25"}}
+                                     babashka/fs {:mvn/version "0.5.26"}}
                         :extra-paths ["dev-resources" "test"]
                         :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
                                    "-Duser.timezone=UTC"
@@ -14,7 +14,7 @@
                                   "-Dfile.encoding=UTF-8"
                                   "-Djdk.attach.allowAttachSelf"]
                        :extra-deps {nrepl/nrepl {:mvn/version "1.3.1"}
-                                    cider/cider-nrepl {:mvn/version "0.55.7"}}}
+                                    cider/cider-nrepl {:mvn/version "0.57.0"}}}
 
            :dev/cloverage {:main-opts ["-m" "cloverage.coverage" "-p" "src" "-s" "test"]
                            :extra-deps {cloverage/cloverage {:mvn/version "1.2.4"}}}
@@ -27,14 +27,9 @@
                                       "--force"]}
 
            :dev/check-outdated {:deps {com.github.liquidz/antq {:mvn/version "2.11.1276"}
-                                       org.slf4j/slf4j-nop {:mvn/version "2.0.17"}}
+                                       #_#_org.slf4j/slf4j-nop {:mvn/version "2.0.17"}}
                                 :main-opts ["-m" "antq.core"]}
 
            :dev/check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
                                                      :git/sha "d997df866b2a04b7ce7b17533093ee0a2e2cb729"}}
-                       :main-opts ["-m" "clj-check.check" "src" "test"]}
-
-           :dev/clj-watson {:replace-deps
-                            {io.github.clj-holmes/clj-watson
-                             {:git/tag "v6.0.1" :git/sha "b520351"}}
-                            :main-opts ["-m" "clj-watson.cli"]}}}
+                       :main-opts ["-m" "clj-check.check" "src" "test"]}}}
