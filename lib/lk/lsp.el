@@ -7,9 +7,14 @@
     (when (string= project-root (expand-file-name "~"))
       (user-error "Eglot won't start in $HOME directory"))))
 
+(use-package flymake
+  :ensure t
+  :bind (( "C-c e n" . flymake-goto-next-error )
+         ( "C-c e p" . flymake-goto-prev-error )
+         ( "C-c e l" . flymake-show-buffer-diagnostics)))
 
 (use-package eglot
-  :after (project)
+  :after (project flymake)
   :custom ;
   (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
@@ -56,10 +61,7 @@
          ("C-c l u" . xref-find-references)
          ("C-x c f" . eglot-format )))
 
-(use-package flymake
-  :bind (( "C-c e n" . flymake-goto-next-error )
-         ( "C-c e p" . flymake-goto-prev-error )
-         ( "C-c e l" . flymake-show-buffer-diagnostics)))
+
 
 
 (use-package xref
