@@ -8,8 +8,6 @@
 [global]
   autoSetupRemote = true
 
-[diff]
-    external = difft
 
 [color]
   ui = true
@@ -80,7 +78,10 @@
   changelog = log --pretty=format:'%Cgreen%d %Creset%s' --date=iso
   cl = !git clone git@github.com:$1.git
 
-
+  # Difftastic aliases, so `git dlog` is `git log` with difftastic and so on.
+  dlog = -c diff.external=difft log --ext-diff
+  dhow = -c diff.external=difft show --ext-diff
+  ddiff = -c diff.external=difft diff
 
 [includeIf "gitdir:~/ps/"]
   path = "~/.private/gitconfig"
