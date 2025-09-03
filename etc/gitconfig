@@ -85,3 +85,5 @@
 
 [includeIf "gitdir:~/ps/"]
   path = "~/.private/gitconfig"
+[advice]
+	skippedCherryPicks = false
