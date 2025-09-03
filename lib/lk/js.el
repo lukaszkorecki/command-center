@@ -37,6 +37,9 @@
 (defun javascript-mode ())
 (defun js-mode ())
 
+(require 'cc-mode)
+
+
 (use-package js2-mode
   :ensure t
   :init (setq js-basic-indent 2)

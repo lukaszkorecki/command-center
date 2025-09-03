@@ -9,7 +9,8 @@
           (progn
             (shell-command-to-string "~/.emacs.d/etc/bin/op-secret-loader -c ~/.private/secrets.edn -f env > /tmp/emacs.env")
             (load-env-vars "/tmp/emacs.env")
-            (delete-file "/tmp/emacs.env"))
+            (delete-file "/tmp/emacs.env")
+            (message "loaded secrets from 1password"))
         (error (message "Error loading secrets: %s" err)))
     (message "already loaded")))
 
@@ -26,6 +27,7 @@
       (push (cons secret-path secret) lk/1p-secrets)
       secret)))
 
-
+(when (file-exists-p "~/.private/work-secrets.el")
+  (load "~/.private/work-secrets.el"))
 
 (provide 'lk/secrets)

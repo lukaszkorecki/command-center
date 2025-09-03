@@ -36,6 +36,13 @@
      .
      ("typescript-language-server" "--stdio"))
    eglot-server-programs :test #'equal)
+
+  (cl-pushnew
+   '((js2-mode)
+     .
+     ("typescript-language-server" "--stdio"))
+   eglot-server-programs :test #'equal)
+
   (cl-pushnew
    '((typescript-ts-mode)
      .
