@@ -22,13 +22,14 @@
          (clojure-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
          (tsx-ts-mode . eglot-ensure)
+         (js-mode . eglot-ensure)
          (python-mode . eglot-ensure))
   :config ;
   (setq eglot-autoshutdown t)
   (eglot-inlay-hints-mode 1)
   (setq eglot-autoreconnect t)
   (setq eglot-confirm-server-initiated-edits nil)
-  (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode t)))
+  (add-hook 'eglot-managed-mode-hook (lambda () (flymake-mode t)))
   (add-hook 'eglot-managed-mode-hook #'lk/eglot-ensure-root)
 
   (cl-pushnew
@@ -38,7 +39,7 @@
    eglot-server-programs :test #'equal)
 
   (cl-pushnew
-   '((js2-mode)
+   '((js-mode)
      .
      ("typescript-language-server" "--stdio"))
    eglot-server-programs :test #'equal)

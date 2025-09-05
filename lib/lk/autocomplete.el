@@ -64,7 +64,7 @@
   (add-hook 'go-ts-mode-hook 'copilot-mode)
   (add-hook 'json-mode-hook 'copilot-mode)
   (add-hook 'javascript-ts-mode-hook 'copilot-mode)
-  (add-hook 'js2-mode-hook 'copilot-mode)
+  (add-hook 'js-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
   (add-hook 'markdown-ts-mode-hook 'copilot-mode)
 
@@ -88,8 +88,9 @@
   :straight (:host github :repo "editor-code-assistant/eca-emacs" :files ("*.el"))
   :ensure t
   :init ;
-  (setq eca-chat-custom-model "gemini-2.5-pro")
-  (setq eca-extra-args '("--verbose" "--log-level" "debug")))
+                                        ;(setq eca-chat-custom-model "gemini-2.5-pro")
+  ; (setq eca-extra-args '("--verbose" "--log-level" "debug"))
+  )
 
 (provide 'lk/autocomplete)
 

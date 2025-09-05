@@ -30,29 +30,28 @@
   (:map typescript-mode-map
         (( "C-x c f" . lk/prettier-format-current-buffer ))))
 
-;; We need this so that restclient doesn't blow up
-(defun js-mode () )
-
-;; WTF - why do we need this to make js2-mode work?
-(defun javascript-mode ())
-(defun js-mode ())
-
-(require 'cc-mode)
-
-
-(use-package js2-mode
-  :ensure t
+(use-package js-mode
+  :straight (:host github :repo "mooz/js2-mode")
   :init (setq js-basic-indent 2)
-  (setq-default js2-basic-indent 2
-                js2-basic-offset 2
-                js2-auto-indent-p t
-                js2-cleanup-whitespace t
-                js2-enter-indents-newline t
-                js2-indent-on-enter-key t
-                js2-global-externs
-                (list "window" "module" "require" "sinon"  "setTimeout" "clearTimeout" "setInterval" "clearInterval"  "console" "JSON"))
+  (setq-default js-basic-indent 2
+                js-basic-offset 2
+                js-auto-indent-p t
+                js-cleanup-whitespace t
+                js-enter-indents-newline t
+                js-indent-on-enter-key t
+                js-global-externs
+                (list "window"
+                      "module"
+                      "require"
+                      "sinon"
+                      "setTimeout"
+                      "clearTimeout"
+                      "setInterval"
+                      "clearInterval"
+                      "console"
+                      "JSON"))
 
-  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
 
   :bind (("C-c C-t" . copilot-accept-completion)))
 
