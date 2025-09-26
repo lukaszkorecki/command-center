@@ -22,7 +22,7 @@
          (clojure-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
          (tsx-ts-mode . eglot-ensure)
-         (js-mode . eglot-ensure)
+         (rjsx-mode . eglot-ensure)
          (python-mode . eglot-ensure))
   :config ;
   (setq eglot-autoshutdown t)
@@ -39,7 +39,7 @@
    eglot-server-programs :test #'equal)
 
   (cl-pushnew
-   '((js-mode)
+   '((rjsx-mode)
      .
      ("typescript-language-server" "--stdio"))
    eglot-server-programs :test #'equal)

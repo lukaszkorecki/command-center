@@ -1,4 +1,4 @@
-;;; js.el --- Javascript & TS packages, customizations etc
+;;; lk/js.el --- Javascript & TS packages, customizations etc
 ;;; Commentary:
 
 ;;; Code:
@@ -30,29 +30,13 @@
   (:map typescript-mode-map
         (( "C-x c f" . lk/prettier-format-current-buffer ))))
 
-(use-package js-mode
-  :straight (:host github :repo "mooz/js2-mode")
-  :init (setq js-basic-indent 2)
-  (setq-default js-basic-indent 2
-                js-basic-offset 2
-                js-auto-indent-p t
-                js-cleanup-whitespace t
-                js-enter-indents-newline t
-                js-indent-on-enter-key t
-                js-global-externs
-                (list "window"
-                      "module"
-                      "require"
-                      "sinon"
-                      "setTimeout"
-                      "clearTimeout"
-                      "setInterval"
-                      "clearInterval"
-                      "console"
-                      "JSON"))
+(defun  js-mode ())
 
-  (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
-
+(use-package rjsx-mode
+  :init
+  (require 'cc-mode)
+  (setq js-basic-indent 2)
+  (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
   :bind (("C-c C-t" . copilot-accept-completion)))
 
 (provide 'js)

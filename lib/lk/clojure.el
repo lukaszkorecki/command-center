@@ -1,9 +1,5 @@
 ;; -*- lexical-binding: t; -*-
 ;;; clojure.el --- clojure setup
-;;; Commentary:
-;; inf-clojure/monroe based clj-scratch buffer
-;; Adopted from cider's scratch
-;;; Code:
 
 ;; helpers
 (defun lk/failed-tests-in-repl-buffer ()
@@ -47,7 +43,9 @@
             ("cond" . ((:inner 2)))
             ("cond->" . ((:inner 2)))
             ("cond->>" . ((:inner 2)))
-            ("require" . ((:inner 2))))))
+            ("require" . ((:inner 2)))
+            ("compile-if" . ((:inner 2)))
+            )))
 
 
 (use-package cider

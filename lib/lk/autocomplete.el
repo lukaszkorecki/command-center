@@ -64,7 +64,7 @@
   (add-hook 'go-ts-mode-hook 'copilot-mode)
   (add-hook 'json-mode-hook 'copilot-mode)
   (add-hook 'javascript-ts-mode-hook 'copilot-mode)
-  (add-hook 'js-mode-hook 'copilot-mode)
+  (add-hook 'rjsx-mode-hook 'copilot-mode)
   (add-hook 'ruby-ts-mode-hook 'copilot-mode)
   (add-hook 'markdown-ts-mode-hook 'copilot-mode)
 
@@ -75,22 +75,46 @@
   :bind (("C-x c c" . copilot-accept-completion)))
 
 (use-package shell-maker
-  :straight (:host github :repo "xenodium/shell-maker" :files
-                   ("shell-maker.el"))
+  :straight (; use latest
+             :host github ;
+             :repo "xenodium/shell-maker" ;
+             :files ("shell-maker.el" "markdown-overlays.el"))
   :ensure t)
 
-(use-package copilot-chat
-  :straight (:host github :repo "chep/copilot-chat.el" :files ("*.el"))
-  :after (request org markdown-mode shell-maker))
+(use-package acp
+  :straight (; use latest
+             :host github
+             :repo "xenodium/acp.el")
+  :after (shell-maker)
+  :ensure t)
 
 
-(use-package eca
-  :straight (:host github :repo "editor-code-assistant/eca-emacs" :files ("*.el"))
+(use-package agent-shell
+  :straight (; use latest
+             :host github :repo "xenodium/agent-shell")
+  :after (acp)
   :ensure t
-  :init ;
-                                        ;(setq eca-chat-custom-model "gemini-2.5-pro")
-  ; (setq eca-extra-args '("--verbose" "--log-level" "debug"))
-  )
+  :init)
+
+(defun agent-shell-start-gemini-agent ()
+  "Start an interactive Gemini CLI agent shell."
+  (interactive)
+  (agent-shell--start
+   :new-session t
+   :mode-line-name "Gemini"
+   :buffer-name "Gemini"
+   :shell-prompt "Gemini> "
+   :shell-prompt-regexp "Gemini> "
+   :icon-name "gemini.png"
+   :needs-authentication t
+   :welcome-function #'agent-shell--gemini-welcome-message
+   :authenticate-request-maker (lambda
+                                 ()
+                                 (acp-make-authenticate-request :method-id "vertex-ai"))
+   :client-maker (lambda
+                   ()
+                   (acp-make-client :command "gemini"
+                                    :command-params '("--experimental-acp")))))
 
 (provide 'lk/autocomplete)
 

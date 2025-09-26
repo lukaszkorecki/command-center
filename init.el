@@ -37,7 +37,6 @@
 (setq abbrev-file-name "~/.emacs.d/abbrev.el")
 
 (require 'lk/navigation)
-
 (require 'lk/autocomplete)
 (require 'lk/git)
 (require 'lk/lsp)
@@ -47,8 +46,6 @@
 (require 'lk/customizations)
 (require 'lk/modeline)
 (require 'lk/proj-mgr)
-
-
 
 ;; other things
 ;; Always start server, useful for things
