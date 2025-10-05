@@ -156,4 +156,11 @@
 
 (define-key global-map (kbd "C-c d") 'lk/proj-mgr)
 
+
+(use-package disproject
+  ;; Replace `project-prefix-map' with `disproject-dispatch'.
+  :bind ( :map ctl-x-map
+          ("p" . disproject-dispatch)))
+
+
 (provide 'lk/proj-mgr)
