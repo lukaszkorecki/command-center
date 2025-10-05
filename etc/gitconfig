@@ -87,3 +87,5 @@
   path = "~/.private/gitconfig"
 [advice]
 	skippedCherryPicks = false
+[init]
+	defaultBranch = main
