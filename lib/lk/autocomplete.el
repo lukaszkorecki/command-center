@@ -92,29 +92,11 @@
 (use-package agent-shell
   :straight (; use latest
              :host github :repo "xenodium/agent-shell")
-  :after (acp)
+  :after (acp shell-maker)
   :ensure t
-  :init)
+  :config (setq agent-shell-google-authentication
+                (agent-shell-google-make-authentication :vertex-ai t)))
 
-(defun agent-shell-start-gemini-agent ()
-  "Start an interactive Gemini CLI agent shell."
-  (interactive)
-  (agent-shell--start
-   :new-session t
-   :mode-line-name "Gemini"
-   :buffer-name "Gemini"
-   :shell-prompt "Gemini> "
-   :shell-prompt-regexp "Gemini> "
-   :icon-name "gemini.png"
-   :needs-authentication t
-   :welcome-function #'agent-shell--gemini-welcome-message
-   :authenticate-request-maker (lambda
-                                 ()
-                                 (acp-make-authenticate-request :method-id "vertex-ai"))
-   :client-maker (lambda
-                   ()
-                   (acp-make-client :command "gemini"
-                                    :command-params '("--experimental-acp")))))
 
 (provide 'lk/autocomplete)
 
