@@ -51,3 +51,4 @@ Brewfile.lock.json
 /chatgpt/
 request/**
 /eca/
+/logview-cache.extmap
