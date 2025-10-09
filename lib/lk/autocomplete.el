@@ -28,7 +28,8 @@
 (use-package company-box
   :ensure t
   :after company
-  :hook (company-mode . company-box-mode))
+  :hook (company-mode . company-box-mode)
+  :init (company-box-mode))
 
 (use-package yasnippet
   :init (yas-global-mode t)
@@ -41,7 +42,7 @@
 (use-package copilot
   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
   :ensure t
-  :after (editorconfig jsonrpc f)
+  :after (editorconfig jsonrpc f company company-box)
   :ensure t
   :config (setq copilot-max-char 1000000)
   (setq copilot-max-char-warning-disable t)
