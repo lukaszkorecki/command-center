@@ -87,29 +87,6 @@
     ;; (xwidget-webkit-browse-url browseable-file-path)
     (browse-url browseable-file-path)))
 
-(use-package markdown-ts-mode
-  :ensure t
-  :after (copilot)
-  :config ;;
-  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-ts-mode))
-
-  (setq markdown-command "~/.emacs.d/etc/bin/markdown")
-  (setq markdown-command-needs-filename t)
-
-  :bind (:map markdown-ts-mode-map
-              (("C-c m c" . lk/insert-md-callout)
-               ("C-c m d" . lk/insert-current-date)
-               ("C-c m t" . lk/insert-current-date-time)
-               ("C-c m p" .  lk/gh-preview-markdown))))
-
-;; (use-package poly-markdown
-;;   :after (markdown-mode)
-;;   :init :mode
-;;   (("README\\.md\\'" . gfm-mode)
-;;    ("\\.md$" . markdown-ts-mode)
-;;    ("\\.markdown$" . markdown-ts-mode)))
-
-(use-package edit-indirect)
 
 (use-package jinja2-mode
   :init (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
@@ -217,6 +194,7 @@
 (require 'lk/ruby)
 (require 'lk/js)
 (require 'lk/clojure)
+(require 'lk/markdown)
 
 (use-package hl-todo
   :diminish hl-todo

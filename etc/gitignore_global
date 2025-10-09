@@ -37,3 +37,4 @@ deps.txt
 .lein-repl-history
 .ai-tool-setup.edn
 .eca/
+*.md.html
