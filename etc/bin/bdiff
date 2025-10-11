@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Better diff:
+# takes all arguments that would be passed to regular old 'diff'
+# but pipes output to 'bat' for pagination and syntax highlighting
+
+
+# catch -y or -h, --help flags and just run regular diff
+if [[ "$*" == *"-y"* || "$*" == *"-h"* || "$*" == *"--help"* ]]; then
+  /usr/bin/diff ${@}
+  exit $?
+fi
+
+/usr/bin/diff ${@} | bat -p --language=diff
