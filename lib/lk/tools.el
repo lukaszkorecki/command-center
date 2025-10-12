@@ -17,7 +17,6 @@
   (when-let ((project (project-current)))
     (setq-local project-current project)))
 
-
 (use-package vterm
   :ensure t
   :init ;

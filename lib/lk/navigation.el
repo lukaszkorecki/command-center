@@ -174,6 +174,27 @@
   :ensure t
   :init (setq completion-styles '(orderless)))
 
+
+
+(defun lk/urls-in-buffer->vertico-select->browse ()
+  "Find URLs in the current vterm buffer and open the selected one in a browser using vertico/."
+  (interactive)
+
+  (let ((urls nil)
+        (beg (point-min))
+        (end (point-max)))
+    (save-excursion
+      (goto-char beg)
+      (while (re-search-forward
+              "\\(https?://\\|ftp://\\|file:///\\)[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]" nil t)
+        (push (match-string 0) urls)))
+    (when urls
+      (message "URLS: %s" urls)
+      (let ((selected-url (completing-read "Select URL: " urls nil t)))
+        (browse-url selected-url)))))
+
+(global-set-key (kbd "C-x c u") 'lk/urls-in-buffer->vertico-select->browse)
+
 ;; Persist history over Emacs restarts
 (use-package savehist :init (savehist-mode))
 
