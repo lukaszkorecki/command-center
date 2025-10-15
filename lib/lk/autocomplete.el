@@ -30,7 +30,7 @@
   :ensure t
   :after (company)
   :hook (company-mode . company-box-mode)
-  :init (company-box-mode))
+  :init (global-company-box-mode))
 
 (use-package yasnippet
   :init (yas-global-mode t)
@@ -45,7 +45,8 @@
   :ensure t
   :after (editorconfig jsonrpc f company company-box)
   :ensure t
-  :config (setq copilot-max-char 1000000)
+  :config ;
+  (setq copilot-max-char 1000000)
   (setq copilot-max-char-warning-disable t)
 
   ;; NOTE: verify if this is necessary
@@ -53,6 +54,10 @@
                '((copilot copilot-exceeds-max-char)))
   (add-to-list 'warning-suppress-types
                '((copilot copilot-no-mode-indent)))
+  (add-to-list 'warning-suppress-types
+               '((copilot--infer-indentation-offset)))
+
+
   (add-to-list 'warning-suppress-types
                '((copilot--infer-indentation-offset)))
 
@@ -75,6 +80,14 @@
   (global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
 
   :bind (("C-x c c" . copilot-accept-completion)))
+
+;; add a hook, whenever copilot-mode is activated in a buffer, add global mapping for C-c TAB
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (when copilot-mode
+              (local-set-key (kbd "C-c TAB") 'copilot-accept-completion)
+              (local-set-key (kbd "C-c C-t") 'copilot-accept-completion)
+              )))
 
 (use-package shell-maker
   :straight (; use latest

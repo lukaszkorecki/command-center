@@ -116,8 +116,8 @@
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
 
-(when (display-graphic-p)
-  (use-package auto-dark :config (auto-dark-mode t)))
+;;(when (display-graphic-p)
+;;  (use-package auto-dark :config (auto-dark-mode t)))
 
 (defun lk/kill-buffers-by-major-mode (mode)
   (interactive "sMajor mode: ")
@@ -157,6 +157,15 @@
    ("F" "Flop" flop-frame)])
 
 (define-key global-map (kbd "C-c t") 'lk/window-mgr)
+
+(use-package alabaster-theme
+  :straight (; use latest
+             :host github
+             :repo "uzhne/alabaster-emacs"
+             :files ("*.el"))
+  :ensure t
+  :config
+  (load-theme 'alabaster t))
 
 
 (provide 'lk/ui)
