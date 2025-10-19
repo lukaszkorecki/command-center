@@ -44,8 +44,7 @@
             ("cond->" . ((:inner 2)))
             ("cond->>" . ((:inner 2)))
             ("require" . ((:inner 2)))
-            ("compile-if" . ((:inner 2)))
-            )))
+            ("compile-if" . ((:inner 2))))))
 
 
 (use-package cider
@@ -64,7 +63,8 @@
     "Cider transient commands"
     ["Cider"
      ("c" "Clear REPL buffer" cider-repl-clear-buffer)
-     ("i" "Inspect" cider-inspect)])
+     ("i" "Inspect" cider-inspect)
+     ])
 
 
   :bind (:map cider-repl-mode-map
@@ -76,6 +76,25 @@
 
 
 (use-package logview :after (cider) :ensure t)
+
+
+;; formats current edn buffer using jet
+;; NOTE: jet doesn't support editing files in place, normally this is how you do it:
+;; jet -i edn -o edn -k --no-commas < file.end | sponge file.edn
+;; so here we will do something similar, of course 'sponge' is not needed since
+;; Emacs can replace buffer contents directly, since we can use 'call-process-region' with (point min) and (point max)
+
+(defun lk/format-edn-buffer ()
+  (interactive)
+  (with-current-buffer (current-buffer)
+    (call-process-region
+     (point-min)
+     (point-max)
+     "jet" t t nil
+     "-i" "edn"
+     "-o" "edn"
+     "-k"
+     "--no-commas")))
 
 
 (provide 'lk/clojure)
