@@ -154,7 +154,8 @@
    ("t" "Transpose" transpose-frame)
    ("r" "Rotate" rotate-frame)
    ("f" "Flip" flip-frame)
-   ("F" "Flop" flop-frame)])
+   ("F" "Flop" flop-frame)
+   ])
 
 (define-key global-map (kbd "C-c t") 'lk/window-mgr)
 
@@ -164,8 +165,10 @@
              :repo "uzhne/alabaster-emacs"
              :files ("*.el"))
   :ensure t
-  :config
-  (load-theme 'alabaster t))
+  :config (load-theme 'alabaster t)
+  ;; XXX: alabaster is nice, but doesn't define a color for selected region - let's fix this:
+  (set-face-attribute 'region nil :background "#999999" :foreground "#ffffff"))
+
 
 
 (provide 'lk/ui)

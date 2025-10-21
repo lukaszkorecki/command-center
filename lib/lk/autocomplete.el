@@ -30,7 +30,7 @@
   :ensure t
   :after (company)
   :hook (company-mode . company-box-mode)
-  :init (global-company-box-mode))
+  :init (global-company-mode))
 
 (use-package yasnippet
   :init (yas-global-mode t)

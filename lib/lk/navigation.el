@@ -140,37 +140,67 @@
          ("C-c n i" . consult-imenu)
          ("M-y" . consult-yank-pop)      ;; Enhanced yank-pop
          ("C-x b" . consult-buffer)      ;; Enhanced buffer switch
-         ("M-g g" . consult-goto-line))) ;; Enhanced goto line
+         ("M-g M-g" . consult-goto-line))) ;; Enhanced goto line
 
+
+;; (use-package embark
+;;   :ensure t
+
+;;   :bind (("C-." . embark-act)         ;; pick some comfortable binding
+;;          ("C-;" . embark-dwim)        ;; good alternative: M-.
+;;          ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+;;   :init ;; Optionally replace the key help with a completing-read interface
+;;   (setq prefix-help-command #'embark-prefix-help-command)
+
+;;   :config
+
+;;   ;; Hide the mode line of the Embark live/completions buffers
+;;   (add-to-list 'display-buffer-alist
+;;                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+;;                  nil
+;;                  (window-parameters (mode-line-format . none)))))
 
 (use-package embark
   :ensure t
+  :bind (("C-." . embark-act)         ;; context-sensitive menu
+         ("C-;" . embark-dwim)        ;; default action at point
+         ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings`
 
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
-  :init
-  ;; Optionally replace the key help with a completing-read interface
+  :init ;; Replace key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
 
- :config
-
-  ;; Hide the mode line of the Embark live/completions buffers
+  :config ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
-                 (window-parameters (mode-line-format . none)))))
+                 (window-parameters (mode-line-format . none))))
+
+  ;; Allow `embark-become` key for switching minibuffer commands (keeps input)
+  (define-key minibuffer-local-map (kbd "C-c C-b") #'embark-become)
+
+  ;; Optional: customize common “become” shortcuts for quick switching
+  (defvar-keymap embark-become-file+buffer-map
+    :doc "Quick Become keymap for buffer/file/line/project switching."
+    :parent embark-become-file+buffer-map
+    "f" #'find-file
+    "p" #'project-switch-project
+    "s" #'consult-line
+    "x" #'xref-find-definitions)
+
+  ;; Connect it to Embark's become mechanism
+  (add-to-list 'embark-become-keymaps 'embark-become-file+buffer-map))
+
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
+  :after (embark consult)
   :ensure t ; only need to install it, embark loads it after consult if found
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 ;; Flexible completion matching with Orderless
 (use-package orderless
+  :after vertico
   :ensure t
   :init (setq completion-styles '(orderless)))
 
@@ -193,7 +223,9 @@
       (let ((selected-url (completing-read "Select URL: " urls nil t)))
         (browse-url selected-url)))))
 
-(global-set-key (kbd "C-x c u") 'lk/urls-in-buffer->vertico-select->browse)
+(global-set-key
+ (kbd "C-x c u")
+ 'lk/urls-in-buffer->vertico-select->browse)
 
 ;; Persist history over Emacs restarts
 (use-package savehist :init (savehist-mode))
