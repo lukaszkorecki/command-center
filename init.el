@@ -38,6 +38,7 @@
 
 (require 'lk/navigation)
 (require 'lk/autocomplete)
+(require 'copilot)
 (require 'lk/git)
 (require 'lk/lsp)
 (require 'lk/tools)

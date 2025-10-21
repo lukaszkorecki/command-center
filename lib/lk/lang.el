@@ -139,15 +139,18 @@
   (interactive)
   (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci %s"))
 
-(add-hook 'sh-mode-hook
-          (lambda ()
-            (progn
-              (copilot-mode 't)
-              (setq sh-basic-offset 2)
-              (keymap-local-unset "C-c C-t")
-              (define-key sh-mode-map
-                          (kbd "C-x c f")
-                          'lk/format-current-buffer))))
+
+(use-package sh-mode
+  :init
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              (progn
+                (copilot-mode 't)
+                (setq sh-basic-offset 2)
+                (keymap-local-unset "C-c C-t")
+                (define-key sh-mode-map
+                            (kbd "C-x c f")
+                            'lk/format-current-buffer)))))
 
 
 (use-package go-mode

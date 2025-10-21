@@ -29,6 +29,7 @@
 ;; packages
 
 (use-package clojure-ts-mode
+  :after (copilot-mode)
   :init ;
   (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-ts-mode))
   (add-hook 'clojure-mode-hook #'mise-mode)
