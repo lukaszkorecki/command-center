@@ -50,3 +50,6 @@ cask 'cyberduck'
 brew 'duck'
 brew 'difftastic'
 brew 'glow'
+brew 'sponge'
+
+brew 'tidy-html5'
