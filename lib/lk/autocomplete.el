@@ -13,8 +13,7 @@
   ;; invert the navigation direction if the the completion popup-isearch-match
   ;; is displayed on top (happens near the bottom of windows)
   (setq company-tooltip-flip-when-above t)
-  :init
-  (global-company-mode)
+  :init (global-company-mode)
   :bind (( "C-c M-c" . company-complete)
          :map company-active-map
          ("C-n" . company-select-next)
@@ -61,33 +60,30 @@
   (add-to-list 'warning-suppress-types
                '((copilot--infer-indentation-offset)))
 
-  (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
-  (add-hook 'clojure-ts-mode-hook 'copilot-mode)
-  (add-hook 'clojure-mode-hook 'copilot-mode)
-  (add-hook 'typescript-ts-mode-hook 'copilot-mode)
-  (add-hook 'tsx-ts-mode-hook 'copilot-mode)
-  (add-hook 'terraform-mode-hook 'copilot-mode)
-  (add-hook 'python-mode-hook 'copilot-mode)
-  (add-hook 'go-ts-mode-hook 'copilot-mode)
-  (add-hook 'json-mode-hook 'copilot-mode)
-  (add-hook 'javascript-ts-mode-hook 'copilot-mode)
-  (add-hook 'rjsx-mode-hook 'copilot-mode)
-  (add-hook 'ruby-ts-mode-hook 'copilot-mode)
-  (add-hook 'markdown-ts-mode-hook 'copilot-mode)
+  :hook ((prog-mode-hook . copilot-mode))
 
-  ;; XXX: this basically is here because some major modes set C-c C-t to something else
-  (global-unset-key (kbd "C-c C-t"))
-  (global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
+  ;; (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
+  ;; (add-hook 'clojure-ts-mode-hook 'copilot-mode)
+  ;; (add-hook 'clojure-mode-hook 'copilot-mode)
+  ;; (add-hook 'typescript-ts-mode-hook 'copilot-mode)
+  ;; (add-hook 'tsx-ts-mode-hook 'copilot-mode)
+  ;; (add-hook 'terraform-mode-hook 'copilot-mode)
+  ;; (add-hook 'python-mode-hook 'copilot-mode)
+  ;; (add-hook 'go-ts-mode-hook 'copilot-mode)
+  ;; (add-hook 'json-mode-hook 'copilot-mode)
+  ;; (add-hook 'javascript-ts-mode-hook 'copilot-mode)
+  ;; (add-hook 'rjsx-mode-hook 'copilot-mode)
+  ;; (add-hook 'ruby-ts-mode-hook 'copilot-mode)
+  ;; (add-hook 'markdown-ts-mode-hook 'copilot-mode)
+
+  ;; ;; XXX: this basically is here because some major modes set C-c C-t to something else
+  ;; (global-unset-key (kbd "C-c C-t"))
+  ;; (global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
 
   :bind (("C-x c c" . copilot-accept-completion)))
 
 ;; add a hook, whenever copilot-mode is activated in a buffer, add global mapping for C-c TAB
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (when copilot-mode
-              (local-set-key (kbd "C-c TAB") 'copilot-accept-completion)
-              (local-set-key (kbd "C-c C-t") 'copilot-accept-completion)
-              )))
+
 
 (use-package shell-maker
   :straight (; use latest
@@ -112,6 +108,10 @@
   :config (setq agent-shell-google-authentication
                 (agent-shell-google-make-authentication :vertex-ai t)))
 
+
+(use-package agent-shell-sidebar
+  :after agent-shell
+  :straight (:host github :repo "cmacrae/agent-shell-sidebar"))
 
 (provide 'lk/autocomplete)
 
