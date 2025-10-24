@@ -15,6 +15,7 @@
 
 
 (use-package mise
-  :ensure t)
+  :ensure t
+  :hook (prog-mode-hook . mise-mode))
 
 (provide 'lk/boot)
