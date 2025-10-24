@@ -38,3 +38,4 @@ deps.txt
 .ai-tool-setup.edn
 .eca/
 *.md.html
+__docs
