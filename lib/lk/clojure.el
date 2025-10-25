@@ -52,7 +52,7 @@
   :pin "melpa"
   :after (clojure-ts-mode)
 
-  :config ;
+  :config
   (unbind-key "C-x s" cider-mode-map)
   (unbind-key "C-x s" cider-repl-mode-map)
 
@@ -61,7 +61,7 @@
   (setq cider-repl-display-help-banner nil)
   (setq cider-clojure-cli-aliases ":dev/rumble:dev:test")
 
-  :bind ;
+  :bind
   (:map cider-repl-mode-map
         ("C-c M-o" . cider-repl-clear-buffer)
         ("C-c n i " . lk/failed-tests-in-repl-buffer)))

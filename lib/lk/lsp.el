@@ -25,10 +25,11 @@
          (rjsx-mode . eglot-ensure)
          (python-mode . eglot-ensure)
          (eglot-managed-mode-hook . (lambda () (flymake-mode t)))
-         (eglot-managed-mode-hook . lk/eglot-ensure-root))
+         (eglot-managed-mode-hook . lk/eglot-ensure-root)
+         (eglot-managed-mode-hook . (lambda () (eglot-inlay-hints-mode 1))))
   :config ;
   (setq eglot-autoshutdown t)
-  (eglot-inlay-hints-mode 1)
+
   (setq eglot-autoreconnect t)
   (setq eglot-confirm-server-initiated-edits nil)
 
