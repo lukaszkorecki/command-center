@@ -23,43 +23,33 @@
          (typescript-ts-mode . eglot-ensure)
          (tsx-ts-mode . eglot-ensure)
          (rjsx-mode . eglot-ensure)
-         (python-mode . eglot-ensure))
+         (python-mode . eglot-ensure)
+         (eglot-managed-mode-hook . (lambda () (flymake-mode t)))
+         (eglot-managed-mode-hook . lk/eglot-ensure-root))
   :config ;
   (setq eglot-autoshutdown t)
   (eglot-inlay-hints-mode 1)
   (setq eglot-autoreconnect t)
   (setq eglot-confirm-server-initiated-edits nil)
-  (add-hook 'eglot-managed-mode-hook (lambda () (flymake-mode t)))
-  (add-hook 'eglot-managed-mode-hook #'lk/eglot-ensure-root)
 
   (cl-pushnew
-   '((tsx-ts-mode)
-     .
-     ("typescript-language-server" "--stdio"))
+   '((tsx-ts-mode) . ("typescript-language-server" "--stdio"))
    eglot-server-programs :test #'equal)
 
   (cl-pushnew
-   '((rjsx-mode)
-     .
-     ("typescript-language-server" "--stdio"))
+   '((rjsx-mode) . ("typescript-language-server" "--stdio"))
    eglot-server-programs :test #'equal)
 
   (cl-pushnew
-   '((typescript-ts-mode)
-     .
-     ("typescript-language-server" "--stdio"))
+   '((typescript-ts-mode) . ("typescript-language-server" "--stdio"))
    eglot-server-programs :test #'equal)
 
   (cl-pushnew
-   '((terraform-mode)
-     .
-     ("terraform-ls" "serve"))
+   '((terraform-mode) . ("terraform-ls" "serve"))
    eglot-server-programs :test #'equal)
 
   (cl-pushnew
-   '((sh-mode)
-     .
-     ("bash-language-server" "start"))
+   '((sh-mode) . ("bash-language-server" "start"))
    eglot-server-programs :test #'equal)
 
   :bind (("C-c l r r" . eglot-rename)
@@ -69,11 +59,9 @@
          ("C-c l u" . xref-find-references)
          ("C-x c f" . eglot-format )))
 
-
-
-
 (use-package xref
-  :after (consult)
+  :after (consult eglot)
+  :ensure t
   :config (setq xref-show-xrefs-function #'consult-xref
                 xref-show-definitions-function #'consult-xref))
 

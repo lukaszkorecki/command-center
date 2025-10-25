@@ -28,12 +28,12 @@
 
 (use-package clojure-ts-mode
   :after (copilot-mode)
-  :init ;
-  (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-ts-mode))
-  (add-hook 'clojure-mode-hook #'mise-mode)
-  (add-hook 'clojure-mode-hook #'copilot-mode)
-  (add-hook 'clojure-ts-mode-hook #'mise-mode)
-  (add-hook 'clojure-ts-mode-hook #'copilot-mode)
+  :mode "\\.clj$"
+
+  :hook ((clojure-mode-hook . mise-mode)
+         (clojure-mode-hook . copilot-mode)
+         (clojure-ts-mode-hook . mise-mode)
+         (clojure-ts-mode-hook . copilot-mode))
 
   :config ;
   (setopt clojure-ts-comment-macro-font-lock-body t)
@@ -46,43 +46,25 @@
             ("require" . ((:inner 2)))
             ("compile-if" . ((:inner 2))))))
 
-;; (transient-define-prefix lk/cider-transient
-;;   ()
-;;   "Cider transient commands"
-;;   ["Cider"
-;;    ("c" "Clear REPL buffer" #'cider-repl-clear-buffer)
-;;    ("i" "Inspect" #'cider-inspect)])
-
 (use-package cider
   :ensure t
-  :after (clojure-ts-mode)
   :demand t
-  :config;
+  :pin "melpa"
+  :after (clojure-ts-mode)
+
+  :config ;
   (unbind-key "C-x s" cider-mode-map)
   (unbind-key "C-x s" cider-repl-mode-map)
-
-  (message
-   "CIDER INIT -> %s %s"
-
-   cider-use-xref
-   cider-repl-display-help-banner   )
 
   (setq cider-use-xref nil) ;; use clojure-lsp xref instead
   (setq cider-enable-nrepl-jvmti-agent t)
   (setq cider-repl-display-help-banner nil)
   (setq cider-clojure-cli-aliases ":dev/rumble:dev:test")
-  (message
-   (format "CIDER INIT -> %s %s"
-
-           cider-use-xref
-           cider-repl-display-help-banner))
 
   :bind ;
   (:map cider-repl-mode-map
-        (("C-c M-o" . cider-repl-clear-buffer)
-         ("C-c n i " . lk/failed-tests-in-repl-buffer)
-         ;; ("C-c c" . lk/cider-transient)
-         )))
+        ("C-c M-o" . cider-repl-clear-buffer)
+        ("C-c n i " . lk/failed-tests-in-repl-buffer)))
 
 (use-package kaocha-runner :ensure t :after (cider-mode))
 
