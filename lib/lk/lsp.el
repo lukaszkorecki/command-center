@@ -15,7 +15,7 @@
 
 (use-package eglot
   :after (project flymake)
-  :custom ;
+  :custom
   (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
   :hook ((clojure-ts-mode . eglot-ensure)
@@ -27,9 +27,8 @@
          (eglot-managed-mode-hook . (lambda () (flymake-mode t)))
          (eglot-managed-mode-hook . lk/eglot-ensure-root)
          (eglot-managed-mode-hook . (lambda () (eglot-inlay-hints-mode 1))))
-  :config ;
+  :config
   (setq eglot-autoshutdown t)
-
   (setq eglot-autoreconnect t)
   (setq eglot-confirm-server-initiated-edits nil)
 
@@ -53,6 +52,7 @@
    '((sh-mode) . ("bash-language-server" "start"))
    eglot-server-programs :test #'equal)
 
+  ;; TODO: how to clean up all these cl-pushnew into one form?
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l a" . eglot-code-actions )
          ("C-c l g" . xref-find-definitions)

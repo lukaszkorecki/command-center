@@ -49,22 +49,20 @@
 (use-package cider
   :ensure t
   :demand t
-  :pin "melpa"
-  :after (clojure-ts-mode)
 
+  :hook (cider-mode .
+                    (lambda ()
+                      (unbind-key "C-x s" cider-mode-map)
+                      (unbind-key "C-x s" cider-repl-mode-map)))
   :config
-  (unbind-key "C-x s" cider-mode-map)
-  (unbind-key "C-x s" cider-repl-mode-map)
-
   (setq cider-use-xref nil) ;; use clojure-lsp xref instead
   (setq cider-enable-nrepl-jvmti-agent t)
   (setq cider-repl-display-help-banner nil)
   (setq cider-clojure-cli-aliases ":dev/rumble:dev:test")
 
-  :bind
-  (:map cider-repl-mode-map
-        ("C-c M-o" . cider-repl-clear-buffer)
-        ("C-c n i " . lk/failed-tests-in-repl-buffer)))
+  :bind (:map cider-repl-mode-map
+              ("C-c M-o" . cider-repl-clear-buffer)
+              ("C-c n i " . lk/failed-tests-in-repl-buffer)))
 
 (use-package kaocha-runner :ensure t :after (cider-mode))
 

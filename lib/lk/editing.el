@@ -3,11 +3,8 @@
 
 ;;; Code:
 
-
-
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace )
-
 
 ;; add final newline automaticaly
 (setq require-final-newline t)
@@ -33,7 +30,6 @@
   (end-of-line)
   (join-line))
 
-
 ;; Disable certain commands
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -50,7 +46,6 @@
 (global-set-key (kbd "C-x j") 'lk/join-lines)
 
 (global-set-key (kbd "C-c n k") 'lk/show-kill-ring)
-
 
 ;; Editing and general syntax highlighting
 
@@ -71,7 +66,6 @@
   :init (global-set-key (kbd "C-x R") 'vr/replace)
   :bind (( "C-x R" . vr/replace)))
 
-
 ;; no backup files
 (setq-default make-backup-files nil)
 ;; no lockfiles
@@ -81,29 +75,23 @@
 (setq auto-save-file-name-transforms
       '((".*" "~/.emacs_autosave/" t)))
 
-
 (use-package string-inflection
   :ensure t
-  :defer t
-  :init ;
-  ;; quick dispatch
-  ;; custom transient layer for all inflection operations
-  (transient-define-prefix lk/string-inflection
-    ()
-    "Inflect all the things"
-    [["camelCase"
-      ("l" "lowerCamelCase"  string-inflection-lower-camelcase )
-      ("u" "UpperCamelCase"  string-inflection-camelcase )
-      ]
-
-     ["snake_case/underscore"
-      ("s" "snake_case"  string-inflection-underscore )
-      ("k" "SNAKE_CASE"  string-inflection-upcase )]
-
-     ["kebab-case" ("d" "kebab-case"  string-inflection-kebab-case )]])
-
-  (global-set-key (kbd "C-x c l") 'lk/string-inflection))
-
+  :after transient
+  :config
+  (progn
+    (transient-define-prefix lk/string-inflection
+      ()
+      "Inflect all the things"
+      [["camelCase"
+        ("l" "lowerCamelCase"  string-inflection-lower-camelcase )
+        ("u" "UpperCamelCase"  string-inflection-camelcase )]
+       ["snake_case/underscore"
+        ("s" "snake_case"  string-inflection-underscore )
+        ("k" "SNAKE_CASE"  string-inflection-upcase-underscore )]
+       ["kebab-case"
+        ("d" "kebab-case"  string-inflection-kebab-case )]])
+    (global-set-key (kbd "C-x c l") 'lk/string-inflection)))
 
 (use-package undo-tree
   :ensure t
@@ -111,7 +99,6 @@
   :config (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-auto-save-history nil)
   :bind (("C-c u" . undo-tree-visualize)))
-
 
 (put 'narrow-to-region 'disabled nil)
 

@@ -1,4 +1,5 @@
 (use-package markdown-ts-mode
+  :ensure t
   :mode ("\\.md\\'" . markdown-ts-mode)
   :defer 't
   :config (add-to-list 'treesit-language-source-alist
@@ -12,36 +13,6 @@
 (use-package edit-indirect :ensure t)
 
 (require 'edit-indirect)
-
-;; First, let's see what tree-sitter nodes are actually at your cursor:
-(defun lk/debug-markdown-nodes ()
-  "Debug: Show tree-sitter node information at point."
-  (interactive)
-  (if (not (treesit-available-p))
-      (message "Tree-sitter not available!")
-    (let* ((node (treesit-node-at (point)))
-           (parent (treesit-node-parent node))
-           (grandparent (when parent (treesit-node-parent parent))))
-      (message "Node: %s | Parent: %s | Grandparent: %s"
-               (treesit-node-type node)
-               (when parent (treesit-node-type parent))
-               (when grandparent (treesit-node-type grandparent)))
-      ;; Also print to *Messages* with more detail
-      (with-current-buffer (get-buffer-create "*tree-sitter-debug*")
-        (erase-buffer)
-        (insert "=== Tree-sitter Debug Info ===\n\n")
-        (insert
-         (format "Current node: %s\n" (treesit-node-type node)))
-        (insert
-         (format "Node text: %S\n\n" (treesit-node-text node t)))
-        (let ((n node))
-          (dotimes (i 5)
-            (when n
-              (insert
-               (format "Level %d: %s\n" i (treesit-node-type n)))
-              (setq n (treesit-node-parent n)))))
-        (display-buffer (current-buffer))))))
-
 
 (defun lk/markdown-edit-code-block ()
   "Edit the code block at point in a separate buffer with appropriate major mode."
@@ -144,34 +115,6 @@
            ;; Fallback
            (t 'fundamental-mode))))
     (funcall mode)))
-
-;; Debug helper (optional)
-(defun lk/debug-markdown-nodes ()
-  "Debug: Show tree-sitter node information at point."
-  (interactive)
-  (if (not (treesit-available-p))
-      (message "Tree-sitter not available!")
-    (let* ((node (treesit-node-at (point)))
-           (parent (treesit-node-parent node))
-           (grandparent (when parent (treesit-node-parent parent))))
-      (message "Node: %s | Parent: %s | Grandparent: %s"
-               (treesit-node-type node)
-               (when parent (treesit-node-type parent))
-               (when grandparent (treesit-node-type grandparent)))
-      (with-current-buffer (get-buffer-create "*tree-sitter-debug*")
-        (erase-buffer)
-        (insert "=== Tree-sitter Debug Info ===\n\n")
-        (insert
-         (format "Current node: %s\n" (treesit-node-type node)))
-        (insert
-         (format "Node text: %S\n\n" (treesit-node-text node t)))
-        (let ((n node))
-          (dotimes (i 5)
-            (when n
-              (insert
-               (format "Level %d: %s\n" i (treesit-node-type n)))
-              (setq n (treesit-node-parent n)))))
-        (display-buffer (current-buffer))))))
 
 
 (provide 'lk/markdown)

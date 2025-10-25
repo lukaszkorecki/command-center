@@ -27,24 +27,16 @@
 
 
 (use-package project
-  ;; :straight t
   :ensure t
   :after (project-rootfile)
-  :config ;
-
+  :config
   (advice-add #'project-find-regexp :override #'consult-git-grep)
   (advice-add #'project-shell :override #'multi-vterm)
-
-
-
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" ?m)
                '(consult-git-grep "Git grep" ?g))
   (add-to-list 'project-find-functions #'project-rootfile-try-detect t)
-
-
-  :bind-keymap ("C-c p" . project-prefix-map)
-  )
+  :bind-keymap ("C-c p" . project-prefix-map))
 
 (use-package ibuffer-project
   :ensure t
@@ -64,15 +56,12 @@
             "^\\*Apropos"
             "^magit"
             "^\\*copilot.events"
-            "^\\*EGLOT"
-            "^\\*straight"
-            "^\\*monroe nrepl server\\*"
-            "^\\*monroe-connection")))
-
+            "^\\*EGLOT")))
   (ibuffer-update nil t))
 
 
 (use-package ibuffer
+  :ensure t
   :after (project ibuffer-project)
   :bind (("C-x C-b" . ibuffer)
          :map ibuffer-mode-map
@@ -101,7 +90,9 @@
            project-file-relative))))
 
 ;; Enable Vertico
-(use-package vertico :ensure t :init
+(use-package vertico
+  :ensure t
+  :init
   (vertico-mode)
   :bind (( "M-RET" . minibuffer-force-complete-and-exit)
          ( "M-TAB"  . minibuffer-complete)))
@@ -148,23 +139,6 @@
          ("M-g M-g" . consult-goto-line))) ;; Enhanced goto line
 
 
-;; (use-package embark
-;;   :ensure t
-
-;;   :bind (("C-." . embark-act)         ;; pick some comfortable binding
-;;          ("C-;" . embark-dwim)        ;; good alternative: M-.
-;;          ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
-;;   :init ;; Optionally replace the key help with a completing-read interface
-;;   (setq prefix-help-command #'embark-prefix-help-command)
-
-;;   :config
-
-;;   ;; Hide the mode line of the Embark live/completions buffers
-;;   (add-to-list 'display-buffer-alist
-;;                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-;;                  nil
-;;                  (window-parameters (mode-line-format . none)))))
 
 (use-package embark
   :ensure t
@@ -209,8 +183,6 @@
   :ensure t
   :init (setq completion-styles '(orderless)))
 
-
-
 (defun lk/urls-in-buffer->vertico-select->browse ()
   "Find URLs in the current vterm buffer and open the selected one in a browser using vertico/."
   (interactive)
@@ -228,12 +200,10 @@
       (let ((selected-url (completing-read "Select URL: " urls nil t)))
         (browse-url selected-url)))))
 
-(global-set-key
- (kbd "C-x c u")
- 'lk/urls-in-buffer->vertico-select->browse)
+(global-set-key (kbd "C-x c u") 'lk/urls-in-buffer->vertico-select->browse)
 
 ;; Persist history over Emacs restarts
-(use-package savehist :init (savehist-mode))
+(use-package savehist :ensure t :init (savehist-mode))
 
 (use-package ace-window
   :ensure t

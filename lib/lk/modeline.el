@@ -2,7 +2,8 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package s)
+(use-package s
+  :ensure t)
 
 ;; vc mode line needs refreshing every now and then
 (setq auto-revert-check-vc-info t)

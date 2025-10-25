@@ -5,13 +5,6 @@
 
 ;;; Code:
 
-;; (use-package bash-ts-mode
-;;   :straight  (:host github :repo "tree-sitter/tree-sitter-bash")
-;;   :ensure t
-;;   :init (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode)))
-
-;; Utils
-
 ;; When saving a file that starts with `#!', make it executable.
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
@@ -74,21 +67,11 @@
     ;; (xwidget-webkit-browse-url browseable-file-path)
     (browse-url browseable-file-path)))
 
-(use-package jinja2-mode
-  :ensure t
-  :mode ("\\.j2$")
+(use-package jinja2-mode :ensure t :mode ("\\.j2$"))
 
-  )
+(use-package dockerfile-mode :ensure t :mode ("Dockerfile.*"))
 
-(use-package dockerfile-mode
-  :ensure t
-  :mode ("Dockerfile.*")  )
-
-(use-package restclient
-  :ensure t
-  :mode ("\\.restclient\\'")
-
-  )
+(use-package restclient :ensure t :mode ("\\.restclient\\'"))
 
 (use-package terraform-mode
   :ensure t
@@ -98,59 +81,27 @@
   :ensure t
   :config ;
   (setq nginx-indent-offset 2)
-  :mode "\\.conf$"
-  )
+  :mode "\\.conf$")
 
-(use-package yaml-mode
-  :ensure t
-  :init (add-to-list 'auto-mode-alist '("\\.yml$". yaml-mode))
-  (add-to-list 'auto-mode-alist '("\\.yaml$". yaml-mode)))
+(use-package yaml-mode :ensure t :mode ("\\.yml$" "\\.yaml$"))
 
-(use-package swift-mode
-  :ensure t
-  :init (add-to-list 'auto-mode-alist '("\\.swift$" . swift-mode)))
+(use-package swift-mode :ensure t :mode "\\.swift$" )
 
 (use-package json-mode
-  :init (add-to-list 'auto-mode-alist '("\\.avsc$" . json-mode))
-  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-  (setq js-indent-level 2)
-  (keymap-local-unset "C-c C-t")
+  :ensure t
+  :mode (  "\\.avsc$" "\\.json$")
+  :config (setq js-indent-level 2)
+  :hook (json-mode . (lambda () (keymap-local-unset "C-c C-t")))
   :bind (:map json-mode-map
               (("C-x c f" . json-pretty-print-buffer )
                ("C-c C-t" . copilot-complete-at-point))))
-
-;; web-mode stuff
-(use-package web-mode
-  :init (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.hb$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
-  (setq web-mode-engines-alist '(("jinja"    . "\\.j2\\'"))))
-
-;; sh mode
 
 (defun lk/format-current-buffer ()
   "Run shellcheck on current file"
   (interactive)
   (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci %s"))
 
-;; (use-package sh-mode
-;;   :ensure nil
-;;   :hook (sh-mode-hook .
-;;                       (lambda ()
-;;                         (progn
-;;                           (copilot-mode 't)
-;;                           (setq sh-basic-offset 2)
-;;                           (keymap-local-unset "C-c C-t")
-;;                           (define-key sh-mode-map
-;;                                       (kbd "C-x c f")
-;;                                       'lk/format-current-buffer)))))
-
-(use-package go-mode
-  :ensure t
-  :config ;
-  (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
+(use-package go-mode :ensure t :mode "\\.go$"  )
 
 (use-package sqlup-mode
   :ensure t
@@ -164,7 +115,6 @@
 ;; formatter for elisp
 
 (use-package elfmt
-  ;; :straight (:host github :repo "riscy/elfmt" :branch "master")
   :ensure t
   :defer t
   :vc (:url  "https://github.com/riscy/elfmt" )
@@ -172,25 +122,10 @@
               (("C-x c f" . elfmt)
                ("C-x c e" . eval-region))))
 
-(use-package web-mode
+(use-package graphql-mode
   :ensure t
-  :init (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.ts$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx$" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.liquid$" . web-mode))
-  (setq web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2))
-
-;; (use-package graphql-mode
-;;   :ensure t
-
-;;   :config ;
-;;   (setq graphql-indent-level 2)
-;;   (add-to-list 'auto-mode-alist '("\\.graphql$" . graphql-mode))
-;;   (add-to-list 'auto-mode-alist '("\\.gql$" . graphql-mode)))
+  :mode( "\\.graphql$" "\\.gql$" )
+  :config (setq graphql-indent-level 2))
 
 (require 'lk/ruby)
 (require 'lk/js)
