@@ -9,6 +9,14 @@
 
 ;;; Code:
 (load-file "~/.emacs.d/deps.el")
+
+;; customizations file
+(when (file-exists-p "~/.emacs.d/custom.el")
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file))
+
+(setq abbrev-file-name "~/.emacs.d/abbrev.el")
+
 (require 'lk/boot)
 
 (require 'lk/ui)
@@ -29,13 +37,6 @@
   :init (exec-path-from-shell-initialize))
 
 
-;; customizations file
-(when (file-exists-p "~/.emacs.d/custom.el")
-  (setq custom-file "~/.emacs.d/custom.el")
-  (load custom-file))
-
-(setq abbrev-file-name "~/.emacs.d/abbrev.el")
-
 (require 'lk/navigation)
 (require 'lk/autocomplete)
 (require 'copilot)
@@ -48,11 +49,5 @@
 (require 'lk/modeline)
 (require 'lk/proj-mgr)
 
-;; other things
-;; Always start server, useful for things
-(load "server")
-(unless (server-running-p)
-  (server-start))
-
-
 (lk/fix-utf)
+(provide 'init)

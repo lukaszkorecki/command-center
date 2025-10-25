@@ -3,42 +3,59 @@
 
 ;;; Code:
 
-;; Javascripts, Typescripts and all that crap
-(use-package typescript-ts-mode
-  :straight (:host github
-                   :repo "tree-sitter/tree-sitter-typescript"
-                   :path "typescript/src")
-  :after (prettier)
-  :init (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-ts-mode))
-  :config (setq typescript-indent-level 2)
-  (add-hook 'typescript-mode-hook 'prettier-mode)
-  (add-hook 'typescript-ts-mode-hook 'prettier-mode)
-  (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
-  (add-to-list 'major-mode-remap-alist
-               '(typescript-mode . typescript-ts-mode)))
+;; ;; Javascripts, Typescripts and all that crap
+;; (use-package typescript-ts-mode
+;;   ;; :straight (:host github
+;;   ;;                  :repo "tree-sitter/tree-sitter-typescript"
+;;   ;;                  :path "typescript/src")
+;;   :vc (:url "https://github.com/tree-sitter/tree-sitter-typescript"
+;;             :lisp-dir "typescript/src"
+;;             )
+;;   :after (prettier)
+;;   :init (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-ts-mode))
+;;   :config (setq typescript-indent-level 2)
+;;   (add-hook 'typescript-mode-hook 'prettier-mode)
+;;   (add-hook 'typescript-ts-mode-hook 'prettier-mode)
+;;   (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
+;;   (add-to-list 'major-mode-remap-alist
+;;                '(typescript-mode . typescript-ts-mode)))
 
-(use-package tsx-ts-mode
-  :straight (:host github
-                   :repo "tree-sitter/tree-sitter-typescript"
-                   :path "tsx/src")
+;; (use-package tsx-ts-mode
+;;   ;; :straight (:host github
+;;   ;;                  :repo "tree-sitter/tree-sitter-typescript"
+;;   ;;                  :path "tsx/src")
+;;   :vc (:url "https://github.com/tree-sitter/tree-sitter-typescript"
+;;             :lisp-dir "tsx/src"
+;;             )
+;;   :ensure t
+;;   :after (prettier typescript-ts-mode)
+;;   :init (add-to-list 'auto-mode-alist '("\\.tsx$" . tsx-ts-mode))
+;;   (add-hook 'tsx-ts-mode-hook 'prettier-mode)
+;;   :bind (:map tsx-ts-mode-map
+;;               (( "C-x c f" . lk/prettier-format-current-buffer )))
+;;   (:map typescript-mode-map
+;;         (( "C-x c f" . lk/prettier-format-current-buffer ))))
+
+;; (defun  js-mode ())
+
+;; (use-package rjsx-mode
+;;   :init
+;;   (require 'cc-mode)
+;;   (setq js-basic-indent 2)
+;;   (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
+;;   :bind (("C-c C-t" . copilot-accept-completion)))
+
+(use-package web-mode
   :ensure t
-  :after (prettier typescript-ts-mode)
-  :init (add-to-list 'auto-mode-alist '("\\.tsx$" . tsx-ts-mode))
-  (add-hook 'tsx-ts-mode-hook 'prettier-mode)
-  :bind (:map tsx-ts-mode-map
-              (( "C-x c f" . lk/prettier-format-current-buffer )))
-  (:map typescript-mode-map
-        (( "C-x c f" . lk/prettier-format-current-buffer ))))
+  :config ;
+  (add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx$" . web-mode))
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2))
 
-(defun  js-mode ())
 
-(use-package rjsx-mode
-  :init
-  (require 'cc-mode)
-  (setq js-basic-indent 2)
-  (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
-  :bind (("C-c C-t" . copilot-accept-completion)))
-
-(provide 'js)
 (provide 'lk/js)
 ;;; js.el ends here

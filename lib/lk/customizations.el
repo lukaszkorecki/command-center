@@ -26,7 +26,9 @@
 
 
 (use-package which-key
-  :init (setq which-key-show-early-on-C-h t)
+  :ensure t
+  :config
+  (setq which-key-show-early-on-C-h t)
   ;; make sure which-key doesn't show normally but refreshes quickly after it is
   ;; triggered.
   (setq which-key-idle-delay 1000)

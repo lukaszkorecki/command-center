@@ -67,6 +67,7 @@
   (insert-char "\n" 1))
 
 (use-package visual-regexp
+  :ensure t
   :init (global-set-key (kbd "C-x R") 'vr/replace)
   :bind (( "C-x R" . vr/replace)))
 
@@ -82,7 +83,10 @@
 
 
 (use-package string-inflection
-  :init ;; quick dispatch
+  :ensure t
+  :defer t
+  :init ;
+  ;; quick dispatch
   ;; custom transient layer for all inflection operations
   (transient-define-prefix lk/string-inflection
     ()

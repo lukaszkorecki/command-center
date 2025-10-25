@@ -43,7 +43,6 @@
 
 (add-hook 'window-setup-hook 'on-after-init)
 
-
 ;; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -73,7 +72,6 @@
 (setq show-paren-delay 0)
 (global-set-key (kbd "C-c f") 'toggle-frame-maximized)
 
-
 (defun lk/absolute-resize-window (width)
   "Set the window's size to 80 (or prefix arg WIDTH) columns wide."
   (interactive "P")
@@ -102,7 +100,6 @@
                (lambda () (lk/absolute-resize-window 121))))
             :action #'(lambda (x) (funcall (cdr x)))))
 
-
 (global-set-key (kbd "C-c r") 'lk/resize-window)
 
 ;; Fix ansi-term rendering
@@ -110,8 +107,7 @@
 (defun my-term-mode-hook ()
   (setq bidi-paragraph-direction 'left-to-right))
 
-
-(use-package unicode-fonts :config (unicode-fonts-setup))
+(use-package unicode-fonts :ensure t :config (unicode-fonts-setup))
 
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
@@ -141,11 +137,9 @@
 
 ;; custom transient-back window management thing
 
-
 (use-package transpose-frame :ensure t)
 (use-package transient :ensure t)
 (require 'transient)
-
 
 (transient-define-prefix lk/window-mgr
   ()
@@ -159,17 +153,7 @@
 
 (define-key global-map (kbd "C-c t") 'lk/window-mgr)
 
-(use-package alabaster-theme
-  :straight (; use latest
-             :host github
-             :repo "uzhne/alabaster-emacs"
-             :files ("*.el"))
-  :ensure t
-  :config (load-theme 'alabaster t)
-  ;; XXX: alabaster is nice, but doesn't define a color for selected region - let's fix this:
-  (set-face-attribute 'region nil :background "#999999" :foreground "#ffffff"))
-
-
+(use-package espresso-theme :ensure t :init (load-theme 'espresso t))
 
 (provide 'lk/ui)
 ;;; ui.el ends here

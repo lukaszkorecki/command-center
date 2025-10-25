@@ -16,23 +16,12 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
-(use-package treesit-fold
-  :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
-
-  :init (global-treesit-fold-mode t)
-  :bind (("C-c \\" . treesit-fold-toggle)))
-
 (use-package aggressive-indent
   :ensure t
-  :init (add-hook 'prog-mode-hook #'aggressive-indent-mode)
-  (add-hook 'makefile-mode-hook
-            (lambda () (aggressive-indent-mode -1)))
-
-  (add-hook 'clojure-ts-mode-hook
-            (lambda () (aggressive-indent-mode -1)))
-
-  (add-hook 'dockerfile-mode-hook
-            (lambda () (aggressive-indent-mode -1))))
+  :hook (( prog-mode-hook  . aggressive-indent-mode)
+         (makefile-mode-hook . (lambda () (aggressive-indent-mode -1)))
+         (clojure-ts-mode-hook . (lambda () (aggressive-indent-mode -1)))
+         (dockerfile-mode-hook . (lambda () (aggressive-indent-mode -1)))))
 
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
@@ -43,10 +32,9 @@
      'compilation-mode)
     (revert-buffer :ignore-auto :noconfirm)))
 
-
-
 (use-package python-mode
-  :init ;
+  :ensure t
+  :config ;
   (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
 
 ;; helpers for markdown and writing in general
@@ -64,7 +52,6 @@
   "Insert a random UUID at point."
   (interactive)
   (insert (uuid-string)))
-
 
 (defun lk/insert-md-callout (callout-type)
   "Insert a markdown callout of type CALLOUT-TYPE at point."
@@ -87,23 +74,32 @@
     ;; (xwidget-webkit-browse-url browseable-file-path)
     (browse-url browseable-file-path)))
 
-
 (use-package jinja2-mode
-  :init (add-to-list 'auto-mode-alist '("\\.j2$" . jinja2-mode)))
+  :ensure t
+  :mode ("\\.j2$")
+
+  )
 
 (use-package dockerfile-mode
-  :init (add-to-list 'auto-mode-alist '("Dockerfile.*" . dockerfile-mode)))
+  :ensure t
+  :mode ("Dockerfile.*")  )
 
 (use-package restclient
   :ensure t
-  :init (add-to-list 'auto-mode-alist
-                     '("\\.restclient\\'" . restclient-mode)))
+  :mode ("\\.restclient\\'")
+
+  )
 
 (use-package terraform-mode
+  :ensure t
   :bind (:map terraform-mode-map (("C-x c f" . terraform-format-buffer))))
 
-
-(use-package nginx-mode :init (setq nginx-indent-offset 2))
+(use-package nginx-mode
+  :ensure t
+  :config ;
+  (setq nginx-indent-offset 2)
+  :mode "\\.conf$"
+  )
 
 (use-package yaml-mode
   :ensure t
@@ -139,42 +135,42 @@
   (interactive)
   (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci %s"))
 
-
-(use-package sh-mode
-  :init
-  (add-hook 'sh-mode-hook
-            (lambda ()
-              (progn
-                (copilot-mode 't)
-                (setq sh-basic-offset 2)
-                (keymap-local-unset "C-c C-t")
-                (define-key sh-mode-map
-                            (kbd "C-x c f")
-                            'lk/format-current-buffer)))))
-
+;; (use-package sh-mode
+;;   :ensure nil
+;;   :hook (sh-mode-hook .
+;;                       (lambda ()
+;;                         (progn
+;;                           (copilot-mode 't)
+;;                           (setq sh-basic-offset 2)
+;;                           (keymap-local-unset "C-c C-t")
+;;                           (define-key sh-mode-map
+;;                                       (kbd "C-x c f")
+;;                                       'lk/format-current-buffer)))))
 
 (use-package go-mode
-  :init (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
-
+  :ensure t
+  :config ;
+  (add-to-list 'auto-mode-alist '("\\.go$" . go-mode)))
 
 (use-package sqlup-mode
-  :init (add-hook 'sql-mode-hook 'sqlup-mode)
-  (mapc
-   (lambda (kw)
-     (require 'sqlup-mode)
-     (add-to-list 'sqlup-blacklist kw))
-   '("name" "key" "value" "id"  "source" "type" "to" "user" "at" "role" "current_role" )))
-
-
+  :ensure t
+  :hook (sql-mode-hook . sqlup-mode)
+  :init (mapc
+         (lambda (kw)
+           (require 'sqlup-mode)
+           (add-to-list 'sqlup-blacklist kw))
+         '("name" "key" "value" "id"  "source" "type" "to" "user" "at" "role" "current_role" )))
 
 ;; formatter for elisp
 
 (use-package elfmt
-  :straight (:host github :repo "riscy/elfmt" :branch "master")
+  ;; :straight (:host github :repo "riscy/elfmt" :branch "master")
+  :ensure t
+  :defer t
+  :vc (:url  "https://github.com/riscy/elfmt" )
   :bind (:map emacs-lisp-mode-map
               (("C-x c f" . elfmt)
                ("C-x c e" . eval-region))))
-
 
 (use-package web-mode
   :ensure t
@@ -188,11 +184,13 @@
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2))
 
-(use-package graphql-mode
-  :ensure t
-  :init (add-to-list 'auto-mode-alist '("\\.graphql$" . graphql-mode))
-  (add-to-list 'auto-mode-alist '("\\.gql$" . graphql-mode))
-  :config (setq graphql-indent-level 2))
+;; (use-package graphql-mode
+;;   :ensure t
+
+;;   :config ;
+;;   (setq graphql-indent-level 2)
+;;   (add-to-list 'auto-mode-alist '("\\.graphql$" . graphql-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.gql$" . graphql-mode)))
 
 (require 'lk/ruby)
 (require 'lk/js)
@@ -200,6 +198,7 @@
 (require 'lk/markdown)
 
 (use-package hl-todo
+  :ensure t
   :diminish hl-todo
   :config (setq hl-todo-highlight-punctuation ":"
                 hl-todo-keyword-faces
@@ -209,9 +208,8 @@
                   ("XXX"     font-lock-keyword-face bold)
                   ("INFO"       success bold)
                   ("NOTE"       success bold)))
-  (add-hook 'prog-mode-hook #'hl-todo-mode)
-  (add-hook 'yaml-mode-hook #'hl-todo-mode))
-
+  :hook ((prog-mode-hook . hl-todo-mode)
+         (yaml-mode-hook  .hl-todo-mode)))
 
 (provide 'lk/lang)
 ;;; lang.el ends here

@@ -1,6 +1,8 @@
 
 (setenv "INSIDE_EMACS" "TRUE")
-(use-package better-defaults)
+
+(use-package better-defaults
+  :ensure t)
 
 ;; reduce GC thrash
 (setq read-process-output-max (* 1024 1024)) ;; 1mb

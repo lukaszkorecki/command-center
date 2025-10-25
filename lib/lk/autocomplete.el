@@ -4,46 +4,28 @@
 ;;; Code:
 
 
-(use-package company
-  :config (setq company-idle-delay 0.5)
-  (setq company-show-numbers t)
-  (setq company-tooltip-limit 10)
-  (setq company-minimum-prefix-length 2)
-  (setq company-tooltip-align-annotations t)
-  ;; invert the navigation direction if the the completion popup-isearch-match
-  ;; is displayed on top (happens near the bottom of windows)
-  (setq company-tooltip-flip-when-above t)
-  :init
-  (global-company-mode)
-  :bind (( "C-c M-c" . company-complete)
-         :map company-active-map
-         ("C-n" . company-select-next)
-         ("C-p" . company-select-previous)
-         ("C-d" . company-show-doc-buffer)
-         ("<tab>" . company-complete-selection)
-         :map company-search-map
-         ("C-n" . company-select-next)
-         ("C-p" . company-select-previous)))
-
-
-(use-package company-box
-  :ensure t
-  :after (company)
-  :hook (company-mode . company-box-mode)
-  :init (global-company-mode))
-
 (use-package yasnippet
-  :init (yas-global-mode t)
+  :ensure t
+  :demand t
   :bind (("C-c i" . yas-insert-snippet)))
 
-(use-package editorconfig)
-(use-package jsonrpc)
-(use-package f)
+(use-package editorconfig
+  :ensure t  )
+
+(use-package jsonrpc
+  :ensure t)
+
+(use-package f
+  :ensure t)
+
 
 (use-package copilot
-  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-  :ensure t
-  :after (editorconfig jsonrpc f company company-box)
+  ;;  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+  :vc (:url "https://github.com/copilot-emacs/copilot.el"
+	          :rev :newest
+            :branch "main")
+  :defer t
+  :after (editorconfig jsonrpc f)
   :ensure t
   :config ;
   (setq copilot-max-char 1000000)
@@ -56,59 +38,36 @@
                '((copilot copilot-no-mode-indent)))
   (add-to-list 'warning-suppress-types
                '((copilot--infer-indentation-offset)))
-
-
   (add-to-list 'warning-suppress-types
                '((copilot--infer-indentation-offset)))
 
-  (add-hook 'emacs-lisp-mode-hook 'copilot-mode)
-  (add-hook 'clojure-ts-mode-hook 'copilot-mode)
-  (add-hook 'clojure-mode-hook 'copilot-mode)
-  (add-hook 'typescript-ts-mode-hook 'copilot-mode)
-  (add-hook 'tsx-ts-mode-hook 'copilot-mode)
-  (add-hook 'terraform-mode-hook 'copilot-mode)
-  (add-hook 'python-mode-hook 'copilot-mode)
-  (add-hook 'go-ts-mode-hook 'copilot-mode)
-  (add-hook 'json-mode-hook 'copilot-mode)
-  (add-hook 'javascript-ts-mode-hook 'copilot-mode)
-  (add-hook 'rjsx-mode-hook 'copilot-mode)
-  (add-hook 'ruby-ts-mode-hook 'copilot-mode)
-  (add-hook 'markdown-ts-mode-hook 'copilot-mode)
-
-  ;; XXX: this basically is here because some major modes set C-c C-t to something else
-  (global-unset-key (kbd "C-c C-t"))
-  (global-set-key (kbd "C-c TAB") 'copilot-accept-completion)
-
+  ;; :hook (prog-mode-hook . copilot-mode)
   :bind (("C-x c c" . copilot-accept-completion)))
 
-;; add a hook, whenever copilot-mode is activated in a buffer, add global mapping for C-c TAB
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (when copilot-mode
-              (local-set-key (kbd "C-c TAB") 'copilot-accept-completion)
-              (local-set-key (kbd "C-c C-t") 'copilot-accept-completion)
-              )))
-
 (use-package shell-maker
-  :straight (; use latest
-             :host github ;
-             :repo "xenodium/shell-maker" ;
-             :files ("shell-maker.el" "markdown-overlays.el"))
+  ;; :straight (; use latest
+  ;;            :host github ;
+  ;;            :repo "xenodium/shell-maker" ;
+  ;;            :files ("shell-maker.el" "markdown-overlays.el"))
+  ;; :vc (:url  "https://github.com/xenodium/shell-maker" )
   :ensure t)
 
 (use-package acp
-  :straight (; use latest
-             :host github
-             :repo "xenodium/acp.el")
+  ;; :straight (; use latest
+  ;;            :host github
+  ;;            :repo "xenodium/acp.el")
+  :vc (:url  "https://github.com/xenodium/acp.el" )
   :after (shell-maker)
   :ensure t)
 
 
 (use-package agent-shell
-  :straight (; use latest
-             :host github :repo "xenodium/agent-shell")
-  :after (acp shell-maker)
+  ;; :straight (; use latest
+  ;;            :host github :repo "xenodium/agent-shell")
+  :vc (:url   "https://github.com/xenodium/agent-shell" :rev :latest :branch "main")
+  :after (acp shell-maker company)
   :ensure t
+  :defer t
   :config (setq agent-shell-google-authentication
                 (agent-shell-google-make-authentication :vertex-ai t)))
 
