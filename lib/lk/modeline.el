@@ -2,15 +2,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package s
-  :ensure t)
-
-;; vc mode line needs refreshing every now and then
-(setq auto-revert-check-vc-info t)
-
-(defun vc-status-mode-line ()
-  "Builds a source control string or nil."
-  (when vc-mode `(,(s-trim (substring-no-properties vc-mode)))))
+(use-package s :ensure t)
 
 ;; track the selected window and use that control what the mode-line shows
 ;; stolen from https://emacs.stackexchange.com/a/26345/13060
@@ -35,11 +27,7 @@
                   (selected-window)
                   'ace-window-path))
                ;; buffername, line, column, mode
-               " / %b / L:%l C:%c / %m / "
-               '(:eval
-                 (when (eq lk/selected-window (selected-window))
-                   '(:eval (vc-status-mode-line))))))
-
+               " / %b / L:%l C:%c / %m / "))
 
 (provide 'lk/modeline)
 ;;; modeline.el ends here
