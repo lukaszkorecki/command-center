@@ -16,7 +16,7 @@
   (load custom-file))
 
 (setq abbrev-file-name "~/.emacs.d/abbrev.el")
-
+(require 'transient)
 (require 'lk/boot)
 
 (require 'lk/ui)

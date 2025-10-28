@@ -24,7 +24,6 @@
          (tsx-ts-mode . eglot-ensure)
          (rjsx-mode . eglot-ensure)
          (python-mode . eglot-ensure)
-         (eglot-managed-mode-hook . (lambda () (flymake-mode t)))
          (eglot-managed-mode-hook . lk/eglot-ensure-root)
          (eglot-managed-mode-hook . (lambda () (eglot-inlay-hints-mode 1))))
   :config

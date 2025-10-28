@@ -137,21 +137,23 @@
 
 ;; custom transient-back window management thing
 
-(use-package transpose-frame :ensure t)
 (use-package transient :ensure t)
 (require 'transient)
 
-(transient-define-prefix lk/window-mgr
-  ()
-  "Shortcuts for moving windows/frames around"
-  ["Window Management"
-   ("t" "Transpose" transpose-frame)
-   ("r" "Rotate" rotate-frame)
-   ("f" "Flip" flip-frame)
-   ("F" "Flop" flop-frame)
-   ])
+(use-package transpose-frame
+  :ensure t
+  :config
+  (require 'transient)
+  (transient-define-prefix lk/window-mgr
+    ()
+    "Shortcuts for moving windows/frames around"
+    ["Window Management"
+     ("t" "Transpose" transpose-frame)
+     ("r" "Rotate" rotate-frame)
+     ("f" "Flip" flip-frame)
+     ("F" "Flop" flop-frame)])
 
-(define-key global-map (kbd "C-c t") 'lk/window-mgr)
+  (define-key global-map (kbd "C-c t") 'lk/window-mgr))
 
 (use-package espresso-theme :ensure t :init (load-theme 'espresso t))
 

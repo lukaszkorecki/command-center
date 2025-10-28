@@ -9,22 +9,23 @@
      default))
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(package-selected-packages
-   '(ace-window agent-shell aggressive-indent alabaster-theme
-                better-defaults copilot dockerfile-mode edit-indirect
-                elfmt embark-consult espresso-theme
-                exec-path-from-shell git git-link go-mode graphql-mode
-                hl-todo ibuffer-project jinja2-mode json-mode
-                kaocha-runner keychain-environment load-env-vars
-                logview magit marginalia markdown-ts-mode mermaid-mode
-                mise multi-vterm nginx-mode orderless project-rootfile
-                python-mode restclient sqlup-mode string-inflection
-                swift-mode terraform-mode transpose-frame undo-tree
-                unicode-fonts vertico visual-regexp web-mode yaml-mode
-                yasnippet))
+   '(ace-window agent-shell aggressive-indent better-defaults copilot
+                dockerfile-mode edit-indirect elfmt embark-consult
+                espresso-theme exec-path-from-shell git git-link
+                go-mode graphql-mode hl-todo ibuffer-project
+                jinja2-mode json-mode kaocha-runner
+                keychain-environment load-env-vars magit marginalia
+                markdown-ts-mode mermaid-mode mise multi-vterm
+                nginx-mode orderless project-rootfile python-mode
+                restclient sqlup-mode string-inflection swift-mode
+                terraform-mode transpose-frame undo-tree unicode-fonts
+                vertico visual-regexp web-mode yaml-mode yasnippet))
  '(package-vc-selected-packages
    '((elfmt :url "https://github.com/riscy/elfmt")
      (agent-shell :url "https://github.com/xenodium/agent-shell"
-                  :branch "main"))))
+                  :branch "main")
+     (copilot :url "https://github.com/copilot-emacs/copilot.el"
+              :branch "main"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
