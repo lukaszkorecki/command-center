@@ -78,20 +78,20 @@
 (use-package string-inflection
   :ensure t
   :after transient
-  :config
-  (progn
-    (transient-define-prefix lk/string-inflection
-      ()
-      "Inflect all the things"
-      [["camelCase"
-        ("l" "lowerCamelCase"  string-inflection-lower-camelcase )
-        ("u" "UpperCamelCase"  string-inflection-camelcase )]
-       ["snake_case/underscore"
-        ("s" "snake_case"  string-inflection-underscore )
-        ("k" "SNAKE_CASE"  string-inflection-upcase-underscore )]
-       ["kebab-case"
-        ("d" "kebab-case"  string-inflection-kebab-case )]])
-    (global-set-key (kbd "C-x c l") 'lk/string-inflection)))
+  :config (progn
+            (transient-define-prefix lk/string-inflection
+              ()
+              "Inflect all the things"
+              [["camelCase"
+                ("l" "lowerCamelCase"  string-inflection-lower-camelcase )
+                ("u" "UpperCamelCase"  string-inflection-camelcase )
+                ]
+               ["snake_case/underscore"
+                ("s" "snake_case"  string-inflection-underscore )
+                ("k" "SNAKE_CASE"  string-inflection-upcase-underscore )
+                ]
+               ["kebab-case" ("d" "kebab-case"  string-inflection-kebab-case )]])
+            (global-set-key (kbd "C-x c l") 'lk/string-inflection)))
 
 (use-package undo-tree
   :ensure t
@@ -101,6 +101,10 @@
   :bind (("C-c u" . undo-tree-visualize)))
 
 (put 'narrow-to-region 'disabled nil)
+
+(use-package mutliple-cursors
+  :ensure t
+  :bind (("C-c a" . mc/mark-all-like-this)))
 
 (provide 'lk/editing)
 ;;; editing.el ends here

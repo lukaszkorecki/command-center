@@ -16,11 +16,11 @@
                 jinja2-mode json-mode kaocha-runner
                 keychain-environment load-env-vars magit marginalia
                 markdown-ts-mode mermaid-mode mise multi-vterm
-                nginx-mode orderless project-rootfile python-mode
-                restclient sqlup-mode string-inflection swift-mode
-                terraform-mode time-zones transpose-frame undo-tree
-                unicode-fonts vertico visual-regexp web-mode yaml-mode
-                yasnippet))
+                mutliple-cursors nginx-mode orderless project-rootfile
+                python-mode restclient sqlup-mode string-inflection
+                swift-mode terraform-mode time-zones
+                transpose-frame undo-tree unicode-fonts vertico
+                visual-regexp web-mode yaml-mode yasnippet))
  '(package-vc-selected-packages
    '((elfmt :url "https://github.com/riscy/elfmt")
      (agent-shell :url "https://github.com/xenodium/agent-shell"
