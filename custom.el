@@ -18,8 +18,9 @@
                 markdown-ts-mode mermaid-mode mise multi-vterm
                 nginx-mode orderless project-rootfile python-mode
                 restclient sqlup-mode string-inflection swift-mode
-                terraform-mode transpose-frame undo-tree unicode-fonts
-                vertico visual-regexp web-mode yaml-mode yasnippet))
+                terraform-mode time-zones transpose-frame undo-tree
+                unicode-fonts vertico visual-regexp web-mode yaml-mode
+                yasnippet))
  '(package-vc-selected-packages
    '((elfmt :url "https://github.com/riscy/elfmt")
      (agent-shell :url "https://github.com/xenodium/agent-shell"

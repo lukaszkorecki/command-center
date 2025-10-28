@@ -23,10 +23,6 @@
 (require 'lk/setup-path)
 
 (require 'lk/secrets)
-(lk/load-secrets-from-1p nil)
-
-(when (file-exists-p "~/.private/work-secrets.el")
-  (load-file "~/.private/work-secrets.el"))
 
 ;; saner regex
 (require 're-builder)
