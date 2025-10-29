@@ -39,8 +39,7 @@
   ;; :hook (prog-mode-hook . copilot-mode)
   :bind (("C-x c c" . copilot-accept-completion)))
 
-(use-package shell-maker
-  :ensure t)
+(use-package shell-maker :ensure t)
 
 (use-package acp
   :vc (:url  "https://github.com/xenodium/acp.el" )
@@ -53,7 +52,9 @@
   :ensure t
   :defer t
   :config (setq agent-shell-google-authentication
-                (agent-shell-google-make-authentication :vertex-ai t)))
+                (agent-shell-google-make-authentication :vertex-ai t))
+
+  (setopt agent-shell-file-completion-enabled t))
 
 (provide 'lk/autocomplete)
 

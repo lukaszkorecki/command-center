@@ -9,6 +9,11 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
+;; saner regex
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
+
 (use-package aggressive-indent
   :ensure t
   :hook (( prog-mode-hook  . aggressive-indent-mode)
@@ -29,43 +34,6 @@
   :ensure t
   :config ;
   (add-to-list 'auto-mode-alist '("\\.py$" . python-mode)))
-
-;; helpers for markdown and writing in general
-(defun lk/insert-current-date ()
-  "Insert current date at point."
-  (interactive)
-  (insert (format-time-string "%Y-%m-%d")))
-
-(defun lk/insert-current-date-time ()
-  "Insert current date at point."
-  (interactive)
-  (insert (format-time-string "%Y-%m-%d %H:%M")))
-
-(defun lk/insert-random-uuid ()
-  "Insert a random UUID at point."
-  (interactive)
-  (insert (uuid-string)))
-
-(defun lk/insert-md-callout (callout-type)
-  "Insert a markdown callout of type CALLOUT-TYPE at point."
-  (interactive "sCallout type: ")
-  (insert (format "> [!%s]\n" callout-type)))
-
-(defun lk/gh-preview-markdown ()
-  "Preview markdown file in browser by rendeding it to html using `ghmd-preview` script
-  which returns the local file path of the rendered html."
-  (interactive)
-  (let* ((file-name (buffer-file-name))
-         ;;         (tmp-file-name (format "%s.html" (make-temp-file "ghmd-preview")))
-         ;; create preview next to the original file but with .html extension added)
-         (preview-file-name (concat file-name ".html"))
-         (html-file
-          (shell-command-to-string
-           (format "ghmd-preview -f %s -o %s" file-name preview-file-name)))
-         (browseable-file-path (format "file://%s" html-file)))
-    (message "Previewing %s" browseable-file-path)
-    ;; (xwidget-webkit-browse-url browseable-file-path)
-    (browse-url browseable-file-path)))
 
 (use-package jinja2-mode :ensure t :mode ("\\.j2$"))
 
@@ -139,11 +107,6 @@
   :mode( "\\.graphql$" "\\.gql$" )
   :config (setq graphql-indent-level 2))
 
-(require 'lk/ruby)
-(require 'lk/js)
-(require 'lk/clojure)
-(require 'lk/markdown)
-
 (use-package hl-todo
   :ensure t
   :diminish hl-todo
@@ -157,6 +120,12 @@
                   ("NOTE"       success bold)))
   :hook ((prog-mode-hook . hl-todo-mode)
          (yaml-mode-hook  .hl-todo-mode)))
+
+
+(require 'lk/ruby)
+(require 'lk/js)
+(require 'lk/clojure)
+(require 'lk/markdown)
 
 (provide 'lk/lang)
 ;;; lang.el ends here
