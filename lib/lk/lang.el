@@ -122,6 +122,18 @@
               (("C-x c f" . elfmt)
                ("C-x c e" . eval-region))))
 
+(use-package sh-mode
+  :ensure nil
+  :mode ("zshrc" "\\.sh$")
+
+
+  :config
+  (setq sh-basic-offset 2)
+  (setq indent-tabs-mode nil)
+
+  (setq tab-width 2)
+  (setq standard-indent 2))
+
 (use-package graphql-mode
   :ensure t
   :mode( "\\.graphql$" "\\.gql$" )
