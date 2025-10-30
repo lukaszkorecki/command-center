@@ -18,5 +18,9 @@
   :ensure t
   :init (exec-path-from-shell-initialize))
 
+(use-package keychain-environment
+  :ensure t
+  :init (keychain-refresh-environment))
+
 (provide 'lk/env-path)
 ;;; env-path.el ends here

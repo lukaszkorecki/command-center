@@ -35,12 +35,10 @@
   (interactive)
   (lk/kill-buffers-by-major-mode 'vterm-mode))
 
-(use-package keychain-environment
+(use-package vterm-anti-flicker-filter
   :ensure t
-  :init (keychain-refresh-environment))
+  :vc (:url "https://github.com/martinbaillie/vterm-anti-flicker-filter"))
 
-(use-package time-zones
-  :vc (:url "https://github.com/xenodium/time-zones"))
 
 (provide 'lk/terminal)
 ;;; terminal.el ends here

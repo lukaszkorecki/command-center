@@ -81,6 +81,7 @@
   :ensure t
   :after transient
   :config (progn
+            (require 'string-inflection)
             (transient-define-prefix lk/string-inflection
               ()
               "Inflect all the things"
@@ -104,7 +105,7 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-(use-package mutliple-cursors
+(use-package multiple-cursors
   :ensure t
   :bind (("C-c a" . mc/mark-all-like-this)))
 

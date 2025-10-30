@@ -63,6 +63,8 @@
 ;; project dashboard: transient-based project management
 (require 'lk/project-dashboard)
 
+(require 'lk/apps)
+
 ;; HACK
 (lk/fix-utf)
 
