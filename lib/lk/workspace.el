@@ -1,5 +1,7 @@
-;;; navigation.el --- ...
+;;; workspace.el --- Workspace management: projects, buffers, completion, navigation
 ;;; Commentary:
+;;; Manages the Emacs workspace including project.el integration, buffer management,
+;;; completion framework (vertico, consult, embark), and window navigation.
 
 ;;; Code:
 (use-package project-rootfile :ensure t)
@@ -232,5 +234,5 @@
    (buffer-list)))
 
 
-(provide 'lk/navigation)
-;;; navigation.el ends here
+(provide 'lk/workspace)
+;;; workspace.el ends here

@@ -1,6 +1,7 @@
-                                        ; -*- lexical-binding: t; -*-
-;;; ui.el --- ...
+;;; display.el --- Display configuration: frames, fonts, colors, window management
 ;;; Commentary:
+;;; Configures the visual appearance of Emacs including fonts, frame settings,
+;;; theme, window management, and custom display functions.
 
 ;;; Code:
 (setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
@@ -157,5 +158,5 @@
 
 (use-package espresso-theme :ensure t :init (load-theme 'espresso t))
 
-(provide 'lk/ui)
-;;; ui.el ends here
+(provide 'lk/display)
+;;; display.el ends here

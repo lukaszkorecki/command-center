@@ -1,5 +1,7 @@
-;;; autocomplete.el --- ...
+;;; ai-assistance.el --- AI-powered coding assistance
 ;;; Commentary:
+;;; Integrates AI tools for code completion and assistance including
+;;; GitHub Copilot, agent-shell, and acp. Also includes yasnippet and editorconfig.
 
 ;;; Code:
 
@@ -56,6 +58,6 @@
 
   (setopt agent-shell-file-completion-enabled t))
 
-(provide 'lk/autocomplete)
+(provide 'lk/ai-assistance)
 
-;;; autocomplete.el ends here
+;;; ai-assistance.el ends here

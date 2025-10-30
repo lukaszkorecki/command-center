@@ -1,4 +1,9 @@
-;; -*- lexical-binding: t; -*-
+;;; terminal.el --- Terminal and utility tools
+;;; Commentary:
+;;; Configures vterm for terminal emulation, mermaid for diagrams,
+;;; keychain for SSH key management, and time-zones utility.
+
+;;; Code:
 
 (use-package mermaid-mode
   :ensure t
@@ -37,4 +42,5 @@
 (use-package time-zones
   :vc (:url "https://github.com/xenodium/time-zones"))
 
-(provide 'lk/tools)
+(provide 'lk/terminal)
+;;; terminal.el ends here

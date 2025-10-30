@@ -1,7 +1,8 @@
-;;; lang.el --- programming language customizations
+;;; prog-modes.el --- Programming language modes and configurations
 ;;; Commentary:
-;;; For now all of these are groupped together but if some modes need more
-;;; space, they will be moved to separate files
+;;; Configures various programming language major modes including Python, JavaScript,
+;;; Ruby, Clojure, Go, Terraform, Shell, JSON, YAML, and more.
+;;; Language-specific configurations are in separate files (ruby, js, clojure, markdown).
 
 ;;; Code:
 
@@ -127,5 +128,5 @@
 (require 'lk/clojure)
 (require 'lk/markdown)
 
-(provide 'lk/lang)
-;;; lang.el ends here
+(provide 'lk/prog-modes)
+;;; prog-modes.el ends here

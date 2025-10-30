@@ -1,6 +1,8 @@
-;;;; lk/customipaczations.el -- custom functions which make using emacs easier
+;;; system-tweaks.el --- Platform-specific customizations
 ;;; Commentary:
-;;; If stuff grows too big, move it out to a separate file
+;;; Contains platform-specific tweaks (primarily macOS) and general Emacs
+;;; enhancements like which-key. Custom helper functions that make using Emacs easier.
+
 ;;; Code:
 
 
@@ -35,5 +37,5 @@
   (setq which-key-idle-secondary-delay 0.05)
   (which-key-mode))
 
-(provide 'lk/customizations)
-;;; customizations.el ends here
+(provide 'lk/system-tweaks)
+;;; system-tweaks.el ends here

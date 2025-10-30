@@ -1,12 +1,8 @@
-;;; proj-mgr.el --- ...
+;;; project-dashboard.el --- Transient-based project management dashboard
 ;;; Commentary:
-;; Transient powered coding project management dashboard. Currently supports:
-;; - Clojure
-;; Planned
-;; - Terraform
-;; - Javascript (?)
-;; - shell (?)
-
+;;; Provides a transient-powered coding project management dashboard with
+;;; project-aware actions, git integration, and repository utilities.
+;;; Currently supports Clojure projects with plans for Terraform, JavaScript, and shell.
 
 ;;; Code:
 
@@ -163,4 +159,5 @@
           ("p" . disproject-dispatch)))
 
 
-(provide 'lk/proj-mgr)
+(provide 'lk/project-dashboard)
+;;; project-dashboard.el ends here

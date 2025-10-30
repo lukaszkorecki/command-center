@@ -1,3 +1,10 @@
+;;; env-path.el --- Environment PATH configuration
+;;; Commentary:
+;;; Configures PATH and exec-path to ensure custom executables work
+;;; in both terminal and GUI Emacs.
+
+;;; Code:
+
 ;; Make all custom executables work in terminal and GUI emacs
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.emacs.d/etc/bin")
@@ -6,9 +13,10 @@
         (concat
          (getenv "PATH")
          ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/bin"))
-o
+
 (use-package exec-path-from-shell
   :ensure t
   :init (exec-path-from-shell-initialize))
 
-(provide 'lk/setup-path)
+(provide 'lk/env-path)
+;;; env-path.el ends here

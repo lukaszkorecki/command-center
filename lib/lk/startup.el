@@ -19,4 +19,10 @@
 (use-package mise
   :ensure t)
 
-(provide 'lk/boot)
+;;; startup.el --- Initial environment setup, GC settings, mise
+;;; Commentary:
+;;; Sets up the initial Emacs environment with better defaults,
+;;; configures garbage collection for better performance, and loads mise.
+
+(provide 'lk/startup)
+;;; startup.el ends here

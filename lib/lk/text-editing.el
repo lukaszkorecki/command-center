@@ -1,5 +1,7 @@
-;;; editing.el --- ...
+;;; text-editing.el --- Text editing behavior and utilities
 ;;; Commentary:
+;;; Configures general text editing behavior including indentation, whitespace handling,
+;;; string manipulation, visual regexp, undo-tree, and multiple cursors.
 
 ;;; Code:
 
@@ -106,5 +108,5 @@
   :ensure t
   :bind (("C-c a" . mc/mark-all-like-this)))
 
-(provide 'lk/editing)
-;;; editing.el ends here
+(provide 'lk/text-editing)
+;;; text-editing.el ends here
