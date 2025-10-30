@@ -38,7 +38,7 @@
   (add-to-list 'warning-suppress-types
                '((copilot--infer-indentation-offset)))
 
-  ;; :hook (prog-mode-hook . copilot-mode)
+  :hook (prog-mode-hook . copilot-mode)
   :bind (("C-x c c" . copilot-accept-completion)))
 
 (use-package shell-maker :ensure t)

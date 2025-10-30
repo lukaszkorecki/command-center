@@ -31,27 +31,13 @@
   (setq eglot-autoreconnect t)
   (setq eglot-confirm-server-initiated-edits nil)
 
-  (cl-pushnew
-   '((tsx-ts-mode) . ("typescript-language-server" "--stdio"))
-   eglot-server-programs :test #'equal)
-
-  (cl-pushnew
-   '((rjsx-mode) . ("typescript-language-server" "--stdio"))
-   eglot-server-programs :test #'equal)
-
-  (cl-pushnew
-   '((typescript-ts-mode) . ("typescript-language-server" "--stdio"))
-   eglot-server-programs :test #'equal)
+  (cl-pushnew '((web-mode) . ("typescript-language-server" "--stdio"))
+              eglot-server-programs :test #'equal)
 
   (cl-pushnew
    '((terraform-mode) . ("terraform-ls" "serve"))
    eglot-server-programs :test #'equal)
 
-  (cl-pushnew
-   '((sh-mode) . ("bash-language-server" "start"))
-   eglot-server-programs :test #'equal)
-
-  ;; TODO: how to clean up all these cl-pushnew into one form?
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l a" . eglot-code-actions )
          ("C-c l g" . xref-find-definitions)
