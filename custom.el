@@ -7,8 +7,20 @@
  '(custom-safe-themes
    '("c23446c6dd105f7eda80655f500e8554d701c7729867a1ad578c211b47a25482"
      default))
- '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(ace-window agent-shell aggressive-indent better-defaults copilot
+                disproject dockerfile-mode edit-indirect elfmt
+                embark-consult espresso-theme exec-path-from-shell git
+                git-link go-mode graphql-mode hl-todo ibuffer-project
+                jinja2-mode json-mode kaocha-runner
+                keychain-environment load-env-vars magit marginalia
+                markdown-ts-mode mermaid-mode mise multi-vterm
+                nginx-mode orderless project-rootfile python-mode
+                restclient sqlup-mode string-inflection swift-mode
+                symbol-overlay-mc terraform-mode time-zones
+                transpose-frame undo-tree unicode-fonts vertico
+                visual-regexp vterm-anti-flicker-filter web-mode
+                yaml-mode yasnippet))
  '(package-vc-selected-packages
    '((vterm-anti-flicker-filter :url
                                 "https://github.com/martinbaillie/vterm-anti-flicker-filter")
