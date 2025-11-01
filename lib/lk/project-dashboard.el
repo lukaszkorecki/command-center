@@ -39,13 +39,10 @@
             '(-1)
             ["Tools"
              :advice disproject-with-env-apply
-             ("t"  "start vterm"  multi-vterm-project)
-             ("s" "magit status" magit-status)
-             ("g" "git grep" consult-git-grep)
-             ("b" "view repo in browser" lk/open-repo-in-gh)
-             ("p" "view or create PR in browser" lk/view-or-create-pr)
-
-             ]))
+             ("T"  "start vterm"  multi-vterm-project)
+             ("M" "magit status" magit-status)
+             ("S" "git grep" consult-git-grep)
+             ("P" "view or create PR in browser" lk/view-or-create-pr)]))
 
 (provide 'lk/project-dashboard)
 ;;; project-dashboard.el ends here
