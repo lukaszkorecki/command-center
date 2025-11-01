@@ -17,7 +17,6 @@
 (use-package f :ensure t)
 
 (use-package copilot
-  ;;  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
   :vc (:url "https://github.com/copilot-emacs/copilot.el"
 	          :rev :newest
             :branch "main")
@@ -57,6 +56,10 @@
                 (agent-shell-google-make-authentication :vertex-ai t))
 
   (setopt agent-shell-file-completion-enabled t))
+
+
+(use-package eca
+  :ensure t)
 
 (provide 'lk/ai-assistance)
 
