@@ -17,7 +17,9 @@
   :bind (( "C-c g g" . lk/git-grep+)
          ( "C-c g s" . vc-git-grep)))
 
-(use-package git-link :ensure t)
+(use-package git-link
+  :ensure t
+  :bind (("C-x g" . git-link-dispatch)))
 
 (defun lk/open-current-file-in-gh ()
   (interactive)
