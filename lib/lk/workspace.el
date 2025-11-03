@@ -1,5 +1,7 @@
-;;; navigation.el --- ...
+;;; workspace.el --- Workspace management: projects, buffers, completion, navigation
 ;;; Commentary:
+;;; Manages the Emacs workspace including project.el integration, buffer management,
+;;; completion framework (vertico, consult, embark), and window navigation.
 
 ;;; Code:
 (use-package project-rootfile :ensure t)
@@ -27,22 +29,20 @@
 
 
 (use-package project
-  :straight t
   :ensure t
   :after (project-rootfile)
-  :init ;
-
+  :config
   (advice-add #'project-find-regexp :override #'consult-git-grep)
   (advice-add #'project-shell :override #'multi-vterm)
-  :bind-keymap ("C-c p" . project-prefix-map)
-
-  :config ; add custom actions when using select-project
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" ?m)
                '(consult-git-grep "Git grep" ?g))
-  (add-to-list 'project-find-functions #'project-rootfile-try-detect t))
+  (add-to-list 'project-find-functions #'project-rootfile-try-detect t)
+  :bind-keymap ("C-c p" . project-prefix-map))
 
-(use-package ibuffer-project :straight t :after (project))
+(use-package ibuffer-project
+  :ensure t
+  :after (project))
 
 
 (defun lk/ibuffer-toggle-never-show ()
@@ -58,16 +58,12 @@
             "^\\*Apropos"
             "^magit"
             "^\\*copilot.events"
-            "^\\*EGLOT"
-            "^\\*straight"
-            "^\\*monroe nrepl server\\*"
-            "^\\*monroe-connection")))
-
+            "^\\*EGLOT")))
   (ibuffer-update nil t))
 
 
 (use-package ibuffer
-  :straight t
+  :ensure t
   :after (project ibuffer-project)
   :bind (("C-x C-b" . ibuffer)
          :map ibuffer-mode-map
@@ -96,7 +92,9 @@
            project-file-relative))))
 
 ;; Enable Vertico
-(use-package vertico :ensure t :init
+(use-package vertico
+  :ensure t
+  :init
   (vertico-mode)
   :bind (( "M-RET" . minibuffer-force-complete-and-exit)
          ( "M-TAB"  . minibuffer-complete)))
@@ -143,23 +141,6 @@
          ("M-g M-g" . consult-goto-line))) ;; Enhanced goto line
 
 
-;; (use-package embark
-;;   :ensure t
-
-;;   :bind (("C-." . embark-act)         ;; pick some comfortable binding
-;;          ("C-;" . embark-dwim)        ;; good alternative: M-.
-;;          ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
-;;   :init ;; Optionally replace the key help with a completing-read interface
-;;   (setq prefix-help-command #'embark-prefix-help-command)
-
-;;   :config
-
-;;   ;; Hide the mode line of the Embark live/completions buffers
-;;   (add-to-list 'display-buffer-alist
-;;                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-;;                  nil
-;;                  (window-parameters (mode-line-format . none)))))
 
 (use-package embark
   :ensure t
@@ -204,8 +185,6 @@
   :ensure t
   :init (setq completion-styles '(orderless)))
 
-
-
 (defun lk/urls-in-buffer->vertico-select->browse ()
   "Find URLs in the current vterm buffer and open the selected one in a browser using vertico/."
   (interactive)
@@ -223,23 +202,22 @@
       (let ((selected-url (completing-read "Select URL: " urls nil t)))
         (browse-url selected-url)))))
 
-(global-set-key
- (kbd "C-x c u")
- 'lk/urls-in-buffer->vertico-select->browse)
+(global-set-key (kbd "C-x c u") 'lk/urls-in-buffer->vertico-select->browse)
 
 ;; Persist history over Emacs restarts
-(use-package savehist :init (savehist-mode))
+(use-package savehist :ensure t :init (savehist-mode))
 
 (use-package ace-window
-  :config (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+  :ensure t
+  :config ;
+  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
   (setq aw-ignore-current nil)
   (setq aw-dispatch-always t)
   (setq aw-minibuffer-flag t)
   (set-face-foreground 'aw-background-face "gray70")
   (ace-window-display-mode t)
-  :init (add-hook 'term-mode-hook
-                  (lambda ()
-                    (define-key term-raw-map (kbd "M-o") 'ace-window)))
+  :hook (term-mode-hook . (lambda ()
+                            (define-key term-raw-map (kbd "M-o") 'ace-window)))
   :bind (( "M-o" . ace-window)))
 
 ;; Window and buffer management
@@ -256,5 +234,5 @@
    (buffer-list)))
 
 
-(provide 'lk/navigation)
-;;; navigation.el ends here
+(provide 'lk/workspace)
+;;; workspace.el ends here

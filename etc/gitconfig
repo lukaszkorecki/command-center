@@ -39,7 +39,6 @@
   default-remote-branch = ! git remote show origin | grep HEAD | cut -d: -f2 | tr -d ' '
   cleanup-branches = !git fetch -a -p && git branch --merged $(git default-remote-branch) | grep -v "$(git default-remote-branch)$" | xargs git branch -d || true
   recent-branches=!git branch -r --sort=-committerdate | head -n10
-  co = switch
   sw = switch
   g = !git --no-pager grep --color -n
   l = log

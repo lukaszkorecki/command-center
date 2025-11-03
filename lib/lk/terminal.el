@@ -1,14 +1,13 @@
-;; -*- lexical-binding: t; -*-
+;;; terminal.el --- Terminal and utility tools
+;;; Commentary:
+;;; Configures vterm for terminal emulation, mermaid for diagrams,
+;;; keychain for SSH key management, and time-zones utility.
 
-(use-package gptel
-  :straight t
-  :init ;; defaults
-  (setq gptel-api-key (lambda () (getenv "OPENAI_API_KEY")))
-  (setq gptel-model "gpt-4"))
+;;; Code:
 
 (use-package mermaid-mode
-  :straight t
-  :init ; setup
+  :ensure t
+  :config ;
   (setq mermaid-mmdc-location "docker")
   (setq mermaid-flags "run -u 1000 -v /tmp:/tmp ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:9.1.6"))
 
@@ -19,10 +18,9 @@
 
 (use-package vterm
   :ensure t
-  :init ;
-  (setq vterm-shell "/bin/zsh")
+  :config (setq vterm-shell "/bin/zsh")
   (setq vterm-kill-buffer-on-exit t)
-  (add-hook 'vterm-mode-hook 'lk/vterm-project-association)
+  :hook ( vterm-mode-hook  . lk/vterm-project-association)
 
   :bind (("C-c M-o" . vterm-clear-scrollback)
          ("C-c ESC o" . vterm-clear-scrollback)
@@ -37,9 +35,10 @@
   (interactive)
   (lk/kill-buffers-by-major-mode 'vterm-mode))
 
+(use-package vterm-anti-flicker-filter
+  :ensure t
+  :vc (:url "https://github.com/martinbaillie/vterm-anti-flicker-filter"))
 
-(use-package keychain-environment
-  :init (keychain-refresh-environment))
 
-
-(provide 'lk/tools)
+(provide 'lk/terminal)
+;;; terminal.el ends here

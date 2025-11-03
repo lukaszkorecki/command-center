@@ -1,6 +1,7 @@
-                                        ; -*- lexical-binding: t; -*-
-;;; ui.el --- ...
+;;; display.el --- Display configuration: frames, fonts, colors, window management
 ;;; Commentary:
+;;; Configures the visual appearance of Emacs including fonts, frame settings,
+;;; theme, window management, and custom display functions.
 
 ;;; Code:
 (setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
@@ -43,7 +44,6 @@
 
 (add-hook 'window-setup-hook 'on-after-init)
 
-
 ;; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -69,7 +69,6 @@
 (show-paren-mode t)
 (setq show-paren-delay 0)
 (global-set-key (kbd "C-c f") 'toggle-frame-maximized)
-
 
 (defun lk/absolute-resize-window (width)
   "Set the window's size to 80 (or prefix arg WIDTH) columns wide."
@@ -99,7 +98,6 @@
                (lambda () (lk/absolute-resize-window 121))))
             :action #'(lambda (x) (funcall (cdr x)))))
 
-
 (global-set-key (kbd "C-c r") 'lk/resize-window)
 
 ;; Fix ansi-term rendering
@@ -107,8 +105,7 @@
 (defun my-term-mode-hook ()
   (setq bidi-paragraph-direction 'left-to-right))
 
-
-(use-package unicode-fonts :config (unicode-fonts-setup))
+(use-package unicode-fonts :ensure t :config (unicode-fonts-setup))
 
 ;; just exit if terminated or C-x C-c is invoked
 (setq confirm-kill-processes nil)
@@ -138,35 +135,25 @@
 
 ;; custom transient-back window management thing
 
-
-(use-package transpose-frame :ensure t)
 (use-package transient :ensure t)
 (require 'transient)
 
-
-(transient-define-prefix lk/window-mgr
-  ()
-  "Shortcuts for moving windows/frames around"
-  ["Window Management"
-   ("t" "Transpose" transpose-frame)
-   ("r" "Rotate" rotate-frame)
-   ("f" "Flip" flip-frame)
-   ("F" "Flop" flop-frame)
-   ])
-
-(define-key global-map (kbd "C-c t") 'lk/window-mgr)
-
-(use-package alabaster-theme
-  :straight (; use latest
-             :host github
-             :repo "uzhne/alabaster-emacs"
-             :files ("*.el"))
+(use-package transpose-frame
   :ensure t
-  :config (load-theme 'alabaster t)
-  ;; XXX: alabaster is nice, but doesn't define a color for selected region - let's fix this:
-  (set-face-attribute 'region nil :background "#999999" :foreground "#ffffff"))
+  :config
+  (require 'transient)
+  (transient-define-prefix lk/window-mgr
+    ()
+    "Shortcuts for moving windows/frames around"
+    ["Window Management"
+     ("t" "Transpose" transpose-frame)
+     ("r" "Rotate" rotate-frame)
+     ("f" "Flip" flip-frame)
+     ("F" "Flop" flop-frame)])
 
+  (define-key global-map (kbd "C-c t") 'lk/window-mgr))
 
+(use-package espresso-theme :ensure t :init (load-theme 'espresso t))
 
-(provide 'lk/ui)
-;;; ui.el ends here
+(provide 'lk/display)
+;;; display.el ends here

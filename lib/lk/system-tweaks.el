@@ -1,6 +1,8 @@
-;;;; lk/customipaczations.el -- custom functions which make using emacs easier
+;;; system-tweaks.el --- Platform-specific customizations
 ;;; Commentary:
-;;; If stuff grows too big, move it out to a separate file
+;;; Contains platform-specific tweaks (primarily macOS) and general Emacs
+;;; enhancements like which-key. Custom helper functions that make using Emacs easier.
+
 ;;; Code:
 
 
@@ -26,12 +28,14 @@
 
 
 (use-package which-key
-  :init (setq which-key-show-early-on-C-h t)
+  :ensure t
+  :config
+  (setq which-key-show-early-on-C-h t)
   ;; make sure which-key doesn't show normally but refreshes quickly after it is
   ;; triggered.
   (setq which-key-idle-delay 1000)
   (setq which-key-idle-secondary-delay 0.05)
   (which-key-mode))
 
-(provide 'lk/customizations)
-;;; customizations.el ends here
+(provide 'lk/system-tweaks)
+;;; system-tweaks.el ends here

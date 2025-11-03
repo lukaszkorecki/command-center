@@ -13,6 +13,7 @@
   (vc-git-grep regex "*" (lk/project-find-root default-directory)))
 
 (use-package git
+  :ensure t
   :bind (( "C-c g g" . lk/git-grep+)
          ( "C-c g s" . vc-git-grep)))
 
@@ -22,20 +23,13 @@
   (interactive)
   (browse-url (call-interactively #'git-link)))
 
-(global-set-key (kbd "C-c g f") 'lk/open-current-file-in-gh)
-
 (defun lk/open-repo-in-gh ()
   (interactive)
   (browse-url (call-interactively #'git-link-homepage)))
 
-(global-set-key (kbd "C-c g p") 'lk/open-repo-in-gh)
-
 (defun lk/open-current-pr-in-gh ()
   (interactive)
   (shell-command "gh pr view --web"))
-
-(global-set-key (kbd "C-c g h") 'lk/open-current-pr-in-gh)
-
 
 (defun lk/git-repo-home ()
   (interactive)
@@ -45,15 +39,16 @@
 (use-package magit
   :ensure t
   :after (project)
-  :init (add-to-list 'project-switch-commands
-                     '(lk/git-repo-home "Homepage" "b"))
+  :config ;
+  (add-to-list 'project-switch-commands
+               '(lk/git-repo-home "Homepage" "b"))
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" "m"))
   (setq magit-clone-set-remote.pushDefault t)
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1)
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
 
-  :config (setq magit-git-executable "/usr/bin/git")
+  (setq magit-git-executable "/usr/bin/git")
 	:bind (( "C-c m s" . magit-status)))
 
 (defun lk/magit-clear-buffers ()

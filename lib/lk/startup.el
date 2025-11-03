@@ -1,6 +1,8 @@
 
 (setenv "INSIDE_EMACS" "TRUE")
-(use-package better-defaults)
+
+(use-package better-defaults
+  :ensure t)
 
 ;; reduce GC thrash
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
@@ -18,4 +20,10 @@
   :ensure t
   :hook (prog-mode-hook . mise-mode))
 
-(provide 'lk/boot)
+;;; startup.el --- Initial environment setup, GC settings, mise
+;;; Commentary:
+;;; Sets up the initial Emacs environment with better defaults,
+;;; configures garbage collection for better performance, and loads mise.
+
+(provide 'lk/startup)
+;;; startup.el ends here

@@ -1,32 +1,25 @@
-;;; deps.el --- deps.el loads straight.el and sets up use-package
+;;; deps.el --- deps.el initialize package management
 ;;; Commentary:
 
 ;;; Code:
-
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
 (add-to-list 'load-path "~/.emacs.d/lib")
 (add-to-list 'load-path "~/.emacs.d/lib/lk")
 
-(use-package straight
-  :custom
-  ;; add project and flymake to the pseudo-packages variable so straight.el doesn't download a separate version than what eglot downloads.
-  (straight-built-in-pseudo-packages '(emacs nadvice python image-mode project flymake xref))
-  (straight-use-package-by-default t))
+(setq package-enable-at-startup t)
+(require 'package)
+(setq package-archives
+      '(("gnu"   . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")))
+
+(setq package-archive-priorities
+      '(("gnu" . 2)
+        ("nongnu" . 5)
+        ("melpa-stable" . 8)
+        ("melpa" . 10)))
+
+(package-initialize)
 
 (provide 'deps)
 ;;; deps.el ends here
