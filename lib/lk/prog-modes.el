@@ -14,7 +14,6 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-
 (use-package aggressive-indent
   :ensure t
   :hook (( prog-mode-hook  . aggressive-indent-mode)
@@ -58,7 +57,7 @@
 
 (use-package json-mode
   :ensure t
-  :mode (  "\\.avsc$" "\\.json$")
+  :mode ("\\.avsc$" "\\.json$")
   :config (setq js-indent-level 2)
   :hook (json-mode . (lambda () (keymap-local-unset "C-c C-t")))
   :bind (:map json-mode-map
@@ -95,9 +94,7 @@
   :ensure nil
   :mode ("zshrc" "\\.sh$")
 
-
-  :config
-  (setq sh-basic-offset 2)
+  :config (setq sh-basic-offset 2)
   (setq indent-tabs-mode nil)
 
   (setq tab-width 2)
@@ -122,6 +119,12 @@
   :hook ((prog-mode-hook . hl-todo-mode)
          (yaml-mode-hook  .hl-todo-mode)))
 
+(use-package lua-mode
+  :ensure t
+  :mode ("\\.lua$" )
+  :config (aggressive-indent-mode -1)
+  (setq indent-tabs-mode nil )
+  (setq lua-indent-level 2))
 
 (require 'lk/ruby)
 (require 'lk/js)
