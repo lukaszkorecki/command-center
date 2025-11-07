@@ -1,12 +1,7 @@
 ;;; project-dashboard.el --- Transient-based project management dashboard
-;;; Commentary:
-;;; Provides a transient-powered coding project management dashboard with
-;;; project-aware actions, git integration, and repository utilities.
-;;; Currently supports Clojure projects with plans for Terraform, JavaScript, and shell.
-
 ;;; Code:
 
-(use-package transient :ensure t :after (consult magit cider))
+(use-package transient :ensure t)
 
 (require 'transient)
 
@@ -15,34 +10,43 @@
 
 (defun lk/view-pr-web ()
   (interactive)
-  (lk/invoke-cli "*gh-pr-create*" "gh pr create --web"))
+  (lk/invoke-cli "*gh-pr-create*" "gh pr view --web"))
 
 (defun lk/create-pr-web ()
   (interactive)
-  (lk/invoke-cli "*gh-pr-create*" "gh pr view --web"))
+  (lk/invoke-cli "*gh-pr-create*" "gh pr create --web"))
+
+(defun lk/view-repo-web ()
+  (interactive)
+  (lk/invoke-cli "*gh-repo-view*" "gh repo view --web"))
 
 (defun lk/view-or-create-pr ()
   (interactive)
   (let* ((pr-info-maybe?
           (lk/invoke-cli "*gh-pr-info*" "gh pr view --json 'number,url'"))
-         (pr-info
-          (when (equal 0 (hget pr-info-maybe? :status))
-            (json-parse-string (hget pr-info-maybe? :output)))))
-    (if pr-info (lk/-view-pr-web) (lk/create-pr-web))))
+         (has-pr? (equal 0 (hget pr-info-maybe? :status))))
+    (if has-pr?
+        (progn
+          (message "PR exists, opening in browser")
+          (lk/view-pr-web))
+      (progn
+        (message "No PR found, creating one... ")
+        (lk/create-pr-web)))))
 
 (use-package disproject
   :ensure t
+  :after (multi-vterm magit consult)
   ;; Replace `project-prefix-map' with `disproject-dispatch'.
   :bind ( :map ctl-x-map ("p" . disproject-dispatch))
-
+  :custom
+  (disproject-shell-command #'multi-vterm-project)
   :config (transient-insert-suffix 'disproject-dispatch
             '(-1)
             ["Tools"
              :advice disproject-with-env-apply
-             ("T"  "start vterm"  multi-vterm-project)
              ("M" "magit status" magit-status)
-             ("S" "git grep" consult-git-grep)
-             ("P" "view or create PR in browser" lk/view-or-create-pr)]))
+             ("P" "view or create PR in browser" lk/view-or-create-pr)
+             ("V" "view repo in the browser" lk/view-repo-web)]))
 
 (provide 'lk/project-dashboard)
 ;;; project-dashboard.el ends here
