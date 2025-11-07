@@ -12,6 +12,8 @@
                 web-mode-engines-alist
                 '(("jinja"    . "\\.j2\\'"))))
 
-(provide 'js)
+(use-package js3-mode
+  :ensure t)
+
 (provide 'lk/js)
 ;;; js.el ends here
