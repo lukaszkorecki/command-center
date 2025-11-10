@@ -15,10 +15,15 @@
                                "cloverage"
                                "-e" ".*dev.*"
                                "-e" ".*repl.*"
-                               "-e" ".*benchmark.*"]}}
+                               "-e" ".*benchmark.*"]
+
+                  "cider-repl" ["with-profile" "+repl"
+                                 "repl" ":headless"]}}
 
  :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.0.0.46"]
-                       [cider/cider-nrepl "0.55.7"]]
+                       [nrepl/nrepl "1.5.1"]
+                       [cider/cider-nrepl "0.58.0"]]
+        :jvm-opts ^:replace ["-XX:-OmitStackTraceInFastThrow" "-Djdk.attach.allowAttachSelf"]
         :repl-options {:color false}}
 
  :antq {:global-vars {*warn-on-reflection* false}
