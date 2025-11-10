@@ -14,12 +14,12 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-(use-package aggressive-indent
-  :ensure t
-  :hook (( prog-mode-hook  . aggressive-indent-mode)
-         (makefile-mode-hook . (lambda () (aggressive-indent-mode -1)))
-         (clojure-ts-mode-hook . (lambda () (aggressive-indent-mode -1)))
-         (dockerfile-mode-hook . (lambda () (aggressive-indent-mode -1)))))
+;; (use-package aggressive-indent
+;;   :ensure t
+;;   :hook (( prog-mode-hook  . aggressive-indent-mode)
+;;          (makefile-mode-hook . (lambda () (aggressive-indent-mode -1)))
+;;          (clojure-ts-mode-hook . (lambda () (aggressive-indent-mode -1)))
+;;          (dockerfile-mode-hook . (lambda () (aggressive-indent-mode -1)))))
 
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
@@ -122,7 +122,7 @@
 (use-package lua-mode
   :ensure t
   :mode ("\\.lua$" )
-  :config (aggressive-indent-mode -1)
+  :config
   (setq indent-tabs-mode nil )
   (setq lua-indent-level 2))
 
