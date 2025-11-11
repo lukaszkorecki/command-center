@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-setup: brew-bundle zsh-completion configs
+setup: brew-bundle zsh-completion configs fix-macos
 
 
 configs:
@@ -23,7 +23,7 @@ configs:
 	@mkdir -p ~/.lein
 	@ln -fvs ~/.emacs.d/etc/lein/profiles.clj ~/.lein/profiles.clj
 	@mkdir -p ~/.config/mise
-	@ln -fvs ~/.emacs.d.etc/mise.toml ~/.config/mise/config.toml
+	@ln -fvs ~/.emacs.d/etc/mise.toml ~/.config/mise/config.toml
 
 
 brew-bundle:
@@ -35,26 +35,6 @@ zsh-completion:
 	ln -fvs /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion ~/.emacs.d/etc/zsh/_docker
 	ln -fvs  /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion ~/.emacs.d/etc/zsh/_docker-compose
 
-
-# macOS apps things, not related to Emacs
-
-start-comms:
-	open -g -a Slack
-	open -g -a Fantastical
-	open -g -a MailMate
-	open -g -a Linear
-
-stop-comms:
-	pkill -f "(Slack|MailMate|Linear|Dash)"
-
-
-start-dev:
-	open -g -a Docker
-	open -g -a Emacs
-
-
-stop-dev:
-	pkill -f "(Emacs|Docker|Dash)"
 
 
 fix-macos:

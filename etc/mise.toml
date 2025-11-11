@@ -1,0 +1,7 @@
+[tools]
+java = "temurin-25"
+
+babashka = "latest"
+clojure = "latest"
+leiningen = "2.12.0"
+node = "24"

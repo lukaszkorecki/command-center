@@ -24,37 +24,10 @@ if [[ -e $brewPrefix/bin/brew ]]; then
   eval "$($brewPrefix/bin/brew shellenv)"
 fi
 
-# manage JVM via mise, if installed
-# otherwise fallback to the JVM managed by homebrew
-if [[ ! -e ~/.private/env.sh ]] ; then
-  if [[ "$(which mise)" ]] ; then
-    export PATH="$HOME/.local/share/mise/shims:$PATH"
-  else
-    if [[ "$brewPrefix" != "" ]]; then
-      export PATH=$brewPrefix/bin:$PATH
-
-      pythonPath=$brewPrefix/opt/python/libexec/bin
-      if [[ -e $pythonPath ]]; then
-        export PATH="$pythonPath:$PATH"
-      fi
-
-      if [[ -e $brewPrefix/opt/openjdk ]]; then
-        export PATH="$brewPrefix/opt/openjdk/bin:$PATH"
-        export JAVA_CMD=$brewPrefix/opt/openjdk/bin/java
-        export JAVAHOME=$brewPrefix/opt/openjdk/
-        export JAVA_HOME=$JAVAHOME
-      fi
-
-      if [[ -e $brewPrefix/opt/openjdk@11 ]]; then
-        export PATH="$brewPrefix/opt/openjdk@11/bin:$PATH"
-        export JAVA_CMD=$brewPrefix/opt/openjdk@11/bin/java
-        export JAVAHOME=$brewPrefix/opt/openjdk@11/
-        export JAVA_HOME=$JAVAHOME
-
-      fi
-    fi
-  fi
+if [[ "$(which mise)" == /* ]]; then
+  eval "$(mise activate)"
 fi
+
 
 # secrets and work stuff
 if [[ -e ~/.private/env.sh ]]; then
