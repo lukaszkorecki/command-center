@@ -33,8 +33,7 @@
 ;; load secrets from 1password
 (require 'lk/secrets)
 
-;; workspace: projects, buffers, completion, window navigation
-(require 'lk/workspace)
+(require 'lk/completion)
 
 ;; AI assistance: copilot, agent-shell, acp
 (require 'lk/ai-assistance)

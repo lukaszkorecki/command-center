@@ -12,7 +12,9 @@
             (delete-file "/tmp/emacs.env")
             (message "loaded secrets from 1password"))
         (error (message "Error loading secrets: %s" err)))
-    (message "already loaded")))
+    (progn
+      (setenv "OP_SECRETS_LOADED" "true")
+      (message "already loaded"))))
 
 
 (when (file-exists-p "~/.private/work-secrets.el")

@@ -153,6 +153,24 @@
 
   (define-key global-map (kbd "C-c t") 'lk/window-mgr))
 
+
+(use-package ace-window
+  :ensure t
+  :config ;
+  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+  (setq aw-ignore-current nil)
+  (setq aw-dispatch-always t)
+  (setq aw-minibuffer-flag t)
+  (set-face-foreground 'aw-background-face "gray70")
+  (ace-window-display-mode t)
+  :hook (term-mode-hook . (lambda ()
+                            (define-key term-raw-map (kbd "M-o") 'ace-window)))
+  :bind (( "M-o" . ace-window)))
+
+;; Window and buffer management
+(global-set-key (kbd "C-x |") 'split-window-horizontally)
+(global-set-key (kbd "C-x -") 'split-window-vertically)
+
 (use-package espresso-theme :ensure t :init (load-theme 'espresso t))
 
 (provide 'lk/display)
