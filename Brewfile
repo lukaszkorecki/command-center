@@ -3,7 +3,9 @@ tap 'borkdude/brew'
 tap 'hashicorp/tap'
 tap 'clojure-lsp/brew'
 
-
+brew 'git'
+brew 'mergiraf'
+brew 'difftastic'
 brew "rlwrap"
 brew 'mise'
 

@@ -3,8 +3,6 @@
 
 ;;; Code:
 
-
-
 ;; Git and git nav helpers
 
 (defun lk/git-grep+ (regex)
@@ -57,7 +55,21 @@
   (interactive)
   (kill-matching-buffers ".*magit.*" 't 't))
 
+(use-package difftastic
+  :ensure t
+  :after magit
+  :vc (:url "https://github.com/pkryger/difftastic.el.git" :rev :newest)
 
+  :config (with-eval-after-load 'magit-diff
+            ;; This explicitly binds the standard `d d` (or `dd`) sequence
+            ;; in the diff transient popup to your preferred difftastic command.
+            (transient-append-suffix 'magit-diff
+              '(-1 -1)
+              '(("D" "Difftastic diff (dwim)" difftastic-magit-diff)))))
+
+(use-package difftastic-bindings
+  :ensure difftastic
+  :config (difftastic-bindings-mode))
 
 (provide 'lk/git)
 ;;; git.el ends here

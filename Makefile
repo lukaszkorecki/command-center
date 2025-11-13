@@ -12,14 +12,12 @@ configs:
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.profile
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
-	@ln -fvs ~/.emacs.d/etc/gitignore_global ~/.gitignore_global
 	@mkdir -p ~/.config/clojure-lsp
 	@ln -fvs ~/.emacs.d/etc/clojure-lsp-config.edn ~/.config/clojure-lsp/config.edn
 	@mkdir -p ~/.clojure/
 	@rm -rf ~/.clojure
 	@ln -fvs ~/.emacs.d/etc/clojure ~/.clojure
 	@ln -fvs ~/.emacs.d/etc/psqlrc ~/.psqlrc
-	@ln -fvs ~/.emacs.d/etc/tmux.conf ~/.tmux.conf
 	@mkdir -p ~/.lein
 	@ln -fvs ~/.emacs.d/etc/lein/profiles.clj ~/.lein/profiles.clj
 	@mkdir -p ~/.config/mise

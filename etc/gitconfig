@@ -15,10 +15,16 @@
 
 [core]
   pager = less -F -X
-  excludesfile = ~/.gitignore_global
+  excludesfile = ~/.emacs.d/etc/gitignore_global
+  attributesfile = ~/.emacs.d/etc/gitattributes_global
 
 [branch]
 	autoSetupMerge = true
+  conflictStyle = "diff3"
+
+[merge "mergiraf"]
+  name = mergiraf
+  driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 
 [grep]
   linenumber = true
