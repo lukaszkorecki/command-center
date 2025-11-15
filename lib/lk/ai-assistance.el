@@ -59,7 +59,8 @@
 
 
 (use-package eca
-  :ensure t)
+  :ensure t
+  :bind (("C-c d" . eca-transient-menu)))
 
 (provide 'lk/ai-assistance)
 
