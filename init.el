@@ -10,28 +10,17 @@
 ;;; Code:
 (load-file "~/.emacs.d/deps.el")
 
-;; customizations file
-(when (file-exists-p "~/.emacs.d/custom.el")
-  (setq custom-file "~/.emacs.d/custom.el")
-  (load custom-file))
-
-(setq abbrev-file-name "~/.emacs.d/abbrev.el")
-;; make sure transient is available everyhwere
-(require 'transient)
-
-
-
 ;; initial startup: environment, GC settings, mise
 (require 'lk/startup)
 
 ;; display: frames, fonts, colors, window management
 (require 'lk/display)
 
-;; environment: PATH and exec-path configuration
-(require 'lk/env-path)
-
 ;; load secrets from 1password
 (require 'lk/secrets)
+
+;; environment: PATH and exec-path configuration
+(require 'lk/env-path)
 
 (require 'lk/completion)
 

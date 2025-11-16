@@ -54,6 +54,14 @@
 ;; Persist history over Emacs restarts
 (use-package savehist :ensure t :init (savehist-mode))
 
+;; customizations file
+(when (file-exists-p "~/.emacs.d/custom.el")
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file))
+
+(setq abbrev-file-name "~/.emacs.d/abbrev.el")
+;; make sure transient is available everyhwere
+(require 'transient)
 
 (provide 'lk/startup)
 ;;; startup.el ends here
