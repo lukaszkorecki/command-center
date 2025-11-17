@@ -46,9 +46,8 @@
 
 ;; yes/no -> y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
-
 (setq confirm-kill-emacs 'y-or-n-p)
-
+(setopt use-short-answers t)
 ;; turn off splash screen
 (setq inhibit-startup-message t)
 

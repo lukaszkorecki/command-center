@@ -15,5 +15,7 @@
 (use-package js3-mode
   :ensure t)
 
+;; json-mode for whatever reason expects this (???)
+(provide 'js)
 (provide 'lk/js)
 ;;; js.el ends here
