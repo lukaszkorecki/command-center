@@ -1,4 +1,4 @@
-{:aliases {:dev/rumble {:extra-deps {org.clojars.lukaszkorecki/rumble {:mvn/version "1.0.0.46"}
+{:aliases {:dev/rumble {:extra-deps {org.clojars.lukaszkorecki/rumble {:mvn/version "1.1.0.42"}
                                      cheshire/cheshire {:mvn/version "6.0.0"}
                                      hato/hato {:mvn/version "1.1.0-SNAPSHOT"}
                                      babashka/fs {:mvn/version "0.5.26"}}
