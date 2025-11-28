@@ -126,6 +126,14 @@
   (setq indent-tabs-mode nil )
   (setq lua-indent-level 2))
 
+
+(use-package sh-script
+  :ensure nil
+  :mode ("\\.sh$" . sh-mode)
+  :config
+  (setq sh-indent-offset 2)
+  (setq sh-indentation 2))
+
 (require 'lk/ruby)
 (require 'lk/js)
 (require 'lk/clojure)
