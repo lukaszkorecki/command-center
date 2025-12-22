@@ -38,7 +38,8 @@
 
       ;; Find the info_string and code_fence_content nodes
       (dolist (child children)
-        (pcase (treesit-node-type child)
+        (pcase
+            (treesit-node-type child)
           ("info_string" (setq info-string child))
           ("code_fence_content" (setq content-node child))))
 
@@ -116,8 +117,6 @@
            (t 'fundamental-mode))))
     (funcall mode)))
 
-
-
 ;; helpers for markdown and writing in general
 (defun lk/insert-current-date ()
   "Insert current date at point."
@@ -153,6 +152,27 @@
          (browseable-file-path (format "file://%s" html-file)))
     (message "Previewing %s" browseable-file-path)
     ;; (xwidget-webkit-browse-url browseable-file-path)
-    (browse-url browseable-file-path)))
+    (browse-url browseable-file-path)
+    (eww-open-file browseable-file-path)))
+
+(defun lk/preview-markdown ()
+
+  "Render markdown using ~/.emacs.d/etc/bin/markdown server and open in eww."
+  (interactive)
+
+  ;; steps
+  ;; markdown <path to md file>
+  ;; output is HTML
+  ;; save in tmp file
+  ;; open it using eeww
+
+  (let* ((file-name (buffer-file-name))
+         (tmp-file-name (make-temp-file "lk-md-preview" nil ".html"))
+         (command
+          (format "~/.emacs.d/etc/bin/markdown %s > %s"
+                  (shell-quote-argument file-name)
+                  (shell-quote-argument tmp-file-name))))
+    (shell-command command)
+    (eww-open-file tmp-file-name)))
 
 (provide 'lk/markdown)
