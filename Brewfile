@@ -35,3 +35,6 @@ cask 'cyberduck'
 brew 'fzf'
 cask 'rectangle'
 cask 'iterm2'
+
+
+cask 'finicky'
