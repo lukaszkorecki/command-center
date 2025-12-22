@@ -14,9 +14,9 @@
          (getenv "PATH")
          ":/usr/local/bin:~/.emacs.d/etc/bin:~/bin:~/bin/node/bin:~/bin/jdk/Contents/Home/bin:/usr/local/opt/openjdk/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/bin"))
 
-(use-package exec-path-from-shell
-  :ensure t
-  :init (exec-path-from-shell-initialize))
+;; (use-package exec-path-from-shell
+;;   :ensure t
+;;   :init (exec-path-from-shell-initialize))
 
 (use-package keychain-environment
   :ensure t

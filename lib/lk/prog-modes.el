@@ -135,7 +135,7 @@
   (setq sh-indentation 2))
 
 (require 'lk/ruby)
-(require 'lk/js)
+(require 'lk/frontend)
 (require 'lk/clojure)
 (require 'lk/markdown)
 

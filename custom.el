@@ -9,11 +9,11 @@
      default))
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(package-selected-packages
-   '(ace-window agent-shell aggressive-indent alabaster-theme
+   '(ace-window acp agent-shell aggressive-indent alabaster-theme
                 better-defaults copilot difftastic disproject
-                dockerfile-mode eca edit-indirect elfmt embark-consult
-                espresso-theme exec-path-from-shell git git-link
-                go-mode graphql-mode hl-todo ibuffer-project
+                dockerfile-mode eca edit-indirect eglot elfmt
+                embark-consult espresso-theme exec-path-from-shell git
+                git-link go-mode graphql-mode hl-todo ibuffer-project
                 jinja2-mode json-mode kaocha-runner
                 keychain-environment load-env-vars logview magit
                 marginalia markdown-ts-mode mermaid-mode mise
