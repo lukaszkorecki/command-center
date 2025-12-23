@@ -14,9 +14,6 @@
   :after vertico
   :init (marginalia-mode))
 
-
-
-
 ;; Enhanced navigation and search commands with Consult
 (use-package consult
   :ensure t
@@ -26,8 +23,6 @@
          ("M-y" . consult-yank-pop)      ;; Enhanced yank-pop
          ("C-x b" . consult-buffer)      ;; Enhanced buffer switch
          ("M-g M-g" . consult-goto-line))) ;; Enhanced goto line
-
-
 
 (use-package embark
   :ensure t

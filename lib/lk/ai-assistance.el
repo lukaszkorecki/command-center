@@ -54,13 +54,16 @@
   :defer t
   :config (setq agent-shell-google-authentication
                 (agent-shell-google-make-authentication :vertex-ai t))
+  ;; TODO: change path to opencode binary or figure out how to make this work with Mise?
+  (setq agent-shell-opencode-command
+        (list
+         (expand-file-name "~/.local/share/mise/installs/node/22.21.1/bin/opencode")
+         "acp"))
 
-  (setopt agent-shell-file-completion-enabled t))
+  (setopt agent-shell-file-completion-enabled	t)
+  (setq completion-in-region-function #'consult-completion-in-region))
 
-
-(use-package eca
-  :ensure t
-  :bind (("C-c d" . eca-transient-menu)))
+(use-package eca :ensure t :bind (("C-c d" . eca-transient-menu)))
 
 (provide 'lk/ai-assistance)
 
