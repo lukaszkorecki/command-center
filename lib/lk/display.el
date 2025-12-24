@@ -170,7 +170,11 @@
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
-(use-package espresso-theme :ensure t :init (load-theme 'espresso t))
+;; (use-package espresso-theme :ensure t :init (load-theme 'espresso t))
+
+(use-package nord-theme
+  :ensure t
+  :init (load-theme 'nord t))
 
 (provide 'lk/display)
 ;;; display.el ends here
