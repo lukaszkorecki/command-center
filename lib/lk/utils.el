@@ -15,7 +15,7 @@
 
 (defun lk/invoke-cli (bufname cmd)
   (let* ((return (make-hash-table)))
-    (when-let ((b (get-buffer bufname)))
+    (when-let* ((b (get-buffer bufname)))
       (kill-buffer b))
     (with-current-buffer (get-buffer-create bufname)
       (erase-buffer)

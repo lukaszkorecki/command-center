@@ -9,7 +9,7 @@
 (defun lk/project-find-root (path)
   "Search up the PATH for known project file markers. Throws an error if found path is
   equal to users home directory"
-  (when-let ((root
+  (when-let* ((root
               (if-let ((vc-root (project-try-vc default-directory)))
                   ;; get dir from (vc Git "dir")
                   (car (last vc-root))

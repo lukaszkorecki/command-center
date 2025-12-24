@@ -4,6 +4,7 @@
 
 (defun lk/load-secrets-from-1p ()
   (interactive)
+  (require 'load-env-vars)
   (if (not (getenv "OP_SECRETS_LOADED"))
       (condition-case err
           (progn
@@ -23,7 +24,6 @@
 (when (fboundp 'lk/load-work-secrets-from-1p)
   (lk/load-work-secrets-from-1p))
 
-(message "loading secrets")
 (lk/load-secrets-from-1p)
 
 (provide 'lk/secrets)

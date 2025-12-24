@@ -14,7 +14,7 @@
 
 (defun lk/vterm-project-association ()
   "Associate VTerm buffer with the current project."
-  (when-let ((project (project-current)))
+  (when-let* ((project (project-current)))
     (setq-local project-current project)))
 
 (use-package vterm
