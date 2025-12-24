@@ -23,6 +23,7 @@
 (when (fboundp 'lk/load-work-secrets-from-1p)
   (lk/load-work-secrets-from-1p))
 
+(message "loading secrets")
 (lk/load-secrets-from-1p)
 
 (provide 'lk/secrets)

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; system-tweaks.el --- Platform-specific customizations
 ;;; Commentary:
 ;;; Contains platform-specific tweaks (primarily macOS) and general Emacs

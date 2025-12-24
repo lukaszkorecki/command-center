@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 ;;; display.el --- Display configuration: frames, fonts, colors, window management
 ;;; Commentary:
 ;;; Configures the visual appearance of Emacs including fonts, frame settings,
@@ -30,7 +31,12 @@
     (set-face-attribute 'default nil :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
-(defun lk/standard-font () (interactive) (lk/set-frame-font 120))
+(defvar lk/font-size-regular 120 "Regular font size.")
+(defvar lk/font-size-xl 170 "eXtra Large font size.")
+
+(defun lk/standard-font ()
+  (interactive)
+  (lk/set-frame-font lk/font-size-regular))
 
 (defun lk/screen-sharing-font ()
   (interactive)
@@ -38,7 +44,7 @@
 
 (defun on-after-init ()
   (when (display-graphic-p)
-    (set-face-attribute 'default nil :family "JetBrains Mono" :height 120))
+    (set-face-attribute 'default nil :family "JetBrains Mono" :height lk/font-size-regular))
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
@@ -69,6 +75,19 @@
 (setq show-paren-delay 0)
 (global-set-key (kbd "C-c f") 'toggle-frame-maximized)
 
+;; Fix ansi-term rendering
+(add-hook 'term-mode-hook 'my-term-mode-hook)
+(defun my-term-mode-hook ()
+  (setq bidi-paragraph-direction 'left-to-right))
+
+(use-package unicode-fonts :ensure t :config (unicode-fonts-setup))
+
+
+;; custom transient-back window management thing - transpose/rotate/flip/flop/resize
+
+(use-package transient :ensure t)
+(require 'transient)
+
 (defun lk/absolute-resize-window (width)
   "Set the window's size to 80 (or prefix arg WIDTH) columns wide."
   (interactive "P")
@@ -83,63 +102,31 @@
          (resize-amount (- desired-window-width current-window-width)))
     (window-resize nil resize-amount t)))
 
-(defun lk/resize-window ()
+;; preset functions:
+(defun lk/resize-window-33pct ()
   (interactive)
-  (ivy-read "Resize window to: "
-            '(("33%" .
-               (lambda () (lk/proportionally-resize-window 0.33)))
-              ("50%" .
-               (lambda () (lk/proportionally-resize-window 0.50)))
-              ("75%" .
-               (lambda () (lk/proportionally-resize-window 0.75)))
-              ("81 chars" . (lambda () (lk/absolute-resize-window 81)))
-              ("121 chars" .
-               (lambda () (lk/absolute-resize-window 121))))
-            :action #'(lambda (x) (funcall (cdr x)))))
+  (lk/proportionally-resize-window 0.33))
 
-(global-set-key (kbd "C-c r") 'lk/resize-window)
-
-;; Fix ansi-term rendering
-(add-hook 'term-mode-hook 'my-term-mode-hook)
-(defun my-term-mode-hook ()
-  (setq bidi-paragraph-direction 'left-to-right))
-
-(use-package unicode-fonts :ensure t :config (unicode-fonts-setup))
-
-;; just exit if terminated or C-x C-c is invoked
-(setq confirm-kill-processes nil)
-
-;;(when (display-graphic-p)
-;;  (use-package auto-dark :config (auto-dark-mode t)))
-
-(defun lk/kill-buffers-by-major-mode (mode)
-  (interactive "sMajor mode: ")
-  "Kill all buffers in the supplied list."
-  (mapcar 'kill-buffer
-          (seq-filter
-           (lambda (buffer)
-             (eq (buffer-local-value 'major-mode buffer) mode))
-           (buffer-list))))
-
-(defun lk/clean-up-buffers ()
+(defun lk/resize-window-50pct ()
   (interactive)
-  (kill-matching-buffers ".*magit.*" 't 't)
-  (kill-matching-buffers ".*grep.*" 't 't)
-  (kill-matching-buffers ".*XREF.*" 't 't)
-  (lk/kill-buffers-by-major-mode 'dired-mode)
-  (kill-matching-buffers ".*occur.*" 't 't)
-  (kill-matching-buffers ".*Flymake.*" 't 't)
-  (kill-matching-buffers ".*<eca-chat:.*" 't 't)
-  (kill-matching-buffers ".*<eca:stderr.*" 't 't))
+  (lk/proportionally-resize-window 0.50))
 
-;; custom transient-back window management thing
+(defun lk/resize-window-75pct ()
+  (interactive)
+  (lk/proportionally-resize-window 0.75))
 
-(use-package transient :ensure t)
-(require 'transient)
+(defun lk/resize-window-81chars ()
+  (interactive)
+  (lk/absolute-resize-window 81))
+
+(defun lk/resize-window-121chars ()
+  (interactive)
+  (lk/absolute-resize-window 121))
 
 (use-package transpose-frame
   :ensure t
   :config
+
   (require 'transient)
   (transient-define-prefix lk/window-mgr
     ()
@@ -148,10 +135,16 @@
      ("t" "Transpose" transpose-frame)
      ("r" "Rotate" rotate-frame)
      ("f" "Flip" flip-frame)
-     ("F" "Flop" flop-frame)])
+     ("F" "Flop" flop-frame)]
+
+    ["Resize Window"
+     ("3" "33%"  lk/resize-window-33pct)
+     ("5" "50%" lk/resize-window-50pct)
+     ("7" "75%" lk/resize-window-75pct)
+     ("8" "81 chars" lk/resize-window-81chars)
+     ("1" "121 chars" lk/resize-window-121chars)])
 
   (define-key global-map (kbd "C-c t") 'lk/window-mgr))
-
 
 (use-package ace-window
   :ensure t
@@ -162,8 +155,9 @@
   (setq aw-minibuffer-flag t)
   (set-face-foreground 'aw-background-face "gray70")
   (ace-window-display-mode t)
-  :hook (term-mode-hook . (lambda ()
-                            (define-key term-raw-map (kbd "M-o") 'ace-window)))
+  :hook (term-mode-hook .
+                        (lambda ()
+                          (define-key term-raw-map (kbd "M-o") 'ace-window)))
   :bind (( "M-o" . ace-window)))
 
 ;; Window and buffer management
@@ -172,9 +166,7 @@
 
 ;; (use-package espresso-theme :ensure t :init (load-theme 'espresso t))
 
-(use-package nord-theme
-  :ensure t
-  :init (load-theme 'nord t))
+(use-package nord-theme :ensure t :init (load-theme 'nord t))
 
 (provide 'lk/display)
 ;;; display.el ends here

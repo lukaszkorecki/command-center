@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; text-editing.el --- Text editing behavior and utilities
 ;;; Commentary:
 ;;; Configures general text editing behavior including indentation, whitespace handling,

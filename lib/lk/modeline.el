@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; modeline.el --- modeline, you know it
 ;;; Commentary:
 

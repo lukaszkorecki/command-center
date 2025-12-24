@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; ai-assistance.el --- AI-powered coding assistance
 ;;; Commentary:
 ;;; Integrates AI tools for code completion and assistance including
@@ -56,9 +57,7 @@
                 (agent-shell-google-make-authentication :vertex-ai t))
   ;; TODO: change path to opencode binary or figure out how to make this work with Mise?
   (setq agent-shell-opencode-command
-        (list
-         (expand-file-name "~/.local/share/mise/installs/node/22.21.1/bin/opencode")
-         "acp"))
+        (list (expand-file-name "~/.local/share/mise/shims/opencode") "acp"))
 
   (setopt agent-shell-file-completion-enabled	t)
   (setq completion-in-region-function #'consult-completion-in-region))

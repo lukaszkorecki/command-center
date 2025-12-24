@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; prog-modes.el --- Programming language modes and configurations
 ;;; Commentary:
 ;;; Configures various programming language major modes including Python, JavaScript,
@@ -64,11 +65,6 @@
               (("C-x c f" . json-pretty-print-buffer )
                ("C-c C-t" . copilot-complete-at-point))))
 
-(defun lk/format-current-buffer ()
-  "Run shellcheck on current file"
-  (interactive)
-  (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci %s"))
-
 (use-package go-mode :ensure t :mode "\\.go$"  )
 
 (use-package sqlup-mode
@@ -90,6 +86,11 @@
               (("C-x c f" . elfmt)
                ("C-x c e" . eval-region))))
 
+(defun lk/format-current-sh-buffer ()
+  "Run shellcheck on current file"
+  (interactive)
+  (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci %s"))
+
 (use-package sh-mode
   :ensure nil
   :mode ("zshrc" "\\.sh$")
@@ -98,7 +99,9 @@
   (setq indent-tabs-mode nil)
 
   (setq tab-width 2)
-  (setq standard-indent 2))
+  (setq standard-indent 2)
+
+  :bind (:map sh-mode-map (("C-x c f" . lk/format-current-sh-buffer))))
 
 (use-package graphql-mode
   :ensure t
@@ -122,16 +125,13 @@
 (use-package lua-mode
   :ensure t
   :mode ("\\.lua$" )
-  :config
-  (setq indent-tabs-mode nil )
+  :config (setq indent-tabs-mode nil )
   (setq lua-indent-level 2))
-
 
 (use-package sh-script
   :ensure nil
   :mode ("\\.sh$" . sh-mode)
-  :config
-  (setq sh-indent-offset 2)
+  :config (setq sh-indent-offset 2)
   (setq sh-indentation 2))
 
 (require 'lk/ruby)

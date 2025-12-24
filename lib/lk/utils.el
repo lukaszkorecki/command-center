@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 (defun lk/read-file (file &optional oneline)
   (with-temp-buffer
   	(insert-file-contents file)
@@ -44,5 +46,31 @@
   (prefer-coding-system 'utf-8)
   (define-coding-system-alias 'UTF-8 'utf-8))
 
+
+;; just exit if terminated or C-x C-c is invoked
+(setq confirm-kill-processes nil)
+
+;;(when (display-graphic-p)
+;;  (use-package auto-dark :config (auto-dark-mode t)))
+
+(defun lk/kill-buffers-by-major-mode (mode)
+  (interactive "sMajor mode: ")
+  "Kill all buffers in the supplied list."
+  (mapcar 'kill-buffer
+          (seq-filter
+           (lambda (buffer)
+             (eq (buffer-local-value 'major-mode buffer) mode))
+           (buffer-list))))
+
+(defun lk/clean-up-buffers ()
+  (interactive)
+  (kill-matching-buffers ".*magit.*" 't 't)
+  (kill-matching-buffers ".*grep.*" 't 't)
+  (kill-matching-buffers ".*XREF.*" 't 't)
+  (lk/kill-buffers-by-major-mode 'dired-mode)
+  (kill-matching-buffers ".*occur.*" 't 't)
+  (kill-matching-buffers ".*Flymake.*" 't 't)
+  (kill-matching-buffers ".*<eca-chat:.*" 't 't)
+  (kill-matching-buffers ".*<eca:stderr.*" 't 't))
 
 (provide 'lk/utils)

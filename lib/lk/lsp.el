@@ -1,10 +1,11 @@
+;;; -*- lexical-binding: t; -*-
 ;;; lsp.el -- LSP configuration + supporting packages
 
 (defun lk/eglot-ensure-root ()
   "Prevent Eglot from starting if the root directory is $HOME."
   (let ((project-root
          (or (project-root (project-current)) default-directory)))
-    (when (string= project-root (expand-file-name "~"))
+    (when (string= (expand-file-name project-root) (expand-file-name "~"))
       (user-error "Eglot won't start in $HOME directory"))))
 
 (use-package flymake
@@ -22,8 +23,8 @@
          (clojure-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
          (tsx-ts-mode . eglot-ensure)
-         (rjsx-mode . eglot-ensure)
-         (python-mode . eglot-ensure)
+         (js-jsx-mode . eglot-ensure)
+         (terraform-mode . eglot-ensure)
          (eglot-managed-mode-hook . lk/eglot-ensure-root)
          (eglot-managed-mode-hook . (lambda () (eglot-inlay-hints-mode 1))))
   :config

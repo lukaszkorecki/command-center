@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; project-dashboard.el --- Transient-based project management dashboard
 ;;; Code:
 

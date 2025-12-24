@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; completion.el - various completing things
 
 ;; Enable Vertico

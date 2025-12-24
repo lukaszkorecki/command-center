@@ -10,19 +10,19 @@
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(package-selected-packages
    '(ace-window agent-shell aggressive-indent alabaster-theme
-                better-defaults copilot difftastic disproject
+                better-defaults copilot csv-mode difftastic disproject
                 dockerfile-mode eca edit-indirect elfmt embark-consult
                 espresso-theme exec-path-from-shell git git-link
                 go-mode graphql-mode hl-todo ibuffer-project
-                jinja2-mode json-mode kaocha-runner
-                keychain-environment load-env-vars logview magit
-                marginalia markdown-ts-mode mermaid-mode mise
-                multi-vterm multiple-cursors nginx-mode nord-theme
-                orderless project-rootfile python-mode restclient
-                sqlup-mode string-inflection swift-mode terraform-mode
-                time-zones transpose-frame undo-tree unicode-fonts
-                vertico visual-regexp vterm-anti-flicker-filter
-                web-mode yaml-mode yasnippet))
+                jinja2-mode js-jsx-mode js3-mode json-mode
+                kaocha-runner keychain-environment load-env-vars
+                logview lua-mode marginalia markdown-ts-mode
+                mermaid-mode mise multi-vterm multiple-cursors
+                nginx-mode nord-theme orderless project-rootfile
+                python-mode restclient sqlup-mode string-inflection
+                swift-mode terraform-mode time-zones transpose-frame
+                undo-tree unicode-fonts vertico visual-regexp
+                vterm-anti-flicker-filter web-mode yaml-mode yasnippet))
  '(package-vc-selected-packages
    '((difftastic :url "https://github.com/pkryger/difftastic.el.git")
      (vterm-anti-flicker-filter :url

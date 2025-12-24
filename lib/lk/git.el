@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; git.el --- git tools, Magit mostly
 ;;; Commentary:
 

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; terminal.el --- Terminal and utility tools
 ;;; Commentary:
 ;;; Configures vterm for terminal emulation, mermaid for diagrams,

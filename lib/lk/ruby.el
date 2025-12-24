@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; lk/ruby --- ruby related customizations
 ;;;; Commentary:
 ;;; Code:
