@@ -10,17 +10,18 @@
 ;;; Code:
 (load-file "~/.emacs.d/deps.el")
 
+;; load secrets from 1password
+(require 'lk/secrets)
+
+;; environment: PATH and exec-path configuration
+(require 'lk/env-path)
+
 ;; initial startup: environment, GC settings, mise
 (require 'lk/startup)
 
 ;; display: frames, fonts, colors, window management
 (require 'lk/display)
 
-;; load secrets from 1password
-(require 'lk/secrets)
-
-;; environment: PATH and exec-path configuration
-(require 'lk/env-path)
 
 (require 'lk/completion)
 

@@ -10,7 +10,7 @@
   "Search up the PATH for known project file markers. Throws an error if found path is
   equal to users home directory"
   (when-let* ((root
-              (if-let ((vc-root (project-try-vc default-directory)))
+              (if-let* ((vc-root (project-try-vc default-directory)))
                   ;; get dir from (vc Git "dir")
                   (car (last vc-root))
                 ;; this returns #s(project-rootfile-plain "~/tmp/foobar/") struct,

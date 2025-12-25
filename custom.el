@@ -24,7 +24,9 @@
                 undo-tree unicode-fonts vertico visual-regexp
                 vterm-anti-flicker-filter web-mode yaml-mode yasnippet))
  '(package-vc-selected-packages
-   '((difftastic :url "https://github.com/pkryger/difftastic.el.git")
+   '((load-env-vars :url
+                    "https://github.com/lukaszkorecki/emacs-load-env-vars")
+     (difftastic :url "https://github.com/pkryger/difftastic.el.git")
      (vterm-anti-flicker-filter :url
                                 "https://github.com/martinbaillie/vterm-anti-flicker-filter")
      (elfmt :url "https://github.com/riscy/elfmt")
