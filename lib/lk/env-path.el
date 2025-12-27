@@ -11,6 +11,7 @@
 (add-to-list 'exec-path "/opt/homebrew/bin")
 (add-to-list 'exec-path (expand-file-name "~/.local/share/mise/shims"))
 (add-to-list 'exec-path (expand-file-name "~/.emacs.d/etc/bin"))
+(add-to-list 'exec-path (expand-file-name "~/.local/bin"))
 
 
 ;; get exec-path items and them into PATH:

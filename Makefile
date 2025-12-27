@@ -41,3 +41,9 @@ fix-macos:
 	defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 	sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
 	sudo killall SystemUIServer
+
+
+# instals things that need special handling
+install-other-tools:
+	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-nrepl-eval --main-opts '["-m" "clojure-mcp-light.nrepl-eval"]'
+	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-paren-repair --main-opts '["-m" "clojure-mcp-light.paren-repair"]'
