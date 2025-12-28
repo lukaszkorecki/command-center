@@ -149,7 +149,7 @@
 (use-package ace-window
   :ensure t
   :config ;
-  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+  (setq aw-keys '(?q ?w ?e ?r ?t ?y ?u ?i ?o))
   (setq aw-ignore-current nil)
   (setq aw-dispatch-always t)
   (setq aw-minibuffer-flag t)
@@ -164,9 +164,10 @@
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
-;; (use-package espresso-theme :ensure t :init (load-theme 'espresso t))
-
-(use-package nord-theme :ensure t :init (load-theme 'nord t))
+(use-package modus-themes
+  :ensure t
+  :init
+  (load-theme 'modus-operandi t))
 
 (provide 'lk/display)
 ;;; display.el ends here
