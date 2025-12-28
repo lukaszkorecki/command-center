@@ -14,7 +14,7 @@ brew "zile"
 brew "ripgrep"
 brew 'jq'
 brew 'borkdude/brew/jet'
-brew 'borkdude/brew/babashk'
+brew 'borkdude/brew/babashka'
 brew 'babashka/brew/bbin'
 brew 'gh'
 brew 'bat'
@@ -36,7 +36,5 @@ brew 'shfmt'
 cask 'cyberduck'
 brew 'fzf'
 cask 'rectangle'
-cask 'iterm2'
-
-
+cask 'ghostty'
 cask 'finicky'

@@ -7,21 +7,30 @@ MAKEFLAGS += --no-builtin-rules
 
 setup: brew-bundle zsh-completion configs fix-macos
 
-
-configs:
-	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
-	@ln -fvs ~/.emacs.d/etc/zshrc ~/.profile
-	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
+clojure-configs:
 	@mkdir -p ~/.config/clojure-lsp
 	@ln -fvs ~/.emacs.d/etc/clojure-lsp-config.edn ~/.config/clojure-lsp/config.edn
 	@mkdir -p ~/.clojure/
 	@rm -rf ~/.clojure
 	@ln -fvs ~/.emacs.d/etc/clojure ~/.clojure
-	@ln -fvs ~/.emacs.d/etc/psqlrc ~/.psqlrc
 	@mkdir -p ~/.lein
 	@ln -fvs ~/.emacs.d/etc/lein/profiles.clj ~/.lein/profiles.clj
+
+ghostty-configs:
+	@mkdir -p ~/.config/ghostty
+	@echo "config-file = $(HOME)/.emacs.d/etc/ghostty/config" > ~/.config/ghostty/config
+	@echo "theme = $(HOME)/.emacs.d/etc/ghostty/themes/modus-operandi" >> ~/.config/ghostty/config
+	@mv ~/.config/ghostty/config ~/Library/Application\ Support/com.mitchellh.ghostty/config
+
+
+configs: clojure-configs ghostty-configs
+	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
+	@ln -fvs ~/.emacs.d/etc/zshrc ~/.profile
+	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
+	@ln -fvs ~/.emacs.d/etc/psqlrc ~/.psqlrc
 	@mkdir -p ~/.config/mise
 	@ln -fvs ~/.emacs.d/etc/mise.toml ~/.config/mise/config.toml
+
 
 
 brew-bundle:
@@ -47,3 +56,6 @@ fix-macos:
 install-other-tools:
 	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-nrepl-eval --main-opts '["-m" "clojure-mcp-light.nrepl-eval"]'
 	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-paren-repair --main-opts '["-m" "clojure-mcp-light.paren-repair"]'
+	curl 'https://emacsformacosx.com/emacs-builds/Emacs-2025-12-21_00-09-31-1eb247af73c3dbfbf8d4c4363d1a22e3fbcf6ce7-universal.dmg' -o /tmp/emacs.dmg && \
+	  hdiutil attach /tmp/emacs.dmg && \
+	  cp -R /Volumes/Emacs-2025-12-21/Emacs
