@@ -13,25 +13,27 @@ clojure-configs:
 	@mkdir -p ~/.clojure/
 	@rm -rf ~/.clojure
 	@ln -fvs ~/.emacs.d/etc/clojure ~/.clojure
-	@mkdir -p ~/.lein
-	@ln -fvs ~/.emacs.d/etc/lein/profiles.clj ~/.lein/profiles.clj
+	@rm -rf ~/.lein
+	@ln -fvs ~/.emacs.d/etc/lein ~/.lein
 
+# FIXME: this is silly...
 ghostty-configs:
 	@mkdir -p ~/.config/ghostty
 	@echo "config-file = $(HOME)/.emacs.d/etc/ghostty/config" > ~/.config/ghostty/config
 	@echo "theme = $(HOME)/.emacs.d/etc/ghostty/themes/modus-operandi" >> ~/.config/ghostty/config
 	@mv ~/.config/ghostty/config ~/Library/Application\ Support/com.mitchellh.ghostty/config
 
+private-configs:
+	git submodule update --init --recursive private-configs
+	cd private-configs && make setup
 
-configs: clojure-configs ghostty-configs
+configs: clojure-configs ghostty-configs private-configs
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.profile
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
 	@ln -fvs ~/.emacs.d/etc/psqlrc ~/.psqlrc
 	@mkdir -p ~/.config/mise
 	@ln -fvs ~/.emacs.d/etc/mise.toml ~/.config/mise/config.toml
-
-
 
 brew-bundle:
 	HOMEBREW_AUTO_UPDATE_SECS=9600 brew bundle
@@ -42,8 +44,6 @@ zsh-completion:
 	ln -fvs /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion ~/.emacs.d/etc/zsh/_docker
 	ln -fvs  /System/Volumes/Data/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion ~/.emacs.d/etc/zsh/_docker-compose
 
-
-
 fix-macos:
 	defaults write com.apple.finder ShowPathbar -bool true
 	defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -53,9 +53,17 @@ fix-macos:
 
 
 # instals things that need special handling
-install-other-tools:
+install-other-tools: install-emacs
 	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-nrepl-eval --main-opts '["-m" "clojure-mcp-light.nrepl-eval"]'
 	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-paren-repair --main-opts '["-m" "clojure-mcp-light.paren-repair"]'
-	curl 'https://emacsformacosx.com/emacs-builds/Emacs-2025-12-21_00-09-31-1eb247af73c3dbfbf8d4c4363d1a22e3fbcf6ce7-universal.dmg' -o /tmp/emacs.dmg && \
+
+
+install-emacs:
+	curl 'https://emacsformacosx.com/emacs-builds/Emacs-2025-12-21_00-09-31-1eb247af73c3dbfbf8d4c4363d1a22e3fbcf6ce7-universal.dmg' -L -o /tmp/emacs.dmg && \
 	  hdiutil attach /tmp/emacs.dmg && \
-	  cp -R /Volumes/Emacs-2025-12-21/Emacs
+	  cp -R /Volumes/Emacs/Emacs.app /Applications/Emacs.app && \
+	  hdiutil detach /Volumes/Emacs && \
+	  rm /tmp/emacs.dmg
+
+
+.PHONY: setup brew-bundle zsh-completion fix-macos configs clojure-configs ghostty-configs private-configs install-other-tools

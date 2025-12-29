@@ -34,9 +34,10 @@ fi
 
 
 # secrets and work stuff
-if [[ -e ~/.private/env.sh ]]; then
-  source ~/.private/env.sh
-  PATH="$PATH:$HOME/.private/bin"
+if [[ -e ~/.emacs.d/private-configs/init.sh ]]; then
+  source  ~/.emacs.d/private-configs/init.sh
+else
+  echo "Private configs not found, skipping..."
 fi
 
 ## aliases
