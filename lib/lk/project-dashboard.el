@@ -5,43 +5,59 @@
 (use-package project-rootfile :ensure t)
 
 (defvar lk/home-full-path (getenv "HOME"))
+(defvar lk/project-root-files
+ '( "package.json" "deps.edn" "project.clj" "main.tf" "go.mod" ))
+
 
 (defun lk/project-find-root (path)
-  "Search up the PATH for known project file markers. Throws an error if found path is
-  equal to users home directory"
-  (when-let* ((root
-              (if-let* ((vc-root (project-try-vc default-directory)))
-                  ;; get dir from (vc Git "dir")
-                  (car (last vc-root))
-                ;; this returns #s(project-rootfile-plain "~/tmp/foobar/") struct,
-                ;; we need the :root part
-                (project-rootfile-plain--root
-                 (project-rootfile-try-detect default-directory)))))
-    (let* ((root-exp (expand-file-name root)))
-      ;; bail if detected dir is equal to home (can happen!)
-      (when (string-equal lk/home-full-path root-exp)
-        (message "Root folder is equal to HOME!")
-        (throw 'lk/invalid-project-root t))
-      ;; otherwise we're good
-      root-exp)))
+  "Searches for project root starting from PATH. Picks the root directory based on:
 
+  1. Version control system root (if any)
+  2. Presence of known project root files (e.g., .git, package.json, etc.
+  3. fails if the detected root is equal to user's home directory
+  Shortest path wins. Returns the project root path or nil if not found."
+  (let* (
+         ;; as fallback
+         (vc-root (vc-root-dir))
+
+         ;; iterate over project files and find their locations:
+         (paths
+          (mapcar
+           (lambda (file)
+             (when-let* ((path (locate-dominating-file path file)))
+               (let ((p (expand-file-name file)))
+                 (message ">>> %s" p)
+                 p
+
+                 )))
+           lk/project-root-files))
+
+         ;; now filter out nils and home directory
+         (filterd-paths (seq-filter
+                         (lambda (p)
+                           (and p
+                                (not (string=
+                                      (file-truename p)
+                                      (file-truename lk/home-full-path)))))
+                         paths)))
+
+    ;; return shortest path if any, fallback to VC root
+    (if filterd-paths
+      (car (sort filterd-paths))
+      vc-root)))
 
 (use-package project
   :ensure t
   :after (project-rootfile)
-  :config
-  (advice-add #'project-find-regexp :override #'consult-git-grep)
+  :config (advice-add #'project-find-regexp :override #'consult-git-grep)
   (advice-add #'project-shell :override #'multi-vterm)
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" ?m)
                '(consult-git-grep "Git grep" ?g))
-  (add-to-list 'project-find-functions #'project-rootfile-try-detect t)
+  (add-to-list 'project-find-functions #'lk/project-find-root t)
   :bind-keymap ("C-c p" . project-prefix-map))
 
-(use-package ibuffer-project
-  :ensure t
-  :after (project))
-
+(use-package ibuffer-project :ensure t :after (project))
 
 (defun lk/ibuffer-toggle-never-show ()
   "Clear the list of never show predicates."
@@ -58,7 +74,6 @@
             "^\\*copilot.events"
             "^\\*EGLOT")))
   (ibuffer-update nil t))
-
 
 (use-package ibuffer
   :ensure t
@@ -126,16 +141,15 @@
   :after (multi-vterm magit consult project)
   ;; Replace `project-prefix-map' with `disproject-dispatch'.
   :bind ( :map ctl-x-map ("p" . disproject-dispatch))
-  :custom
-  (disproject-shell-command #'multi-vterm-project)
+  :custom (disproject-shell-command #'multi-vterm-project)
   :config (transient-insert-suffix 'disproject-dispatch
             '(-1)
             ["Tools"
              :advice disproject-with-env-apply
              ("M" "magit status" magit-status)
              ("P" "view or create PR in browser" lk/view-or-create-pr)
-             ("V" "view repo in the browser" lk/view-repo-web)]))
-
+             ("V" "view repo in the browser" lk/view-repo-web)
+             ]))
 
 (global-set-key (kbd "C-x p") 'disproject-dispatch)
 

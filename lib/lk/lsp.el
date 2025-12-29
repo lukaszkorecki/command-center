@@ -5,7 +5,9 @@
   "Prevent Eglot from starting if the root directory is $HOME."
   (let ((project-root
          (or (project-root (project-current)) default-directory)))
-    (when (string= (expand-file-name project-root) (expand-file-name "~"))
+    (when (string=
+           (expand-file-name project-root)
+           (expand-file-name "~"))
       (user-error "Eglot won't start in $HOME directory"))))
 
 (use-package flymake
@@ -16,8 +18,7 @@
 
 (use-package eglot
   :after (project flymake)
-  :custom
-  (eglot-confirm-server-initiated-edits nil)
+  :custom (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
   :hook ((clojure-ts-mode . eglot-ensure)
          (clojure-mode . eglot-ensure)
@@ -27,17 +28,11 @@
          (terraform-mode . eglot-ensure)
          (eglot-managed-mode-hook . lk/eglot-ensure-root)
          (eglot-managed-mode-hook . (lambda () (eglot-inlay-hints-mode 1))))
-  :config
-  (setq eglot-autoshutdown t)
+  :config (setq eglot-autoshutdown t)
   (setq eglot-autoreconnect t)
   (setq eglot-confirm-server-initiated-edits nil)
 
-  (cl-pushnew '((web-mode) . ("typescript-language-server" "--stdio"))
-              eglot-server-programs :test #'equal)
-
-  (cl-pushnew
-   '((terraform-mode) . ("terraform-ls" "serve"))
-   eglot-server-programs :test #'equal)
+  (add-to-list 'project-find-functions #'project-rootfile-try-detect)
 
   :bind (("C-c l r r" . eglot-rename)
          ("C-c l a" . eglot-code-actions )
