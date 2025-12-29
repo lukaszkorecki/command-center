@@ -14,7 +14,6 @@ brew "zile"
 brew "ripgrep"
 brew 'jq'
 brew 'borkdude/brew/jet'
-brew 'borkdude/brew/babashka'
 brew 'babashka/brew/bbin'
 brew 'gh'
 brew 'bat'

@@ -3,7 +3,7 @@ java = "temurin-25"
 
 babashka = "latest"
 clojure = "latest"
-leiningen = "2.12.0"
+leiningen = "latest"
 node = "24"
 
 [settings]
