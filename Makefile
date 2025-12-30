@@ -25,7 +25,7 @@ ghostty-configs:
 
 private-configs:
 	git submodule update --init --recursive private-configs
-	cd private-configs && make setup
+	cd private-configs && git switch main && git update && make setup
 
 configs: clojure-configs ghostty-configs private-configs
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
