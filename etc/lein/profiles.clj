@@ -1,4 +1,4 @@
-{:user {:dependencies [[org.clojars.lukaszkorecki/rumble "1.1.0.44"]]
+{:user {:dependencies [[org.clojars.lukaszkorecki/rumble "1.1.0.47"]]
 
         :repl-options {:color false}
 
@@ -20,8 +20,8 @@
                   "cider-repl" ["with-profile" "+repl"
                                  "repl" ":headless"]}}
 
- :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.1.0.44"]
-                       [nrepl/nrepl "1.5.1"]
+ :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.1.0.47"]
+                       [nrepl/nrepl "1.5.2"]
                        [cider/cider-nrepl "0.58.0"]]
         :jvm-opts ^:replace ["-XX:-OmitStackTraceInFastThrow" "-Djdk.attach.allowAttachSelf"]
         :repl-options {:color false}}
