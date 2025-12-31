@@ -16,17 +16,13 @@
   2. Presence of known project root files (e.g., .git, package.json, etc.
   3. fails if the detected root is equal to user's home directory
   Shortest path wins. Returns the project root path or nil if not found."
-  (let* (
-         ;; as fallback
-         (vc-root (vc-root-dir))
-
+  (let* ((vc-root (vc-root-dir))          ;; as fallback
          ;; iterate over project files and find their locations:
          (paths (mapcar ; nofmt
                  (lambda (file)
                    (when-let* ((path (locate-dominating-file path file)))
                      (expand-file-name file)))
                  lk/project-root-files))
-
          ;; now filter out nils and home directory
          (filterd-paths (seq-filter ; nofmt
                          (lambda (p)
@@ -39,7 +35,8 @@
 (use-package project
   :ensure t
   :after (project-rootfile)
-  :config (advice-add #'project-find-regexp :override #'consult-git-grep)
+  :config ; nofmt
+  (advice-add #'project-find-regexp :override #'consult-git-grep)
   (advice-add #'project-shell :override #'multi-vterm)
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" ?m)
@@ -132,14 +129,17 @@
   ;; Replace `project-prefix-map' with `disproject-dispatch'.
   :bind ( :map ctl-x-map ("p" . disproject-dispatch))
   :custom (disproject-shell-command #'multi-vterm-project)
-  :config (transient-insert-suffix 'disproject-dispatch
-            '(-1)
-            ["Tools"
-             :advice disproject-with-env-apply
-             ("M" "magit status" magit-status)
-             ("P" "view or create PR in browser" lk/view-or-create-pr)
-             ("V" "view repo in the browser" lk/view-repo-web)
-             ]))
+  :config ;; Remove existing "Tools" suffix if present to avoid duplicates on reload
+  (ignore-errors
+    (transient-remove-suffix 'disproject-dispatch '("Tools")))
+
+  (transient-insert-suffix 'disproject-dispatch
+    '(-1)
+    ["Tools"
+     :advice disproject-with-env-apply
+     ("M" "magit status" magit-status)
+     ("P" "view or create PR in browser" lk/view-or-create-pr)
+     ("V" "view repo in the browser" lk/view-repo-web)]))
 
 (global-set-key (kbd "C-x p") 'disproject-dispatch)
 

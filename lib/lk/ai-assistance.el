@@ -53,14 +53,17 @@
   :after (acp shell-maker company)
   :ensure t
   :defer t
-  :config (setq agent-shell-google-authentication
-                (agent-shell-google-make-authentication :vertex-ai t))
+  :init
+  ;; Enable consult completion for agent-shell before it loads
+  (setq completion-in-region-function #'consult-completion-in-region)
+  :config
+  (setq agent-shell-google-authentication
+        (agent-shell-google-make-authentication :vertex-ai t))
   ;; TODO: change path to opencode binary or figure out how to make this work with Mise?
   (setq agent-shell-opencode-command
         (list (expand-file-name "~/.local/share/mise/shims/opencode") "acp"))
 
-  (setopt agent-shell-file-completion-enabled	t)
-  (setq completion-in-region-function #'consult-completion-in-region))
+  (setopt agent-shell-file-completion-enabled t))
 
 (use-package eca :ensure t :bind (("C-c d" . eca-transient-menu)))
 
