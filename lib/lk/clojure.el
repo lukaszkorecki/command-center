@@ -26,6 +26,15 @@
 
 ;; packages
 
+;; a dump way of converting Java import statements to Clojure import forms
+;; run at 'import' line, it will search for ';' to the end of the line,
+;; then search for '.' to the end of that line, delete the '.' and everything after it,
+;; then delete spaces, move to beginning of line
+;; e.g. 'import java.util.List;' -> '(import java.util List)
+(defalias 'lk/convert-java-import
+  (kmacro
+   "M-m C-s i m p o r t <return> M-m ( C-s ; <return> <backspace> ) C-r \\ . <return> C-d SPC C-a"))
+
 (use-package clojure-ts-mode
   :after (copilot-mode)
   :mode "\\.clj$"
@@ -54,8 +63,7 @@
                     (lambda ()
                       (unbind-key "C-x s" cider-mode-map)
                       (unbind-key "C-x s" cider-repl-mode-map)))
-  :config
-  (setq cider-use-xref nil) ;; use clojure-lsp xref instead
+  :config (setq cider-use-xref nil) ;; use clojure-lsp xref instead
   (setq cider-enable-nrepl-jvmti-agent t)
   (setq cider-repl-display-help-banner nil)
   (setq cider-clojure-cli-aliases ":dev/rumble:dev:test")
