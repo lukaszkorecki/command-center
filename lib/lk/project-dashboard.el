@@ -4,10 +4,10 @@
 
 (use-package project-rootfile :ensure t)
 
-(defvar lk/home-full-path (getenv "HOME"))
-(defvar lk/project-root-files
- '( "package.json" "deps.edn" "project.clj" "main.tf" "go.mod" ))
+(defvar lk/home-full-path (file-truename (getenv "HOME")))
 
+(defvar lk/project-root-files
+  '( "package.json" "deps.edn" "project.clj" "main.tf" "go.mod" "mise.toml"))
 
 (defun lk/project-find-root (path)
   "Searches for project root starting from PATH. Picks the root directory based on:
@@ -21,30 +21,20 @@
          (vc-root (vc-root-dir))
 
          ;; iterate over project files and find their locations:
-         (paths
-          (mapcar
-           (lambda (file)
-             (when-let* ((path (locate-dominating-file path file)))
-               (let ((p (expand-file-name file)))
-                 (message ">>> %s" p)
-                 p
-
-                 )))
-           lk/project-root-files))
+         (paths (mapcar ; nofmt
+                 (lambda (file)
+                   (when-let* ((path (locate-dominating-file path file)))
+                     (expand-file-name file)))
+                 lk/project-root-files))
 
          ;; now filter out nils and home directory
-         (filterd-paths (seq-filter
+         (filterd-paths (seq-filter ; nofmt
                          (lambda (p)
-                           (and p
-                                (not (string=
-                                      (file-truename p)
-                                      (file-truename lk/home-full-path)))))
+                           (and p (not (string= (file-truename p) lk/home-full-path)))) ; nofmt
                          paths)))
 
     ;; return shortest path if any, fallback to VC root
-    (if filterd-paths
-      (car (sort filterd-paths))
-      vc-root)))
+    (if filterd-paths (car (sort filterd-paths)) vc-root)))
 
 (use-package project
   :ensure t
