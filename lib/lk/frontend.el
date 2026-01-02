@@ -30,6 +30,8 @@
     (add-to-list 'major-mode-remap-alist mapping))
   :config
 
+  :init
+  ;; Set up treesit language sources early to avoid duplicates
   (add-to-list 'treesit-language-source-alist
                '(tsx .
                      ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src")))
@@ -41,6 +43,7 @@
                '(javascript .
                             ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src")))
 
+  :config
   ;; activate js-jsx-mode when opening .js or .jsx files - rather than ts-mode since that's usually not what we want
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))

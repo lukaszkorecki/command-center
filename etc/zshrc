@@ -15,6 +15,10 @@ if [[ -e "$HOME/.local/bin" ]]; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [[ -e /Applications/Emacs.app/Contents/MacOS/bin/ ]]; then
+  export PATH="/Applications/Emacs.app/Contents/MacOS/bin/:$PATH"
+fi
+
 # Homebrew configuration
 if [[ -e $(which brew) ]]; then
   export HOMEBREW_NO_AUTO_UPDATE=1

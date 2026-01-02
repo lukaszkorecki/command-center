@@ -5,11 +5,11 @@
           :types {:enabled? false}
           :remove-multiple-non-indenting-spaces? true
           :indents {defroutes [[:inner 0]],
-                    cond [[:inner 4]]
-                    cond-> [[:inner 4]]
-                    cond->> [[:inner 4]]
-                    some-> [[:inner 4]]
-                    some->> [[:inner 4]]
+                    cond [[:inner 2]]
+                    cond-> [[:inner 2]]
+                    cond->> [[:inner 2]]
+                    some-> [[:inner 2]]
+                    some->> [[:inner 2]]
                     require [[:inner 2]]
                     import [[:inner 2]]
                     defroute [[:inner 0]],

@@ -15,13 +15,6 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-;; (use-package aggressive-indent
-;;   :ensure t
-;;   :hook (( prog-mode-hook  . aggressive-indent-mode)
-;;          (makefile-mode-hook . (lambda () (aggressive-indent-mode -1)))
-;;          (clojure-ts-mode-hook . (lambda () (aggressive-indent-mode -1)))
-;;          (dockerfile-mode-hook . (lambda () (aggressive-indent-mode -1)))))
-
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
          (default-directory pj-dir))
@@ -70,11 +63,11 @@
 (use-package sqlup-mode
   :ensure t
   :hook (sql-mode-hook . sqlup-mode)
-  :init (mapc
-         (lambda (kw)
-           (require 'sqlup-mode)
-           (add-to-list 'sqlup-blacklist kw))
-         '("name" "key" "value" "id"  "source" "type" "to" "user" "at" "role" "current_role" )))
+  :config ;; Add keywords to blacklist, preventing duplicates with dolist
+  (require 'sqlup-mode)
+  (dolist (kw
+           '("name" "key" "value" "id" "source" "type" "to" "user" "at" "role" "current_role"))
+    (add-to-list 'sqlup-blacklist kw)))
 
 ;; formatter for elisp
 
@@ -133,6 +126,18 @@
   :mode ("\\.sh$" . sh-mode)
   :config (setq sh-indent-offset 2)
   (setq sh-indentation 2))
+
+(use-package java-ts-mode
+  :ensure t
+  :mode ("\\.java$" )
+
+  :preface ; nofmt
+  (dolist (mapping '((java-mode . java-ts-mode)))
+    (add-to-list 'major-mode-remap-alist mapping))
+
+  :init ;; Set up treesit language sources early to avoid duplicates
+  (add-to-list 'treesit-language-source-alist
+               '(java . ("https://github.com/tree-sitter/tree-sitter-java" "v0.23.5" "src"))))
 
 (require 'lk/ruby)
 (require 'lk/frontend)
