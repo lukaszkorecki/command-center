@@ -3,4 +3,4 @@
 	url = git@github.com:lukaszkorecki/drifter.git
 [submodule "private-configs"]
 	path = private-configs
-	url = git@github.com:lukaszkorecki/private-configs.git
+	url = https://github.com/lukaszkorecki/private-configs.git
