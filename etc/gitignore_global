@@ -40,3 +40,4 @@ deps.txt
 *.md.html
 __*doc/
 .agent-shell
+__docs
