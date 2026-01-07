@@ -30,5 +30,17 @@
                           ;; Company-specific context/utility macros
                           with-transaction [[:inner 0]]
                           with-timing [[:inner 0]]
-                          with-context [[:inner 0]]
-                          count-on-exception [[:inner 0]]}}}
+                          count-on-exception [[:inner 0]]
+
+                          ;; logging
+                          with-context [[:inner 1]]
+                          debugf [[:inner 1]]
+                          debug [[:inner 1]]
+                          infof [[:inner 1]]
+                          info [[:inner 1]]
+                          warnf [[:inner 1]]
+                          warn [[:inner 1]]
+                          errorf [[:inner 1]]
+                          error [[:inner 1]]
+                          tracef [[:inner 1]]
+                          trace [[:inner 1]]}}}

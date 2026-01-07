@@ -31,5 +31,7 @@
                                 :main-opts ["-m" "antq.core"]}
 
            :dev/check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
-                                                     :git/sha "d997df866b2a04b7ce7b17533093ee0a2e2cb729"}}
-                       :main-opts ["-m" "clj-check.check" "src" "test"]}}}
+                                                     :sha "d997df866b2a04b7ce7b17533093ee0a2e2cb729"}}
+                       :main-opts ["-m" "clj-check.check"
+                                   "src"]
+                       :jvm-opts ["-Dclojure.main.report=stderr"]}}}

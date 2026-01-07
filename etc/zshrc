@@ -40,6 +40,7 @@ fi
 # secrets and work stuff
 if [[ -e ~/.emacs.d/private-configs/init.sh ]]; then
   source  ~/.emacs.d/private-configs/init.sh
+  export PATH="$HOME/.emacs.d/private-configs/bin:$PATH"
 else
   echo "Private configs not found, skipping..."
 fi
