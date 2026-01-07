@@ -1,7 +1,123 @@
 ;; -*- lexical-binding: t; -*-
 ;;; clojure.el --- clojure setup
 
+(require 'lk/utils)
+
 ;; helpers
+
+(defun lk/cljfmt-builtin-indents ()
+  "Return cljfmt's built-in indent rules as a hash table.
+These are the default indents from cljfmt for clojure.core forms."
+  (let ((indents (make-hash-table :test 'equal)))
+    ;; Extracted from https://github.com/weavejester/cljfmt/blob/master/cljfmt/resources/cljfmt/indents/clojure.clj
+    (hput indents 'alt! [[:block 0]])
+    (hput indents 'alt!! [[:block 0]])
+    (hput indents 'are [[:block 2]])
+    (hput indents 'as-> [[:block 2]])
+    (hput indents 'binding [[:block 1]])
+    (hput indents 'bound-fn [[:inner 0]])
+    (hput indents 'case [[:block 1]])
+    (hput indents 'catch [[:block 2]])
+    (hput indents 'comment [[:block 0]])
+    (hput indents 'cond [[:block 0]])
+    (hput indents 'condp [[:block 2]])
+    (hput indents 'cond-> [[:block 1]])
+    (hput indents 'cond->> [[:block 1]])
+    (hput indents 'def [[:inner 0]])
+    (hput indents 'defmacro [[:inner 0]])
+    (hput indents 'defmethod [[:inner 0]])
+    (hput indents 'defmulti [[:inner 0]])
+    (hput indents 'defn [[:inner 0]])
+    (hput indents 'defn- [[:inner 0]])
+    (hput indents 'defonce [[:inner 0]])
+    (hput indents 'defprotocol [[:block 1] [:inner 1]])
+    (hput indents 'defrecord [[:block 2] [:inner 1]])
+    (hput indents 'defstruct [[:block 1]])
+    (hput indents 'deftest [[:inner 0]])
+    (hput indents 'deftype [[:block 2] [:inner 1]])
+    (hput indents 'delay [[:block 0]])
+    (hput indents 'do [[:block 0]])
+    (hput indents 'doseq [[:block 1]])
+    (hput indents 'dotimes [[:block 1]])
+    (hput indents 'doto [[:block 1]])
+    (hput indents 'extend [[:block 1]])
+    (hput indents 'extend-protocol [[:block 1] [:inner 1]])
+    (hput indents 'extend-type [[:block 1] [:inner 1]])
+    (hput indents 'fdef [[:inner 0]])
+    (hput indents 'finally [[:block 0]])
+    (hput indents 'fn [[:inner 0]])
+    (hput indents 'for [[:block 1]])
+    (hput indents 'future [[:block 0]])
+    (hput indents 'go [[:block 0]])
+    (hput indents 'go-loop [[:block 1]])
+    (hput indents 'if [[:block 1]])
+    (hput indents 'if-let [[:block 1]])
+    (hput indents 'if-not [[:block 1]])
+    (hput indents 'if-some [[:block 1]])
+    (hput indents 'let [[:block 1]])
+    (hput indents 'let* [[:block 1]])
+    (hput indents 'letfn [[:block 1] [:inner 2 0]])
+    (hput indents 'locking [[:block 1]])
+    (hput indents 'loop [[:block 1]])
+    (hput indents 'match [[:block 1]])
+    (hput indents 'ns [[:block 1]])
+    (hput indents 'proxy [[:block 2] [:inner 1]])
+    (hput indents 'reify [[:inner 0] [:inner 1]])
+    (hput indents 'struct-map [[:block 1]])
+    (hput indents 'testing [[:block 1]])
+    (hput indents 'thread [[:block 0]])
+    (hput indents 'try [[:block 0]])
+    (hput indents 'use-fixtures [[:inner 0]])
+    (hput indents 'when [[:block 1]])
+    (hput indents 'when-first [[:block 1]])
+    (hput indents 'when-let [[:block 1]])
+    (hput indents 'when-not [[:block 1]])
+    (hput indents 'when-some [[:block 1]])
+    (hput indents 'while [[:block 1]])
+    (hput indents 'with-local-vars [[:block 1]])
+    (hput indents 'with-open [[:block 1]])
+    (hput indents 'with-out-str [[:block 0]])
+    (hput indents 'with-precision [[:block 1]])
+    (hput indents 'with-redefs [[:block 1]])
+    indents))
+
+(defun lk/load-clojure-lsp-indent-rules ()
+  "Load indent rules from clojure-lsp config and convert to clojure-ts-mode format.
+Reads the EDN config file and transforms cljfmt indents to the format expected by
+clojure-ts-semantic-indent-rules. Merges cljfmt built-in defaults with custom :extra-indents."
+  (require 'parseedn)
+  (let* ((config-file (expand-file-name "etc/clojure-lsp-config.edn" user-emacs-directory))
+         (config-data (with-temp-buffer
+                        (insert-file-contents config-file)
+                        (parseedn-read)))
+         ;; parseedn returns (hash-table), so we need to get the first element
+         (config (if (listp config-data) (car config-data) config-data))
+         (cljfmt (hget config :cljfmt))
+         ;; Start with cljfmt built-in defaults
+         (all-indents (lk/cljfmt-builtin-indents))
+         ;; Get custom extra-indents from config
+         (extra-indents (hget cljfmt :extra-indents))
+         (rules '()))
+    ;; Merge extra-indents on top of built-ins (overrides defaults)
+    (when extra-indents
+      (maphash (lambda (symbol indent-spec)
+                 (hput all-indents symbol indent-spec))
+               extra-indents))
+    ;; Convert from cljfmt format to clojure-ts-mode format
+    ;; cljfmt: symbol [[:inner N]] or [[:block N]] (vector of vectors)
+    ;; clojure-ts: ("symbol" . ((:inner N))) or ("symbol" . ((:block N)))
+    (maphash (lambda (symbol indent-spec)
+               (let* ((symbol-name (symbol-name symbol))
+                      ;; Convert vector to list
+                      (indent-spec-list (append indent-spec nil))
+                      (first-spec (car indent-spec-list))
+                      (indent-type (aref first-spec 0))  ; :inner or :block
+                      (indent-level (aref first-spec 1)) ; the number
+                      (ts-rule (cons symbol-name (list (list (cons indent-type indent-level))))))
+                 (push ts-rule rules)))
+             all-indents)
+    (nreverse rules)))
+
 (defun lk/failed-tests-in-repl-buffer ()
   (interactive)
   (consult-line "\\(FAIL\\|ERROR\\).in."))
@@ -44,51 +160,10 @@
          (clojure-ts-mode-hook . mise-mode)
          (clojure-ts-mode-hook . copilot-mode))
 
-  :config ;
+  :config
   (setopt clojure-ts-comment-macro-font-lock-body t)
-  (setopt clojure-ts-semantic-indent-rules
-          '(;; Threading macros
-            ("->" . ((:inner 2)))
-            ("->>" . ((:inner 2)))
-            ("some->" . ((:inner 2)))
-            ("some->>" . ((:inner 2)))
-            ("cond->" . ((:inner 2)))
-            ("cond->>" . ((:inner 2)))
-            ("as->" . ((:inner 2)))
-            ("doto" . ((:inner 2)))
-            ;; Conditional macros
-            ("cond" . ((:inner 2)))
-            ("case" . ((:inner 2)))
-            ("condp" . ((:inner 2)))
-            ("if-let" . ((:inner 2)))
-            ("when-let" . ((:inner 2)))
-            ("if-some" . ((:inner 2)))
-            ("when-some" . ((:inner 2)))
-            ("compile-if" . ((:inner 2)))
-            ;; Namespace management
-            ("require" . ((:inner 2)))
-            ("import" . ((:inner 2)))
-            ("use" . ((:inner 2)))
-            ;; Definition forms
-            ("defproject" . ((:block 1)))
-            ("defprotocol" . ((:inner 1)))
-            ("defrecord" . ((:inner 1)))
-            ;; Routing/HTTP macros
-            ("defroutes" . ((:inner 0)))
-            ("defroute" . ((:inner 0)))
-            ("GET" . ((:inner 0)))
-            ("POST" . ((:inner 0)))
-            ("PUT" . ((:inner 0)))
-            ("DELETE" . ((:inner 0)))
-            ("PATCH" . ((:inner 0)))
-            ("HEAD" . ((:inner 0)))
-            ("OPTIONS" . ((:inner 0)))
-            ("ANY" . ((:inner 0)))
-            ;; Context/utility macros
-            ("with-transaction" . ((:inner 0)))
-            ("with-timing" . ((:inner 0)))
-            ("with-context" . ((:inner 0)))
-            ("count-on-exception" . ((:inner 0)))))))
+  ;; Load indent rules from clojure-lsp config to keep them in sync
+  (setopt clojure-ts-semantic-indent-rules (lk/load-clojure-lsp-indent-rules)))
 
 (use-package cider
   :ensure t

@@ -1,48 +1,34 @@
+;; clojure-lsp configuration
+;; This file is the single source of truth for Clojure indentation rules.
+;; Emacs clojure-ts-mode reads this file via lk/load-clojure-lsp-indent-rules
+;; to ensure C-M-\ and `clojure-lsp format` produce identical results.
+;;
+;; NOTE: cljfmt has built-in defaults for most clojure.core forms.
+;; Only add :extra-indents for custom macros specific to your codebase.
 {:auto-add-ns-to-new-files? false
  :keep-parens-when-threading? true
- :cljfmt {:vars {:enabled? false},
-          :functions {:enabled? false},
+ :cljfmt {:vars {:enabled? false}
+          :functions {:enabled? false}
           :types {:enabled? false}
           :remove-multiple-non-indenting-spaces? true
-          :indents {;; Threading macros
-                    -> [[:inner 2]]
-                    ->> [[:inner 2]]
-                    some-> [[:inner 2]]
-                    some->> [[:inner 2]]
-                    cond-> [[:inner 2]]
-                    cond->> [[:inner 2]]
-                    as-> [[:inner 2]]
-                    doto [[:inner 2]]
-                    ;; Conditional macros
-                    cond [[:inner 2]]
-                    case [[:inner 2]]
-                    condp [[:inner 2]]
-                    if-let [[:inner 2]]
-                    when-let [[:inner 2]]
-                    if-some [[:inner 2]]
-                    when-some [[:inner 2]]
-                    compile-if [[:inner 2]]
-                    ;; Namespace management
-                    require [[:inner 2]]
-                    import [[:inner 2]]
-                    use [[:inner 2]]
-                    ;; Definition forms
-                    defproject [[:block 1]]
-                    defprotocol [[:inner 1]]
-                    defrecord [[:inner 1]]
-                    ;; Routing/HTTP macros
-                    defroutes [[:inner 0]]
-                    defroute [[:inner 0]]
-                    GET [[:inner 0]]
-                    POST [[:inner 0]]
-                    PUT [[:inner 0]]
-                    DELETE [[:inner 0]]
-                    PATCH [[:inner 0]]
-                    HEAD [[:inner 0]]
-                    OPTIONS [[:inner 0]]
-                    ANY [[:inner 0]]
-                    ;; Context/utility macros
-                    with-transaction [[:inner 0]]
-                    with-timing [[:inner 0]]
-                    with-context [[:inner 0]]
-                    count-on-exception [[:inner 0]]}}}
+          ;; Custom indent rules for company-specific macros
+          :extra-indents {;; Leiningen
+                          defproject [[:block 1]]
+                          ;; Custom utility macros
+                          compile-if [[:block 1]]
+                          ;; Compojure/HTTP routing macros
+                          defroutes [[:inner 0]]
+                          defroute [[:inner 0]]
+                          GET [[:inner 0]]
+                          POST [[:inner 0]]
+                          PUT [[:inner 0]]
+                          DELETE [[:inner 0]]
+                          PATCH [[:inner 0]]
+                          HEAD [[:inner 0]]
+                          OPTIONS [[:inner 0]]
+                          ANY [[:inner 0]]
+                          ;; Company-specific context/utility macros
+                          with-transaction [[:inner 0]]
+                          with-timing [[:inner 0]]
+                          with-context [[:inner 0]]
+                          count-on-exception [[:inner 0]]}}}
