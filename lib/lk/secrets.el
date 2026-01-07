@@ -9,11 +9,8 @@
   (require 'load-env-vars)
   (load-env-vars-from-string
    (shell-command-to-string
-    (format "/opt/homebrew/bin/op inject -i %s"
-            (expand-file-name env-tmpl-path))))
-
-  (setenv "OP_SECRETS_LOADED" "1")
-  )
+    (format "/opt/homebrew/bin/op inject -i %s" (expand-file-name env-tmpl-path))))
+  (setenv "OP_SECRETS_LOADED" "1"))
 
 (lk/load-secrets-from-1p "~/.private/secrets.env.tmpl")
 
@@ -21,8 +18,9 @@
   (interactive)
   (lk/load-secrets-from-1p "~/.private/secrets.env.tmpl"))
 
-(when (file-exists-p "~/.private/work-secrets.el")
-  (message "loading custom work secrets")
-  (load "~/.private/work-secrets.el"))
+(let ((work-secrets-loader-el (expand-file-name "~/.emacs.d/private-configs/secrets/work-secrets.el")))
+  (when (file-exists-p work-secrets-loader-el)
+    (message "loading custom work secrets")
+    (load work-secrets-loader-el)))
 
 (provide 'lk/secrets)
