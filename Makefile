@@ -56,6 +56,7 @@ fix-macos:
 install-other-tools: install-emacs
 	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-nrepl-eval --main-opts '["-m" "clojure-mcp-light.nrepl-eval"]'
 	bbin install https://github.com/bhauman/clojure-mcp-light.git --tag v0.2.1 --as clj-paren-repair --main-opts '["-m" "clojure-mcp-light.paren-repair"]'
+	clojure -Ttools install-latest :lib io.github.bhauman/clojure-mcp :as mcp
 
 
 install-emacs:

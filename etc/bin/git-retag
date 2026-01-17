@@ -2,7 +2,7 @@
 
 tagName=$1
 
-if [[ -z "$tagName" ]]; then
+if [[ -z "$tagName" ]] || [[ "$tagName" == "--help" ]] || [[ "$tagName" == "-h" ]]; then
   echo "Usage: $0 <tag-name>"
   exit 1
 fi
