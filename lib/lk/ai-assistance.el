@@ -50,12 +50,9 @@
 
 (use-package agent-shell
   :vc (:url   "https://github.com/xenodium/agent-shell" :rev :latest :branch "main")
-  :after (acp shell-maker company)
+  :after (acp shell-maker consult)
   :ensure t
   :defer t
-  :init
-  ;; Enable consult completion for agent-shell before it loads
-  (setq completion-in-region-function #'consult-completion-in-region)
   :config
   (setq agent-shell-google-authentication
         (agent-shell-google-make-authentication :vertex-ai t))
@@ -63,7 +60,11 @@
   (setq agent-shell-opencode-command
         (list (expand-file-name "~/.local/share/mise/shims/opencode") "acp"))
 
-  (setopt agent-shell-file-completion-enabled t))
+  (setopt agent-shell-file-completion-enabled t)
+  ;; Use consult for in-region completion in agent-shell
+  (setq completion-in-region-function #'consult-completion-in-region)
+  ;; Enable completion mode by default
+  (agent-shell-completion-mode 1))
 
 (use-package eca :ensure t :bind (("C-c d" . eca-transient-menu)))
 
