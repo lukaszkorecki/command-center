@@ -53,6 +53,15 @@
 ;;(when (display-graphic-p)
 ;;  (use-package auto-dark :config (auto-dark-mode t)))
 
+
+(defun lk/kill-dired-buffers ()
+  (interactive)
+  (mapc
+   (lambda (buffer)
+     (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+       (kill-buffer buffer)))
+   (buffer-list)))
+
 (defun lk/kill-buffers-by-major-mode (mode)
   (interactive "sMajor mode: ")
   "Kill all buffers in the supplied list."

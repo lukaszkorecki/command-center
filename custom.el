@@ -10,10 +10,10 @@
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(package-selected-packages
    '(ace-window acp agent-shell aggressive-indent alabaster-theme
-                better-defaults copilot csv-mode difftastic disproject
-                dockerfile-mode eca edit-indirect elfmt embark-consult
-                espresso-theme exec-path-from-shell git git-link
-                go-mode graphql-mode hl-todo ibuffer-project
+                better-defaults copilot corfu csv-mode difftastic
+                disproject dockerfile-mode eca edit-indirect elfmt
+                embark-consult espresso-theme exec-path-from-shell git
+                git-link go-mode graphql-mode hl-todo ibuffer-project
                 jinja2-mode js-jsx-mode js3-mode json-mode
                 kaocha-runner keychain-environment load-env-vars
                 logview lua-mode marginalia markdown-ts-mode

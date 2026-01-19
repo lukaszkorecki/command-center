@@ -4,8 +4,7 @@
 ;; Enable Vertico
 (use-package vertico
   :ensure t
-  :init
-  (vertico-mode)
+  :init (vertico-mode)
   :bind (( "M-RET" . minibuffer-force-complete-and-exit)
          ( "M-TAB"  . minibuffer-complete)))
 
@@ -55,7 +54,6 @@
   ;; Connect it to Embark's become mechanism
   (add-to-list 'embark-become-keymaps 'embark-become-file+buffer-map))
 
-
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
   :after (embark consult)
@@ -66,7 +64,16 @@
 (use-package orderless
   :after vertico
   :ensure t
-  :init (setq completion-styles '(orderless)))
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides
+   '((file (styles partial-completion))))
+  ;; Disable defaults, use our settings
+  (completion-category-defaults nil)
+  ;; we're on Emacs 31 -  partial-completion behaves like substring
+  (completion-pcm-leading-wildcard t))
+
+(use-package corfu :ensure t :init (global-corfu-mode))
 
 (defun lk/urls-in-buffer->vertico-select->browse ()
   "Find URLs in the current vterm buffer and open the selected one in a browser using vertico/."
@@ -85,17 +92,8 @@
       (let ((selected-url (completing-read "Select URL: " urls nil t)))
         (browse-url selected-url)))))
 
-(global-set-key (kbd "C-x c u") 'lk/urls-in-buffer->vertico-select->browse)
-
-
-
-(defun lk/kill-dired-buffers ()
-  (interactive)
-  (mapc
-   (lambda (buffer)
-     (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
-       (kill-buffer buffer)))
-   (buffer-list)))
-
+(global-set-key
+ (kbd "C-x c u")
+ 'lk/urls-in-buffer->vertico-select->browse)
 
 (provide 'lk/completion)

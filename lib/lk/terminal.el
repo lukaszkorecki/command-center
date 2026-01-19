@@ -19,7 +19,8 @@
 
 (use-package vterm
   :ensure t
-  :config (setq vterm-shell "/bin/zsh")
+  :config
+  (setq vterm-shell "/bin/zsh")
   (setq vterm-kill-buffer-on-exit t)
   :hook ( vterm-mode-hook  . lk/vterm-project-association)
 
