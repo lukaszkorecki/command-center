@@ -12,8 +12,7 @@
 (setq ring-bell-function 'ignore)
 
 (setq default-frame-alist
-      '((fullscreen . maximized)
-        (vertical-scroll-bars . nil)
+      '((vertical-scroll-bars . nil)
         (horizontal-scroll-bars . nil)
         (ns-appearance . dark)
         (ns-transparent-titlebar . t)

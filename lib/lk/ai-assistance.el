@@ -49,22 +49,18 @@
   :ensure t)
 
 (use-package agent-shell
-  :vc (:url   "https://github.com/xenodium/agent-shell" :rev :latest :branch "main")
+  :vc (:url "https://github.com/xenodium/agent-shell" :rev :latest :branch "main")
   :after (acp shell-maker consult)
   :ensure t
   :defer t
   :config
-  (setq agent-shell-google-authentication
-        (agent-shell-google-make-authentication :vertex-ai t))
-  ;; TODO: change path to opencode binary or figure out how to make this work with Mise?
-  (setq agent-shell-opencode-command
-        (list (expand-file-name "~/.local/share/mise/shims/opencode") "acp"))
+  ;; Configure the GitHub Copilot command so that we don't get prompts for tool invokation
+  ;; I know what I'm doing (mostly)
+  (setq agent-shell-github-command
+        '("copilot" "--allow-all-tools" "--acp"))
 
-  (setopt agent-shell-file-completion-enabled t)
-  ;; Use consult for in-region completion in agent-shell
-  (setq completion-in-region-function #'consult-completion-in-region)
-  ;; Enable completion mode by default
-  (agent-shell-completion-mode 1))
+  ;; Enable file completion automatically when starting shells
+  (setq agent-shell-file-completion-enabled t))
 
 (use-package eca :ensure t :bind (("C-c d" . eca-transient-menu)))
 
