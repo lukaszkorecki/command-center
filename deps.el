@@ -1,4 +1,4 @@
-;;; deps.el --- deps.el initialize package management
+;;; deps.el --- deps.el initialize package management  -*- lexical-binding: t; -*-
 ;;; Commentary:
 
 ;;; Code:
