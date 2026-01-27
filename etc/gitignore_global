@@ -41,3 +41,6 @@ deps.txt
 __*doc/
 .agent-shell
 __docs
+.tmp
+.claude
+**/p-gcloud

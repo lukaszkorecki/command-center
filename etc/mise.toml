@@ -4,7 +4,7 @@ java = "temurin-25"
 babashka = "latest"
 clojure = "latest"
 leiningen = "latest"
-node = "24"
+node = "22"
 
 [settings]
-idiomatic_version_file_enable_tools = ["node"]
+idiomatic_version_file_enable_tools = ["node", "java"]
