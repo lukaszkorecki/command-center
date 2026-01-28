@@ -51,6 +51,8 @@ alias gcd='cd $(git root)'
 # go to project root, might be repo root but not necessarily
 alias pcd='cd $(project-root-path)'
 
+alias clauded='claude --allow-dangerously-skip-permissions'
+
 if [[ "$(which bat)" == /* ]]; then
   export BAT_THEME=GitHub
   alias less='bat -p'
@@ -71,9 +73,15 @@ if [[ "$(which bat)" == /* ]]; then
 
 fi
 
-# Gemini CLI is stupidly overengineered, and doesn't allow just specifying custom editor command
-# so we trick it by using 'zed' alias as the editor command but in fact it will run emacsclient
-alias zed='emacsclient'
+
+# set emacsclient as default editor outside of emacs, for whatever reason doing this inside emacs causes issues
+if [[ -z "${INSIDE_EMACS}" ]] ; then
+  export EDITOR=emacsclient
+  # Gemini CLI is stupidly overengineered, and doesn't allow just specifying custom editor command
+  # so we trick it by using 'zed' alias as the editor command but in fact it will run emacsclient
+  alias zed='emacsclient'
+fi
+
 
 ## navigation
 # make path operations work like bash (e.g. M-backspace deletes path fragments)
@@ -121,8 +129,6 @@ setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
 
-# FIXME: figure out why emacsclient is not working and crashes things
-# export EDITOR=zile
 
 cl_green() {
   echo -e "\033[0;32m"
