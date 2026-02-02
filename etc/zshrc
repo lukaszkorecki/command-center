@@ -51,7 +51,7 @@ alias gcd='cd $(git root)'
 # go to project root, might be repo root but not necessarily
 alias pcd='cd $(project-root-path)'
 
-alias clauded='claude --allow-dangerously-skip-permissions'
+alias clauded='claude --dangerously-skip-permissions'
 
 if [[ "$(which bat)" == /* ]]; then
   export BAT_THEME=GitHub
