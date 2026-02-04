@@ -64,6 +64,13 @@
 
 (use-package eca :ensure t :bind (("C-c d" . eca-transient-menu)))
 
+
+(use-package claude-code-ide
+  :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+  :bind ("C-c C-'" . claude-code-ide-menu)
+  :config
+  (claude-code-ide-emacs-tools-setup))
+
 (provide 'lk/ai-assistance)
 
 ;;; ai-assistance.el ends here

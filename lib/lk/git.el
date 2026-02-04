@@ -52,6 +52,11 @@
   (setq magit-git-executable "/usr/bin/git")
 	:bind (( "C-c m s" . magit-status)))
 
+
+(use-package forge
+  :ensure t
+  :after magit)
+
 (defun lk/magit-clear-buffers ()
   (interactive)
   (kill-matching-buffers ".*magit.*" 't 't))
