@@ -34,6 +34,7 @@
                             ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src")))
 
   :config ;; activate js-jsx-mode when opening .js or .jsx files - rather than ts-mode since that's usually not what we want
+  (setq js-indent-level 2)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode)))
