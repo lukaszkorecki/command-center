@@ -3,3 +3,5 @@ keybind = super+[=goto_split:previous
 keybind = super+]=goto_split:next
 
 shell-integration = zsh
+
+theme = ~/.emacs.d/etc/ghostty/themes/modus-operandi

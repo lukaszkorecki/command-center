@@ -16,12 +16,8 @@ clojure-configs:
 	@rm -rf ~/.lein
 	@ln -fvs ~/.emacs.d/etc/lein ~/.lein
 
-# FIXME: this is silly...
 ghostty-configs:
-	@mkdir -p ~/.config/ghostty
-	@echo "config-file = $(HOME)/.emacs.d/etc/ghostty/config" > ~/.config/ghostty/config
-	@echo "theme = $(HOME)/.emacs.d/etc/ghostty/themes/modus-operandi" >> ~/.config/ghostty/config
-	@mv ~/.config/ghostty/config ~/Library/Application\ Support/com.mitchellh.ghostty/config
+	cp -v "$(HOME)/.emacs.d/etc/ghostty/config" ~/Library/Application\ Support/com.mitchellh.ghostty/config
 
 private-configs:
 	git submodule update --init --recursive private-configs
