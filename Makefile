@@ -63,4 +63,12 @@ install-emacs:
 	  rm /tmp/emacs.dmg
 
 
-.PHONY: setup brew-bundle zsh-completion fix-macos configs clojure-configs ghostty-configs private-configs install-other-tools
+op-configs:
+	@mkdir -p ~/.config/1Password/ssh/
+	@ln -fvs ~/.emacs.d/etc/1password/config.toml ~/.config/1Password/ssh/agent.toml
+	@ln -fvs ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ~/.config/1Password/agent.sock
+	@echo "Host *" > ~/.ssh/config
+	@echo "  IdentityAgent ~/.config/1Password/agent.sock" >> ~/.ssh/config
+
+
+.PHONY: setup brew-bundle zsh-completion fix-macos configs clojure-configs ghostty-configs private-configs op-configs install-other-tools
