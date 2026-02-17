@@ -53,9 +53,25 @@
 	:bind (( "C-c m s" . magit-status)))
 
 
+(defun lk/auth-source-gh-env (&rest spec)
+  "Auth-source search function that returns GitHub token from env.
+   NOTE: it will only work for one token - if there's more then we're toast"
+  (let ((host (plist-get spec :host))
+        (user (plist-get spec :user)))
+    (when (and (stringp host)
+               (string-match-p "api\\.github\\.com" host)
+               (getenv "GITHUB_TOKEN"))
+      (list (list :host host
+                  :user user
+                  :secret (let ((tok (getenv "GITHUB_TOKEN")))
+                            (lambda () tok)))))))
+
+(advice-add 'auth-source-search :before-until #'lk/auth-source-gh-env)
+
 (use-package forge
   :ensure t
-  :after magit)
+  :after magit
+  :bind (("C-c m f" . forge-dispatch)))
 
 (defun lk/magit-clear-buffers ()
   (interactive)
