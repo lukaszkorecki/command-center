@@ -9,15 +9,6 @@
                 web-mode-engines-alist
                 '(("jinja"    . "\\.j2\\'"))))
 
-;; (use-package css-ts-mode
-;;   :ensure t
-;;   :mode ("\\.css\\'" "\\.scss\\'" "\\.less\\'")
-;;   :defer 't
-
-;;   :config (add-to-list 'treesit-language-source-alist
-;;                        '(css .
-;;                              ("https://github.com/tree-sitter/tree-sitter-css" "0.25.0" "src"))))
-
 (use-package typescript-ts-mode
   :ensure t
   :mode ("\\.ts\\'" "\\.tsx\\'" "\\.js")
@@ -44,6 +35,7 @@
 
   :config ;; activate js-jsx-mode when opening .js or .jsx files - rather than ts-mode since that's usually not what we want
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode)))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode)))
 
 (provide 'lk/frontend)
