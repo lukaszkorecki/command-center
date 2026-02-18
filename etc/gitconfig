@@ -38,7 +38,7 @@
 	ff = only
 
 [alias]
-  update = !git fetch -ap && git pull -r && git cleanup-branches && git submodule update --init --recursive
+  update = !git stash && git fetch -ap && git pull -r && git cleanup-branches && git submodule update --init --recursive && git stash pop
   c = commit
   cm = commit -m
   ca = commit --amend

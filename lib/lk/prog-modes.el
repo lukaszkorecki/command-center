@@ -139,6 +139,12 @@
   (add-to-list 'treesit-language-source-alist
                '(java . ("https://github.com/tree-sitter/tree-sitter-java" "v0.23.5" "src"))))
 
+(use-package mermaid-mode
+  :ensure t
+  :config ;
+  (setq mermaid-mmdc-location "docker")
+  (setq mermaid-flags "run -u 1000 -v /tmp:/tmp ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:9.1.6"))
+
 (require 'lk/ruby)
 (require 'lk/frontend)
 (require 'lk/clojure)

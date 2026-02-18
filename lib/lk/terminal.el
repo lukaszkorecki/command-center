@@ -6,11 +6,6 @@
 
 ;;; Code:
 
-(use-package mermaid-mode
-  :ensure t
-  :config ;
-  (setq mermaid-mmdc-location "docker")
-  (setq mermaid-flags "run -u 1000 -v /tmp:/tmp ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:9.1.6"))
 
 (defun lk/vterm-project-association ()
   "Associate VTerm buffer with the current project."
