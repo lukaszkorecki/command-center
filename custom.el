@@ -22,8 +22,9 @@
                 nord-theme orderless project-rootfile python-mode
                 restclient shell-maker sqlup-mode string-inflection
                 swift-mode terraform-mode time-zones transpose-frame
-                undo-tree unicode-fonts vertico visual-regexp
-                vterm-anti-flicker-filter web-mode yaml-mode yasnippet))
+                treesit-auto undo-tree unicode-fonts vertico
+                visual-regexp vterm-anti-flicker-filter web-mode
+                yaml-mode yasnippet))
  '(package-vc-selected-packages
    '((claude-code-ide :url
                       "https://github.com/manzaltu/claude-code-ide.el")

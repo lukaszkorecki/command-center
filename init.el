@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;; /Users/lukasz/.emacs.d/init.el --- /Users/lukasz/.emacs.d/init.el
 ;;; Commentary:
 
@@ -21,7 +22,6 @@
 
 ;; display: frames, fonts, colors, window management
 (require 'lk/display)
-
 
 (require 'lk/completion)
 

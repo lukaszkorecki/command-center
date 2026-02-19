@@ -110,5 +110,10 @@
   :ensure t
   :bind (("C-c a" . mc/mark-all-like-this)))
 
+(use-package treesit-auto
+  :ensure t
+  :config
+  (global-treesit-auto-mode))
+
 (provide 'lk/text-editing)
 ;;; text-editing.el ends here

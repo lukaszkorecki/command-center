@@ -1,6 +1,4 @@
-
-;;; -*- lexical-binding: t; -*-
-
+;; -*- lexical-binding: t; -*-
 (setenv "INSIDE_EMACS" "TRUE")
 
 (use-package better-defaults
