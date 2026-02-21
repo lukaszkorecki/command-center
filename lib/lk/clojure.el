@@ -180,6 +180,7 @@ clojure-ts-semantic-indent-rules. Merges cljfmt built-in defaults with custom :e
 
   :bind (:map cider-repl-mode-map
               ("C-c M-o" . cider-repl-clear-buffer)
+              ("C-c C-;" cider-pprint-eval-last-sexp-to-comment)
               ("C-c n i " . lk/failed-tests-in-repl-buffer)))
 
 (use-package kaocha-runner :ensure t :after (cider-mode))
