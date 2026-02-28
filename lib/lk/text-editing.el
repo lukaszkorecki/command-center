@@ -87,14 +87,12 @@
               ()
               "Inflect all the things"
               [["camelCase"
-                ("l" "lowerCamelCase"  string-inflection-lower-camelcase )
-                ("u" "UpperCamelCase"  string-inflection-camelcase )
-                ]
+                ("l" "lowerCamelCase"  string-inflection-lower-camelcase)
+                ("u" "UpperCamelCase"  string-inflection-camelcase)]
                ["snake_case/underscore"
-                ("s" "snake_case"  string-inflection-underscore )
-                ("k" "SNAKE_CASE"  string-inflection-upcase-underscore )
-                ]
-               ["kebab-case" ("d" "kebab-case"  string-inflection-kebab-case )]])
+                ("s" "snake_case"  string-inflection-snake-case)
+                ("k" "SCREAMING_SNAKE_CASE"  string-inflection-upcase)]
+               ["kebab-case" ("d" "kebab-case"  string-inflection-kebab-case)]])
             (global-set-key (kbd "C-x c l") 'lk/string-inflection)))
 
 (use-package undo-tree
@@ -112,8 +110,7 @@
 
 (use-package treesit-auto
   :ensure t
-  :config
-  (global-treesit-auto-mode))
+  :config (global-treesit-auto-mode))
 
 (provide 'lk/text-editing)
 ;;; text-editing.el ends here
