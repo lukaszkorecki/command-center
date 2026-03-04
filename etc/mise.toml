@@ -1,7 +1,7 @@
 [tools]
 java = "temurin-25"
 
-babashka = "latest"
+babashka = "1.12.216"
 clojure = "latest"
 leiningen = "latest"
 node = "22"

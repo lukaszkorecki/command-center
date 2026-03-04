@@ -81,7 +81,6 @@
 
 (use-package unicode-fonts :ensure t :config (unicode-fonts-setup))
 
-
 ;; custom transient-back window management thing - transpose/rotate/flip/flop/resize
 
 (use-package transient :ensure t)
@@ -100,6 +99,21 @@
          (desired-window-width (round (* frame-width percentage)))
          (resize-amount (- desired-window-width current-window-width)))
     (window-resize nil resize-amount t)))
+
+(defun lk/absolute-resize-window-height (height)
+  "Set the window's size to 20 (or prefix arg HEIGHT) lines tall."
+  (interactive "P")
+  (enlarge-window (- (or height 20) (window-height)) 'vertical))
+
+(defun lk/proportionally-resize-window-height (percentage)
+  "Set the window's size to percentage of the frame's height."
+  (interactive "P")
+  (let* ((frame-height (frame-height))
+         (current-window-height (window-height))
+         (desired-window-height (round (* frame-height percentage)))
+         (resize-amount
+          (- desired-window-height current-window-height)))
+    (window-resize nil resize-amount nil)))
 
 ;; preset functions:
 (defun lk/resize-window-33pct ()
@@ -122,6 +136,19 @@
   (interactive)
   (lk/absolute-resize-window 121))
 
+
+(defun lk/resize-window-16pct-height ()
+  (interactive)
+  (lk/proportionally-resize-window-height 0.16))
+
+(defun lk/resize-window-33pct-height ()
+  (interactive)
+  (lk/proportionally-resize-window-height 0.33))
+
+(defun lk/resize-window-50pct-height ()
+  (interactive)
+  (lk/proportionally-resize-window-height 0.50))
+
 (use-package transpose-frame
   :ensure t
   :config
@@ -136,12 +163,17 @@
      ("f" "Flip" flip-frame)
      ("F" "Flop" flop-frame)]
 
-    ["Resize Window"
+    ["Resize Window Width"
      ("3" "33%"  lk/resize-window-33pct)
      ("5" "50%" lk/resize-window-50pct)
      ("7" "75%" lk/resize-window-75pct)
      ("8" "81 chars" lk/resize-window-81chars)
-     ("1" "121 chars" lk/resize-window-121chars)])
+     ("1" "121 chars" lk/resize-window-121chars)]
+
+    ["Resize Window Height"
+     ("@" "16%" lk/resize-window-16pct-height)
+     ("#" "33%"  lk/resize-window-33pct-height)
+     ("%" "50%" lk/resize-window-50pct-height)])
 
   (define-key global-map (kbd "C-c t") 'lk/window-mgr))
 
@@ -165,8 +197,7 @@
 
 (use-package modus-themes
   :ensure t
-  :init
-  (load-theme 'modus-operandi t))
+  :init (load-theme 'modus-operandi t))
 
 (provide 'lk/display)
 ;;; display.el ends here
