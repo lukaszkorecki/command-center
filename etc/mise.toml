@@ -6,5 +6,7 @@ clojure = "latest"
 leiningen = "latest"
 node = "22"
 
+op = "latest"
+
 [settings]
 idiomatic_version_file_enable_tools = ["node", "java"]
