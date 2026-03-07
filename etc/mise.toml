@@ -6,7 +6,8 @@ clojure = "latest"
 leiningen = "latest"
 node = "22"
 
-op = "latest"
+# there's some weird stuff going on with how 'official' op recipe works in Mise, so we just get this from source
+"http:op" = { version = "2.32.1", url =  "https://cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_darwin_arm64_v2.32.1.zip" }
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "java"]
