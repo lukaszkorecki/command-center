@@ -151,6 +151,12 @@ clojure-ts-semantic-indent-rules. Merges cljfmt built-in defaults with custom :e
   (kmacro
    "M-m C-s i m p o r t <return> M-m ( C-s ; <return> <backspace> ) C-r \\ . <return> C-d SPC C-a"))
 
+
+(use-package paredit
+  :ensure t
+  :hook ((clojure-mode . paredit-mode)
+         (clojure-ts-mode . paredit-mode)))
+
 (use-package clojure-ts-mode
   :after (copilot-mode)
   :mode "\\.clj$"

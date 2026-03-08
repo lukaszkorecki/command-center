@@ -19,12 +19,12 @@
                 keychain-environment load-env-vars logview lua-mode
                 marginalia markdown-ts-mode mermaid-mode mise
                 modus-themes multi-vterm multiple-cursors nginx-mode
-                nord-theme orderless project-rootfile python-mode
-                restclient shell-maker sqlup-mode string-inflection
-                swift-mode terraform-mode time-zones transpose-frame
-                treesit-auto undo-tree unicode-fonts vertico
-                visual-regexp vterm-anti-flicker-filter web-mode
-                yaml-mode yasnippet))
+                nord-theme orderless paredit project-rootfile
+                python-mode restclient shell-maker sqlup-mode
+                string-inflection swift-mode terraform-mode time-zones
+                transpose-frame treesit-auto undo-tree unicode-fonts
+                vertico visual-regexp vterm-anti-flicker-filter
+                web-mode yaml-mode yasnippet))
  '(package-vc-selected-packages
    '((claude-code-ide :url
                       "https://github.com/manzaltu/claude-code-ide.el")
