@@ -53,6 +53,10 @@
 	:bind (( "C-c m s" . magit-status)))
 
 
+(use-package magit-gh
+  :ensure t
+  :after magit)
+
 (defun lk/auth-source-gh-env (&rest spec)
   "Auth-source search function that returns GitHub token from env.
    NOTE: it will only work for one token - if there's more then we're toast"

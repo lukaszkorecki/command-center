@@ -52,3 +52,4 @@ Brewfile.lock.json
 request/**
 /eca/
 /logview-cache.extmap
+/.last-package-update-day

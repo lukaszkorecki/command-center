@@ -10,21 +10,21 @@
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(package-selected-packages
    '(ace-window acp agent-shell aggressive-indent alabaster-theme
-                better-defaults claude-code-ide copilot corfu csv-mode
-                difftastic disproject dockerfile-mode eca
-                edit-indirect elfmt embark-consult espresso-theme
-                exec-path-from-shell forge git git-link go-mode
-                graphql-mode hl-todo ibuffer-project jinja2-mode
-                js-jsx-mode js3-mode json-mode kaocha-runner
-                keychain-environment load-env-vars logview lua-mode
-                marginalia markdown-ts-mode mermaid-mode mise
-                modus-themes multi-vterm multiple-cursors nginx-mode
-                nord-theme orderless paredit project-rootfile
-                python-mode restclient shell-maker sqlup-mode
-                string-inflection swift-mode terraform-mode time-zones
-                transpose-frame treesit-auto undo-tree unicode-fonts
-                vertico visual-regexp vterm-anti-flicker-filter
-                web-mode yaml-mode yasnippet))
+                auto-package-update better-defaults claude-code-ide
+                copilot corfu csv-mode difftastic disproject
+                dockerfile-mode eca edit-indirect elfmt embark-consult
+                espresso-theme exec-path-from-shell forge git git-link
+                go-mode graphql-mode hl-todo ibuffer-project
+                jinja2-mode js-jsx-mode js3-mode json-mode
+                kaocha-runner keychain-environment load-env-vars
+                logview lua-mode magit-gh marginalia markdown-ts-mode
+                mermaid-mode mise modus-themes multi-vterm
+                multiple-cursors nginx-mode nord-theme orderless
+                paredit project-rootfile python-mode restclient
+                shell-maker sqlup-mode string-inflection swift-mode
+                terraform-mode time-zones transpose-frame treesit-auto
+                undo-tree unicode-fonts vertico visual-regexp
+                vterm-anti-flicker-filter web-mode yaml-mode yasnippet))
  '(package-vc-selected-packages
    '((claude-code-ide :url
                       "https://github.com/manzaltu/claude-code-ide.el")

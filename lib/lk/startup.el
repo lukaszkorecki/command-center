@@ -1,8 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 (setenv "INSIDE_EMACS" "TRUE")
 
-(use-package better-defaults
-  :ensure t)
+(use-package better-defaults :ensure t)
 
 ;; reduce GC thrash
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
@@ -15,10 +14,7 @@
     (lambda ()
       (add-to-list 'byte-compile-not-obsolete-funcs 'preceding-sexp))))
 
-
-(use-package mise
-  :ensure t
-  :hook (prog-mode-hook . mise-mode))
+(use-package mise :ensure t :hook (prog-mode-hook . mise-mode))
 
 ;;; startup.el --- Initial environment setup, GC settings, mise
 ;;; Commentary:
@@ -50,7 +46,6 @@
         '(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
-
 ;; Persist history over Emacs restarts
 (use-package savehist :ensure t :init (savehist-mode))
 
@@ -62,6 +57,17 @@
 (setq abbrev-file-name "~/.emacs.d/abbrev.el")
 ;; make sure transient is available everyhwere
 (require 'transient)
+
+(use-package auto-package-update
+  :ensure t
+  :custom
+  ;; Check for updates every 7 days
+  (auto-package-update-interval 7)
+  ;; Prompt before updating
+  (auto-package-update-prompt-before-update t)
+  ;; duh
+  (auto-package-update-hide-results t)
+  :config (auto-package-update-maybe))
 
 (provide 'lk/startup)
 ;;; startup.el ends here
