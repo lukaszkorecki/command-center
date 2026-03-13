@@ -3,11 +3,15 @@
   name = Łukasz Korecki
 
 [github]
-	user = lukaszkorecki
+  user = lukaszkorecki
 
 [global]
   autoSetupRemote = true
 
+[advice]
+  skippedCherryPicks = false
+[init]
+  defaultBranch = main
 
 [color]
   ui = true
@@ -32,12 +36,14 @@
 
 [push]
   default = current
+  autoSetupRemote = true
 
 [pull]
   rebase = true
-	ff = only
+  ff = only
 
 [alias]
+  pr-stack = !p git pr-stack
   update = !git stash && git fetch -ap && git pull -r && git cleanup-branches && git submodule update --init --recursive && git stash pop
   c = commit
   cm = commit -m
@@ -89,9 +95,6 @@
   dhow = -c diff.external=difft show --ext-diff
   ddiff = -c diff.external=difft diff
 
+
 [includeIf "gitdir:~/ps/"]
   path = "~/.private/gitconfig"
-[advice]
-	skippedCherryPicks = false
-[init]
-	defaultBranch = main
