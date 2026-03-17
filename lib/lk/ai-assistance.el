@@ -27,6 +27,7 @@
   :config ;
   (setq copilot-max-char 1000000)
   (setq copilot-max-char-warning-disable t)
+  (setq copilot-enable-parentheses-balancer nil)
 
   ;; NOTE: verify if this is necessary
   (add-to-list 'warning-suppress-types
@@ -39,7 +40,11 @@
                '((copilot--infer-indentation-offset)))
 
   :hook (prog-mode-hook . copilot-mode)
-  :bind (("C-x c c" . copilot-accept-completion)))
+  :bind (:map copilot-completion-map
+              ("C-x c c" . copilot-accept-completion)
+              ("C-x c w" . copilot-accept-completion-by-word)
+              ("C-x c n" . copilot-next-completion)
+              ("C-x c p" . copilot-previous-completion)))
 
 (use-package shell-maker :ensure t)
 
@@ -53,8 +58,7 @@
   :after (acp shell-maker consult)
   :ensure t
   :defer t
-  :config
-  ;; Configure the GitHub Copilot command so that we don't get prompts for tool invokation
+  :config ;; Configure the GitHub Copilot command so that we don't get prompts for tool invokation
   ;; I know what I'm doing (mostly)
   (setq agent-shell-github-command
         '("copilot" "--allow-all-tools" "--acp"))
@@ -64,12 +68,10 @@
 
 (use-package eca :ensure t :bind (("C-c d" . eca-transient-menu)))
 
-
 (use-package claude-code-ide
   :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
   :bind ("C-c C-'" . claude-code-ide-menu)
-  :config
-  (claude-code-ide-emacs-tools-setup))
+  :config (claude-code-ide-emacs-tools-setup))
 
 (provide 'lk/ai-assistance)
 
