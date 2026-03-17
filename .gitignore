@@ -53,3 +53,4 @@ request/**
 /eca/
 /logview-cache.extmap
 /.last-package-update-day
+agent
