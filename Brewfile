@@ -2,6 +2,7 @@
 tap 'borkdude/brew'
 tap 'hashicorp/tap'
 tap 'clojure-lsp/brew'
+tap 'idiomattic/op-loader'
 
 brew 'git'
 brew 'mergiraf'
@@ -19,6 +20,7 @@ brew 'bat'
 brew 'sponge'
 
 cask '1password-cli'
+brew 'op-loader'
 
 # language specific tooling
 
