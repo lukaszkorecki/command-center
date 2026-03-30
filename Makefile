@@ -18,6 +18,8 @@ clojure-configs:
 
 ghostty-configs:
 	cp -v "$(HOME)/.emacs.d/etc/ghostty/config" ~/Library/Application\ Support/com.mitchellh.ghostty/config
+	mkdir -p ~/.config/ghostty/
+	ln -fvs ~/.emacs.d/etc/ghostty/themes/ ~/.config/ghostty/themes
 
 private-configs:
 	git submodule update --init --recursive private-configs
