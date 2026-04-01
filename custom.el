@@ -10,17 +10,8 @@
  '(eglot-confirm-server-edits nil nil nil "Customized with use-package eglot")
  '(package-selected-packages nil)
  '(package-vc-selected-packages
-   '((claude-code-ide :url
-                      "https://github.com/manzaltu/claude-code-ide.el")
-     (load-env-vars :url
-                    "https://github.com/lukaszkorecki/emacs-load-env-vars")
-     (vterm-anti-flicker-filter :url
-                                "https://github.com/martinbaillie/vterm-anti-flicker-filter")
-     (elfmt :url "https://github.com/riscy/elfmt")
-     (agent-shell :url "https://github.com/xenodium/agent-shell"
-                  :branch "main")
-     (copilot :url "https://github.com/copilot-emacs/copilot.el"
-              :branch "main"))))
+   '((load-env-vars :url
+                    "https://github.com/lukaszkorecki/emacs-load-env-vars"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
