@@ -10,6 +10,9 @@
                '(markdown "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown/src"))
   (add-to-list 'treesit-language-source-alist
                '(markdown-inline "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src"))
+  (auto-fill-mode 1)
+  :config
+  (setq-local fill-column 120)
 
   :bind (:map markdown-ts-mode-map
               ("C-c C-e" . lk/markdown-edit-code-block)))
