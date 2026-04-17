@@ -13,7 +13,6 @@ brew "zile"
 brew "ripgrep"
 brew 'jq'
 brew 'borkdude/brew/jet'
-brew 'babashka/brew/bbin'
 brew 'gh'
 brew 'bat'
 brew 'sponge'
