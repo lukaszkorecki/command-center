@@ -164,9 +164,12 @@ clojure-ts-semantic-indent-rules. Merges cljfmt built-in defaults with custom :e
   :hook ((clojure-mode-hook . mise-mode)
          (clojure-mode-hook . copilot-mode)
          (clojure-ts-mode-hook . mise-mode)
-         (clojure-ts-mode-hook . copilot-mode))
+         (clojure-ts-mode-hook . copilot-mode)
+         (clojure-mode-hook . auto-fill-mode)
+         )
 
   :config
+  (setq auto-fill-chars 120)
   (setopt clojure-ts-comment-macro-font-lock-body t)
   ;; Load indent rules from clojure-lsp config to keep them in sync
   (setopt clojure-ts-semantic-indent-rules (lk/load-clojure-lsp-indent-rules)))
