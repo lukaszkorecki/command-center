@@ -137,9 +137,8 @@
     '(-1)
     ["Tools"
      :advice disproject-with-env-apply
-     ("M" "magit status" magit-status)
-     ("P" "view or create PR in browser" lk/view-or-create-pr)
-     ("V" "view repo in the browser" lk/view-repo-web)]))
+     ("R" "view or create PR in browser" lk/view-or-create-pr)
+     ("W" "view repo in the browser" lk/view-repo-web)]))
 
 (global-set-key (kbd "C-x p") 'disproject-dispatch)
 
