@@ -2,6 +2,9 @@
 tap 'borkdude/brew'
 tap 'hashicorp/tap'
 tap 'clojure-lsp/brew'
+tap 'd12frosted/emacs-plus'
+
+cask 'emacs-plus-app@master'
 
 brew 'git'
 brew 'mergiraf'

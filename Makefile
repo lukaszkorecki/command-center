@@ -49,20 +49,6 @@ fix-macos:
 	sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
 	sudo killall SystemUIServer
 
-
-# instals things that need special handling
-install-other-tools: install-emacs
-	echo "no-op"
-
-
-install-emacs:
-	curl 'https://emacsformacosx.com/emacs-builds/Emacs-2025-12-21_00-09-31-1eb247af73c3dbfbf8d4c4363d1a22e3fbcf6ce7-universal.dmg' -L -o /tmp/emacs.dmg && \
-	  hdiutil attach /tmp/emacs.dmg && \
-	  cp -R /Volumes/Emacs/Emacs.app /Applications/Emacs.app && \
-	  hdiutil detach /Volumes/Emacs && \
-	  rm /tmp/emacs.dmg
-
-
 op-configs:
 	@mkdir -p ~/.config/1Password/ssh/
 	@ln -fvs ~/.emacs.d/etc/1password/config.toml ~/.config/1Password/ssh/agent.toml
@@ -71,4 +57,4 @@ op-configs:
 	@echo "  IdentityAgent ~/.config/1Password/agent.sock" >> ~/.ssh/config
 
 
-.PHONY: setup brew-bundle zsh-completion fix-macos configs clojure-configs ghostty-configs private-configs op-configs install-other-tools
+.PHONY: setup brew-bundle zsh-completion fix-macos configs clojure-configs ghostty-configs private-configs op-configs install-other-tools link-emacs
