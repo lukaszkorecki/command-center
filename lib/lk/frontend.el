@@ -9,34 +9,21 @@
                 web-mode-engines-alist
                 '(("jinja"    . "\\.j2\\'"))))
 
-(use-package typescript-ts-mode
+;; Tree-sitter disabled for perf testing — using legacy typescript-mode and js-jsx-mode.
+(use-package typescript-mode
   :ensure t
-  :mode ("\\.ts\\'" "\\.tsx\\'" "\\.js")
+  :mode ("\\.ts\\'" "\\.tsx\\'")
   :defer 't
 
-  :preface (dolist
-               (mapping '((typescript-mode . typescript-ts-mode)))
-             (add-to-list 'major-mode-remap-alist mapping))
+  :preface
   (dolist (mapping '((js-mode . js-jsx-mode) (js2-mode . js-jsx-mode)))
     (add-to-list 'major-mode-remap-alist mapping))
+
   :config
-
-  :init ;; Set up treesit language sources early to avoid duplicates
-  (add-to-list 'treesit-language-source-alist
-               '(tsx .
-                     ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src")))
-  (add-to-list 'treesit-language-source-alist
-               '(typescript .
-                            ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")))
-
-  (add-to-list 'treesit-language-source-alist
-               '(javascript .
-                            ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src")))
-
-  :config ;; activate js-jsx-mode when opening .js or .jsx files - rather than ts-mode since that's usually not what we want
   (setq js-indent-level 2)
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
+  (setq typescript-indent-level 2)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-jsx-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode)))
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode)))
 
 (provide 'lk/frontend)

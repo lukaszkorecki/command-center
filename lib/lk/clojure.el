@@ -154,25 +154,20 @@ clojure-ts-semantic-indent-rules. Merges cljfmt built-in defaults with custom :e
 
 (use-package paredit
   :ensure t
-  :hook ((clojure-mode . paredit-mode)
-         (clojure-ts-mode . paredit-mode)))
+  :hook ((clojure-mode . paredit-mode)))
 
-(use-package clojure-ts-mode
+;; Tree-sitter disabled for perf testing — using legacy clojure-mode.
+(use-package clojure-mode
+  :ensure t
   :after (copilot-mode)
-  :mode "\\.clj$"
+  :mode ("\\.clj$" "\\.cljs$" "\\.cljc$" "\\.edn$")
 
   :hook ((clojure-mode-hook . mise-mode)
          (clojure-mode-hook . copilot-mode)
-         (clojure-ts-mode-hook . mise-mode)
-         (clojure-ts-mode-hook . copilot-mode)
-         (clojure-mode-hook . auto-fill-mode)
-         )
+         (clojure-mode-hook . auto-fill-mode))
 
   :config
-  (setq auto-fill-chars 120)
-  (setopt clojure-ts-comment-macro-font-lock-body t)
-  ;; Load indent rules from clojure-lsp config to keep them in sync
-  (setopt clojure-ts-semantic-indent-rules (lk/load-clojure-lsp-indent-rules)))
+  (setq auto-fill-chars 120))
 
 (use-package cider
   :ensure t

@@ -20,10 +20,9 @@
   :after (project flymake)
   :custom (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
-  :hook ((clojure-ts-mode . eglot-ensure)
-         (clojure-mode . eglot-ensure)
-         (typescript-ts-mode . eglot-ensure)
-         (tsx-ts-mode . eglot-ensure)
+  ;; Tree-sitter disabled for perf testing — using legacy mode hooks.
+  :hook ((clojure-mode . eglot-ensure)
+         (typescript-mode . eglot-ensure)
          (js-jsx-mode . eglot-ensure)
          (terraform-mode . eglot-ensure)
          (eglot-managed-mode-hook . lk/eglot-ensure-root)

@@ -1,21 +1,16 @@
 ;;; -*- lexical-binding: t; -*-
 
-(use-package markdown-ts-mode
+;; Tree-sitter disabled for perf testing — using legacy markdown-mode.
+(use-package markdown-mode
   :ensure t
-  :mode ("\\.md\\'" . markdown-ts-mode)
+  :mode ("\\.md\\'" . markdown-mode)
   :defer 't
   :init
-  ;; Set up treesit language sources early to avoid duplicates
-  (add-to-list 'treesit-language-source-alist
-               '(markdown "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown/src"))
-  (add-to-list 'treesit-language-source-alist
-               '(markdown-inline "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src"))
   (auto-fill-mode 1)
   :config
-  (setq-local fill-column 120)
-
-  :bind (:map markdown-ts-mode-map
-              ("C-c C-e" . lk/markdown-edit-code-block)))
+  (setq-local fill-column 120))
+  ;; NOTE: lk/markdown-edit-code-block uses treesit APIs; keybinding removed
+  ;; while testing without tree-sitter.
 
 (use-package edit-indirect :ensure t)
 

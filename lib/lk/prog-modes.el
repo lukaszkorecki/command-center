@@ -127,17 +127,10 @@
   :config (setq sh-indent-offset 2)
   (setq sh-indentation 2))
 
-(use-package java-ts-mode
-  :ensure t
-  :mode ("\\.java$" )
-
-  :preface ; nofmt
-  (dolist (mapping '((java-mode . java-ts-mode)))
-    (add-to-list 'major-mode-remap-alist mapping))
-
-  :init ;; Set up treesit language sources early to avoid duplicates
-  (add-to-list 'treesit-language-source-alist
-               '(java . ("https://github.com/tree-sitter/tree-sitter-java" "v0.23.5" "src"))))
+;; Tree-sitter disabled for perf testing — using built-in java-mode.
+(use-package java-mode
+  :ensure nil
+  :mode ("\\.java$" . java-mode))
 
 (use-package mermaid-mode
   :ensure t
