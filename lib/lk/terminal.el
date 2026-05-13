@@ -60,7 +60,14 @@
          ("C-q"       . ghostel-send-next-key)
          ("C-x t n"   . lk/ghostel-new)
          ("C-x t p"   . ghostel-project)
-         ("C-x t o"   . ghostel-other)))
+         ("C-x t o"   . ghostel-other)
+         ;; Forward Meta-punctuation to the terminal — ghostel only
+         ;; binds M-<letter> by default, so these fall through to
+         ;; global bindings (e.g. M-. → xref-find-definitions).
+         :map ghostel-mode-map
+         ("M-."       . ghostel--send-event)
+         ("M-,"       . ghostel--send-event)
+         ("M-/"       . ghostel--send-event)))
 
 
 
