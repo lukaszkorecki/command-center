@@ -44,3 +44,4 @@ __docs
 .tmp
 .claude
 **/p-gcloud
+**/scratch*.clj

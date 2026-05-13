@@ -48,7 +48,7 @@
   (setq magit-clone-set-remote.pushDefault t)
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1)
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
-
+  (setq magit-process-connection-type  nil)
   (setq magit-git-executable "/usr/bin/git")
 	:bind (( "C-c m s" . magit-status)))
 
