@@ -15,6 +15,11 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
+(use-package yasnippet
+  :ensure t
+  :demand t
+  :bind (("C-c i" . yas-insert-snippet)))
+
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
          (default-directory pj-dir))
