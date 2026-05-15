@@ -222,3 +222,6 @@ if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
   PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 
 fi
+
+
+source ~/.emacs.d/etc/fns.zsh

@@ -28,17 +28,22 @@ line=
 file=
 pr=
 
+hasFlag=
+
 while getopts "hpf:l:c:n" OPTIONS; do
   case "$OPTIONS" in
     h) ## help!
+      hasFlag=true
       help
       ;;
     f) ## file to browse
+      hasFlag=true
       surftTo=file
       file="$OPTARG"
       ;;
     l) ## line in file to browse, needs a file!
       surftTo=file
+      hasFlag=true
       line="$OPTARG"
       ;;
 
@@ -68,13 +73,13 @@ case "$surftTo" in
     if [[ $line != "" ]]; then
       file="$file:$line"
     fi
-    gh browse -b "$currentBranch" "$file"
+    gh browse "$file"
     ;;
   commit)
-    gh browse -b "$currentBranch" "$commit"
+    gh browse "$commit"
     ;;
   pr)
-    gh pr view -w | gh pr create -w
+    gh pr view --web | gh pr create --web
     ;;
   *)
     echo "unknown destination '$surftTo'"
