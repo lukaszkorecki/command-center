@@ -25,5 +25,9 @@
 
 (package-initialize)
 
+;; Vendored packages must come AFTER `package-initialize' so they take
+;; precedence over anything still installed under elpa/.
+(add-to-list 'load-path "~/.emacs.d/vendor")
+
 (provide 'deps)
 ;;; deps.el ends here
