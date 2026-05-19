@@ -16,14 +16,6 @@
   :bind (( "C-c g g" . lk/git-grep+)
          ( "C-c g s" . vc-git-grep)))
 
-(use-package git-link
-  :ensure t
-  :bind (("C-x g" . git-link-dispatch)))
-
-(defun lk/open-current-file-in-gh ()
-  (interactive)
-  (browse-url (call-interactively #'git-link)))
-
 (defun lk/open-repo-in-gh ()
   (interactive)
   (browse-url (call-interactively #'git-link-homepage)))
@@ -36,6 +28,26 @@
   (interactive)
   (let ((default-directory (project-root (project-current t))))
     (browse-url (call-interactively #'git-link-homepage))))
+
+(use-package git-link
+  :ensure t
+  :bind (("C-x g" . git-link-dispatch))
+  :config
+  ;; NOTE: I'm redefining transient layer myself rather than extending existing one
+  ;;       it's easier that way in terms of reloading configs and such
+  (transient-define-prefix git-link-dispatch ()
+    "Git link dispatch."
+    [:description "Options"
+     (git-link-dispatch--branch)
+     (git-link-dispatch--remote)
+     (git-link-dispatch--use-commit)
+     (git-link-dispatch--line-number)]
+    [:description "Git link"
+     ("l" "Copy link"       git-link-dispatch--copy)
+     ("o" "Open in browser" git-link-dispatch--open)]
+    [:description "Other"
+     ("p" "Open current PR"  lk/open-current-pr-in-gh)
+     ("H" "Open repo home" lk/git-repo-home)]))
 
 (use-package magit
   :ensure t
