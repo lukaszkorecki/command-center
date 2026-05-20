@@ -31,11 +31,11 @@
 
 (use-package git-link
   :ensure t
-  :bind (("C-x g" . git-link-dispatch))
+  :bind (("C-x g" . lk/git-link-dispatch))
   :config
   ;; NOTE: I'm redefining transient layer myself rather than extending existing one
   ;;       it's easier that way in terms of reloading configs and such
-  (transient-define-prefix git-link-dispatch ()
+  (transient-define-prefix lk/git-link-dispatch ()
     "Git link dispatch."
     [:description "Options"
      (git-link-dispatch--branch)
