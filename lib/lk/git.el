@@ -24,6 +24,10 @@
   (interactive)
   (shell-command "gh pr view --web"))
 
+(defun lk/create-pr-in-gh ()
+  (interactive)
+  (shell-command "gh pr create --web"))
+
 (defun lk/git-repo-home ()
   (interactive)
   (let ((default-directory (project-root (project-current t))))
@@ -46,7 +50,8 @@
      ("l" "Copy link"       git-link-dispatch--copy)
      ("o" "Open in browser" git-link-dispatch--open)]
     [:description "Other"
-     ("p" "Open current PR"  lk/open-current-pr-in-gh)
+     ("P" "Open current PR"  lk/open-current-pr-in-gh)
+     ("C" "Create a PR" lk/create-pr-in-gh)
      ("H" "Open repo home" lk/git-repo-home)]))
 
 (use-package magit
