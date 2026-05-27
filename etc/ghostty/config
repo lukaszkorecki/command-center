@@ -1,7 +1,13 @@
-####
 keybind = super+[=goto_split:previous
 keybind = super+]=goto_split:next
 
+cursor-style = block
+cursor-style-blink = true
+cursor-color = #FF0000
+cursor-invert-fg-bg = true
+mouse-hide-while-typing = false
 shell-integration = zsh
+shell-integration-features = no-cursor
 
 theme = modus-operandi
+font-family = "Geist Mono Regular"

@@ -16,6 +16,7 @@ clojure-configs:
 	@rm -rf ~/.lein
 	@ln -fvs ~/.emacs.d/etc/lein ~/.lein
 
+# For some reason placing config file in XDG_CONFIG/ghostty doesn't work, so we copy instead
 ghostty-configs:
 	cp -v "$(HOME)/.emacs.d/etc/ghostty/config" ~/Library/Application\ Support/com.mitchellh.ghostty/config
 	mkdir -p ~/.config/ghostty/
