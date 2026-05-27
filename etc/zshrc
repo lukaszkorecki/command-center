@@ -224,4 +224,8 @@ if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
 fi
 
 
+if [[ -n "$(which fzf)" ]] ; then
+  source <(fzf --zsh)
+fi
+
 source ~/.emacs.d/etc/fns.zsh

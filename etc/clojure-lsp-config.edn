@@ -7,15 +7,16 @@
 ;; Only add :extra-indents for custom macros specific to your codebase.
 {:auto-add-ns-to-new-files? false
  :keep-parens-when-threading? true
- :cljfmt {:vars {:enabled? false}
-          :functions {:enabled? false}
-          :types {:enabled? false}
+ :cljfmt {:indent-line-comments? {:enabled? true}
           :remove-multiple-non-indenting-spaces? true
+          :normalize-newlines-at-file-end? true
+          :sort-ns-references? true
           ;; Custom indent rules for company-specific macros
-          :extra-indents {;; Leiningen
-                          defproject [[:block 1]]
+          :extra-indents { ;; Leiningen
+                          defproject [[:inner 0] [:inner 0]]
                           ;; Custom utility macros
                           compile-if [[:block 1]]
+
                           ;; Compojure/HTTP routing macros
                           defroutes [[:inner 0]]
                           defroute [[:inner 0]]
@@ -27,13 +28,11 @@
                           HEAD [[:inner 0]]
                           OPTIONS [[:inner 0]]
                           ANY [[:inner 0]]
-                          ;; Company-specific context/utility macros
-                          with-transaction [[:inner 0]]
-                          with-timing [[:inner 0]]
-                          count-on-exception [[:inner 0]]
+
+                          ;; ensure all
+                          #re "^with-.*" [[:inner 0]]
 
                           ;; logging
-                          with-context [[:inner 1]]
                           debugf [[:inner 1]]
                           debug [[:inner 1]]
                           infof [[:inner 1]]

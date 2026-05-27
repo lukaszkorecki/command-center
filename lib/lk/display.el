@@ -30,7 +30,7 @@
     (set-face-attribute 'default nil :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
-(defvar lk/font-size-regular 120 "Regular font size.")
+(defvar lk/font-size-regular 130 "Regular font size.")
 (defvar lk/font-size-xl 170 "eXtra Large font size.")
 
 (defun lk/standard-font ()
@@ -43,7 +43,7 @@
 
 (defun on-after-init ()
   (when (display-graphic-p)
-    (set-face-attribute 'default nil :family "Menlo" :height lk/font-size-regular))
+    (set-face-attribute 'default nil :family "Geist Mono" :height lk/font-size-regular))
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
