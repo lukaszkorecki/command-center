@@ -13,5 +13,7 @@ node = "25"
 "http:clj-paren-repair" = { version = "0.2.2", url = "https://github.com/lukaszkorecki/clojure-mcp-light-native/releases/download/v0.2.2/clj-paren-repair-macos-arm64" }
 "http:clj-nrepl-eval" = { version = "0.2.2", url = "https://github.com/lukaszkorecki/clojure-mcp-light-native/releases/download/v0.2.2/clj-nrepl-eval-macos-arm64" }
 
+"github:dazld/r11y" = "1.0.7"
+
 [settings]
 idiomatic_version_file_enable_tools = ["node", "java"]
