@@ -197,5 +197,5 @@ Prompts for docsets first if none are selected."
    ("r" "Refresh docsets" lk/dash-refresh-docsets :transient t)
    ("q" "Quit"            transient-quit-one)])
 
-(provide 'lk/dash)
+(provide 'lk/dash-browser)
 ;;; dash.el ends here

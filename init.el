@@ -54,7 +54,7 @@
 
 (require 'lk/apps)
 
-(require 'lk/dash)
+(require 'lk/dash-browser)
 
 ;; HACK
 (lk/fix-utf)
