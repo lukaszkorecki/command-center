@@ -1,7 +1,6 @@
 [tools]
-java = "temurin-25"
 
-babashka = { version = "1.12.216", exe = "bb" }
+babashka = { version = "1.12.218", exe = "bb" }
 clojure = "latest"
 leiningen = "latest"
 node = "25"
