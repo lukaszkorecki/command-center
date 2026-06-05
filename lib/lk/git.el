@@ -39,6 +39,9 @@
   :config
   ;; NOTE: I'm redefining transient layer myself rather than extending existing one
   ;;       it's easier that way in terms of reloading configs and such
+  ;; git-link only autoloads `git-link-dispatch'; the infix suffixes below live
+  ;; in git-link-transient.el and must be loaded before they can be referenced.
+  (require 'git-link-transient)
   (transient-define-prefix lk/git-link-dispatch ()
     "Git link dispatch."
     [:description "Options"
