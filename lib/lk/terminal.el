@@ -54,19 +54,23 @@
   :vc (:url "https://github.com/dakra/ghostel"
             :lisp-dir "lisp"
             :rev :newest)
-  :bind (("C-x t n"   . lk/ghostel-new)
-         ("C-c M-o"   . ghostel-clear-scrollback)
-         ("C-x t p"   . ghostel-project)
-         ("C-x t o"   . ghostel-other)
+  :config
+  (setq ghostel-buffer-name "*term*")
+  :bind (("C-x t n" . lk/ghostel-new)
+         ("C-c M-o" . ghostel-clear-scrollback)
+         ("C-x t p" . ghostel-project)
+         ("C-x t o" . ghostel-other)
          ;; Forward Meta-punctuation to the terminal — ghostel only
          ;; binds M-<letter> by default, so these fall through to
          ;; global bindings (e.g. M-. → xref-find-definitions).
          :map ghostel-mode-map
          ("C-c ESC o" . ghostel-clear-scrollback)
-         ("C-q"       . ghostel-send-next-key)
-         ("M-."       . ghostel--send-event)
-         ("M-,"       . ghostel--send-event)
-         ("M-/"       . ghostel--send-event)))
+         ("C-q" . ghostel-send-next-key)
+         ("M-." . ghostel--send-event)
+         ("M-," . ghostel--send-event)
+         ("M-/" . ghostel--send-event)
+         ;; we don't want this tho
+         ("M-o" . ace-window)))
 
 (provide 'lk/terminal)
 ;;; terminal.el ends here
