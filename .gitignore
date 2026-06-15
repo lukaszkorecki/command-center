@@ -54,3 +54,4 @@ request/**
 /logview-cache.extmap
 /.last-package-update-day
 agent
+projects.eld
