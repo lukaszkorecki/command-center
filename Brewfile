@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 tap 'd12frosted/emacs-plus'
-
+cask 'cleanshot'
 cask 'emacs-plus-app@master'
 cask 'alfred'
 cask 'mailmate@beta'
