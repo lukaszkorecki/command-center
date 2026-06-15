@@ -1,7 +1,4 @@
 # -*- mode: ruby -*-
-tap 'borkdude/brew'
-tap 'hashicorp/tap'
-tap 'clojure-lsp/brew'
 tap 'd12frosted/emacs-plus'
 
 cask 'emacs-plus-app@master'
@@ -9,35 +6,16 @@ cask 'alfred'
 cask 'mailmate@beta'
 cask 'ghostty'
 brew 'git'
-brew 'mergiraf'
-brew "rlwrap"
 brew 'mise'
-
-# tools
+cask 'fantastical'
 brew "zile"
-brew "ripgrep"
-brew 'jq'
-brew 'borkdude/brew/jet'
-brew 'gh'
-brew 'bat'
+brew "rlwrap"
 brew 'sponge'
-
-cask '1password-cli'
-
-# language specific tooling
-
-brew 'borkdude/brew/clj-kondo'
-brew 'clojure-lsp/brew/clojure-lsp-native'
-
-brew 'libvterm'
 
 # psql cli, but without PG itself
 brew 'libpq', link: true
-brew 'shfmt'
 
 cask 'cyberduck'
-brew 'fzf'
 cask 'rectangle'
-cask 'ghostty'
 cask 'finicky'
 cask 'font-geist-mono'

@@ -37,8 +37,6 @@ configs: clojure-configs ghostty-configs # private-configs
 
 brew-bundle:
 	brew trust d12frosted/emacs-plus
-	brew trust borkdude/brew
-	brew trust clojure-lsp/brew
 	HOMEBREW_AUTO_UPDATE_SECS=9600 brew bundle
 
 zsh-completion:
@@ -53,8 +51,7 @@ fix-macos:
 	defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 op-configs:
-	@mkdir -p ~/.config/1Password/ssh/
-	@ln -fvs ~/.emacs.d/etc/1password/config.toml ~/.config/1Password/ssh/agent.toml
+	cd private-configs && make config-op
 	@ln -fvs ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ~/.config/1Password/agent.sock
 	@echo "Host *" > ~/.ssh/config
 	@echo "  IdentityAgent ~/.config/1Password/agent.sock" >> ~/.ssh/config

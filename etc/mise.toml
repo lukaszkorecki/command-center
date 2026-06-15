@@ -14,5 +14,16 @@ node = "25"
 
 "github:dazld/r11y" = "1.0.7"
 
+# cli tools (moved from Brewfile)
+gh = "latest"
+jq = "latest"
+fzf = "latest"
+"github:borkdude/jet" = "latest"
+ripgrep = { version = "latest", exe = "rg" }
+bat = "latest"
+shfmt = "latest"
+clj-kondo = "latest"
+"github:clojure-lsp/clojure-lsp" = "latest"
+
 [settings]
 idiomatic_version_file_enable_tools = ["node", "java"]
