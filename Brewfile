@@ -5,7 +5,9 @@ tap 'clojure-lsp/brew'
 tap 'd12frosted/emacs-plus'
 
 cask 'emacs-plus-app@master'
-
+cask 'alfred@4'
+cask 'mailmate@beta'
+cask 'ghostty'
 brew 'git'
 brew 'mergiraf'
 brew "rlwrap"

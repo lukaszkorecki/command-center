@@ -18,6 +18,7 @@ clojure-configs:
 
 # For some reason placing config file in XDG_CONFIG/ghostty doesn't work, so we copy instead
 ghostty-configs:
+	mkdir -p ~/Library/Application\ Support/com.mitchellh.ghostty
 	cp -v "$(HOME)/.emacs.d/etc/ghostty/config" ~/Library/Application\ Support/com.mitchellh.ghostty/config
 	mkdir -p ~/.config/ghostty/
 	ln -fvs ~/.emacs.d/etc/ghostty/themes/ ~/.config/ghostty/themes
@@ -26,7 +27,7 @@ private-configs:
 	git submodule update --init --recursive private-configs
 	cd private-configs && git switch main && git update && make setup
 
-configs: clojure-configs ghostty-configs private-configs
+configs: clojure-configs ghostty-configs # private-configs
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.zshrc
 	@ln -fvs ~/.emacs.d/etc/zshrc ~/.profile
 	@ln -fvs ~/.emacs.d/etc/gitconfig ~/.gitconfig
@@ -35,6 +36,9 @@ configs: clojure-configs ghostty-configs private-configs
 	@ln -fvs ~/.emacs.d/etc/mise.toml ~/.config/mise/config.toml
 
 brew-bundle:
+	brew trust d12frosted/emacs-plus
+	brew trust borkdude/brew
+	brew trust clojure-lsp/brew
 	HOMEBREW_AUTO_UPDATE_SECS=9600 brew bundle
 
 zsh-completion:
@@ -47,8 +51,6 @@ fix-macos:
 	defaults write com.apple.finder ShowPathbar -bool true
 	defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 	defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
-	sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
-	sudo killall SystemUIServer
 
 op-configs:
 	@mkdir -p ~/.config/1Password/ssh/

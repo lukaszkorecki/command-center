@@ -1,6 +1,3 @@
-[submodule "drifter"]
-	path = drifter
-	url = git@github.com:lukaszkorecki/drifter.git
 [submodule "private-configs"]
 	path = private-configs
-	url = https://github.com/lukaszkorecki/private-configs.git
+	url = git@github.com:lukaszkorecki/private-configs.git
