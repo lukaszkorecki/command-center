@@ -15,6 +15,7 @@ clojure-configs:
 	@ln -fvs ~/.emacs.d/etc/clojure ~/.clojure
 	@rm -rf ~/.lein
 	@ln -fvs ~/.emacs.d/etc/lein ~/.lein
+	@ln -fvs ~/.emacs.d/etc/lein/profiles.clj $(LEIN_HOME)/profiles.clj
 
 # For some reason placing config file in XDG_CONFIG/ghostty doesn't work, so we copy instead
 ghostty-configs:
@@ -51,10 +52,8 @@ fix-macos:
 	defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 op-configs:
-	cd private-configs && make config-op
+	cd private-configs && make config-op config-ssh
 	@ln -fvs ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ~/.config/1Password/agent.sock
-	@echo "Host *" > ~/.ssh/config
-	@echo "  IdentityAgent ~/.config/1Password/agent.sock" >> ~/.ssh/config
 
 
 .PHONY: setup brew-bundle zsh-completion fix-macos configs clojure-configs ghostty-configs private-configs op-configs install-other-tools link-emacs

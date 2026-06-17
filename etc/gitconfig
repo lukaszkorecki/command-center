@@ -88,3 +88,6 @@
 
 [includeIf "gitdir:~/ps/"]
   path = "~/.emacs.d/private-configs/git/work-gitconfig"
+
+[includeIf "gitdir:~/oss/"]
+  path = "~/.config/git/oss-gitconfig"
