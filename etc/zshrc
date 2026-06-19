@@ -95,8 +95,6 @@ setopt AUTO_CD
 fpath+=(~/.emacs.d/etc/zsh/)
 
 autoload -Uz compinit && compinit
-autoload _docker
-autoload _docker-compose
 autoload _rg
 autoload _git
 
@@ -229,3 +227,6 @@ if [[ -n "$(which fzf)" ]] ; then
 fi
 
 source ~/.emacs.d/etc/fns.zsh
+
+# Added by codebase-memory-mcp install
+export PATH="/Users/lukasz/.local/bin:$PATH"

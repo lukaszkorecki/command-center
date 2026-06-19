@@ -1,10 +1,10 @@
 [tools]
-
+claude-code = "latest"
 babashka = { version = "1.12.218", exe = "bb" }
 clojure = "latest"
 leiningen = "latest"
 node = "25"
-
+"http:codebase-memory-mcp" = { version = "0.8.1", url = "https://github.com/DeusData/codebase-memory-mcp/releases/download/v0.8.1/codebase-memory-mcp-ui-darwin-arm64.tar.gz"}
 # there's some weird stuff going on with how 'official' op recipe works in Mise, so we just get this from source
 "http:op" = { version = "2.32.1", url =  "https://cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_darwin_arm64_v2.32.1.zip" }
 
