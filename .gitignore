@@ -55,3 +55,4 @@ request/**
 /.last-package-update-day
 agent
 projects.eld
+places.eld
