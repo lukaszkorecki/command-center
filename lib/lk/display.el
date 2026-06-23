@@ -156,7 +156,8 @@
      ("t" "Transpose" transpose-frame)
      ("r" "Rotate" rotate-frame)
      ("f" "Flip" flip-frame)
-     ("F" "Flop" flop-frame)]
+     ("F" "Flop" flop-frame)
+     ("!" "Go full screen" toggle-frame-maximized)]
 
     ["Resize Window Width"
      ("3" "33%"  lk/resize-window-33pct)
