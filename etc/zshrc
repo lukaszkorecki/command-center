@@ -227,6 +227,3 @@ if [[ -n "$(which fzf)" ]] ; then
 fi
 
 source ~/.emacs.d/etc/fns.zsh
-
-# Added by codebase-memory-mcp install
-export PATH="/Users/lukasz/.local/bin:$PATH"

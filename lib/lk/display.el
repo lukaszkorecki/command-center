@@ -5,9 +5,9 @@
 ;;; theme, window management, and custom display functions.
 
 ;;; Code:
-(setq switch-to-buffer-obey-display-actions t) ;; buffer switching? move to UI
-(blink-cursor-mode t) ;; move to UI
-
+(setq switch-to-buffer-obey-display-actions t)
+(blink-cursor-mode t)
+(setq tool-bar-mode nil)
 (setq warning-minimum-level :error)
 (setq ring-bell-function 'ignore)
 
@@ -20,7 +20,7 @@
 (setq echo-keystrokes 0.1 use-dialog-box nil visible-bell nil)
 (setq frame-inhibit-implied-resize t)
 (setq pixel-scroll-precision-mode t)
-(setq-default show-trailing-whitespace nil)
+(setq-default show-trailing-whitespace t)
 (setq-default indicate-empty-lines nil)
 (setq-default indicate-buffer-boundaries 'left)
 
@@ -72,12 +72,7 @@
 ;; always match parens
 (show-paren-mode t)
 (setq show-paren-delay 0)
-(global-set-key (kbd "C-c f") 'toggle-frame-maximized)
 
-;; Fix ansi-term rendering
-(add-hook 'term-mode-hook 'my-term-mode-hook)
-(defun my-term-mode-hook ()
-  (setq bidi-paragraph-direction 'left-to-right))
 
 (use-package unicode-fonts :ensure t :config (unicode-fonts-setup))
 
