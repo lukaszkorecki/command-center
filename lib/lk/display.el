@@ -20,7 +20,7 @@
 (setq echo-keystrokes 0.1 use-dialog-box nil visible-bell nil)
 (setq frame-inhibit-implied-resize t)
 (setq pixel-scroll-precision-mode t)
-(setq-default show-trailing-whitespace t)
+
 (setq-default indicate-empty-lines nil)
 (setq-default indicate-buffer-boundaries 'left)
 
