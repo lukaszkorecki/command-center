@@ -1,5 +1,10 @@
+# foo
 keybind = super+[=goto_split:previous
 keybind = super+]=goto_split:next
+keybind = alt+.=esc:.
+keybind = alt+b=esc:b
+keybind = alt+f=esc:f
+keybind = super+r=reload_config
 
 cursor-style = block
 cursor-style-blink = true
