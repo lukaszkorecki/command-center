@@ -6,38 +6,6 @@
 
 ;;; Code:
 
-;; Trialing ghostel as a vterm replacement — vterm config kept commented
-;; out below until the trial wraps up.
-
-;; (defun lk/vterm-project-association ()
-;;   "Associate VTerm buffer with the current project."
-;;   (when-let* ((project (project-current)))
-;;     (setq-local project-current project)))
-
-;; (use-package vterm
-;;   :ensure t
-;;   :config
-;;   (setq vterm-shell "/bin/zsh")
-;;   (setq vterm-kill-buffer-on-exit t)
-;;   :hook ( vterm-mode-hook  . lk/vterm-project-association)
-;;
-;;   :bind (("C-c M-o" . vterm-clear-scrollback)
-;;          ("C-c ESC o" . vterm-clear-scrollback)
-;;          ("C-q" . vterm-send-next-key)))
-
-;; (use-package multi-vterm
-;;   :ensure t
-;;   :bind (( "C-x t n" . multi-vterm )
-;;          ( "C-x t p" . multi-vterm-project )))
-
-;; (defun lk/kill-all-vterms ()
-;;   (interactive)
-;;   (lk/kill-buffers-by-major-mode 'vterm-mode))
-
-;; (use-package vterm-anti-flicker-filter
-;;   :ensure t
-;;   :vc (:url "https://github.com/martinbaillie/vterm-anti-flicker-filter"))
-
 (defun lk/ghostel-new ()
   "Create a fresh Ghostel terminal buffer (the `multi-vterm' equivalent)."
   (interactive)
@@ -60,10 +28,7 @@
          ("C-c M-o" . ghostel-clear-scrollback)
          ("C-x t p" . ghostel-project)
          ("C-x t o" . ghostel-other)
-         ;; Forward Meta-punctuation to the terminal — ghostel only
-         ;; binds M-<letter> by default, so these fall through to
-         ;; global bindings (e.g. M-. → xref-find-definitions).
-         :map ghostel-mode-map
+         :map ghostel-semi-char-mode-map
          ("C-c ESC o" . ghostel-clear-scrollback)
          ("C-q" . ghostel-send-next-key)
          ("M-." . ghostel--send-event)
