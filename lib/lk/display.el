@@ -3,6 +3,7 @@
 ;;; Commentary:
 ;;; Configures the visual appearance of Emacs including fonts, frame settings,
 ;;; theme, window management, and custom display functions.
+(require 'transient)
 
 ;;; Code:
 (setq switch-to-buffer-obey-display-actions t)
