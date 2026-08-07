@@ -145,6 +145,46 @@
   (interactive)
   (lk/proportionally-resize-window-height 0.50))
 
+;; frame (the macOS app window) placement/resizing - all values are fractions of
+;; the monitor's work area, so the dock/menu bar are accounted for
+
+(defun lk/frame-place (x-pct y-pct width-pct height-pct)
+  "Place the selected frame within its monitor's work area.
+X-PCT and Y-PCT are the top-left corner, WIDTH-PCT and HEIGHT-PCT the
+size - all as fractions (0.0-1.0) of the work area."
+  (let* ((frame (selected-frame))
+         (area (frame-monitor-workarea frame))
+         (area-x (nth 0 area))
+         (area-y (nth 1 area))
+         (area-width (nth 2 area))
+         (area-height (nth 3 area)))
+    (when (frame-parameter frame 'fullscreen)
+      (set-frame-parameter frame 'fullscreen nil))
+    (set-frame-size frame
+                    (round (* area-width width-pct))
+                    (round (* area-height height-pct))
+                    t)
+    (set-frame-position frame
+                        (+ area-x (round (* area-width x-pct)))
+                        (+ area-y (round (* area-height y-pct))))))
+
+(defun lk/frame-left-half ()
+  (interactive)
+  (lk/frame-place 0.0 0.0 0.5 1.0))
+
+(defun lk/frame-right-half ()
+  (interactive)
+  (lk/frame-place 0.5 0.0 0.5 1.0))
+
+(defun lk/frame-left-66pct ()
+  "Left two thirds - leaves a Rectangle.app 1/3 slot free on the right."
+  (interactive)
+  (lk/frame-place 0.0 0.0 0.66 1.0))
+
+(defun lk/frame-left-75pct ()
+  (interactive)
+  (lk/frame-place 0.0 0.0 0.75 1.0))
+
 (use-package transpose-frame
   :ensure t
   :config
@@ -153,24 +193,31 @@
   (transient-define-prefix lk/window-mgr
     ()
     "Shortcuts for moving windows/frames around"
-    ["Window Management"
-     ("t" "Transpose" transpose-frame)
-     ("r" "Rotate" rotate-frame)
-     ("f" "Flip" flip-frame)
-     ("F" "Flop" flop-frame)
-     ("!" "Go full screen" toggle-frame-maximized)]
+    [["Frame (app window)"
+      ("!" "Toggle maximized" toggle-frame-maximized)
+      ("*" "Toggle fullscreen" toggle-frame-fullscreen)
+      ("<" "Left half" lk/frame-left-half)
+      (">" "Right half" lk/frame-right-half)
+      ("l" "Left 2/3" lk/frame-left-66pct)
+      ("L" "Left 3/4" lk/frame-left-75pct)]
 
-    ["Resize Window Width"
-     ("3" "33%"  lk/resize-window-33pct)
-     ("5" "50%" lk/resize-window-50pct)
-     ("7" "75%" lk/resize-window-75pct)
-     ("8" "81 chars" lk/resize-window-81chars)
-     ("1" "121 chars" lk/resize-window-121chars)]
+     ["Window Management"
+      ("t" "Transpose" transpose-frame)
+      ("r" "Rotate" rotate-frame)
+      ("f" "Flip" flip-frame)
+      ("F" "Flop" flop-frame)]
 
-    ["Resize Window Height"
-     ("@" "16%" lk/resize-window-16pct-height)
-     ("#" "33%"  lk/resize-window-33pct-height)
-     ("%" "50%" lk/resize-window-50pct-height)])
+     ["Resize Window Width"
+      ("3" "33%"  lk/resize-window-33pct)
+      ("5" "50%" lk/resize-window-50pct)
+      ("7" "75%" lk/resize-window-75pct)
+      ("8" "81 chars" lk/resize-window-81chars)
+      ("1" "121 chars" lk/resize-window-121chars)]
+
+     ["Resize Window Height"
+      ("@" "16%" lk/resize-window-16pct-height)
+      ("#" "33%"  lk/resize-window-33pct-height)
+      ("%" "50%" lk/resize-window-50pct-height)]])
 
   (define-key global-map (kbd "C-c t") 'lk/window-mgr))
 
