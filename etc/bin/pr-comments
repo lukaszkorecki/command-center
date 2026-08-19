@@ -1,0 +1,241 @@
+#!/usr/bin/env bb
+;; Dump a PR's review threads as markdown (pipe to glow) or as Emacs
+;; compilation output (`M-x compile` / `compilation-mode` for navigation).
+;;
+;;   pr-comments                  # markdown for the current branch's PR
+;;   pr-comments 794 | glow -     # explicit PR
+;;   pr-comments -f compile       # file:line: for compilation-mode
+;;   pr-comments --no-bots -a     # drop Copilot, include resolved threads
+
+(require '[babashka.cli :as cli]
+         '[babashka.process :as process]
+         '[cheshire.core :as json]
+         '[clojure.string :as str])
+
+;;; ---------------------------------------------------------------- pure
+
+(def bots #{"copilot" "copilot-pull-request-reviewer" "linear" "github-actions"})
+
+(defn bot? [login]
+  (or (contains? bots (str/lower-case (or login "")))
+      (str/ends-with? (or login "") "[bot]")))
+
+(defn thread-line
+  "Threads lose `line` once their hunk goes stale; `originalLine` survives."
+  [{:keys [line originalLine]}]
+  (or line originalLine 1))
+
+(defn thread-author [thread]
+  (-> thread :comments :nodes first :author :login))
+
+(defn keep-thread? [{:keys [all no-bots author]} thread]
+  (and (or all (not (:isResolved thread)))
+       (or (not no-bots) (not (bot? (thread-author thread))))
+       (or (nil? author)
+           (some #(= author (-> % :author :login)) (-> thread :comments :nodes)))))
+
+(defn prepare
+  "Filtered, sorted by file then line — the order you'd walk the diff in."
+  [opts threads]
+  (->> threads
+       (filter (partial keep-thread? opts))
+       (sort-by (juxt :path thread-line))))
+
+(defn tags [{:keys [isResolved isOutdated]}]
+  (cond-> []
+    isResolved (conj "resolved")
+    isOutdated (conj "outdated")))
+
+(defn indent [prefix text]
+  (->> (str/split-lines (str/trim (or text "")))
+       (map #(str prefix %))
+       (str/join "\n")))
+
+;;; --------------------------------------------------------------- fetch
+
+(def query "
+query($owner:String!,$repo:String!,$number:Int!){
+  repository(owner:$owner,name:$repo){
+    pullRequest(number:$number){
+      number title url
+      reviewThreads(first:100){nodes{
+        isResolved isOutdated path line originalLine
+        comments(first:50){nodes{author{login} body url}}
+      }}
+      reviews(first:100){nodes{author{login} state body}}
+    }
+  }
+}")
+
+(defn gh!
+  "Shells out to gh, returning parsed JSON. gh's own stderr is left alone so
+   auth problems surface as themselves rather than as a parse error."
+  [& args]
+  (let [{:keys [out exit]} (apply process/sh "gh" args)]
+    (when-not (zero? exit)
+      (System/exit exit))
+    (json/parse-string out true)))
+
+(defn repo-slug []
+  (:nameWithOwner (gh! "repo" "view" "--json" "nameWithOwner")))
+
+(defn current-pr []
+  (or (:number (gh! "pr" "view" "--json" "number"))
+      (binding [*out* *err*]
+        (println "no PR for the current branch — pass one explicitly")
+        (System/exit 1))))
+
+(defn repo-root
+  "Compilation-mode resolves the loci against this, so fall back to cwd when
+   run outside a checkout (e.g. with an explicit --repo)."
+  []
+  (let [{:keys [out exit]} (process/sh "git" "rev-parse" "--show-toplevel")]
+    (if (zero? exit)
+      (str/trim out)
+      (System/getProperty "user.dir"))))
+
+(defn fetch [slug number]
+  (let [[owner repo] (str/split slug #"/")]
+    (-> (gh! "api" "graphql"
+             "-F" (str "owner=" owner)
+             "-F" (str "repo=" repo)
+             "-F" (str "number=" number)
+             "-f" (str "query=" query))
+        :data :repository :pullRequest)))
+
+;;; -------------------------------------------------------------- render
+
+(defn render-md [{:keys [number title url reviews]} threads hidden]
+  (println (format "# [#%d %s](%s)" number title url))
+  (println)
+  (println (format "*%d thread%s%s*"
+                   (count threads)
+                   (if (= 1 (count threads)) "" "s")
+                   (if (pos? hidden) (format " · %d hidden" hidden) "")))
+
+  (doseq [{:keys [author state body]} reviews
+          :when (seq (str/trim (or body "")))]
+    (println)
+    (println (format "## %s — %s" (:login author) (str/lower-case state)))
+    (println)
+    (println (str/trim body)))
+
+  ;; already sorted by path, so partition-by groups without reordering
+  (doseq [group (partition-by :path threads)]
+    (println)
+    (println (str "## `" (:path (first group)) "`"))
+    (doseq [thread group
+            :let [[head & replies] (-> thread :comments :nodes)
+                  label (tags thread)]]
+      (println)
+      (println (format "### L%d · %s%s"
+                       (thread-line thread)
+                       (-> head :author :login)
+                       (if (seq label) (str " *(" (str/join ", " label) ")*") "")))
+      (println)
+      (println (str/trim (:body head)))
+      (doseq [reply replies]
+        (println)
+        (println (format "**↳ %s**" (-> reply :author :login)))
+        (println)
+        (println (indent "> " (:body reply)))))))
+
+(defn render-compile [{:keys [number title]} threads hidden root]
+  (println "-*- mode: compilation -*-")
+  (println (format "pr-comments: Entering directory '%s'" root))
+  (println (format "pr-comments: #%d %s — %d thread(s)%s"
+                   number title (count threads)
+                   (if (pos? hidden) (format ", %d hidden" hidden) "")))
+  (doseq [thread threads
+          :let [line (thread-line thread)
+                label (tags thread)]
+          {:keys [author body]} (-> thread :comments :nodes)
+          :let [[head & rest-lines] (str/split-lines (str/trim (or body "")))]]
+    ;; `path:line:col:` is what compilation-mode's gnu matcher anchors on, so the
+    ;; first body line has to share it. Continuations are indented, which keeps
+    ;; them from parsing as loci of their own.
+    (println (format "%s:%d:1: %s%s: %s"
+                     (:path thread) line
+                     (:login author)
+                     (if (seq label) (str " [" (str/join "," label) "]") "")
+                     head))
+    (doseq [l rest-lines]
+      (println (if (str/blank? l) "" (str "        " l)))))
+  (println (format "pr-comments: Leaving directory '%s'" root)))
+
+;;; ----------------------------------------------------------------- cli
+
+(def spec
+  {:format {:alias :f :ref "<fmt>" :desc "md (default), compile or json"}
+   :all {:alias :a :coerce :boolean :desc "include resolved threads"}
+   :no-bots {:coerce :boolean :desc "drop Copilot, Linear and Actions"}
+   :author {:ref "<login>" :desc "only threads this login took part in"}
+   :repo {:alias :r :ref "<owner/name>" :desc "defaults to the cwd's repo"}
+   :help {:alias :h :coerce :boolean :desc "show this help"}})
+
+(def usage
+  (str/join
+   "\n"
+   ["Dump a pull request's review threads as markdown or Emacs compilation output."
+    ""
+    "Usage: pr-comments [PR] [options]"
+    ""
+    "  PR defaults to the pull request for the current branch."
+    ""
+    "Options:"
+    (cli/format-opts {:spec spec
+                      :order [:format :all :no-bots :author :repo :help]})
+    ""
+    "Formats:"
+    "  md       grouped by file, replies quoted — pipe to glow"
+    "  compile  path:line:1: for compilation-mode, C-x ` to walk them"
+    "  json     the filtered threads, for further jq"
+    ""
+    "Notes:"
+    "  Resolved threads are hidden unless -a; the header counts what was skipped."
+    "  --author keeps whole threads that login took part in, not just their own"
+    "  comments, so you keep the surrounding context."
+    ""
+    "Examples:"
+    "  pr-comments | glow -"
+    "  pr-comments 794 -f compile"
+    "  pr-comments --no-bots --author alexgergarpeerspace"
+    "  pr-comments -r peerspace/web-listings-v2 794 -f json | jq '.[].path'"]))
+
+(defn extract-number
+  "babashka.cli stops parsing options at the first positional, so `pr-comments 794
+   -f compile` would drop the format. Pull the bare PR number out first and let
+   the parser see only flags. A number directly after a flag is that flag's value,
+   not the PR."
+  [args]
+  (loop [[a & more] args, kept [], number nil]
+    (cond
+      (nil? a) [number kept]
+      (and (nil? number)
+           (re-matches #"\d+" a)
+           (not (str/starts-with? (or (last kept) "") "-")))
+      (recur more kept (parse-long a))
+
+      :else (recur more (conj kept a) number))))
+
+(defn -main [raw-args]
+  (let [[n args] (extract-number raw-args)
+        {:keys [opts]} (cli/parse-args args {:spec spec})]
+    (when (:help opts)
+      (println usage)
+      (System/exit 0))
+    ;; every path below hits the network, so --help has to short-circuit above it
+    (let [number (or n (current-pr))
+          pr (fetch (or (:repo opts) (repo-slug)) number)
+          all-threads (-> pr :reviewThreads :nodes)
+          threads (prepare opts all-threads)
+          hidden (- (count all-threads) (count threads))]
+      (case (or (:format opts) "md")
+        "md" (render-md pr threads hidden)
+        "compile" (render-compile pr threads hidden (repo-root))
+        "json" (println (json/generate-string threads {:pretty true}))
+        (binding [*out* *err*]
+          (println "unknown --format:" (:format opts))
+          (System/exit 1))))))
+
+(-main *command-line-args*)

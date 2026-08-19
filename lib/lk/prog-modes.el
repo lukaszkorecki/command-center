@@ -87,7 +87,11 @@
 (defun lk/format-current-sh-buffer ()
   "Run shellcheck on current file"
   (interactive)
-  (lk/invoke-compile-tool-in-project "shfmt -w -ln bash -i 2 -ci %s"))
+  (compilation-start
+   (format "shfmt -w -ln bash -i 2 -ci %s"
+           (file-relative-name buffer-file-name))
+   'compilation-mode)
+  (revert-buffer :ignore-auto :noconfirm))
 
 (use-package sh-mode
   :ensure nil
@@ -133,9 +137,7 @@
   (setq sh-indentation 2))
 
 ;; Tree-sitter disabled for perf testing — using built-in java-mode.
-(use-package java-mode
-  :ensure nil
-  :mode ("\\.java$" . java-mode))
+(use-package java-mode :ensure nil :mode ("\\.java$" . java-mode))
 
 (use-package mermaid-mode
   :ensure t

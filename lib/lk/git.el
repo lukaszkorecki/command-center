@@ -36,23 +36,26 @@
 (use-package git-link
   :ensure t
   :bind (("C-x g" . lk/git-link-dispatch))
-  :config
-  ;; NOTE: I'm redefining transient layer myself rather than extending existing one
+  :config ;; NOTE: I'm redefining transient layer myself rather than extending existing one
   ;;       it's easier that way in terms of reloading configs and such
   ;; git-link only autoloads `git-link-dispatch'; the infix suffixes below live
   ;; in git-link-transient.el and must be loaded before they can be referenced.
   (require 'git-link-transient)
-  (transient-define-prefix lk/git-link-dispatch ()
+  (transient-define-prefix lk/git-link-dispatch
+    ()
     "Git link dispatch."
-    [:description "Options"
+    [:description
+     "Options"
      (git-link-dispatch--branch)
      (git-link-dispatch--remote)
      (git-link-dispatch--use-commit)
      (git-link-dispatch--line-number)]
-    [:description "Git link"
+    [:description
+     "Git link"
      ("l" "Copy link"       git-link-dispatch--copy)
      ("o" "Open in browser" git-link-dispatch--open)]
-    [:description "Other"
+    [:description
+     "Other"
      ("P" "Open current PR"  lk/open-current-pr-in-gh)
      ("C" "Create a PR" lk/create-pr-in-gh)
      ("H" "Open repo home" lk/git-repo-home)]))
@@ -72,15 +75,16 @@
   (setq magit-git-executable "/usr/bin/git")
 	:bind (( "C-c m s" . magit-status)))
 
-
-(use-package magit-gh
-  :ensure t
-  :after magit)
+(use-package magit-gh :ensure t :after magit)
 
 (defun lk/magit-clear-buffers ()
   (interactive)
   (kill-matching-buffers ".*magit.*" 't 't))
 
+(defun lk/pr-comments ()
+  (interactive)
+  (compilation-start "pr-comments -f compile" nil
+                     (lambda (_) "*pr-comments*")))
 
 (provide 'lk/git)
 ;;; git.el ends here
