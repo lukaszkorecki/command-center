@@ -1,5 +1,5 @@
 [tools]
-claude-code = "latest"
+claude = "latest"
 babashka = { version = "1.12.218", exe = "bb" }
 clojure = "latest"
 leiningen = "latest"
