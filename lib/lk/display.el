@@ -188,7 +188,6 @@ size - all as fractions (0.0-1.0) of the work area."
 (use-package transpose-frame
   :ensure t
   :config
-
   (require 'transient)
   (transient-define-prefix lk/window-mgr
     ()
