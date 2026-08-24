@@ -60,6 +60,13 @@
      ("C" "Create a PR" lk/create-pr-in-gh)
      ("H" "Open repo home" lk/git-repo-home)]))
 
+(defun lk/magit-display-buffer (buffer)
+  (if (with-current-buffer buffer
+        (derived-mode-p 'magit-diff-mode 'magit-process-mode))
+      (display-buffer buffer '(display-buffer-in-direction
+                               (direction . leftmost)))
+    (magit-display-buffer-fullframe-status-topleft-v1 buffer)))
+
 (use-package magit
   :ensure t
   :after (project)
@@ -69,7 +76,7 @@
   (add-to-list 'project-switch-commands
                '(magit-project-status "Magit" "m"))
   (setq magit-clone-set-remote.pushDefault t)
-  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1)
+  (setq magit-display-buffer-function 'lk/magit-display-buffer)
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
   (setq magit-process-connection-type  nil)
   (setq magit-git-executable "/usr/bin/git")
