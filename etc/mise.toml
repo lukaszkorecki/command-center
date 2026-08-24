@@ -25,6 +25,6 @@ clj-kondo = "latest"
 
 # other
 sqlite = "latest"
-
+terraform-ls = "latest"
 [settings]
 idiomatic_version_file_enable_tools = ["node", "java"]
