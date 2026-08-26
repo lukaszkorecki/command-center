@@ -37,7 +37,6 @@ configs: clojure-configs ghostty-configs # private-configs
 	@ln -fvs ~/.emacs.d/etc/mise.toml ~/.config/mise/config.toml
 
 brew-bundle:
-	brew trust d12frosted/emacs-plus
 	HOMEBREW_AUTO_UPDATE_SECS=9600 brew bundle
 
 zsh-completion:

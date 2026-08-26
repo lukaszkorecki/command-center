@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 cask 'cleanshot'
-cask 'emacs-app'
+cask 'emacs-app', postinstall: 'brew pin --cask emacs-app'
 cask 'alfred'
 cask 'mailmate@beta'
 cask 'ghostty'
