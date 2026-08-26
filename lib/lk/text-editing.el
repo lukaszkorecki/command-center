@@ -104,14 +104,30 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-(use-package multiple-cursors
-  :ensure t
-  :bind (("C-c a" . mc/mark-all-like-this)))
 
-;; Temporarily disabled to test whether tree-sitter is slowing down file opens.
-;; (use-package treesit-auto
-;;   :ensure t
-;;   :config (global-treesit-auto-mode))
+;; Source - https://stackoverflow.com/a/22116480
+;; Posted by user2053036
+;; Retrieved 2026-08-26, License - CC BY-SA 3.0
+
+(defun lk/flyspell-learn-word ()
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (when (consp word)
+      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
+
+
+(use-package flyspell
+  :ensure t
+  :config (progn
+            (transient-define-prefix lk/flyspell
+              ()
+              "Spell check actions"
+              [("w" "Spell check/correct word" flyspell-correct-word-before-point)
+               ("b" "Spellcheck/correct buffer" flyspell-buffer)
+               ("l" "Learn word-at-point" lk/flyspell-learn-word)])
+
+            (global-set-key (kbd "C-c f") 'lk/flyspell)))
 
 (provide 'lk/text-editing)
 ;;; text-editing.el ends here
