@@ -27,18 +27,49 @@
          (terraform-mode . eglot-ensure)
          (eglot-managed-mode-hook . lk/eglot-ensure-root)
          (eglot-managed-mode-hook . (lambda () (eglot-inlay-hints-mode 1))))
-  :config (setq eglot-autoshutdown t)
+  :config ;; optimize eglot but keep it usable
+  (setq eglot-autoshutdown t)
   (setq eglot-autoreconnect t)
   (setq eglot-confirm-server-initiated-edits nil)
+  (setq eglot-sync-connect 0)
+  ;; diable logging, speeds a lot of things up but makes it harder to debug
+  (setq eglot-events-buffer-config '(:size 0 :format short))
+  ;; I don't use eglot status in mode-line, so this is fine to disable
+  (setq eglot-report-progress nil)
+  ;; disables polling for code actions, this is unnecessary, because of
+  ;; direct binding for eglot-code-actions
+  (setq eglot-code-action-indications nil)
 
+  ;; disable LSP features that I don't use
+  (add-to-list 'eglot-ignored-server-capabilities :colorProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :foldingRangeProvider)
+
+  (setq eglot-autoshutdown t)
   (add-to-list 'project-find-functions #'project-rootfile-try-detect)
 
-  :bind (("C-c l r r" . eglot-rename)
-         ("C-c l a" . eglot-code-actions )
-         ("C-c l g" . xref-find-definitions)
-         ("C-c l d" . xref-find-definitions-other-window)
-         ("C-c l u" . xref-find-references)
-         ("C-x c f" . eglot-format )))
+  (require 'transient)
+  (transient-define-prefix lk/lsp
+    ()
+    "LSP actions"
+    [["Navigate"
+      ("g" "Definition"          xref-find-definitions)
+      ("d" "Definition (window)" xref-find-definitions-other-window)
+      ("u" "References"          xref-find-references)
+      ("s" "Symbol in project"   xref-find-apropos)]
+     ["Edit"
+      ("r" "Rename"       eglot-rename)
+      ("a" "Code actions" eglot-code-actions)
+      ("f" "Format"       eglot-format)]
+     ["Diagnostics"
+      ("n" "Next error"  flymake-goto-next-error :transient t)
+      ("p" "Prev error"  flymake-goto-prev-error :transient t)
+      ("l" "List errors" flymake-show-buffer-diagnostics)]
+     ["Server"
+      ("R" "Reconnect" eglot-reconnect)
+      ("S" "Shutdown"  eglot-shutdown)
+      ("E" "Events"    eglot-events-buffer)]])
+
+  (global-set-key (kbd "C-c l") 'lk/lsp))
 
 (use-package xref
   :after (consult eglot)
