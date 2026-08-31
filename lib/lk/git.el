@@ -68,14 +68,19 @@
                                (direction . leftmost)))
     (magit-display-buffer-fullframe-status-topleft-v1 buffer)))
 
+;; Not in magit's `:config': `:bind' defers magit, so `:config' waits on
+;; `eval-after-load' magit and the entries would be missing from `C-x p p'
+;; until magit happened to load. `magit-project-status' is autoloaded.
+(with-eval-after-load 'project
+  (add-to-list 'project-switch-commands
+               '(lk/git-repo-home "Homepage" "b"))
+  (add-to-list 'project-switch-commands
+               '(magit-project-status "Magit" "m")))
+
 (use-package magit
   :ensure t
   :after (project)
   :config ;
-  (add-to-list 'project-switch-commands
-               '(lk/git-repo-home "Homepage" "b"))
-  (add-to-list 'project-switch-commands
-               '(magit-project-status "Magit" "m"))
   (setq magit-clone-set-remote.pushDefault t)
   (setq magit-display-buffer-function 'lk/magit-display-buffer)
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
