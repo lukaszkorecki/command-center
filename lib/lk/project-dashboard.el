@@ -36,11 +36,9 @@
   :ensure t
   :after (project-rootfile)
   :config ; nofmt
-  (advice-add #'project-find-regexp :override #'consult-git-grep)
-  (advice-add #'project-shell :override #'multi-vterm)
+  (advice-add #'project-shell :override #'ghostel-project)
   (add-to-list 'project-switch-commands
-               '(magit-project-status "Magit" ?m)
-               '(consult-git-grep "Git grep" ?g))
+               '(magit-project-status "Magit" ?m))
   (add-to-list 'project-find-functions #'lk/project-find-root t)
   :bind-keymap ("C-c p" . project-prefix-map))
 
@@ -125,10 +123,10 @@
 
 (use-package disproject
   :ensure t
-  :after (multi-vterm magit consult project)
+  :after (ghostel magit project)
   ;; Replace `project-prefix-map' with `disproject-dispatch'.
   :bind ( :map ctl-x-map ("p" . disproject-dispatch))
-  :custom (disproject-shell-command #'multi-vterm-project)
+  :custom (disproject-shell-command #'ghostel-project)
   :config ;; Remove existing "Tools" suffix if present to avoid duplicates on reload
   (ignore-errors
     (transient-remove-suffix 'disproject-dispatch '("Tools")))

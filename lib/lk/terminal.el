@@ -1,13 +1,13 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; terminal.el --- Terminal and utility tools
 ;;; Commentary:
-;;; Configures vterm for terminal emulation, mermaid for diagrams,
+;;; Configures ghostel for terminal emulation, mermaid for diagrams,
 ;;; keychain for SSH key management, and time-zones utility.
 
 ;;; Code:
 
 (defun lk/ghostel-new ()
-  "Create a fresh Ghostel terminal buffer (the `multi-vterm' equivalent)."
+  "Create a fresh Ghostel terminal buffer."
   (interactive)
   ;; '(4) is the raw prefix arg Emacs hands to `interactive "P"' when the user
   ;; presses C-u once — ghostel treats any non-numeric prefix as "make a new

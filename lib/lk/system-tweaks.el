@@ -28,8 +28,8 @@
   (mac-switch-meta))
 
 
+;; built into Emacs 30+, no :ensure
 (use-package which-key
-  :ensure t
   :config
   (setq which-key-show-early-on-C-h t)
   ;; make sure which-key doesn't show normally but refreshes quickly after it is

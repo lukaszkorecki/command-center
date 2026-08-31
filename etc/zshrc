@@ -190,35 +190,8 @@ if [[ "$LC_TERMINAL" == "iTerm2" ]]; then
   fi
 fi
 
-# integration with Vterm & wezterm:
-if [[ "${INSIDE_EMACS}" == 'vterm' ]]; then
-  if [[ -n ${EMACS_VTERM_PATH} ]] &&
-       [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-    source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
-  fi
-
-  alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
-
-  add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%~\a" }
-
-  vterm_cmd() {
-    local vterm_elisp
-    vterm_elisp=""
-    while [ $# -gt 0 ]; do
-      vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
-      shift
-    done
-    vterm_printf "51;E$vterm_elisp"
-  }
-
-  vterm_prompt_end() {
-    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
-  }
-
-  PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
-
-fi
-
+# ghostel needs no zshrc integration: OSC 7/133/2 and ghostel_cmd are
+# auto-injected (see `ghostel-shell-integration').
 
 if [[ -n "$(which fzf)" ]] ; then
   source <(fzf --zsh)

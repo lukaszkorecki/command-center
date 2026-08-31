@@ -34,7 +34,7 @@
 ;; language server protocol support + related packages
 (require 'lk/lsp)
 
-;; terminal: vterm, mermaid, keychain utilities
+;; terminal: ghostel, mermaid, keychain utilities
 (require 'lk/terminal)
 
 ;; text editing: indents, paren matching, text manipulation

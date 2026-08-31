@@ -120,7 +120,7 @@ clojure-ts-semantic-indent-rules. Merges cljfmt built-in defaults with custom :e
 
 (defun lk/failed-tests-in-repl-buffer ()
   (interactive)
-  (consult-line "\\(FAIL\\|ERROR\\).in."))
+  (occur "\\(FAIL\\|ERROR\\).in."))
 
 (defun lk/cider-kill-all ()
   (interactive)

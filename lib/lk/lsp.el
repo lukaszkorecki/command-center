@@ -71,11 +71,5 @@
 
   (global-set-key (kbd "C-c l") 'lk/lsp))
 
-(use-package xref
-  :after (consult eglot)
-  :ensure t
-  :config (setq xref-show-xrefs-function #'consult-xref
-                xref-show-definitions-function #'consult-xref))
-
 (provide 'lk/lsp)
 ;;; lsp.el ends here
