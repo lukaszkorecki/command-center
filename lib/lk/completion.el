@@ -21,6 +21,14 @@
       enable-recursive-minibuffers t
       history-delete-duplicates t)
 
+;; C-n/C-p alongside the arrows. `minibuffer-visible-completions--bind' wraps
+;; the command in a :filter so it only shadows next-line/previous-line while
+;; *Completions* is actually on screen.
+(keymap-set minibuffer-visible-completions-up-down-map "C-n"
+            (minibuffer-visible-completions--bind #'minibuffer-next-completion))
+(keymap-set minibuffer-visible-completions-up-down-map "C-p"
+            (minibuffer-visible-completions--bind #'minibuffer-previous-completion))
+
 (savehist-mode 1)
 (recentf-mode 1)
 (minibuffer-depth-indicate-mode 1)
@@ -29,6 +37,15 @@
 (setq tab-always-indent 'complete
       completion-cycle-threshold 3)
 (global-completion-preview-mode 1)
+
+;; Cycle inline preview candidates with the same keys the minibuffer and the
+;; in-buffer *Completions* already use. Not M-n/M-p: those are
+;; forward/backward-paragraph here and history navigation in the minibuffer.
+(with-eval-after-load 'completion-preview
+  (keymap-set completion-preview-active-mode-map
+              "M-<down>" #'completion-preview-next-candidate)
+  (keymap-set completion-preview-active-mode-map
+              "M-<up>" #'completion-preview-prev-candidate))
 
 (keymap-global-set "M-y" #'yank-from-kill-ring)
 (keymap-global-set "C-c s" #'occur)
