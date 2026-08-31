@@ -1,6 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; lsp.el -- LSP configuration + supporting packages
 
+(use-package project-rootfile :ensure t)
+
 (defun lk/eglot-ensure-root ()
   "Prevent Eglot from starting if the root directory is $HOME."
   (let ((project-root

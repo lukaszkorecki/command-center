@@ -82,4 +82,32 @@
   (kill-matching-buffers ".*<eca-chat:.*" 't 't)
   (kill-matching-buffers ".*<eca:stderr.*" 't 't))
 
+(defvar lk/home-full-path (file-truename (getenv "HOME")))
+
+(defvar lk/project-root-files
+  '( "package.json" "deps.edn" "project.clj" "main.tf" "go.mod" "mise.toml"))
+
+(defun lk/project-find-root (path)
+  "Searches for project root starting from PATH. Picks the root directory based on:
+
+  1. Version control system root (if any)
+  2. Presence of known project root files (e.g., .git, package.json, etc.
+  3. fails if the detected root is equal to user's home directory
+  Shortest path wins. Returns the project root path or nil if not found."
+  (let* ((vc-root (vc-root-dir))          ;; as fallback
+         ;; iterate over project files and find their locations:
+         (paths (mapcar ; nofmt
+                 (lambda (file)
+                   (when-let* ((path (locate-dominating-file path file)))
+                     (expand-file-name file)))
+                 lk/project-root-files))
+         ;; now filter out nils and home directory
+         (filterd-paths (seq-filter ; nofmt
+                         (lambda (p)
+                           (and p (not (string= (file-truename p) lk/home-full-path)))) ; nofmt
+                         paths)))
+
+    ;; return shortest path if any, fallback to VC root
+    (if filterd-paths (car (sort filterd-paths)) vc-root)))
+
 (provide 'lk/utils)

@@ -3,6 +3,7 @@
 ;;; Commentary:
 
 ;;; Code:
+(require 'lk/utils)
 
 ;; Git and git nav helpers
 

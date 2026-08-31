@@ -238,6 +238,51 @@ size - all as fractions (0.0-1.0) of the work area."
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
 
+(use-package ibuffer-project :ensure t)
+
+(defun lk/ibuffer-toggle-never-show ()
+  "Clear the list of never show predicates."
+  (interactive)
+
+  (if ibuffer-never-show-predicates
+      (setq ibuffer-never-show-predicates nil)
+    (setq ibuffer-never-show-predicates
+          '("^\\*Messages"
+            "^\\*Warnings"
+            "^\\*Help\\*"
+            "^\\*Apropos"
+            "^magit"
+            "^\\*copilot.events"
+            "^\\*EGLOT")))
+  (ibuffer-update nil t))
+
+(use-package ibuffer
+  :after (ibuffer-project)
+  :bind (("C-x C-b" . ibuffer)
+         :map ibuffer-mode-map
+         ("C-c C-t" . lk/ibuffer-toggle-never-show))
+  :init (add-hook 'ibuffer-hook
+                  (lambda ()
+                    (setq ibuffer-filter-groups
+                          (ibuffer-project-generate-filter-groups))
+                    (unless (eq ibuffer-sorting-mode 'project-file-relative)
+                      (ibuffer-do-sort-by-project-file-relative))))
+
+  (setq ibuffer-formats
+        '((mark
+           modified
+           read-only
+           " "
+           (name 18 18 :left :elide)
+           " "
+           " "
+           (mode 16 16 :left :elide)
+           " "
+
+           filename-and-process
+           " "
+           project-file-relative))))
+
 (use-package modus-themes
   :ensure t
   :init (load-theme 'modus-operandi t))

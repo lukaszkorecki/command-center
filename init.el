@@ -49,9 +49,6 @@
 ;; modeline specific settings
 (require 'lk/modeline)
 
-;; project dashboard: transient-based project management
-(require 'lk/project-dashboard)
-
 (require 'lk/apps)
 
 ;; HACK

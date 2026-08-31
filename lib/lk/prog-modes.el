@@ -6,6 +6,7 @@
 ;;; Language-specific configurations are in separate files (ruby, js, clojure, markdown).
 
 ;;; Code:
+(require 'lk/utils)
 
 ;; When saving a file that starts with `#!', make it executable.
 (add-hook 'after-save-hook
