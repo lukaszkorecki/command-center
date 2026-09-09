@@ -4,7 +4,6 @@
 
 ;;; Code:
 
-
 ;;; Commentary:
 ;;  loads all customizations and packages
 
@@ -20,13 +19,13 @@
 ;; initial startup: environment, GC settings, mise
 (require 'lk/startup)
 
+;; system tweaks: Mac-specific settings, which-key
+(require 'lk/system-tweaks)
+
 ;; display: frames, fonts, colors, window management
 (require 'lk/display)
 
 (require 'lk/completion)
-
-;; AI assistance: copilot, agent-shell, acp
-(require 'lk/ai-assistance)
 
 ;; git extensions
 (require 'lk/git)
@@ -43,11 +42,11 @@
 ;; programming language modes: ruby, js, clojure, markdown, etc
 (require 'lk/prog-modes)
 
-;; system tweaks: Mac-specific settings, which-key
-(require 'lk/system-tweaks)
-
 ;; modeline specific settings
 (require 'lk/modeline)
+
+;; AI assistance: copilot, agent-shell, acp
+(require 'lk/ai-assistance)
 
 (require 'lk/apps)
 

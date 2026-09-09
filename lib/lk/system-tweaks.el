@@ -6,7 +6,6 @@
 
 ;;; Code:
 
-
 ;; Editing helpers
 
 (defun lk/count-buffers () (length (buffer-list)))
@@ -25,13 +24,13 @@
 
 (when (string-equal system-type "darwin")
   (mac-switch-meta)
-  (mac-switch-meta))
+  (mac-switch-meta)
 
+  (global-set-key (kbd "H-x") 'execute-extended-command))
 
 ;; built into Emacs 30+, no :ensure
 (use-package which-key
-  :config
-  (setq which-key-show-early-on-C-h t)
+  :config (setq which-key-show-early-on-C-h t)
   ;; make sure which-key doesn't show normally but refreshes quickly after it is
   ;; triggered.
   (setq which-key-idle-delay 1000)
