@@ -231,8 +231,12 @@ size - all as fractions (0.0-1.0) of the work area."
   (ace-window-display-mode t)
   :hook (term-mode-hook .
                         (lambda ()
-                          (define-key term-raw-map (kbd "M-o") 'ace-window)))
-  :bind (( "M-o" . ace-window)))
+                          (define-key term-raw-map (kbd "M-o") 'ace-window)
+
+                          (define-key term-raw-map (kbd "H-o") 'ace-window)
+                          ))
+  :bind (( "H-o" . ace-window)
+         ( "M-o" . ace-window)))
 
 ;; Window and buffer management
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
