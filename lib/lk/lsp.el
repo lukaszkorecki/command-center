@@ -20,7 +20,8 @@
 
 (use-package eglot
   :after (project flymake)
-  :custom (eglot-confirm-server-initiated-edits nil)
+  :custom ;;
+  (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
   ;; Tree-sitter disabled for perf testing — using legacy mode hooks.
   :hook ((clojure-mode . eglot-ensure)
@@ -49,6 +50,8 @@
   (setq eglot-autoshutdown t)
   (add-to-list 'project-find-functions #'project-rootfile-try-detect)
 
+  (add-to-list 'eglot-server-programs
+               '((js-mode js-ts-mode) . ("typescript-language-server" "--stdio")))
   (require 'transient)
   (transient-define-prefix lk/lsp
     ()
