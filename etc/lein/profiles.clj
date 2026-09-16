@@ -36,4 +36,4 @@
                        ;; in repos with older dependencies
                        [org.clojure/tools.reader "1.4.2"]
                        [org.yaml/snakeyaml "2.2"]]}
- :coverage {:plugins [[lein-cloverage "1.2.2"]]}}
+ :coverage {:plugins [[lein-cloverage "1.2.4"]]}}
