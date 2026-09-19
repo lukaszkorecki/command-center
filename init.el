@@ -50,6 +50,7 @@
 
 (require 'lk/apps)
 
+(require 'lk/orgmode)
 ;; HACK
 (lk/fix-utf)
 
