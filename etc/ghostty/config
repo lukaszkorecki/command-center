@@ -1,4 +1,3 @@
-# foo
 keybind = super+[=goto_split:previous
 keybind = super+]=goto_split:next
 keybind = alt+.=esc:.
