@@ -19,7 +19,7 @@
          ( "C-c e l" . flymake-show-buffer-diagnostics)))
 
 (use-package eglot
-  :after (project flymake)
+  :after (project consult flymake)
   :custom ;;
   (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
@@ -60,7 +60,8 @@
       ("g" "Definition"          xref-find-definitions)
       ("d" "Definition (window)" xref-find-definitions-other-window)
       ("u" "References"          xref-find-references)
-      ("s" "Symbol in project"   xref-find-apropos)]
+      ("s" "Symbol in project"   xref-find-apropos)
+      ("G" "Project git grep"    consult-git-grep)]
      ["Edit"
       ("r" "Rename"       eglot-rename)
       ("a" "Code actions" eglot-code-actions)
