@@ -1,4 +1,5 @@
 [tools]
+chezmoi = "latest"
 java = "temurin-25"
 claude = "latest"
 babashka = { version = "1.12.218", exe = "bb" }
