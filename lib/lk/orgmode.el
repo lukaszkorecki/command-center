@@ -141,5 +141,9 @@
   :ensure t
   :hook org-mode)
 
+(use-package org-tidy
+  :ensure t
+  :hook
+  (org-mode . org-tidy-mode))
 
 (provide 'lk/orgmode)
