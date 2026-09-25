@@ -16,11 +16,6 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-(use-package yasnippet
-  :ensure t
-  :demand t
-  :bind (("C-c i" . yas-insert-snippet)))
-
 (defun lk/invoke-compile-tool-in-project (command-string-with-format)
   (let* ((pj-dir (lk/project-find-root nil))
          (default-directory pj-dir))
@@ -42,29 +37,32 @@
 (use-package restclient :ensure t :mode ("\\.restclient\\'"))
 
 (use-package terraform-mode
-  :ensure t
-  :bind (:map terraform-mode-map (("C-x c f" . terraform-format-buffer))))
+  :ensure t)
 
 (use-package nginx-mode
   :ensure t
+    :mode "\\.conf$")
   :config ;
   (setq nginx-indent-offset 2)
-  :mode "\\.conf$")
 
-(use-package yaml-mode :ensure t :mode ("\\.yml$" "\\.yaml$"))
+
+(use-package yaml-ts-mode
+  :ensure t
+  :mode ("\\.yml$" "\\.yaml$"))
 
 (use-package swift-mode :ensure t :mode "\\.swift$" )
 
-(use-package json-mode
-  :ensure t
+(use-package json-ts-mode
+  :ensure nil
   :mode ("\\.avsc$" "\\.json$")
-  :config (setq js-indent-level 2)
-  :hook (json-mode . (lambda () (keymap-local-unset "C-c C-t")))
-  :bind (:map json-mode-map
-              (("C-x c f" . json-pretty-print-buffer )
-               ("C-c C-t" . copilot-complete-at-point))))
+  :config ;
+  (setq js-indent-level 2)
+  :hook (json-ts-mode . (lambda () (keymap-local-unset "C-c C-t")))
+  :bind (:map json-mode-map (("C-x c f" . json-pretty-print-buffer ))))
 
-(use-package go-mode :ensure t :mode "\\.go$"  )
+(use-package go-ts-mode
+  :ensure t
+  :mode "\\.go$")
 
 (use-package sqlup-mode
   :ensure t
@@ -106,45 +104,39 @@
 
   :bind (:map sh-mode-map (("C-x c f" . lk/format-current-sh-buffer))))
 
-(use-package graphql-mode
-  :ensure t
-  :mode( "\\.graphql$" "\\.gql$" )
-  :config (setq graphql-indent-level 2))
+(use-package sh-script
+  :ensure nil
+  :mode ("\\.sh$" . sh-mode)
+  :config ;
+  (setq sh-indent-offset 2)
+  (setq sh-indentation 2))
 
 (use-package hl-todo
   :ensure t
   :diminish hl-todo
   :config (setq hl-todo-highlight-punctuation ":"
                 hl-todo-keyword-faces
-                `(("TODO"       warning bold)
-                  ("FIXME"      error bold)
-                  ("HACK"       font-lock-constant-face bold)
-                  ("XXX"     font-lock-keyword-face bold)
-                  ("INFO"       success bold)
-                  ("NOTE"       success bold)))
+                `(("TODO" warning bold)
+                  ("FIXME" error bold)
+                  ("HACK" font-lock-constant-face bold)
+                  ("XXX" font-lock-keyword-face bold)
+                  ("INFO" success bold)
+                  ("NOTE" success bold)))
   :hook ((prog-mode-hook . hl-todo-mode)
-         (yaml-mode-hook  .hl-todo-mode)))
+         (yaml-mode-hook . hl-todo-mode)))
 
-(use-package lua-mode
+(use-package lua-ts-mode
   :ensure t
   :mode ("\\.lua$" )
-  :config (setq indent-tabs-mode nil )
+  :config ;
+  (setq indent-tabs-mode nil )
   (setq lua-indent-level 2))
 
-(use-package sh-script
-  :ensure nil
-  :mode ("\\.sh$" . sh-mode)
-  :config (setq sh-indent-offset 2)
-  (setq sh-indentation 2))
+(use-package java-ts-mode :ensure nil :mode ("\\.java$" . java-mode))
 
-;; Tree-sitter disabled for perf testing — using built-in java-mode.
-(use-package java-mode :ensure nil :mode ("\\.java$" . java-mode))
-
-(use-package mermaid-mode
+(use-package toml-ts-mode
   :ensure t
-  :config ;
-  (setq mermaid-mmdc-location "docker")
-  (setq mermaid-flags "run -u 1000 -v /tmp:/tmp ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:9.1.6"))
+  :mode ("\\.toml$" . toml-ts-mode))
 
 (require 'lk/ruby)
 (require 'lk/frontend)
