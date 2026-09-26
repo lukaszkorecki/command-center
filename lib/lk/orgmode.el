@@ -2,18 +2,17 @@
 
 (use-package org-appear :defer nil :ensure t :hook org-mode)
 
-(use-package org-tidy
+(use-package org-modern
   :ensure t
-  :defer nil
-  :hook (org-mode . org-tidy-mode))
-
-(use-package org-modern :ensure t :hook org-mode)
+  :init
+  (with-eval-after-load 'org (global-org-modern-mode)))
 
 (defvar lk/org-inbox-file (expand-file-name "~/Files/org/inbox.org"))
 (defvar lk/org-main-file (expand-file-name "~/Files/org/main.org"))
+(defvar lk/org-calendar-file (expand-file-name "~/Files/org/calendar.org"))
 (defvar lk/org-notes-file (expand-file-name "~/Files/org/notes.org"))
 (defvar lk/org-done-file (expand-file-name "~/Files/org/done.org"))
-(defvar lk/org-weekly-file (expand-file-name "~/Files/org/notes/weekly-checkin.org"))
+(defvar lk/org-weekly-dir (expand-file-name "~/Files/org/notes/weekly-checkins/"))
 (defvar lk/org-weekly-template (expand-file-name "~/Files/org/templates/ref.org"))
 
 (defun lk/add-task ()
@@ -66,6 +65,14 @@
   (interactive)
   (find-file-other-window lk/org-inbox-file))
 
+(defun lk/org-weekly-file ()
+  "Return the path of today's weekly check-in file.
+Creates `lk/org-weekly-dir' if it does not exist, since `org-capture'
+will not create missing directories itself.  Used as the capture target
+for the weekly check-in template."
+  (make-directory lk/org-weekly-dir t)
+  (expand-file-name (format-time-string "%Y-%m-%d.org") lk/org-weekly-dir))
+
 (defun lk/align ()
   "Align the table at point, or all tags in the buffer."
   (interactive)
@@ -85,7 +92,6 @@
 
 (use-package transient
   :ensure nil
-  :after (org)
   :demand t
   :config ;;
   (transient-define-prefix lk/org
@@ -118,14 +124,14 @@
 (use-package org
   :ensure nil
   :defer nil
-  :after (org-modern)
   :bind ("C-c o" . lk/org)
   :init
   (require 'org-agenda)
-  :config (setq org-return-follows-link t)
+  :config ;
+  (setq org-return-follows-link t)
   (setq org-startup-folded nil)
   (setq org-hide-emphasis-markers t)
-  (setq org-agenda-files (list lk/org-main-file))
+  (setq org-agenda-files (list lk/org-main-file lk/org-calendar-file))
   (setq org-log-done 'time)
 
   (setq org-refile-targets '((lk/org-main-file :level . 1)))
@@ -152,8 +158,8 @@
            "* %?\n%U"
            :empty-lines 1)
           ("w" "Weekly check-in" entry
-           (file+headline lk/org-weekly-file "Check-ins")
+           (file lk/org-weekly-file)
            (file ,lk/org-weekly-template)
-           :prepend t :empty-lines 1))))
+           :empty-lines 1))))
 
 (provide 'lk/orgmode)
