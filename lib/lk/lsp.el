@@ -18,8 +18,36 @@
          ( "C-c e p" . flymake-goto-prev-error )
          ( "C-c e l" . flymake-show-buffer-diagnostics)))
 
+(require 'transient)
+(transient-define-prefix lk/lsp
+  ()
+  "LSP actions"
+  [["Navigate"
+    ("g" "Definition"          xref-find-definitions)
+    ("d" "Definition (window)" xref-find-definitions-other-window)
+    ("u" "References"          xref-find-references)
+    ("s" "Symbol in project"   xref-find-apropos)
+    ("G" "Project git grep"    consult-git-grep)
+    ]
+   ["Edit"
+    ("r" "Rename"       eglot-rename)
+    ("a" "Code actions" eglot-code-actions)
+    ("f" "Format"       eglot-format)
+    ]
+   ["Diagnostics"
+    ("n" "Next error"  flymake-goto-next-error :transient t)
+    ("p" "Prev error"  flymake-goto-prev-error :transient t)
+    ("l" "List errors" flymake-show-buffer-diagnostics)
+    ]
+   ["Server"
+    ("R" "Reconnect" eglot-reconnect)
+    ("S" "Shutdown"  eglot-shutdown)
+    ("E" "Events"    eglot-events-buffer)
+    ]])
+
+(global-set-key (kbd "C-x p l") 'lk/lsp)
+
 (use-package eglot
-  :after (project consult flymake)
   :custom ;;
   (eglot-confirm-server-initiated-edits nil)
   (eglot-connect-timeout 300)
@@ -51,31 +79,9 @@
   (add-to-list 'project-find-functions #'project-rootfile-try-detect)
 
   (add-to-list 'eglot-server-programs
-               '((js-mode js-ts-mode) . ("typescript-language-server" "--stdio")))
-  (require 'transient)
-  (transient-define-prefix lk/lsp
-    ()
-    "LSP actions"
-    [["Navigate"
-      ("g" "Definition"          xref-find-definitions)
-      ("d" "Definition (window)" xref-find-definitions-other-window)
-      ("u" "References"          xref-find-references)
-      ("s" "Symbol in project"   xref-find-apropos)
-      ("G" "Project git grep"    consult-git-grep)]
-     ["Edit"
-      ("r" "Rename"       eglot-rename)
-      ("a" "Code actions" eglot-code-actions)
-      ("f" "Format"       eglot-format)]
-     ["Diagnostics"
-      ("n" "Next error"  flymake-goto-next-error :transient t)
-      ("p" "Prev error"  flymake-goto-prev-error :transient t)
-      ("l" "List errors" flymake-show-buffer-diagnostics)]
-     ["Server"
-      ("R" "Reconnect" eglot-reconnect)
-      ("S" "Shutdown"  eglot-shutdown)
-      ("E" "Events"    eglot-events-buffer)]])
-
-  (global-set-key (kbd "C-c l") 'lk/lsp))
+               '((js-mode js-ts-mode)
+                 .
+                 ("typescript-language-server" "--stdio"))))
 
 (use-package xref
   :after (consult eglot)

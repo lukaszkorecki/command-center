@@ -102,6 +102,44 @@
           ("M-<up>" . completion-preview-prev-candidate))
   :config (global-completion-preview-mode 1))
 
+(require 'transient)
+(transient-define-prefix lk/consult
+  ()
+  "Consult"
+  [["Buffers"
+    ("b" "Buffer"         consult-buffer)
+    ("B" "Other frame"    consult-buffer-other-frame)
+    ("p" "Project buffer" consult-project-buffer)
+    ]
+   ["Search"
+    ("l" "Line"        consult-line)
+    ("L" "Line (multi)" consult-line-multi)
+    ("r" "Ripgrep"     consult-ripgrep)
+    ("g" "Grep"        consult-grep)
+    ("G" "Git grep"    consult-git-grep)
+    ("f" "Find file"   consult-find)
+    ]
+   ["Goto"
+    ("i" "Imenu"         consult-imenu)
+    ("I" "Imenu (multi)" consult-imenu-multi)
+    ("n" "Line number"   consult-goto-line)
+    ("e" "Compile error" consult-compile-error)
+    ("d" "Diagnostic"    consult-flymake)
+    ("m" "Grep match"    consult-grep-match)
+    ]
+   ["Misc"
+    ("y" "Yank pop"        consult-yank-pop)
+    ("h" "History"         consult-history)
+    ("s" "Isearch history" consult-isearch-history)
+    ("k" "Keep lines"      consult-keep-lines)
+    ("u" "Focus lines"     consult-focus-lines)
+    ("R" "Register"        consult-register)
+    ("x" "Mode command"    consult-mode-command)
+    (":" "Complex command" consult-complex-command)
+    ]])
+
+(global-set-key (kbd "C-c d") 'lk/consult)
+
 (use-package consult
   :defer t
   ;; Everything else lives in `lk/consult' (C-c d). Only the map-local entries
@@ -117,43 +155,7 @@
           ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
   ;; The :init configuration is always executed (Not lazy)
-  :init (require 'transient)
-  (transient-define-prefix lk/consult
-    ()
-    "Consult"
-    [["Buffers"
-      ("b" "Buffer"         consult-buffer)
-      ("B" "Other frame"    consult-buffer-other-frame)
-      ("p" "Project buffer" consult-project-buffer)
-      ]
-     ["Search"
-      ("l" "Line"        consult-line)
-      ("L" "Line (multi)" consult-line-multi)
-      ("r" "Ripgrep"     consult-ripgrep)
-      ("g" "Grep"        consult-grep)
-      ("G" "Git grep"    consult-git-grep)
-      ("f" "Find file"   consult-find)
-      ]
-     ["Goto"
-      ("i" "Imenu"         consult-imenu)
-      ("I" "Imenu (multi)" consult-imenu-multi)
-      ("n" "Line number"   consult-goto-line)
-      ("e" "Compile error" consult-compile-error)
-      ("d" "Diagnostic"    consult-flymake)
-      ("m" "Grep match"    consult-grep-match)
-      ]
-     ["Misc"
-      ("y" "Yank pop"        consult-yank-pop)
-      ("h" "History"         consult-history)
-      ("s" "Isearch history" consult-isearch-history)
-      ("k" "Keep lines"      consult-keep-lines)
-      ("u" "Focus lines"     consult-focus-lines)
-      ("R" "Register"        consult-register)
-      ("x" "Mode command"    consult-mode-command)
-      (":" "Complex command" consult-complex-command)
-      ]])
-
-  (global-set-key (kbd "C-c d") 'lk/consult)
+  :init
 
   ;; Tweak the register preview for `consult-register-load',
   ;; `consult-register-store' and the built-in commands.  This improves the
