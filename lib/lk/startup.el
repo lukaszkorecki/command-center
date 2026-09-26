@@ -14,7 +14,7 @@
     (lambda ()
       (add-to-list 'byte-compile-not-obsolete-funcs 'preceding-sexp))))
 
-(use-package mise :ensure t :hook (prog-mode-hook . mise-mode))
+(use-package mise :ensure t :hook (prog-mode . mise-mode))
 
 ;;; startup.el --- Initial environment setup, GC settings, mise
 ;;; Commentary:

@@ -79,7 +79,6 @@
 
 (use-package magit
   :ensure t
-  :after (project)
   :config ;
   (setq magit-clone-set-remote.pushDefault t)
   (setq magit-display-buffer-function 'lk/magit-display-buffer)

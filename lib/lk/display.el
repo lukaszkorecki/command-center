@@ -229,7 +229,7 @@ size - all as fractions (0.0-1.0) of the work area."
   (setq aw-minibuffer-flag t)
   (set-face-foreground 'aw-background-face "gray70")
   (ace-window-display-mode t)
-  :hook (term-mode-hook .
+  :hook (term-mode .
                         (lambda ()
                           (define-key term-raw-map (kbd "M-o") 'ace-window)
 
@@ -256,7 +256,6 @@ size - all as fractions (0.0-1.0) of the work area."
             "^\\*Help\\*"
             "^\\*Apropos"
             "^magit"
-            "^\\*copilot.events"
             "^\\*EGLOT")))
   (ibuffer-update nil t))
 

@@ -45,7 +45,7 @@
 ;; modeline specific settings
 (require 'lk/modeline)
 
-;; AI assistance: copilot, agent-shell, acp
+;; AI assistance: agent-shell, acp
 (require 'lk/ai-assistance)
 
 (require 'lk/apps)

@@ -56,8 +56,8 @@
          (typescript-mode . eglot-ensure)
          (js-jsx-mode . eglot-ensure)
          (terraform-mode . eglot-ensure)
-         (eglot-managed-mode-hook . lk/eglot-ensure-root)
-         (eglot-managed-mode-hook . (lambda () (eglot-inlay-hints-mode 1))))
+         (eglot-managed-mode . lk/eglot-ensure-root)
+         (eglot-managed-mode . (lambda () (eglot-inlay-hints-mode 1))))
   :config ;; optimize eglot but keep it usable
   (setq eglot-autoshutdown t)
   (setq eglot-autoreconnect t)
@@ -84,8 +84,7 @@
                  ("typescript-language-server" "--stdio"))))
 
 (use-package xref
-  :after (consult eglot)
-  :ensure t
+  :ensure nil
   :config (setq xref-show-xrefs-function #'consult-xref
                 xref-show-definitions-function #'consult-xref))
 

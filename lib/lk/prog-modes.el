@@ -66,7 +66,7 @@
 
 (use-package sqlup-mode
   :ensure t
-  :hook (sql-mode-hook . sqlup-mode)
+  :hook (sql-mode . sqlup-mode)
   :config ;; Add keywords to blacklist, preventing duplicates with dolist
   (require 'sqlup-mode)
   (dolist (kw
@@ -92,24 +92,18 @@
    'compilation-mode)
   (revert-buffer :ignore-auto :noconfirm))
 
-(use-package sh-mode
-  :ensure nil
-  :mode ("zshrc" "\\.sh$")
-
-  :config (setq sh-basic-offset 2)
-  (setq indent-tabs-mode nil)
-
-  (setq tab-width 2)
-  (setq standard-indent 2)
-
-  :bind (:map sh-mode-map (("C-x c f" . lk/format-current-sh-buffer))))
-
+;; NOTE: one block, keyed on `sh-script' -- there is no `sh-mode' feature, so a
+;; `use-package sh-mode' declaration never runs its :config or :bind.
+;; indent-tabs-mode/tab-width/standard-indent are already set globally in
+;; text-editing.el, so they are not repeated here.
 (use-package sh-script
   :ensure nil
-  :mode ("\\.sh$" . sh-mode)
+  :mode (("zshrc" . sh-mode)
+         ("\\.sh$" . sh-mode))
   :config ;
+  (setq sh-basic-offset 2)
   (setq sh-indent-offset 2)
-  (setq sh-indentation 2))
+  :bind (:map sh-mode-map (("C-x c f" . lk/format-current-sh-buffer))))
 
 (use-package hl-todo
   :ensure t
@@ -122,8 +116,8 @@
                   ("XXX" font-lock-keyword-face bold)
                   ("INFO" success bold)
                   ("NOTE" success bold)))
-  :hook ((prog-mode-hook . hl-todo-mode)
-         (yaml-mode-hook . hl-todo-mode)))
+  :hook ((prog-mode . hl-todo-mode)
+         (yaml-mode . hl-todo-mode)))
 
 (use-package lua-ts-mode
   :ensure t

@@ -78,22 +78,21 @@
 (setq auto-save-file-name-transforms
       '((".*" "~/.emacs_autosave/" t)))
 
-(use-package string-inflection
-  :ensure t
-  :after transient
-  :config (progn
-            (require 'string-inflection)
-            (transient-define-prefix lk/string-inflection
-              ()
-              "Inflect all the things"
-              [["camelCase"
-                ("l" "lowerCamelCase"  string-inflection-lower-camelcase)
-                ("u" "UpperCamelCase"  string-inflection-camelcase)]
-               ["snake_case/underscore"
-                ("s" "snake_case"  string-inflection-snake-case)
-                ("k" "SCREAMING_SNAKE_CASE"  string-inflection-upcase)]
-               ["kebab-case" ("d" "kebab-case"  string-inflection-kebab-case)]])
-            (global-set-key (kbd "C-x c l") 'lk/string-inflection)))
+(use-package string-inflection :ensure t :defer t)
+
+(require 'transient)
+(transient-define-prefix lk/string-inflection
+  ()
+  "Inflect all the things"
+  [["camelCase"
+    ("l" "lowerCamelCase"  string-inflection-lower-camelcase)
+    ("u" "UpperCamelCase"  string-inflection-camelcase)]
+   ["snake_case/underscore"
+    ("s" "snake_case"  string-inflection-snake-case)
+    ("k" "SCREAMING_SNAKE_CASE"  string-inflection-upcase)]
+   ["kebab-case" ("d" "kebab-case"  string-inflection-kebab-case)]])
+
+(global-set-key (kbd "C-x c l") 'lk/string-inflection)
 
 (use-package undo-tree
   :ensure t

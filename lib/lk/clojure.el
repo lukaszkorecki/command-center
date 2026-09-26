@@ -159,15 +159,9 @@ clojure-ts-semantic-indent-rules. Merges cljfmt built-in defaults with custom :e
 ;; Tree-sitter disabled for perf testing — using legacy clojure-mode.
 (use-package clojure-mode
   :ensure t
-  :after (copilot-mode)
   :mode ("\\.clj$" "\\.cljs$" "\\.cljc$" "\\.edn$")
 
-  :hook ((clojure-mode-hook . mise-mode)
-         (clojure-mode-hook . copilot-mode)
-         (clojure-mode-hook . auto-fill-mode))
-
-  :config
-  (setq auto-fill-chars 120))
+  :hook ((clojure-mode . mise-mode)))
 
 (use-package cider
   :ensure t
