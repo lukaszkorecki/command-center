@@ -90,6 +90,21 @@ for the weekly check-in template."
   (interactive)
   (org-agenda-list nil "w"))
 
+(defvar lk/org-image-max-height 200
+  "Maximum display height, in pixels, for inline images in Org buffers.")
+
+(defun lk/org-image-clamp-height (image)
+  "Constrain IMAGE to `lk/org-image-max-height' pixels tall.
+Org only supports width limits, so this is applied as `:filter-return'
+advice on `org--create-inline-image'.  Emacs rescales the width to match,
+preserving the aspect ratio: `:width' overrides `:max-width' but never
+`:max-height'."
+  (when (and image lk/org-image-max-height)
+    (setf (image-property image :max-height) lk/org-image-max-height))
+  image)
+
+(advice-add 'org--create-inline-image :filter-return #'lk/org-image-clamp-height)
+
 (use-package transient
   :ensure nil
   :demand t
@@ -131,6 +146,14 @@ for the weekly check-in template."
   (setq org-return-follows-link t)
   (setq org-startup-folded nil)
   (setq org-hide-emphasis-markers t)
+
+  ;; inline images: preview every link on open.  Natural size, honouring
+  ;; #+ATTR_ORG :width when present, clamped by max-width and by
+  ;; `lk/org-image-max-height' above.
+  (setq org-startup-with-inline-images t)
+  (setq org-image-actual-width nil)
+  (setq org-image-max-width 'fill-column)
+
   (setq org-agenda-files (list lk/org-main-file lk/org-calendar-file))
   (setq org-log-done 'time)
 
