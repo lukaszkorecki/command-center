@@ -58,7 +58,9 @@
   :config ;
   (setq js-indent-level 2)
   :hook (json-ts-mode . (lambda () (keymap-local-unset "C-c C-t")))
-  :bind (:map json-mode-map (("C-x c f" . json-pretty-print-buffer ))))
+  ; :bind (:map json-ts-mode (("C-x c f" . json-pretty-print-buffer )))
+
+  )
 
 (use-package go-ts-mode
   :ensure t

@@ -1,19 +1,25 @@
 ;;; -*- lexical-binding: t; -*-
 
-(use-package org-appear :defer nil :ensure t :hook org-mode)
-
-(use-package org-modern
+(use-package org-appear
+  :defer nil
   :ensure t
-  :init
-  (with-eval-after-load 'org (global-org-modern-mode)))
+  :hook org-mode)
+
+(use-package org-bullets
+  :defer nil
+  :ensure t
+  :hook org-mode)
 
 (defvar lk/org-inbox-file (expand-file-name "~/Files/org/inbox.org"))
 (defvar lk/org-main-file (expand-file-name "~/Files/org/main.org"))
-(defvar lk/org-calendar-file (expand-file-name "~/Files/org/calendar.org"))
+(defvar lk/org-calendar-file
+  (expand-file-name "~/Files/org/calendar.org"))
 (defvar lk/org-notes-file (expand-file-name "~/Files/org/notes.org"))
 (defvar lk/org-done-file (expand-file-name "~/Files/org/done.org"))
-(defvar lk/org-weekly-dir (expand-file-name "~/Files/org/notes/weekly-checkins/"))
-(defvar lk/org-weekly-template (expand-file-name "~/Files/org/templates/ref.org"))
+(defvar lk/org-weekly-dir
+  (expand-file-name "~/Files/org/notes/weekly-checkins/"))
+(defvar lk/org-weekly-template
+  (expand-file-name "~/Files/org/templates/ref.org"))
 
 (defun lk/add-task ()
   "Adds task to ~/Files/org/main.org"
@@ -71,14 +77,14 @@ Creates `lk/org-weekly-dir' if it does not exist, since `org-capture'
 will not create missing directories itself.  Used as the capture target
 for the weekly check-in template."
   (make-directory lk/org-weekly-dir t)
-  (expand-file-name (format-time-string "%Y-%m-%d.org") lk/org-weekly-dir))
+  (expand-file-name
+   (format-time-string "%Y-%m-%d.org")
+   lk/org-weekly-dir))
 
 (defun lk/align ()
   "Align the table at point, or all tags in the buffer."
   (interactive)
-  (if (org-at-table-p)
-      (org-table-align)
-    (org-align-tags t)))
+  (if (org-at-table-p) (org-table-align) (org-align-tags t)))
 
 (defun lk/org-today-agenda ()
   "Open the agenda, optionally filtered to TAG."
@@ -113,35 +119,30 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
     ()
     "Org actions"
     [["Capture"
-      ("t" "Add task" lk/add-task)
-      ("n" "Add note" lk/add-note)
-      ]
+      ("+" "Add task" lk/add-task)
+      ("n" "Add note" lk/add-note)]
      ["Visit"
-      ("a" "Today's agenda" lk/org-today-agenda)
+      ("t" "Today's agenda" lk/org-today-agenda)
       ("w" "This week agenda" lk/org-week-agenda)
-      ("m" "Tasks" lk/open-main)
+      ("T" "Tasks" lk/open-main)
       ("i" "Inbox" lk/open-inbox)
-      ("N" "Notes (notes.org)" lk/open-notes)
-      ]
-     ]
+      ("N" "Notes (notes.org)" lk/open-notes)]]
 
     [:if-mode org-mode
      ["Editing"
       ("r" "Refile" org-refile)
       ("S" "Sort by time" lk/resort-file-by-time)
-      ("=" "Align" lk/align)
-      ]
+      ("=" "Align" lk/align)]
 
      ["Maintain" ("A" "Archive done" lk/archive-done)]
-     ["View" ("#" "Toggle modern look" org-modern-mode)]
+     ;; ["View" ("#" "Toggle modern look" org-modern-mode)]
      ]))
 
 (use-package org
   :ensure nil
   :defer nil
   :bind ("C-c o" . lk/org)
-  :init
-  (require 'org-agenda)
+  :init (require 'org-agenda)
   :config ;
   (setq org-return-follows-link t)
   (setq org-startup-folded nil)
@@ -154,7 +155,8 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
   (setq org-image-actual-width nil)
   (setq org-image-max-width 'fill-column)
 
-  (setq org-agenda-files (list lk/org-main-file lk/org-calendar-file))
+  (setq org-agenda-files
+        (list lk/org-inbox-file lk/org-main-file lk/org-calendar-file))
   (setq org-log-done 'time)
 
   (setq org-refile-targets '((lk/org-main-file :level . 1)))
