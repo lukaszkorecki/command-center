@@ -89,12 +89,12 @@ for the weekly check-in template."
 (defun lk/org-today-agenda ()
   "Open the agenda, optionally filtered to TAG."
   (interactive)
-  (org-agenda-list nil "d"))
+  (org-agenda nil "d"))
 
 (defun lk/org-week-agenda ()
   "Open the agenda, optionally filtered to TAG."
   (interactive)
-  (org-agenda-list nil "w"))
+  (org-agenda nil "w"))
 
 (defvar lk/org-image-max-height 200
   "Maximum display height, in pixels, for inline images in Org buffers.")
@@ -134,15 +134,14 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
       ("S" "Sort by time" lk/resort-file-by-time)
       ("=" "Align" lk/align)]
 
-     ["Maintain" ("A" "Archive done" lk/archive-done)]
-     ;; ["View" ("#" "Toggle modern look" org-modern-mode)]
-     ]))
+     ["Maintain" ("A" "Archive done" lk/archive-done)]]))
 
 (use-package org
   :ensure nil
   :defer nil
   :bind ("C-c o" . lk/org)
-  :init (require 'org-agenda)
+  :init ;
+  (require 'org-agenda)
   :config ;
   (setq org-return-follows-link t)
   (setq org-startup-folded nil)

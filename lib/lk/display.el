@@ -74,7 +74,6 @@
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
-
 (use-package unicode-fonts :ensure t :config (unicode-fonts-setup))
 
 ;; custom transient-back window management thing - transpose/rotate/flip/flop/resize
@@ -132,7 +131,6 @@
   (interactive)
   (lk/absolute-resize-window 121))
 
-
 (defun lk/resize-window-16pct-height ()
   (interactive)
   (lk/proportionally-resize-window-height 0.16))
@@ -187,8 +185,7 @@ size - all as fractions (0.0-1.0) of the work area."
 
 (use-package transpose-frame
   :ensure t
-  :config
-  (require 'transient)
+  :config (require 'transient)
   (transient-define-prefix lk/window-mgr
     ()
     "Shortcuts for moving windows/frames around"
@@ -198,25 +195,29 @@ size - all as fractions (0.0-1.0) of the work area."
       ("<" "Left half" lk/frame-left-half)
       (">" "Right half" lk/frame-right-half)
       ("l" "Left 2/3" lk/frame-left-66pct)
-      ("L" "Left 3/4" lk/frame-left-75pct)]
+      ("L" "Left 3/4" lk/frame-left-75pct)
+      ]
 
      ["Window Management"
       ("t" "Transpose" transpose-frame)
       ("r" "Rotate" rotate-frame)
       ("f" "Flip" flip-frame)
-      ("F" "Flop" flop-frame)]
+      ("F" "Flop" flop-frame)
+      ]
 
      ["Resize Window Width"
       ("3" "33%"  lk/resize-window-33pct)
       ("5" "50%" lk/resize-window-50pct)
       ("7" "75%" lk/resize-window-75pct)
       ("8" "81 chars" lk/resize-window-81chars)
-      ("1" "121 chars" lk/resize-window-121chars)]
+      ("1" "121 chars" lk/resize-window-121chars)
+      ]
 
      ["Resize Window Height"
       ("@" "16%" lk/resize-window-16pct-height)
       ("#" "33%"  lk/resize-window-33pct-height)
-      ("%" "50%" lk/resize-window-50pct-height)]])
+      ("%" "50%" lk/resize-window-50pct-height)
+      ]])
 
   (define-key global-map (kbd "C-c t") 'lk/window-mgr))
 
@@ -230,24 +231,22 @@ size - all as fractions (0.0-1.0) of the work area."
   (set-face-foreground 'aw-background-face "gray70")
   (ace-window-display-mode t)
   :hook (term-mode .
-                        (lambda ()
-                          (define-key term-raw-map (kbd "M-o") 'ace-window)
-
-                          (define-key term-raw-map (kbd "H-o") 'ace-window)
-                          ))
-  :bind (( "H-o" . ace-window)
-         ( "M-o" . ace-window)))
+                   (lambda ()
+                     (define-key term-raw-map (kbd "M-o") 'ace-window)
+                     (define-key term-raw-map (kbd "H-o") 'ace-window)))
+  :bind ( "H-o" . ace-window)
+         ("M-o" . ace-window)))
 
 ;; Window and buffer management
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
 (global-set-key (kbd "C-x -") 'split-window-vertically)
+(global-set-key (kbd "H-`") 'ns-next-frame)
 
 (use-package ibuffer-project :ensure t)
 
 (defun lk/ibuffer-toggle-never-show ()
   "Clear the list of never show predicates."
   (interactive)
-
   (if ibuffer-never-show-predicates
       (setq ibuffer-never-show-predicates nil)
     (setq ibuffer-never-show-predicates
@@ -255,6 +254,10 @@ size - all as fractions (0.0-1.0) of the work area."
             "^\\*Warnings"
             "^\\*Help\\*"
             "^\\*Apropos"
+            "*Completions*"
+            "^\\*cider-"
+            "^\\*nrepl-"
+            "*Async-native-compile-log*"
             "^magit"
             "^\\*EGLOT")))
   (ibuffer-update nil t))
@@ -281,7 +284,6 @@ size - all as fractions (0.0-1.0) of the work area."
            " "
            (mode 16 16 :left :elide)
            " "
-
            filename-and-process
            " "
            project-file-relative))))
