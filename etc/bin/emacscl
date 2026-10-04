@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ -n "$INSIDE_EMACS" ]]; then
+  exec emacsclient --reuse-frame "$@"
+fi
+
+exec emacsclient --create-frame --no-window-system "$@"
