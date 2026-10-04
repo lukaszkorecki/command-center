@@ -126,7 +126,7 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
     [:if-mode org-mode
      ["Editing"
       ("r" "Refile" org-refile)
-      ("S" "Spell check" ispell-buffer)
+      ("S" "Spell check" lk/flyspell)
       ("=" "Align" lk/align)]
 
      ["Maintain" ("A" "Archive done" lk/archive-done)]]))

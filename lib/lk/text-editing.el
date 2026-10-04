@@ -48,8 +48,6 @@
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
 
-(global-set-key (kbd "C-c n k") 'lk/show-kill-ring)
-
 ;; Editing and general syntax highlighting
 
 ;; bind awkard M-[ & M-] to something better
