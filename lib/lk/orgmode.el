@@ -51,11 +51,6 @@
         (with-current-buffer buf (save-buffer)))
       (message "Archived %d task(s) to %s" count lk/org-done-file))))
 
-(defun lk/resort-file-by-time ()
-  "Resort current file by timestamps"
-  (interactive)
-  (message "booo"))
-
 (defun lk/open-notes ()
   "Open ~/Files/org/notes.org in another window."
   (interactive)
@@ -131,7 +126,7 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
     [:if-mode org-mode
      ["Editing"
       ("r" "Refile" org-refile)
-      ("S" "Sort by time" lk/resort-file-by-time)
+      ("S" "Spell check" ispell-buffer)
       ("=" "Align" lk/align)]
 
      ["Maintain" ("A" "Archive done" lk/archive-done)]]))
