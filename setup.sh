@@ -40,6 +40,14 @@ link() {
   info "linked ${dest} -> ${src}"
 }
 
+# Forward --dry-run so the private script reports its own steps instead of
+# being skipped wholesale.
+private_setup() {
+  local flags=()
+  ((dry_run)) && flags=(-n)
+  "${PRIVATE}/setup.sh" ${flags[@]+"${flags[@]}"} "$@"
+}
+
 profile() {
   [[ -x ${GET_PROFILE} ]] || die "${GET_PROFILE} missing -- run '${0} private-configs' first"
   "${GET_PROFILE}"
@@ -114,11 +122,11 @@ cmd_private_configs() {
   else
     run git -C "${PRIVATE}" pull -r
   fi
-  run make -C "${PRIVATE}" setup
+  private_setup setup
 }
 
 cmd_op_configs() {
-  run make -C "${PRIVATE}" config-op config-ssh
+  private_setup op ssh
   link "${AGENT_SOCK}" "${HOME}/.config/1Password/agent.sock"
 }
 
