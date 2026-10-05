@@ -288,9 +288,14 @@ size - all as fractions (0.0-1.0) of the work area."
            " "
            project-file-relative))))
 
-(use-package modus-themes
+;; (use-package modus-themes
+;;   :ensure t
+;;   :init (load-theme 'modus-operandi t))
+
+(use-package almost-mono-themes
   :ensure t
-  :init (load-theme 'modus-operandi t))
+  :config
+  (load-theme 'almost-mono-white t))
 
 (provide 'lk/display)
 ;;; display.el ends here
