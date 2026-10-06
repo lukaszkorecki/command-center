@@ -1,0 +1,142 @@
+#!/usr/bin/env bb
+(require '[babashka.fs :as fs]
+         '[clojure.string :as str]
+         '[clojure.java.browse :as browse]
+         '[clojure.tools.logging :as log]
+         '[babashka.process :as p]
+         '[cheshire.core :as json]
+         '[babashka.cli :as cli])
+
+(defn google-search [{:keys [query]}]
+  (let [query (str/join " " query)]
+    (if (str/blank? query)
+      (log/errorf "invalid query: '%s'" query)
+      (browse/browse-url (str "https://www.google.com/search?q="
+                              (java.net.URLEncoder/encode query "UTF-8"))))))
+
+(def ^:private ghostty-new-tab-script
+  "on run argv
+     tell application \"Ghostty\"
+       set cfg to new surface configuration
+       set initial working directory of cfg to item 1 of argv
+       if (count windows) > 0 then
+         new tab in front window with configuration cfg
+       else
+         new window with configuration cfg
+       end if
+       activate
+     end tell
+   end run")
+
+(defn ^:private find-repo->select [{:keys [root]}]
+  (let [candidates (->> (fs/glob (fs/expand-home root) "**/.git" {:hidden true :max-depth 4})
+                        (mapv fs/parent)
+                        (mapv fs/absolutize)
+                        (mapv str)
+                        (str/join "\n"))
+        selection (p/process ["fzf"] {:in candidates
+                                      :out :string
+                                      :err :inherit})]
+    (-> selection deref deref :out str/trim)))
+
+(defn repo [{:keys [root gh emacs term]
+             :or {root "."
+                  term true}
+             :as _args}]
+  (when (= (fs/expand-home "~") (fs/expand-home root))
+    (log/error "searching from your home dir is not allowed, this is a bad idea")
+    (System/exit 1))
+
+  (if-let [selection (not-empty (find-repo->select {:root (fs/expand-home root)}))]
+    (do
+      (log/infof "navigating to %s" selection)
+      (cond
+        gh (p/shell {:dir selection} "gh" "browse")
+        emacs (p/exec "emacsclient" "--no-wait" selection)
+        term (p/exec "osascript" "-e" ghostty-new-tab-script selection)
+        :else (do
+                (log/warn "no action specified")
+                (println selection))))
+    (log/warn "empty selection!")))
+
+(defn emoji-lookup [{:keys [action mode]}]
+  (let [emoji-db-remote "https://raw.githubusercontent.com/muan/unicode-emoji-json/main/data-by-emoji.json"
+        emoji-db-cache (fs/expand-home "~/.config/nav/emoji.json")]
+
+    (when-not (fs/exists? emoji-db-cache)
+      (log/infof "saving emoji db to '%s'" emoji-db-cache)
+      (fs/create-dirs (fs/parent emoji-db-cache))
+      (spit (str emoji-db-cache) (slurp emoji-db-remote)))
+
+    (let [candidates (->> (json/parse-string (slurp (str emoji-db-cache)))
+                          (map (fn [[em data]]
+                                 (str em "\t" (get data "slug"))))
+                          (str/join "\n"))
+          selection (-> (p/shell {:in candidates :out :string :continue true}
+                                 "fzf" "--delimiter" "\t"
+                                 "--with-nth" "{1}\t{2}"
+                                 "--nth" "2"
+                                 "--accept-nth" (if (= mode "slug") "2" "1"))
+                        :out
+                        str/trim
+                        not-empty)]
+
+      (log/debugf "%s -> %s -> %s" action mode selection)
+      (if selection
+        (case action
+          "copy" (p/shell {:in selection} "pbcopy")
+          "print" (println selection))
+        (log/warn "empty selection!")))))
+
+;; cmd dispatch (with aliases)
+
+(def cmds
+  [{:cmds ["search"]
+    :cmd-aliases ["s"]
+    :doc "Google search"
+    :spec {:query {:desc "Search terms" :required true}}
+    :exec-fn google-search
+    :args->opts (repeat :query)}
+
+   {:cmds ["repo"]
+    :cmd-aliases ["r"]
+    :doc "Select a repo and open it"
+    :args->opts [:root]
+    :spec {:root {:desc "Root dir to search in"
+                  :required true
+                  :validate fs/directory?}
+           :gh {:desc "Open in GH?" :coerce :boolean :required true}
+           :emacs {:desc "Open in emacs" :coerce :boolean :required true}
+           :term {:desc "Open in ghostty" :coerce :boolean :required true}}
+    :exec-fn repo}
+
+   {:cmds ["repo-in-term"]
+    :exec-fn (fn [_]
+               (repo {:root "." :term true}))}
+
+   {:cmds ["repo-in-gh"]
+    :exec-fn (fn [_]
+               (repo {:root "." :gh true}))}
+
+   {:cmds ["emoji"]
+    :spec {:action {:desc "Action to take: print or copy"
+                    :default "copy"
+                    :validate #{"copy" "print"}}
+
+           :mode {:desc "Mode to print - slug or actual emoji"
+                  :default "raw"
+                  :validate #{"slug" "raw"}}}
+    :exec-fn emoji-lookup}
+
+   {:cmds ["emoji-copy"]
+    :exec-fn (fn [_]
+               (emoji-lookup {:action "copy" :mode "raw"}))}
+
+   {:cmds ["emoji-copy-slug"]
+    :exec-fn (fn [_]
+               (emoji-lookup {:action "copy" :mode "slug"}))}])
+
+(defn -main [args]
+  (cli/dispatch cmds args {:prog "nav" :help true}))
+
+(-main *command-line-args*)

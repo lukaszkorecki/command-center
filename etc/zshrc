@@ -101,6 +101,10 @@ if [[ "$(which doctl 2>&1)" == /* ]]; then
   eval "$(doctl completion zsh)"
 fi
 
+if [[ "$(which bb 2>&1)" == /* ]]; then
+  source <(nav org.babashka.cli/completions snippet --shell zsh)
+fi
+
 # git info in prompt and such
 autoload -Uz vcs_info
 

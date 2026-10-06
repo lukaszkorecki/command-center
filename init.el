@@ -10,6 +10,10 @@
 ;;; Code:
 (load-file "~/.emacs.d/deps.el")
 
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;; environment: PATH and exec-path configuration
 (require 'lk/env-path)
 

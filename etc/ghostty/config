@@ -4,7 +4,8 @@ keybind = alt+.=esc:.
 keybind = alt+b=esc:b
 keybind = alt+f=esc:f
 keybind = super+r=reload_config
-
+keybind = global:cmd+space=toggle_quick_terminal
+quick-terminal-size = 50%,50%
 cursor-style = block
 cursor-style-blink = true
 cursor-color = #FF0000

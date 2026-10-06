@@ -2,7 +2,7 @@
 chezmoi = "latest"
 java = "temurin-25"
 claude = "latest"
-babashka = { version = "1.12.218", exe = "bb" }
+babashka = { version = "1.13.225", exe = "bb" }
 clojure = "latest"
 leiningen = "latest"
 node = "25"
