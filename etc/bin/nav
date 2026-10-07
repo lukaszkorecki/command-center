@@ -1,4 +1,7 @@
 #!/usr/bin/env bb
+;; Alfred replacement, but for terminal
+;; runs as `nav` (for now!)
+
 (require '[babashka.fs :as fs]
          '[clojure.string :as str]
          '[clojure.java.browse :as browse]
@@ -6,6 +9,44 @@
          '[babashka.process :as p]
          '[cheshire.core :as json]
          '[babashka.cli :as cli])
+
+(defn ^:private fzf [candidates & args]
+  (-> (apply p/shell {:in (str/join "\n" candidates) :out :string :continue true}
+             "fzf" args)
+      :out
+      str/trim
+      not-empty))
+
+(def ^:private url-history (fs/expand-home "~/.config/nav/url-history"))
+
+(defn ^:private read-url-history []
+  (when (fs/exists? url-history)
+    (fs/read-all-lines url-history)))
+
+(defn ^:private save-url! [url]
+  (fs/create-dirs (fs/parent url-history))
+  (fs/write-lines url-history
+                  (distinct (cons url (read-url-history)))))
+
+(defn browse-url [{:keys [url]}]
+  (if-let [url (or (some-> url str/trim not-empty)
+                   (fzf (read-url-history)))]
+    (let [url (if (str/includes? url "://") url (str "https://" url))]
+      (log/infof "opening %s" url)
+      (save-url! url)
+      (browse/browse-url url))
+    (log/warn "empty selection!")))
+
+(defn open-app [_]
+  (if-let [app (fzf (->> ["/Applications" "/System/Applications"]
+                         (mapcat #(fs/list-dir % "*.app"))
+                         (map str)
+                         sort)
+                    "--delimiter" "/" "--with-nth" "-1")]
+    (do
+      (log/infof "opening %s" app)
+      (p/shell "open" app))
+    (log/warn "empty selection!")))
 
 (defn google-search [_]
   ;; XXX: for whatever reason rest-args are not passed correctly unless
@@ -93,7 +134,18 @@
 ;; cmd dispatch (with aliases)
 
 (def cmds
-  [{:cmds ["search"]
+  [{:cmds ["browse"]
+    :cmd-aliases ["b"]
+    :doc "Open URL, or pick one from history"
+    :args->opts [:url]
+    :spec {:url {:desc "URL to open"}}
+    :exec-fn browse-url}
+
+   {:cmds ["app"]
+    :cmd-aliases ["a"]
+    :doc "Select an app and open it"
+    :exec-fn open-app}
+   {:cmds ["search"]
     :cmd-aliases ["s"]
     :doc "Google search"
     :args->opts [:query]
