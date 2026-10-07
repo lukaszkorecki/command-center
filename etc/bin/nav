@@ -7,8 +7,10 @@
          '[cheshire.core :as json]
          '[babashka.cli :as cli])
 
-(defn google-search [{:keys [query]}]
-  (let [query (str/join " " query)]
+(defn google-search [_]
+  ;; XXX: for whatever reason rest-args are not passed correctly unless
+  ;;      quoted, so we ignore what bb.cli gives us and use raw args processing
+  (let [query (str/join " " (rest *command-line-args*))]
     (if (str/blank? query)
       (log/errorf "invalid query: '%s'" query)
       (browse/browse-url (str "https://www.google.com/search?q="
@@ -94,9 +96,9 @@
   [{:cmds ["search"]
     :cmd-aliases ["s"]
     :doc "Google search"
+    :args->opts [:query]
     :spec {:query {:desc "Search terms" :required true}}
-    :exec-fn google-search
-    :args->opts (repeat :query)}
+    :fn google-search}
 
    {:cmds ["repo"]
     :cmd-aliases ["r"]
