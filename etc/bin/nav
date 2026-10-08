@@ -18,6 +18,11 @@
       not-empty))
 
 (def ^:private url-history (fs/expand-home "~/.config/nav/url-history"))
+(def ^:private app-history (fs/expand-home "~/.config/nav/app-history"))
+(def ^:private repo-history (fs/expand-home "~/.config/nav/repo-history"))
+
+;; initialize these files
+(mapv fs/touch [url-history app-history repo-history])
 
 (defn ^:private read-url-history []
   (when (fs/exists? url-history)
@@ -28,9 +33,18 @@
   (fs/write-lines url-history
                   (distinct (cons url (read-url-history)))))
 
+
+;; NOTE:
+;; dump chrome bookmarks:
+;; find . -name Bookmarks and then:
+;; jq -r  '.roots[].children[].url' Snapshots/152.0.7977.83/Default/Bookmarks >> ~/.config/nav/url-history
+;; firefox - read places.sqlite after copying with following query
+;; select * from moz_places p join moz_bookmarks b on b.id = p.fk
 (defn browse-url [{:keys [url]}]
   (if-let [url (or (some-> url str/trim not-empty)
-                   (fzf (read-url-history)))]
+                   (fzf (read-url-history)
+                        "--header" "Select URL"
+                        "--history" url-history))]
     (let [url (if (str/includes? url "://") url (str "https://" url))]
       (log/infof "opening %s" url)
       (save-url! url)
@@ -42,7 +56,9 @@
                          (mapcat #(fs/list-dir % "*.app"))
                          (map str)
                          sort)
-                    "--delimiter" "/" "--with-nth" "-1")]
+                    "--delimiter" "/" "--with-nth" "-1"
+                    "--header" "Select application"
+                    "--history" app-history)]
     (do
       (log/infof "opening %s" app)
       (p/shell "open" app))
@@ -75,12 +91,14 @@
   (let [candidates (->> (fs/glob (fs/expand-home root) "**/.git" {:hidden true :max-depth 4})
                         (mapv fs/parent)
                         (mapv fs/absolutize)
-                        (mapv str)
-                        (str/join "\n"))
-        selection (p/process ["fzf"] {:in candidates
-                                      :out :string
-                                      :err :inherit})]
-    (-> selection deref deref :out str/trim)))
+                        (mapv str))
+        selection (fzf candidates
+                       "--delimiter" "/" "--with-nth" "-1"
+                       "--header" "Select repo"
+                       "--preview" "cd {} && git status"
+                       "--history" repo-history)]
+
+    selection))
 
 (defn repo [{:keys [root gh emacs term]
              :or {root "."
@@ -145,8 +163,9 @@
     :cmd-aliases ["a"]
     :doc "Select an app and open it"
     :exec-fn open-app}
+
    {:cmds ["search"]
-    :cmd-aliases ["s"]
+    :cmd-aliases ["s" "g"]
     :doc "Google search"
     :args->opts [:query]
     :spec {:query {:desc "Search terms" :required true}}
@@ -165,14 +184,17 @@
     :exec-fn repo}
 
    {:cmds ["repo-in-term"]
+    :doc "Shortcut: select a repo and open it in a new term"
     :exec-fn (fn [_]
                (repo {:root "." :term true}))}
 
    {:cmds ["repo-in-gh"]
+    :doc "Shortcut: Select a repo and open it in GH"
     :exec-fn (fn [_]
                (repo {:root "." :gh true}))}
 
    {:cmds ["emoji"]
+    :doc "Lookup an emoji and print or copy its character or slug"
     :spec {:action {:desc "Action to take: print or copy"
                     :default "copy"
                     :validate #{"copy" "print"}}
@@ -183,10 +205,12 @@
     :exec-fn emoji-lookup}
 
    {:cmds ["emoji-copy"]
+    :doc "Lookup an emoji and copy it"
     :exec-fn (fn [_]
                (emoji-lookup {:action "copy" :mode "raw"}))}
 
    {:cmds ["emoji-copy-slug"]
+    :doc "Lookup an emoji and copy its slug"
     :exec-fn (fn [_]
                (emoji-lookup {:action "copy" :mode "slug"}))}])
 
