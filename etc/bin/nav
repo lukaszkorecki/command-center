@@ -33,7 +33,6 @@
   (fs/write-lines url-history
                   (distinct (cons url (read-url-history)))))
 
-
 ;; NOTE:
 ;; dump chrome bookmarks:
 ;; find . -name Bookmarks and then:
@@ -45,20 +44,23 @@
                    (fzf (read-url-history)
                         "--header" "Select URL"
                         "--history" url-history))]
-    (let [url (if (str/includes? url "://") url (str "https://" url))]
+    (let [url (if (str/includes? url "://")
+                url
+                (str "https://" url))]
       (log/infof "opening %s" url)
       (save-url! url)
       (browse/browse-url url))
     (log/warn "empty selection!")))
 
-(defn open-app [_]
+(defn open-app [{:keys [args]}]
   (if-let [app (fzf (->> ["/Applications" "/System/Applications"]
                          (mapcat #(fs/list-dir % "*.app"))
                          (map str)
                          sort)
                     "--delimiter" "/" "--with-nth" "-1"
                     "--header" "Select application"
-                    "--history" app-history)]
+                    "--history" app-history
+                    "--query" (first args))]
     (do
       (log/infof "opening %s" app)
       (p/shell "open" app))
@@ -87,7 +89,7 @@
      end tell
    end run")
 
-(defn ^:private find-repo->select [{:keys [root]}]
+(defn ^:private find-repo->select [{:keys [hint root]}]
   (let [candidates (->> (fs/glob (fs/expand-home root) "**/.git" {:hidden true :max-depth 4})
                         (mapv fs/parent)
                         (mapv fs/absolutize)
@@ -96,11 +98,12 @@
                        "--delimiter" "/" "--with-nth" "-1"
                        "--header" "Select repo"
                        "--preview" "cd {} && git status"
-                       "--history" repo-history)]
+                       "--history" repo-history
+                       "--query" hint)]
 
     selection))
 
-(defn repo [{:keys [root gh emacs term]
+(defn repo [{:keys [hint root gh emacs term]
              :or {root "."
                   term true}
              :as _args}]
@@ -108,7 +111,7 @@
     (log/error "searching from your home dir is not allowed, this is a bad idea")
     (System/exit 1))
 
-  (if-let [selection (not-empty (find-repo->select {:root (fs/expand-home root)}))]
+  (if-let [selection (not-empty (find-repo->select {:hint hint :root (fs/expand-home root)}))]
     (do
       (log/infof "navigating to %s" selection)
       (cond
@@ -162,7 +165,7 @@
    {:cmds ["app"]
     :cmd-aliases ["a"]
     :doc "Select an app and open it"
-    :exec-fn open-app}
+    :fn open-app}
 
    {:cmds ["search"]
     :cmd-aliases ["s" "g"]
@@ -174,7 +177,7 @@
    {:cmds ["repo"]
     :cmd-aliases ["r"]
     :doc "Select a repo and open it"
-    :args->opts [:root]
+    :args->opts [:hint]
     :spec {:root {:desc "Root dir to search in"
                   :required true
                   :validate fs/directory?}
