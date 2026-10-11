@@ -10,6 +10,29 @@
          '[cheshire.core :as json]
          '[babashka.cli :as cli])
 
+(defn log [level msg & rest-args]
+  (binding [*out* *err*]
+    (printf "[%s] %s\n" (subs (name level) 0 3)
+            (if (seq rest-args)
+              (apply format (concat [msg] rest-args))
+              msg))
+    (flush)))
+
+(comment
+  (log :info "one")
+  (log :warn "two")
+  (log :error "three")
+  (log :info "one %s" "another")
+  (log :warn "one %s %s" :foo :bar)
+  (log :error "foo %s %s" :baz :qux)
+  (System/exit 1))
+
+(def in-emacs?
+  (boolean (System/getenv "INSIDE_EMACS")))
+
+(def in-quick-term?
+  (= "1" (System/getenv "GHOSTTY_QUICK_TERMINAL")))
+
 (defn ^:private fzf [candidates & args]
   (-> (apply p/shell {:in (str/join "\n" candidates) :out :string :continue true}
              "fzf" args)
@@ -47,10 +70,10 @@
     (let [url (if (str/includes? url "://")
                 url
                 (str "https://" url))]
-      (log/infof "opening %s" url)
+      (log :info "opening %s" url)
       (save-url! url)
       (browse/browse-url url))
-    (log/warn "empty selection!")))
+    (log :warn "empty selection!")))
 
 (defn open-app [{:keys [args]}]
   (if-let [app (fzf (->> ["/Applications" "/System/Applications"]
@@ -62,16 +85,16 @@
                     "--history" app-history
                     "--query" (first args))]
     (do
-      (log/infof "opening %s" app)
+      (log :info "opening %s" app)
       (p/shell "open" app))
-    (log/warn "empty selection!")))
+    (log :warn "empty selection!")))
 
 (defn google-search [_]
   ;; XXX: for whatever reason rest-args are not passed correctly unless
   ;;      quoted, so we ignore what bb.cli gives us and use raw args processing
   (let [query (str/join " " (rest *command-line-args*))]
     (if (str/blank? query)
-      (log/errorf "invalid query: '%s'" query)
+      (log :errorf "invalid query: '%s'" query)
       (browse/browse-url (str "https://www.google.com/search?q="
                               (java.net.URLEncoder/encode query "UTF-8"))))))
 
@@ -103,32 +126,32 @@
 
     selection))
 
-(defn repo [{:keys [hint root gh emacs term]
-             :or {root "."
-                  term true}
+(defn repo [{:keys [hint root gh emacs term echo]
+             :or {root "."}
              :as _args}]
   (when (= (fs/expand-home "~") (fs/expand-home root))
-    (log/error "searching from your home dir is not allowed, this is a bad idea")
+    (log :error "searching from your home dir is not allowed, this is a bad idea")
     (System/exit 1))
 
   (if-let [selection (not-empty (find-repo->select {:hint hint :root (fs/expand-home root)}))]
     (do
-      (log/infof "navigating to %s" selection)
+      (log :info "navigating to %s" selection)
       (cond
         gh (p/shell {:dir selection} "gh" "browse")
         emacs (p/exec "emacsclient" "--no-wait" selection)
         term (p/exec "osascript" "-e" ghostty-new-tab-script selection)
+        echo (print selection)
         :else (do
-                (log/warn "no action specified")
+                (log :warn "no action specified")
                 (println selection))))
-    (log/warn "empty selection!")))
+    (log :warn "empty selection!")))
 
 (defn emoji-lookup [{:keys [action mode]}]
   (let [emoji-db-remote "https://raw.githubusercontent.com/muan/unicode-emoji-json/main/data-by-emoji.json"
         emoji-db-cache (fs/expand-home "~/.config/nav/emoji.json")]
 
     (when-not (fs/exists? emoji-db-cache)
-      (log/infof "saving emoji db to '%s'" emoji-db-cache)
+      (log :info "saving emoji db to '%s'" emoji-db-cache)
       (fs/create-dirs (fs/parent emoji-db-cache))
       (spit (str emoji-db-cache) (slurp emoji-db-remote)))
 
@@ -145,12 +168,11 @@
                         str/trim
                         not-empty)]
 
-      (log/debugf "%s -> %s -> %s" action mode selection)
       (if selection
         (case action
           "copy" (p/shell {:in selection} "pbcopy")
           "print" (println selection))
-        (log/warn "empty selection!")))))
+        (log :warn "empty selection!")))))
 
 ;; cmd dispatch (with aliases)
 
@@ -183,7 +205,8 @@
                   :validate fs/directory?}
            :gh {:desc "Open in GH?" :coerce :boolean :required true}
            :emacs {:desc "Open in emacs" :coerce :boolean :required true}
-           :term {:desc "Open in ghostty" :coerce :boolean :required true}}
+           :term {:desc "Open in ghostty" :coerce :boolean :required true}
+           :echo {:desc "Echo selection" :coerce :boolean :required true}}
     :exec-fn repo}
 
    {:cmds ["repo-in-term"]
