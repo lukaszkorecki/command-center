@@ -83,6 +83,7 @@
                     "--delimiter" "/" "--with-nth" "-1"
                     "--header" "Select application"
                     "--history" app-history
+                    "--select-1"
                     "--query" (first args))]
     (do
       (log :info "opening %s" app)
@@ -122,6 +123,7 @@
                        "--header" "Select repo"
                        "--preview" "cd {} && git status"
                        "--history" repo-history
+                       "--select-1"
                        "--query" hint)]
 
     selection))
