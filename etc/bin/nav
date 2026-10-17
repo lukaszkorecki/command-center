@@ -148,7 +148,7 @@
                 (println selection))))
     (log :warn "empty selection!")))
 
-(defn emoji-lookup [{:keys [action mode]}]
+(defn emoji-lookup [{:keys [hint action mode]}]
   (let [emoji-db-remote "https://raw.githubusercontent.com/muan/unicode-emoji-json/main/data-by-emoji.json"
         emoji-db-cache (fs/expand-home "~/.config/nav/emoji.json")]
 
@@ -165,14 +165,18 @@
                                  "fzf" "--delimiter" "\t"
                                  "--with-nth" "{1}\t{2}"
                                  "--nth" "2"
-                                 "--accept-nth" (if (= mode "slug") "2" "1"))
+                                 "--accept-nth" (if (= mode "slug") "2" "1")
+                                 "--select-1"
+                                 "--query" hint)
                         :out
                         str/trim
                         not-empty)]
 
       (if selection
         (case action
-          "copy" (p/shell {:in selection} "pbcopy")
+          "copy" (do
+                   (log :info "Copied %s" selection)
+                   (p/shell {:in selection} "pbcopy"))
           "print" (println selection))
         (log :warn "empty selection!")))))
 
@@ -223,6 +227,7 @@
 
    {:cmds ["emoji"]
     :doc "Lookup an emoji and print or copy its character or slug"
+    :args->opts [:hint]
     :spec {:action {:desc "Action to take: print or copy"
                     :default "copy"
                     :validate #{"copy" "print"}}
