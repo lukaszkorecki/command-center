@@ -1,20 +1,16 @@
 [tools]
-chezmoi = "latest"
 java = "temurin-25"
 claude = "latest"
 babashka = { version = "1.13.225", exe = "bb" }
 clojure = "latest"
 leiningen = "latest"
 node = "25"
-
-# there's some weird stuff going on with how 'official' op recipe works in Mise, so we just get this from source
-"http:op" = { version = "2.32.1", url =  "https://cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_darwin_arm64_v2.32.1.zip" }
-
+1password-cli = "latest"
+rclone = "latest"
 # pull native binaries for clj-mcp-light tools
 "http:clj-paren-repair" = { version = "0.2.2", url = "https://github.com/lukaszkorecki/clojure-mcp-light-native/releases/download/v0.2.2/clj-paren-repair-macos-arm64" }
 "http:clj-nrepl-eval" = { version = "0.2.2", url = "https://github.com/lukaszkorecki/clojure-mcp-light-native/releases/download/v0.2.2/clj-nrepl-eval-macos-arm64" }
 
-# cli tools (moved from Brewfile)
 gh = "latest"
 jq = "latest"
 fzf = "latest"
@@ -22,6 +18,7 @@ fzf = "latest"
 ripgrep = { version = "latest", exe = "rg" }
 bat = "latest"
 shfmt = "latest"
+pandoc = "latest"
 clj-kondo = "latest"
 "github:clojure-lsp/clojure-lsp" = "latest"
 

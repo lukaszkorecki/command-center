@@ -8,6 +8,7 @@ GET_PROFILE="${PRIVATE}/lib/get-profile.sh"
 ZSH_COMP_DIR="${ETC}/zsh"
 GHOSTTY_XDG="${HOME}/.config/ghostty"
 GHOSTTY_OLD="${HOME}/Library/Application Support/com.mitchellh.ghostty/config"
+BREW=/opt/homebrew/bin/brew
 AGENT_SOCK="${HOME}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 dry_run=0
@@ -53,12 +54,28 @@ profile() {
   "${GET_PROFILE}"
 }
 
+# On a fresh machine this process starts without brew or mise tools on PATH;
+# zshrc only takes care of that for interactive shells.
+load_brew() {
+  if [[ -x ${BREW} ]]; then
+    eval "$("${BREW}" shellenv)"
+  fi
+}
+
+load_mise() {
+  if command -v mise >/dev/null; then
+    eval "$(mise env -s bash)"
+  fi
+}
+
 cmd_bootstrap() {
-  command -v brew >/dev/null ||
+  [[ -x ${BREW} ]] ||
     run /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  load_brew
   cmd_brew_bundle
   link "${ETC}/mise.toml" "${HOME}/.config/mise/config.toml"
   run mise install
+  load_mise
 }
 
 cmd_check_deps() {
