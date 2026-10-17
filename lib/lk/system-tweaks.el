@@ -28,6 +28,17 @@
 
   (global-set-key (kbd "H-x") 'execute-extended-command))
 
+;; hide dotfiles (except . and ..) in dired, toggle with C-x M-o
+;; extensions are cleared so dired-omit-mode hides nothing else
+(use-package dired-x
+  :ensure nil
+  :defer nil
+  :hook (dired-mode . dired-omit-mode)
+  :config
+  (setq dired-omit-files "\\`\\.\\(?:[^.]\\|\\..\\)"
+        dired-omit-extensions nil
+        dired-omit-verbose nil))
+
 ;; built into Emacs 30+, no :ensure
 (use-package which-key
   :config (setq which-key-show-early-on-C-h t)

@@ -92,6 +92,20 @@
 
 (global-set-key (kbd "C-x c l") 'lk/string-inflection)
 
+(defun lk/emoji-insert ()
+  "Pick an emoji from nav's cache (populated by `nav emoji') and insert it."
+  (interactive)
+  (let* ((db (with-temp-buffer
+               (insert-file-contents (expand-file-name "~/.config/nav/emoji.json"))
+               (json-parse-buffer :object-type 'alist)))
+         (cands (mapcar (lambda (e)
+                          (cons (format "%s  %s" (car e) (alist-get 'slug (cdr e)))
+                                (symbol-name (car e))))
+                        db)))
+    (insert (cdr (assoc (completing-read "Emoji: " cands nil t) cands)))))
+
+(global-set-key (kbd "C-x c e") 'lk/emoji-insert)
+
 (use-package undo-tree
   :ensure t
   :init (global-undo-tree-mode nil)
