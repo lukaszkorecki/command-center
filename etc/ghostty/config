@@ -15,4 +15,4 @@ shell-integration = zsh
 shell-integration-features = no-cursor
 
 theme = modus-operandi
-font-family = "Geist Mono Regular"
+font-family = "Iosevka"

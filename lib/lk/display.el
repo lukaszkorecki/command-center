@@ -25,26 +25,33 @@
 (setq-default indicate-empty-lines nil)
 (setq-default indicate-buffer-boundaries 'left)
 
-(defun lk/set-frame-font (height)
+(defun lk/set-frame-font-size (height)
   (interactive "nFont size: ")
   (let* ((frame (selected-frame)))
-    (set-face-attribute 'default nil :height height)
+    (set-face-attribute 'default nil
+                        :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
 (defvar lk/font-size-regular 130 "Regular font size.")
 (defvar lk/font-size-xl 170 "eXtra Large font size.")
 
+(defun lk/set-font (name)
+  (interactive)
+  (when (display-graphic-p)
+    (set-face-attribute 'default nil
+                        :family name
+                        :height lk/font-size-regular)))
+
 (defun lk/standard-font ()
   (interactive)
-  (lk/set-frame-font lk/font-size-regular))
+  (lk/set-frame-font-size lk/font-size-regular))
 
 (defun lk/screen-sharing-font ()
   (interactive)
-  (lk/set-frame-font 170))
+  (lk/set-frame-font-size 170))
 
 (defun on-after-init ()
-  (when (display-graphic-p)
-    (set-face-attribute 'default nil :family "Geist Mono" :height lk/font-size-regular))
+  (lk/set-font "Iosevka Extended")
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
@@ -235,7 +242,7 @@ size - all as fractions (0.0-1.0) of the work area."
                      (define-key term-raw-map (kbd "M-o") 'ace-window)
                      (define-key term-raw-map (kbd "H-o") 'ace-window)))
   :bind ( "H-o" . ace-window)
-         ("M-o" . ace-window))
+  ("M-o" . ace-window))
 
 ;; Window and buffer management
 (global-set-key (kbd "C-x |") 'split-window-horizontally)
