@@ -1,15 +1,14 @@
 [tools]
 java = "temurin-25"
 claude = "latest"
-babashka = { version = "1.13.225", exe = "bb" }
+babashka = { version = "1.13", exe = "bb" }
 clojure = "latest"
-leiningen = "latest"
+leiningen = "2.13"
 node = "25"
-1password-cli = "latest"
 rclone = "latest"
-# pull native binaries for clj-mcp-light tools
-"http:clj-paren-repair" = { version = "0.2.2", url = "https://github.com/lukaszkorecki/clojure-mcp-light-native/releases/download/v0.2.2/clj-paren-repair-macos-arm64" }
-"http:clj-nrepl-eval" = { version = "0.2.2", url = "https://github.com/lukaszkorecki/clojure-mcp-light-native/releases/download/v0.2.2/clj-nrepl-eval-macos-arm64" }
+
+1password = "2"
+"github:lukaszkorecki/clojure-mcp-light-native" = "0.2.2"
 
 gh = "latest"
 jq = "latest"
@@ -24,6 +23,7 @@ clj-kondo = "latest"
 
 # other
 sqlite = "latest"
-terraform-ls = "latest"
+
 [settings]
+experimental = true
 idiomatic_version_file_enable_tools = ["node", "java"]

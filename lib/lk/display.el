@@ -50,6 +50,12 @@
   (interactive)
   (lk/set-frame-font-size 170))
 
+(defun lk/set-font-face ()
+  (interactive)
+  (set-face-attribute 'default nil
+                      :family "Iosevka Term"
+                      :height lk/font-size-regular))
+
 (defun on-after-init ()
   (lk/set-font "Iosevka Extended")
   (unless (display-graphic-p (selected-frame))
