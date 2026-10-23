@@ -17,12 +17,21 @@ Everything ships as part of ~.emacs.d~ directory because it's 🆗
 ** Setup
 
 If you want to use these yourself - probably a bad idea, given that I built all of this stuff to fit _my workflow_.
+Plus I have a =private-configs= submodule which does extra setup.
 
 1. Fork this repo
 2. Clone to  ~$HOME/.emacs.d~
-3. ~cd .emacs.d && make~
-3. Start Emacs, ~use-package~ will take over
+3. Install [[https://brew.sh][Homebrew]]
 
-*** Other tools and packages
+#+begin_src bash
+  cd ~/.emacs.d
+  brew bundle
+  mise trust
+  mise bootstrap --force-dotfiles
+#+end_src
 
-There's a `Brewfile` provided, run `brew bundle`
+4. Start Emacs, ~use-package~ will take over
+
+~mise.toml~ declares dotfiles, macOS defaults and setup tasks (~mise tasks~
+lists them); ~etc/mise.toml~ is the global tool config. Apps and the few
+remaining CLI tools come from the ~Brewfile~ (~mise run brew~).

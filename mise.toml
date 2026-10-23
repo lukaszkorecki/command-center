@@ -1,0 +1,77 @@
+# Machine setup: dotfiles, macOS defaults and setup tasks. Tools live in
+# etc/mise.toml, linked below as the global config. `mise bootstrap` applies
+# everything and finishes with the `bootstrap` task; `mise tasks` lists the rest.
+
+[dotfiles]
+"~/.zshrc" = "etc/zshrc"
+"~/.profile" = "etc/zshrc"
+"~/.gitconfig" = "etc/gitconfig"
+"~/.psqlrc" = "etc/psqlrc"
+"~/.config/mise/config.toml" = "etc/mise.toml"
+"~/.clojure" = "etc/clojure"
+# ~/.lein *is* etc/lein, so profiles.clj needs no separate link.
+"~/.lein" = "etc/lein"
+"~/.config/ghostty/config" = "etc/ghostty/config"
+"~/.config/ghostty/themes" = "etc/ghostty/themes"
+"~/.config/1Password/agent.sock" = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+"~/.emacs.d/etc/zsh/_git" = "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.zsh"
+"~/.emacs.d/etc/zsh/_docker" = "/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion"
+"~/.emacs.d/etc/zsh/_docker-compose" = "/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion"
+
+[bootstrap.macos.defaults."com.apple.finder"]
+ShowPathbar = true
+
+[bootstrap.macos.defaults."com.apple.desktopservices"]
+DSDontWriteNetworkStores = true
+DSDontWriteUSBStores = true
+
+
+[tasks.bootstrap]
+description = "Full setup, run last by `mise bootstrap`"
+run = [
+  "mise run brew",
+  "mise run private",
+  "mise run check-deps",
+  "mise -C private-configs run ssh",
+]
+
+[tasks.brew]
+description = "Install Brewfile packages"
+env = { HOMEBREW_AUTO_UPDATE_SECS = "9600" }
+run = "brew bundle --file=Brewfile"
+
+[tasks.check-deps]
+description = "Verify tools, profile and 1Password CLI access"
+run = '''
+missing=""
+for c in brew mise op git; do
+  command -v "$c" >/dev/null 2>&1 || missing="$missing $c"
+done
+if [ -n "$missing" ]; then
+  echo "missing commands:$missing -- run 'mise bootstrap' first" >&2
+  exit 1
+fi
+profile=$(private-configs/lib/get-profile.sh)
+if ! op --account my.1password.com vault list >/dev/null 2>&1; then
+  echo "1Password CLI cannot read vaults." >&2
+  echo "Unlock the desktop app, then enable Settings > Developer > CLI integration." >&2
+  exit 1
+fi
+echo "deps ok (profile: $profile)"
+'''
+
+# MISE_ENV normally comes from zshrc; a fresh machine hasn't sourced it yet.
+[tasks.private]
+description = "Check out private-configs and apply its profile's dotfiles"
+run = '''
+git submodule update --init --recursive private-configs
+branch=$(git -C private-configs rev-parse --abbrev-ref HEAD)
+if [ "$branch" = main ]; then
+  git -C private-configs pull -r
+else
+  echo "private-configs is on '$branch', not main -- leaving it alone" >&2
+fi
+mise trust -q private-configs
+MISE_ENV="${MISE_ENV:-$(private-configs/lib/get-profile.sh)}" \
+  mise -C private-configs bootstrap dotfiles apply -y --force
+'''

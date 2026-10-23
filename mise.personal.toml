@@ -1,0 +1,3 @@
+# On work machines dev-env owns the clojure-lsp config.
+[dotfiles]
+"~/.config/clojure-lsp/config.edn" = "etc/clojure-lsp-config.edn"
