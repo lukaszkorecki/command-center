@@ -27,7 +27,7 @@ Plus I have a =private-configs= submodule which does extra setup.
   cd ~/.emacs.d
   brew bundle
   mise trust
-  mise bootstrap --force-dotfiles
+  mise -E personal bootstrap --force-dotfiles # or -E work, saved after the first run
 #+end_src
 
 4. Start Emacs, ~use-package~ will take over

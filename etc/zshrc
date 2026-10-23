@@ -32,12 +32,6 @@ if [[ -e $brewPrefix/bin/brew ]]; then
   eval "$($brewPrefix/bin/brew shellenv)"
 fi
 
-# Selects mise.<profile>.toml in ~/.emacs.d and private-configs.
-if _profile=$(~/.emacs.d/private-configs/lib/get-profile.sh 2>/dev/null); then
-  export MISE_ENV=$_profile
-fi
-unset _profile
-
 if [[ "$(which mise)" == /* ]]; then
   eval "$(mise activate)"
 fi

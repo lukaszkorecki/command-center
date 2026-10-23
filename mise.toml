@@ -29,11 +29,29 @@ DSDontWriteUSBStores = true
 [tasks.bootstrap]
 description = "Full setup, run last by `mise bootstrap`"
 run = [
+  "mise run profile",
   "mise run brew",
   "mise run private",
   "mise run check-deps",
   "mise -C private-configs run ssh",
 ]
+
+# The profile (work/personal) selects mise.<profile>.toml here and in
+# private-configs. A fresh machine passes it once with `mise -E <profile>`.
+[tasks.profile]
+description = "Save this machine's profile to miserc.local.toml"
+run = '''
+rc="$HOME/.config/mise/miserc.local.toml"
+if [ -e "$rc" ]; then
+  exit 0
+fi
+if [ -z "${MISE_ENV:-}" ]; then
+  echo "no profile selected -- run 'mise -E <work|personal> bootstrap'" >&2
+  exit 1
+fi
+printf 'env = ["%s"]\n' "$MISE_ENV" >"$rc"
+echo "wrote $rc (env = $MISE_ENV)"
+'''
 
 [tasks.brew]
 description = "Install Brewfile packages"
@@ -51,16 +69,18 @@ if [ -n "$missing" ]; then
   echo "missing commands:$missing -- run 'mise bootstrap' first" >&2
   exit 1
 fi
-profile=$(private-configs/lib/get-profile.sh)
+if [ -z "${MISE_ENV:-}" ]; then
+  echo "no profile selected -- run 'mise -E <work|personal> bootstrap'" >&2
+  exit 1
+fi
 if ! op --account my.1password.com vault list >/dev/null 2>&1; then
   echo "1Password CLI cannot read vaults." >&2
   echo "Unlock the desktop app, then enable Settings > Developer > CLI integration." >&2
   exit 1
 fi
-echo "deps ok (profile: $profile)"
+echo "deps ok (profile: $MISE_ENV)"
 '''
 
-# MISE_ENV normally comes from zshrc; a fresh machine hasn't sourced it yet.
 [tasks.private]
 description = "Check out private-configs and apply its profile's dotfiles"
 run = '''
@@ -72,6 +92,5 @@ else
   echo "private-configs is on '$branch', not main -- leaving it alone" >&2
 fi
 mise trust -q private-configs
-MISE_ENV="${MISE_ENV:-$(private-configs/lib/get-profile.sh)}" \
-  mise -C private-configs bootstrap dotfiles apply -y --force
+mise -C private-configs bootstrap dotfiles apply -y --force
 '''
