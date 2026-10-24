@@ -9,8 +9,7 @@
 "~/.psqlrc" = "etc/psqlrc"
 "~/.config/mise/config.toml" = "etc/mise.toml"
 "~/.clojure" = "etc/clojure"
-# ~/.lein *is* etc/lein, so profiles.clj needs no separate link.
-"~/.lein" = "etc/lein"
+"~/.lein/profiles.clj" = "etc/lein/profiles.clj"
 "~/.config/ghostty/config" = "etc/ghostty/config"
 "~/.config/ghostty/themes" = "etc/ghostty/themes"
 "~/.config/1Password/agent.sock" = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
