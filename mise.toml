@@ -8,11 +8,19 @@
 "~/.gitconfig" = "etc/gitconfig"
 "~/.psqlrc" = "etc/psqlrc"
 "~/.config/mise/config.toml" = "etc/mise.toml"
+# global config
+"~/.config/fnox/config.toml" = "etc/fnox.toml"
+# individual profiles
+#....
+
+# clojure tooling
 "~/.clojure" = "etc/clojure"
 "~/.lein/profiles.clj" = "etc/lein/profiles.clj"
+# ghostty
 "~/.config/ghostty/config" = "etc/ghostty/config"
 "~/.config/ghostty/themes" = "etc/ghostty/themes"
 "~/.config/1Password/agent.sock" = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+# zsh completions, FIXME: this somewhat silly and busted
 "~/.emacs.d/etc/zsh/_git" = "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.zsh"
 "~/.emacs.d/etc/zsh/_docker" = "/Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion"
 "~/.emacs.d/etc/zsh/_docker-compose" = "/Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion"

@@ -6,7 +6,7 @@ clojure = "latest"
 leiningen = "2.13"
 node = "25"
 rclone = "latest"
-
+fnox = "latest"
 1password = "2"
 "github:lukaszkorecki/clojure-mcp-light-native" = "0.2.2"
 
@@ -27,4 +27,3 @@ sqlite = "latest"
 [settings]
 experimental = true
 idiomatic_version_file_enable_tools = ["node", "java"]
-

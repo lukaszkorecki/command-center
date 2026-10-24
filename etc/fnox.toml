@@ -1,0 +1,7 @@
+# Global dev-time secrets. Imports resolve relative to ~/.config/fnox, where
+# private-configs links them; earlier imports win, so "work.toml" goes first.
+import = ["personal.toml"]
+
+[daemon]
+enabled = true
+idle_timeout = "8h" # default
