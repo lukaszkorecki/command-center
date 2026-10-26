@@ -1,6 +1,5 @@
-# Global dev-time secrets. Imports resolve relative to ~/.config/fnox, where
-# private-configs links them; earlier imports win, so "work.toml" goes first.
-import = ["personal.toml"]
+# imports are relavive to top level config in ~/.config/fnox/
+import = ["work.toml", "personal.toml", "ps.toml"]
 
 [daemon]
 enabled = true
