@@ -21,6 +21,18 @@
 (defvar lk/org-weekly-template
   (expand-file-name "~/Files/org/templates/ref.org"))
 
+(defun lk/org-revert-stale (&rest _)
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (when (and buffer-file-name
+                 (derived-mode-p 'org-mode)
+                 (not (buffer-modified-p))
+                 (not (verify-visited-file-modtime buf)))
+        (revert-buffer t t)))))
+
+(dolist (f '(org-agenda org-agenda-redo org-capture org-refile))
+  (advice-add f :before #'lk/org-revert-stale))
+
 (defun lk/add-task ()
   "Adds task to ~/Files/org/main.org"
   (interactive)
@@ -35,6 +47,11 @@
   "Move all done tasks from ~/Files/org/main.org to ~/Files/org/done.org"
   (interactive)
   (require 'org-archive)
+  (lk/org-revert-stale)
+  (dolist (f (list lk/org-main-file lk/org-done-file))
+    (when-let* ((buf (find-buffer-visiting f)))
+      (unless (verify-visited-file-modtime buf)
+        (user-error "%s has unsaved edits and changed on disk" f))))
   (with-current-buffer (find-file-noselect lk/org-main-file)
     (let ((org-archive-location (concat lk/org-done-file "::"))
           (org-archive-save-context-info '(time))
@@ -54,16 +71,19 @@
 (defun lk/open-notes ()
   "Open ~/Files/org/notes.org in another window."
   (interactive)
+  (lk/org-revert-stale)
   (find-file-other-window lk/org-notes-file))
 
 (defun lk/open-main ()
   "Open ~/Files/org/main.org in another window."
   (interactive)
+  (lk/org-revert-stale)
   (find-file-other-window lk/org-main-file))
 
 (defun lk/open-inbox ()
   "Open ~/Files/org/inbox.org in another window."
   (interactive)
+  (lk/org-revert-stale)
   (find-file-other-window lk/org-inbox-file))
 
 (defun lk/org-weekly-file ()
