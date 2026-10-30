@@ -191,7 +191,7 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
                      (org-deadline-warning-days 0)))))))
   (setq org-capture-templates
         `(("t" "Task" entry
-           (file lk/org-inbox-file)
+           (file lk/org-main-file)
            "* TODO %?  %^G\nSCHEDULED: %^t"
            :empty-lines 1)
           ("n" "Note" entry
