@@ -16,3 +16,4 @@ shell-integration-features = no-cursor
 
 theme = modus-operandi
 font-family = "Iosevka"
+font-size = 15

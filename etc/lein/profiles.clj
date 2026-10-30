@@ -18,7 +18,7 @@
                                "-e" ".*benchmark.*"]
 
                   "cider-repl" ["with-profile" "+repl"
-                                 "repl" ":headless"]}}
+                                "repl" ":headless"]}}
 
  :repl {:dependencies [[org.clojars.lukaszkorecki/rumble "1.1.0.47"]
                        [nrepl/nrepl "1.5.2"]
@@ -27,10 +27,12 @@
         :repl-options {:color false}}
 
  :antq {:global-vars {*warn-on-reflection* false}
+        :jvm-opts ^replace ["-Dorg.slf4j.simpleLogger.defaultLogLevel=INFO"
+                            "-DLOG_LEVEL=INFO"
+                            "-XX:-OmitStackTraceInFastThrow"]
         :dependencies [[com.github.liquidz/antq "RELEASE"]
                        ;; silencelogs from antq
                        ^:displace [org.slf4j/slf4j-api "RELEASE"]
-                       [org.slf4j/slf4j-nop "2.0.9"]
 
                        ;; these are needed when running checks
                        ;; in repos with older dependencies

@@ -12,12 +12,14 @@
 
 (defvar lk/org-inbox-file (expand-file-name "~/Files/org/inbox.org"))
 (defvar lk/org-main-file (expand-file-name "~/Files/org/main.org"))
-(defvar lk/org-calendar-file
-  (expand-file-name "~/Files/org/calendar.org"))
+(defvar lk/org-recurring-file (expand-file-name "~/Files/org/recurring.org"))
+(defvar lk/org-calendar-file (expand-file-name "~/Files/org/calendar.org"))
 (defvar lk/org-notes-file (expand-file-name "~/Files/org/notes.org"))
 (defvar lk/org-done-file (expand-file-name "~/Files/org/done.org"))
+
 (defvar lk/org-weekly-dir
   (expand-file-name "~/Files/org/notes/weekly-checkins/"))
+
 (defvar lk/org-weekly-template
   (expand-file-name "~/Files/org/templates/ref.org"))
 
@@ -170,7 +172,7 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
   (setq org-image-max-width 'fill-column)
 
   (setq org-agenda-files
-        (list lk/org-inbox-file lk/org-main-file lk/org-calendar-file))
+        (list lk/org-inbox-file lk/org-main-file lk/org-calendar-file lk/org-recurring-file))
   (setq org-log-done 'time)
 
   (setq org-refile-targets '((lk/org-main-file :level . 1)))

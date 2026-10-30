@@ -57,7 +57,6 @@ if [[ "$(which bat)" == /* ]]; then
   # use bat as man-page viewer
   export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
 
-
   # pipe command output to `bat --lang=help -p`:
   help() {
     # detect that nothing is being piped in
@@ -65,13 +64,10 @@ if [[ "$(which bat)" == /* ]]; then
       echo "Usage: some_command | help"
       exit 1
     fi
-
     bat --language=help -p
   }
 
 fi
-
-
 
 export EDITOR="${HOME}/.emacs.d/etc/bin/emacscl"
 
