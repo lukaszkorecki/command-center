@@ -4,7 +4,7 @@ set -eou pipefail
 
 help() {
   echo "Renders Markdown as HTML using GH's Markdown API"
-  echo "Requires GH CLI to be installed and authenticated or GITHUB_TOKEN to be set"
+  echo "Requires GH CLI to be installed and authenticated"
   grep '##' "$0" | grep -v grep | sed 's/) ##/ - /'g
 }
 

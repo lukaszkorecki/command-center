@@ -147,15 +147,6 @@ PROMPT_BASE="▒░"
 precmd_vcs_info() {
   vcs_info
 }
-export _SEC_FLAG="░"
-precmd_sec_info() {
-  if [[ "$OP_SECRETS_LOADED" == "" ]]; then
-    export _SEC_FLAG=" "
-  else
-    export _SEC_FLAG="S"
-  fi
-}
-
 export _EXIT_CODE_FLAG="░"
 precmd_last_cmd_exit_code_info() {
   local exit_code=$?
@@ -167,7 +158,6 @@ precmd_last_cmd_exit_code_info() {
 }
 
 precmd_functions+=(precmd_vcs_info)
-precmd_functions+=(precmd_sec_info)
 precmd_functions+=(precmd_last_cmd_exit_code_info)
 
 setopt PROMPT_SUBST
@@ -175,7 +165,7 @@ zstyle ':vcs_info:git:*' formats '[%b]'
 zstyle ':vcs_info:*' enable git
 
 BR=$'\n'
-export PROMPT='${PROMPT_BASE} ${_EXIT_CODE_FLAG}${_SEC_FLAG} %3~ ${vcs_info_msg_0_} ${BR}# '
+export PROMPT='${PROMPT_BASE} ${_EXIT_CODE_FLAG} %3~ ${vcs_info_msg_0_} ${BR}# '
 
 # integration with iterm:
 if [[ "$LC_TERMINAL" == "iTerm2" ]]; then

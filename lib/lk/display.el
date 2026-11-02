@@ -32,7 +32,7 @@
                         :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
-(defvar lk/font-size-regular 130 "Regular font size.")
+(defvar lk/font-size-regular 110 "Regular font size.")
 (defvar lk/font-size-xl 170 "eXtra Large font size.")
 
 (defun lk/set-font (name)
@@ -53,7 +53,7 @@
 (defun lk/set-font-face ()
   (interactive)
   (set-face-attribute 'default nil
-                      :family "Iosevka Term"
+                      :family "Noto Sans Mono"
                       :height lk/font-size-regular))
 
 (defun on-after-init ()

@@ -17,9 +17,6 @@
 ;; environment: PATH and exec-path configuration
 (require 'lk/env-path)
 
-;; load secrets from 1password
-(require 'lk/secrets)
-
 ;; initial startup: environment, GC settings, mise
 (require 'lk/startup)
 

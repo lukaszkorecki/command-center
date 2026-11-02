@@ -1,10 +1,10 @@
 [tools]
 java = "temurin-25"
 claude = "latest"
-babashka = { version = "1.13", exe = "bb" }
+babashka = "1.13"
 clojure = "latest"
 leiningen = "2.13"
-node = "25"
+node = "26"
 rclone = "latest"
 fnox = "latest"
 1password = "2"

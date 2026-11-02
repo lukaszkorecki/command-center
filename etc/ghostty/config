@@ -15,5 +15,5 @@ shell-integration = zsh
 shell-integration-features = no-cursor
 
 theme = modus-operandi
-font-family = "Iosevka"
-font-size = 15
+font-family = "Not Sans Mono"
+font-size = 13

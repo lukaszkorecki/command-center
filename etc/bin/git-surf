@@ -7,11 +7,6 @@ if [[ "$(which gh)" == "" ]]; then
   exit 1
 fi
 
-if [[ ${GITHUB_TOKEN} == "" ]]; then
-  echo "missingh GH token"
-  exit 2
-fi
-
 help() {
   echo "git-surf v2 - opens various things in GH"
   echo "Flags:"

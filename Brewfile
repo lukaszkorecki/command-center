@@ -19,7 +19,7 @@ cask "rectangle"
 
 cask "font-geist-mono"
 cask "font-iosevka"
-
+cask "font-noto-sans-mono"
 brew "git"
 brew "ispell"
 brew "rlwrap"
