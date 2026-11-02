@@ -1,6 +1,7 @@
+# TODO: move to mise [bootstrap.packages] (brew:/brew-cask:), see https://mise.jdx.dev/bootstrap/packages/
+
 # must have
 brew "mise"
-brew "zile"
 brew "libpq", link: true
 
 # neat to have
