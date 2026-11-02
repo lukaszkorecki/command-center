@@ -1,5 +1,5 @@
 # imports are relavive to top level config in ~/.config/fnox/
-import = ["work.toml", "personal.toml", "ps.toml"]
+import = ["personal.toml"]
 
 [daemon]
 enabled = true
