@@ -32,7 +32,7 @@
                         :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
-(defvar lk/font-size-regular 110 "Regular font size.")
+(defvar lk/font-size-regular 80 "Regular font size.")
 (defvar lk/font-size-xl 170 "eXtra Large font size.")
 
 (defun lk/set-font (name)
@@ -48,16 +48,10 @@
 
 (defun lk/screen-sharing-font ()
   (interactive)
-  (lk/set-frame-font-size 170))
-
-(defun lk/set-font-face ()
-  (interactive)
-  (set-face-attribute 'default nil
-                      :family "Noto Sans Mono"
-                      :height lk/font-size-regular))
+  (lk/set-frame-font-size lk/font-size-xl))
 
 (defun on-after-init ()
-  (lk/set-font "Iosevka Extended")
+  (lk/set-font "Noto Sans Mono")
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
