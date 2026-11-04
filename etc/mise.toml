@@ -9,6 +9,10 @@ rclone = "latest"
 fnox = "latest"
 1password = "2"
 "github:lukaszkorecki/clojure-mcp-light-native" = "0.2.2"
+"github:p0deje/Maccy" = {
+  version = "2.8.0",
+  postinstall = 'mkdir -p "$HOME/Applications" && rm -rf "$HOME/Applications/Maccy.app" && ditto "$MISE_TOOL_INSTALL_PATH" "$HOME/Applications/Maccy.app"'
+}
 
 gh = "latest"
 jq = "latest"
