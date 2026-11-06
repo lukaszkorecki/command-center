@@ -40,6 +40,8 @@
 
 [alias]
   pr-stack = !p git pr-stack
+  pr-finish = !gh pr merge  -m -d
+  pr-create = !gh pr create --web
   update = !git stash && git fetch -ap && git pull -r && git cleanup-branches && git submodule update --init --recursive && git stash pop
   c = commit
   cm = commit -m
@@ -57,9 +59,9 @@
   fetch-pr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; } ; f"
   pl = !git pull -r -u origin $(git cb)
 
-  pfff = !git push --force origin $(git cb)
+  pfff = !git push --force-with-lease origin $(git cb)
 
-  re-continue = rebase --continue
+  re-con = rebase --continue
   re-skip = rebase --skip
   pull-all = pull --recurse-submodules -r
   ss = status
