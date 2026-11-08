@@ -44,7 +44,6 @@
 (global-unset-key (kbd "C-x C-z"))
 
 (global-set-key (kbd "C-x =") 'indent-according-to-mode)
-
 (global-set-key (kbd "C-x l") 'lk/select-line)
 (global-set-key (kbd "C-x j") 'lk/join-lines)
 
@@ -139,6 +138,18 @@
                ("l" "Learn word-at-point" lk/flyspell-learn-word)])
 
             (global-set-key (kbd "C-c f") 'lk/flyspell)))
+
+
+(use-package which-key
+  :ensure nil
+  :init
+  ;; Enable the built-in visual cheat-sheet
+  (which-key-mode 1)
+  :config
+  (setq which-key-idle-delay 0.4)
+  (setq which-key-popup-type 'side-window))
+
+
 
 (provide 'lk/text-editing)
 ;;; text-editing.el ends here

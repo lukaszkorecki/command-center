@@ -15,7 +15,6 @@ cask "emacs-app", link: true, force: true
 cask "finicky"
 
 cask "ghostty"
-cask "mountain-duck"
 cask "rectangle"
 
 cask "font-geist-mono"

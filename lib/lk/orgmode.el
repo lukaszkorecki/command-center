@@ -1,5 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 
+(setq calendar-week-start-day 1)
+
+
 (use-package org-appear
   :defer nil
   :ensure t
@@ -187,7 +190,7 @@ preserving the aspect ratio: `:width' overrides `:max-width' but never
           ("w" "Week"
            ((agenda ""
                     ((org-agenda-span 'week)
-                     (org-agenda-start-on-weekday nil)
+                     (org-agenda-start-on-weekday 't)
                      (org-deadline-warning-days 0)))))))
   (setq org-capture-templates
         `(("t" "Task" entry
