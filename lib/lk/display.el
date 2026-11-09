@@ -32,7 +32,7 @@
                         :height height)
     (set-frame-font (font-spec :height height) t `(,frame))))
 
-(defvar lk/font-size-regular 80 "Regular font size.")
+(defvar lk/font-size-regular 120 "Regular font size.")
 (defvar lk/font-size-xl 170 "eXtra Large font size.")
 
 (defun lk/set-font (name)
