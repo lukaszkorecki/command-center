@@ -56,7 +56,6 @@
   l = log
   lo = log --graph --oneline --abbrev-commit
   ll = log --graph --pretty='format:%h | %an | %s'
-  fetch-pr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; } ; f"
   pl = !git pull -r -u origin $(git cb)
 
   pfff = !git push --force-with-lease origin $(git cb)

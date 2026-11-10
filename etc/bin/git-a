@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+historyFile=~/.config/git-a-history.txt
+
+git config --get-regexp '^alias\.' \
+  | sed 's/^alias\.//g' \
+  | cut -d" " -f 1 \
+  | fzf --preview "git config --get alias.{}" --history ${historyFile} \
+  | xargs git
