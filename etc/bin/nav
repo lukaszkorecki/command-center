@@ -208,7 +208,8 @@
     :args->opts [:hint]
     :spec {:root {:desc "Root dir to search in"
                   :required true
-                  :validate fs/directory?}
+                  :validate fs/directory?
+                  :default (or (fs/expand-home (System/getenv "NAV_REPO_ROOT")) ".")}
            :gh {:desc "Open in GH?" :coerce :boolean :required true}
            :emacs {:desc "Open in emacs" :coerce :boolean :required true}
            :term {:desc "Open in ghostty" :coerce :boolean :required true}
